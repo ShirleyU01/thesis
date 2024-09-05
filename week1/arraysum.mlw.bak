@@ -1,0 +1,45 @@
+module SumNonNeg
+
+  use array.Array
+  use array.ArraySum
+  use int.Int
+
+  exception Negative int
+
+
+  let sum_array_for (a : array int) : int = 
+  requires { length a > 0 } 
+  ensures { result = sum a 0 (length a) }
+  ensures { a = old a }
+  raises { Negative i -> sum a 0 (i+1) < 0 }
+  let ref res = 0 in
+  for i = 0 to (length a - 1) do
+    invariant { res = sum a 0 i }
+    invariant{ 0 <= res }
+    res <- res + a[i];
+    if res < 0 then raise Negative i
+  done;
+  res
+
+
+  let sum_array_while (a : array int) : int = 
+  requires { length a > 0 } 
+  ensures { result = sum a 0 (length a) }
+  ensures { a = old a }
+  raises { Negative i -> sum a 0 (i+1) < 0 }
+  let ref res = 0 in
+  let ref i = 0 in 
+  let len = length a in
+  while i < len do
+    invariant { 0 <= i <= len }
+    invariant { res = sum a 0 i }
+    invariant{ 0 <= res }
+    variant { len - 1 - i }
+    res <- res + a[i];
+    if res < 0 then raise Negative i;
+    i <- i + 1
+  done;
+  res
+
+
+end

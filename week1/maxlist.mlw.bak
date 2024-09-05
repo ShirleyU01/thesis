@@ -1,0 +1,103 @@
+module MinMax
+
+  use int.Int
+
+  clone export relations.MinMax with type t = int, predicate le = (<=), goal .
+
+  let min (x : int) (y : int) : int
+    ensures { result = min x y }
+  = if x <= y then x else y
+
+  let max (x : int) (y : int) : int
+    ensures { result = max x y }
+   = if x <= y then y else x
+
+end
+
+module MaxList
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    use MinMax
+
+    let rec nth_1 (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    ensures { nth n l = result }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+    end 
+    
+    let max_list_for (t : list int) : int = 
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t -> result = nth j t }
+    let n = length t in
+    let ref max = nth_1 0 t in
+    for i = 0 to n-1 do 
+        invariant { exists j. max = nth 0 t \/ (0 <= j < i /\ nth j t = max) }
+        invariant { forall j. 0 <= j < i -> max >= nth j t }
+        if max < nth_1 i t then max <- nth_1 i t
+    done ;
+    max
+
+    let max_list_while (t : list int) : int = 
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t -> result = nth j t }
+    let n = length t in
+    let ref i = 0 in 
+    let ref max = nth_1 0 t in
+    while i < n do
+        invariant { exists j. max = nth 0 t \/ (0 <= j < i /\ nth j t = max) }
+        invariant { forall j. 0 <= j < i -> max >= nth j t }
+        invariant { 0 <= i <= n }
+        variant { n - i }
+        if max < nth_1 i t then max <- nth_1 i t;
+        i <- i + 1
+    done ;
+    max
+
+    (* pattern matching *)
+    let rec max_list_recur (t : list int) : int =
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    variant { t }
+    match t with
+    | Cons x Nil -> x
+    | Cons x xs -> MinMax.max x (max_list_recur xs)
+    end
+
+    let rec max_list_recur_1 (t : list int) : int =
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    variant { t }
+    match t with
+    | Cons x Nil -> x
+    | Cons x xs -> match x > (max_list_recur_1 xs) with
+                   | false -> max_list_recur_1 xs
+                   | true -> x
+                   end
+    end
+
+    (*
+    ** unable to verify ** 
+    let rec max_list_recur (t : list int) : int =
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    variant { t }
+    match t with
+    | Cons x Nil -> x
+    | Cons x xs -> if x > (max_list_recur xs) then x else (max_list_recur xs)
+    end
+    *)
+
+
+
+end

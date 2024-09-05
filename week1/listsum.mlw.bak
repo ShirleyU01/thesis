@@ -1,0 +1,47 @@
+module SumNonNeg
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    use list.Sum
+    use list.Append
+
+    exception Negative int
+
+    let rec nth_1 (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    ensures { nth n l = result }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+    end 
+    
+    let sub (l : list int) (start : int) (len : int): list int = 
+    requires { start >= 0 /\ len >= 0 /\ length l >= start + len } 
+    requires { length l > 0 }
+    ensures { length result = len }
+    ensures { forall i. 0 <= i < len -> nth (start + i) l = nth i result }
+    let ref res = Nil in
+    for i = 0 to len - 1 do
+        invariant { length res = i }
+        invariant { forall j. 0 <= j < i -> nth (start+j) l = nth j res }
+        res <- res ++ (Cons (nth_1 (start + i) l) Nil);
+    done;
+    res
+
+  (* let sum_list_for (l : list int) : int = 
+  requires { length l > 0 } 
+  ensures { result = sum l }
+  ensures { l = old l }
+  raises { Negative i -> sum l 0 (i+1) < 0 }
+  let ref res = 0 in
+  for i = 0 to (length l - 1) do
+    invariant { res = sum l 0 i }
+    invariant{ 0 <= res }
+    res <- res + l[i];
+    if res < 0 then raise Negative i
+  done;
+  res *)
+  end

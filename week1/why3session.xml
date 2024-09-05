@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="week1.mlw"/>
+<theory name="MaxArray">
+ <goal name="max_array&#39;vc" expl="VC for max_array">
+ <proof prover="2"><result status="valid" time="0.32" steps="37432"/></proof>
+ </goal>
+ <goal name="max_array_while&#39;vc" expl="VC for max_array_while">
+ <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1" obsolete="true"><result status="timeout" time="2.00" steps="153734"/></proof>
+ <proof prover="2"><result status="valid" time="0.31" steps="36347"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>
