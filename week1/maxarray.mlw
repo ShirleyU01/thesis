@@ -23,7 +23,7 @@ module MaxArray
   let max_array_for (t : array int) : int = 
   requires { t.length > 0 }
   ensures { forall j. 0 <= j < t.length -> t[j] <= result }
-  ensures { exists j. 0 <= j < t.length -> t[j] = result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
   let n = t.length in
   let ref max = t[0] in
   for i = 0 to n - 1 do 
@@ -36,7 +36,7 @@ module MaxArray
   let max_array_while (t : array int) : int =
   requires { t.length > 0 }
   ensures { forall j. 0 <= j < t.length -> t[j] <= result }
-  ensures { exists j. 0 <= j < t.length -> t[j] = result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
   let n = t.length in
   let ref i = 0 in
   let ref max = t[0] in
@@ -53,7 +53,7 @@ module MaxArray
   let rec max_array_recursion (t : array int) : int =
   requires { t.length > 0 }
   ensures { forall j. 0 <= j < t.length -> t[j] <= result }
-  ensures { exists j. 0 <= j < t.length -> t[j] = result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
   variant { t }
   let n = t.length in
   if n = 1 

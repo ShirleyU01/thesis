@@ -1,0 +1,39 @@
+module ConstainsOne
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    use list.Append
+    use bool.Bool
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let containsOne_for (l : list int) : bool = 
+        requires { length l > 0 }
+        ensures { result = True <-> exists i. 0 <= i < length l /\ nth i l = 1 }
+        let n = length l in
+        let ref result = False in 
+        for i = 0 to n-1 do
+            invariant { result <-> exists j. 0 <= j < i /\ nth j l = 1 }
+            if nth_1 i l = 1
+            then result <- True
+        done ;
+        result
+    
+    let rec containsOne_recur (l : list int) : bool = 
+        requires { length l > 0 }
+        ensures { result = True -> exists i. 0 <= i < length l /\ nth i l = 1 }
+        variant { l }
+        match l with
+        | Cons x Nil -> x = 1 
+        | Cons x xs -> x = 1 || containsOne_recur xs
+        end
+    
+end

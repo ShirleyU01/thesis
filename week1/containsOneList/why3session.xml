@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml">
+<path name=".."/><path name="containsOneList.mlw"/>
+<theory name="ConstainsOne">
+ <goal name="nth_1&#39;vc" expl="VC for nth_1" proved="true">
+ <proof prover="1"><result status="valid" time="0.37" steps="6550"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="754690"/></proof>
+ </goal>
+ <goal name="containsOne_for&#39;vc" expl="VC for containsOne_for" proved="true">
+ <proof prover="2"><result status="valid" time="0.27" steps="31787"/></proof>
+ </goal>
+ <goal name="containsOne_recur&#39;vc" expl="VC for containsOne_recur">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="timeout" time="1.00" steps="41258"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="711350"/></proof>
+ <transf name="split_vc" >
+  <goal name="containsOne_recur&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.27" steps="34111"/></proof>
+  </goal>
+  <goal name="containsOne_recur&#39;vc.1" expl="postcondition">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="62818"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="314907"/></proof>
+  <transf name="split_vc" >
+   <goal name="containsOne_recur&#39;vc.1.0" expl="postcondition">
+   <proof prover="0"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00" steps="61272"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="316795"/></proof>
+   <transf name="split_vc" >
+    <goal name="containsOne_recur&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="2"><result status="valid" time="0.17" steps="1489"/></proof>
+    </goal>
+    <goal name="containsOne_recur&#39;vc.1.0.1" expl="postcondition">
+    <proof prover="0" timelimit="10" memlimit="4000"><result status="timeout" time="10.00"/></proof>
+    <proof prover="1" timelimit="10" memlimit="4000"><result status="timeout" time="10.00" steps="997657"/></proof>
+    <proof prover="2" timelimit="10" memlimit="4000"><result status="timeout" time="10.00" steps="16353596"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="containsOne_recur&#39;vc.1.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.13" steps="294"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00" steps="60712"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="454039"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

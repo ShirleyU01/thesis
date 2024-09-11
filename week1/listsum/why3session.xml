@@ -2,7 +2,54 @@
 <!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
 "http://why3.lri.fr/why3session.dtd">
 <why3session shape_version="6">
-<file format="whyml" proved="true">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml">
 <path name=".."/><path name="listsum.mlw"/>
+<theory name="SumNonNeg">
+ <goal name="nth_1&#39;vc" expl="VC for nth_1" proved="true">
+ <proof prover="1"><result status="valid" time="0.38" steps="6725"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="659839"/></proof>
+ </goal>
+ <goal name="sub&#39;vc" expl="VC for sub">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="timeout" time="1.00" steps="37183"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="425694"/></proof>
+ <transf name="split_vc" >
+  <goal name="sub&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1732"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.1" expl="loop invariant init" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1333"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.2" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1544"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.3" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="21118"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.06" steps="31"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="49510"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="465842"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.5" expl="loop invariant preservation">
+  <proof prover="0" timelimit="10" memlimit="4000"><result status="timeout" time="10.00"/></proof>
+  <proof prover="1" timelimit="10" memlimit="4000"><result status="timeout" time="10.00" steps="298500"/></proof>
+  <proof prover="2" timelimit="10" memlimit="4000"><result status="timeout" time="10.00" steps="9175372"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1554"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.28" steps="30344"/></proof>
+  </goal>
+  <goal name="sub&#39;vc.8" expl="out of loop bounds" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1876"/></proof>
+  </goal>
+ </transf>
+ </goal>
+</theory>
 </file>
 </why3session>

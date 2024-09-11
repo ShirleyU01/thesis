@@ -34,7 +34,7 @@ module MaxList
     let max_list_for (t : list int) : int = 
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
-    ensures { exists j. 0 <= j < length t -> result = nth j t }
+    ensures { exists j. 0 <= j < length t /\ result = nth j t }
     let n = length t in
     let ref max = nth_1 0 t in
     for i = 0 to n-1 do 
@@ -47,7 +47,7 @@ module MaxList
     let max_list_while (t : list int) : int = 
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
-    ensures { exists j. 0 <= j < length t -> result = nth j t }
+    ensures { exists j. 0 <= j < length t /\ result = nth j t }
     let n = length t in
     let ref i = 0 in 
     let ref max = nth_1 0 t in
@@ -65,38 +65,42 @@ module MaxList
     let rec max_list_recur (t : list int) : int =
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
-    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    ensures { exists j. 0 <= j < length t /\ result = nth j t } 
     variant { t }
     match t with
     | Cons x Nil -> x
     | Cons x xs -> MinMax.max x (max_list_recur xs)
     end
 
+
+    (* fail on same task *)
+    (* 
+    ** unable to verify ** *)
     let rec max_list_recur_1 (t : list int) : int =
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
-    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    ensures { exists j. 0 <= j < length t /\ result = nth j t } 
     variant { t }
     match t with
     | Cons x Nil -> x
     | Cons x xs -> match x > (max_list_recur_1 xs) with
-                   | false -> max_list_recur_1 xs
-                   | true -> x
+                   | False -> max_list_recur_1 xs
+                   | True -> x
                    end
-    end
+    end 
 
     (*
-    ** unable to verify ** 
-    let rec max_list_recur (t : list int) : int =
+    ** unable to verify ** *)
+    let rec max_list_recur_2 (t : list int) : int =
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
-    ensures { exists j. 0 <= j < length t -> result = nth j t } 
+    ensures { exists j. 0 <= j < length t /\ result = nth j t } 
     variant { t }
     match t with
     | Cons x Nil -> x
-    | Cons x xs -> if x > (max_list_recur xs) then x else (max_list_recur xs)
+    | Cons x xs -> if x > (max_list_recur_2 xs) then x else (max_list_recur_2 xs)
     end
-    *)
+   
 
 
 

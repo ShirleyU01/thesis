@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="contains1list.mlw"/>
+<theory name="ConstainsOne" proved="true">
+ <goal name="nth_1&#39;vc" expl="VC for nth_1" proved="true">
+ <proof prover="0"><result status="valid" time="0.35" steps="6550"/></proof>
+ <proof prover="1"><result status="timeout" time="1.00" steps="823512"/></proof>
+ </goal>
+ <goal name="containsone_for&#39;vc" expl="VC for containsone_for" proved="true">
+ <proof prover="1"><result status="valid" time="0.26" steps="31787"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>
