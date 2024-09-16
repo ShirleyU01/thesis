@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="maxList.mlw"/>
+<theory name="MaxList" proved="true">
+ <goal name="nth_1&#39;vc" expl="VC for nth_1" proved="true">
+ <proof prover="2"><result status="valid" time="0.26" steps="18071"/></proof>
+ </goal>
+ <goal name="max_list_for&#39;vc" expl="VC for max_list_for" proved="true">
+ <proof prover="2" obsolete="true"><result status="valid" time="0.27" steps="31318"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="max_list_for&#39;vc.0" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1014"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.1" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1027"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.2" expl="loop invariant init" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="889"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.3" expl="loop invariant init" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1062"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.4" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1153"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.5" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="13410"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.6" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.17" steps="1178"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.7" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="13706"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.8" expl="loop invariant preservation" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="15860"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.9" expl="loop invariant preservation" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="16643"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.10" expl="loop invariant preservation" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="14595"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.11" expl="loop invariant preservation" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="14798"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="13546"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.13" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.26" steps="15316"/></proof>
+  </goal>
+  <goal name="max_list_for&#39;vc.14" expl="out of loop bounds" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="13902"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="max_list_while&#39;vc" expl="VC for max_list_while" proved="true">
+ <proof prover="2"><result status="valid" time="0.28" steps="29913"/></proof>
+ </goal>
+ <goal name="max_list_recur_1&#39;vc" expl="VC for max_list_recur_1" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="59152"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1432864"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="max_list_recur_1&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.26" steps="19417"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.1" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="17811"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.2" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="21492"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.3" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="18299"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.4" expl="unreachable point" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="11421"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.5" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.42" steps="1109"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="63509"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1500492"/></proof>
+  </goal>
+  <goal name="max_list_recur_1&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="62961"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1503072"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="max_list_recur_1&#39;vc.6.0" expl="postcondition" proved="true">
+   <proof prover="2"><result status="valid" time="0.92" steps="1114309"/></proof>
+   </goal>
+   <goal name="max_list_recur_1&#39;vc.6.1" expl="postcondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="60380"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1430522"/></proof>
+   <transf name="split_vc" proved="true" >
+    <goal name="max_list_recur_1&#39;vc.6.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.06" steps="58"/></proof>
+    <proof prover="1"><result status="timeout" time="1.00" steps="61532"/></proof>
+    <proof prover="2"><result status="timeout" time="1.00" steps="1429771"/></proof>
+    </goal>
+    <goal name="max_list_recur_1&#39;vc.6.1.1" expl="postcondition" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="59963"/></proof>
+    <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1400677"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="max_list_recur_1&#39;vc.6.1.1.0" expl="postcondition" proved="true">
+     <proof prover="0"><result status="timeout" time="1.00"/></proof>
+     <proof prover="1"><result status="timeout" time="1.00" steps="60102"/></proof>
+     <proof prover="2" timelimit="10" memlimit="4000"><result status="valid" time="2.14" steps="3783487"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="max_list_recur_2&#39;vc" expl="VC for max_list_recur_2" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="59152"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1441929"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="max_list_recur_2&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="19417"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.1" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="17811"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.2" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.26" steps="21492"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.3" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="18299"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.4" expl="unreachable point" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="11421"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.5" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.42" steps="1109"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="59698"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1562824"/></proof>
+  </goal>
+  <goal name="max_list_recur_2&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="56042"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1503072"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="max_list_recur_2&#39;vc.6.0" expl="postcondition" proved="true">
+   <proof prover="2"><result status="valid" time="0.91" steps="1114309"/></proof>
+   </goal>
+   <goal name="max_list_recur_2&#39;vc.6.1" expl="postcondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="56309"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1457526"/></proof>
+   <transf name="split_vc" proved="true" >
+    <goal name="max_list_recur_2&#39;vc.6.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.07" steps="58"/></proof>
+    <proof prover="1"><result status="timeout" time="1.00" steps="61532"/></proof>
+    <proof prover="2"><result status="timeout" time="1.00" steps="1425542"/></proof>
+    </goal>
+    <goal name="max_list_recur_2&#39;vc.6.1.1" expl="postcondition" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="1.00"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="1.00" steps="52770"/></proof>
+    <proof prover="2" obsolete="true"><result status="timeout" time="1.00" steps="1393658"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="max_list_recur_2&#39;vc.6.1.1.0" expl="postcondition" proved="true">
+     <proof prover="0"><result status="timeout" time="1.00"/></proof>
+     <proof prover="1"><result status="timeout" time="1.00" steps="60189"/></proof>
+     <proof prover="2" timelimit="10" memlimit="4000"><result status="valid" time="2.12" steps="3783487"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="max_list_recur&#39;vc" expl="VC for max_list_recur">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="timeout" time="1.00" steps="58140"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1130389"/></proof>
+ <transf name="split_vc" >
+  <goal name="max_list_recur&#39;vc.0" expl="variant decrease">
+  <proof prover="2"><undone/></proof>
+  </goal>
+  <goal name="max_list_recur&#39;vc.1" expl="precondition">
+  <proof prover="2"><undone/></proof>
+  </goal>
+  <goal name="max_list_recur&#39;vc.2" expl="unreachable point">
+  <proof prover="2"><undone/></proof>
+  </goal>
+  <goal name="max_list_recur&#39;vc.3" expl="postcondition">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="63107"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1040393"/></proof>
+  <transf name="split_vc" >
+   <goal name="max_list_recur&#39;vc.3.0" expl="postcondition">
+   <proof prover="0"><result status="valid" time="0.05" steps="24"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00" steps="62288"/></proof>
+   <proof prover="2"><undone/></proof>
+   </goal>
+   <goal name="max_list_recur&#39;vc.3.1" expl="postcondition">
+   <proof prover="0"><result status="valid" time="0.12" steps="260"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00" steps="58892"/></proof>
+   <proof prover="2"><undone/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="max_list_recur&#39;vc.4" expl="postcondition">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="timeout" time="1.00" steps="62212"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1349268"/></proof>
+  <transf name="split_vc" >
+   <goal name="max_list_recur&#39;vc.4.0" expl="postcondition">
+   <proof prover="2"><undone/></proof>
+   </goal>
+   <goal name="max_list_recur&#39;vc.4.1" expl="postcondition">
+   <proof prover="0"><result status="timeout" time="1.00"/></proof>
+   <proof prover="1"><result status="timeout" time="1.00" steps="59364"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1455038"/></proof>
+   <transf name="split_vc" >
+    <goal name="max_list_recur&#39;vc.4.1.0" expl="postcondition">
+    <proof prover="0" timelimit="10" memlimit="4000"><result status="timeout" time="10.00"/></proof>
+    <proof prover="1" timelimit="10" memlimit="4000"><result status="timeout" time="10.00" steps="978542"/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+<theory name="MinMax">
+ <goal name="TO.Refl">
+ <proof prover="2"><result status="valid" time="0.16" steps="46"/></proof>
+ </goal>
+ <goal name="TO.Trans">
+ <proof prover="2"><result status="valid" time="0.21" steps="984"/></proof>
+ </goal>
+ <goal name="TO.Antisymm">
+ <proof prover="2"><result status="valid" time="0.22" steps="849"/></proof>
+ </goal>
+ <goal name="TO.Total">
+ <proof prover="2"><result status="valid" time="0.21" steps="776"/></proof>
+ </goal>
+ <goal name="min&#39;vc" expl="VC for min">
+ <proof prover="2"><result status="valid" time="0.24" steps="4738"/></proof>
+ </goal>
+ <goal name="max&#39;vc" expl="VC for max">
+ <proof prover="2"><result status="valid" time="0.23" steps="4732"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>

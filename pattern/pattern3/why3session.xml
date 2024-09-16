@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml">
+<path name=".."/><path name="pattern3.mlw"/>
+<theory name="BitTrie">
+ <goal name="empty&#39;vc" expl="VC for empty" proved="true">
+ <proof prover="0"><result status="valid" time="0.05" steps="21"/></proof>
+ <proof prover="1"><result status="unknown" time="0.46" steps="7971"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1303520"/></proof>
+ </goal>
+ <goal name="insert&#39;vc" expl="VC for insert" proved="true">
+ <proof prover="2"><result status="valid" time="0.91" steps="936263"/></proof>
+ </goal>
+ <goal name="insert_1&#39;vc" expl="VC for insert_1" proved="true">
+ <proof prover="2"><result status="valid" time="0.94" steps="1015356"/></proof>
+ </goal>
+ <goal name="delete&#39;vc" expl="VC for delete" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.50" steps="15722"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1290982"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="delete&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.26" steps="16120"/></proof>
+  </goal>
+  <goal name="delete&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="16676"/></proof>
+  </goal>
+  <goal name="delete&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.38" steps="1251"/></proof>
+  <proof prover="1"><result status="unknown" time="0.44" steps="8980"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1091705"/></proof>
+  </goal>
+  <goal name="delete&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.77" steps="2881"/></proof>
+  <proof prover="1"><result status="unknown" time="0.44" steps="9020"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1073130"/></proof>
+  </goal>
+  <goal name="delete&#39;vc.4" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.67" steps="2509"/></proof>
+  <proof prover="1"><result status="unknown" time="0.44" steps="9138"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1200505"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="delete_1&#39;vc" expl="VC for delete_1" proved="true">
+ <proof prover="2"><result status="valid" time="0.82" steps="848209"/></proof>
+ </goal>
+ <goal name="union&#39;vc" expl="VC for union">
+ </goal>
+ <goal name="intersection&#39;vc" expl="VC for intersection">
+ </goal>
+ <goal name="difference&#39;vc" expl="VC for difference">
+ </goal>
+</theory>
+</file>
+</why3session>

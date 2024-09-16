@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="maxarray.mlw"/>
+<theory name="MaxArray" proved="true">
+ <goal name="max_array_for&#39;vc" expl="VC for max_array_for" proved="true">
+ <proof prover="0"><result status="valid" time="0.48" steps="35346"/></proof>
+ </goal>
+ <goal name="max_array_while&#39;vc" expl="VC for max_array_while" proved="true">
+ <proof prover="0"><result status="valid" time="0.38" steps="36997"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>

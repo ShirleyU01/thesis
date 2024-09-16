@@ -1,0 +1,50 @@
+module MaxArray
+
+  use int.Int
+  use array.Array
+
+  let max_array_for (t : array int) : int = 
+  requires { t.length > 0 }
+  ensures { forall j. 0 <= j < t.length -> t[j] <= result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
+  let n = t.length in
+  let ref max = t[0] in
+  for i = 0 to n - 1 do 
+    invariant { exists j. max = t[0] \/ (0 <= j < i /\ t[j] = max) }
+    invariant { forall j. 0 <= j < i -> max >= t[j] }
+    if t[i] > max then max <- t[i]
+  done ;
+  max
+  
+  let max_array_while (t : array int) : int =
+  requires { t.length > 0 }
+  ensures { forall j. 0 <= j < t.length -> t[j] <= result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
+  let n = t.length in
+  let ref i = 0 in
+  let ref max = t[0] in
+  while i < n do
+    variant { n - i }
+    invariant { 0 <= i <= n }
+    invariant { exists j. max = t[0] \/ (0 <= j < i /\ t[j] = max) }
+    invariant { forall j. 0 <= j < i -> max >= t[j] }
+    if t[i] > max then max <- t[i] ;
+    i <- i + 1
+  done ;
+  max
+  
+  let rec max_array_recursion (t : array int) : int =
+  requires { t.length > 0 }
+  ensures { forall j. 0 <= j < t.length -> t[j] <= result }
+  ensures { exists j. 0 <= j < t.length /\ t[j] = result }
+  variant { t }
+  let n = t.length in
+  if n = 1 
+  then t[0] 
+  else 
+    begin
+      let t' = sub t 1 (n-1) in 
+      if t[0] > (max_array_recursion t') then t[0] else max_array_recursion t'
+    end
+
+end

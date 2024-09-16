@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="pattern2.mlw"/>
+<theory name="Pattern2" proved="true">
+ <goal name="f&#39;vc" expl="VC for f" proved="true">
+ <proof prover="0"><result status="valid" time="0.27" steps="25232"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="f&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="931"/></proof>
+  </goal>
+  <goal name="f&#39;vc.1" expl="index in array bounds" proved="true">
+  <proof prover="0"><result status="valid" time="0.24" steps="13242"/></proof>
+  </goal>
+  <goal name="f&#39;vc.2" expl="index in array bounds" proved="true">
+  <proof prover="0"><result status="valid" time="0.23" steps="13479"/></proof>
+  </goal>
+  <goal name="f&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.26" steps="18140"/></proof>
+  </goal>
+  <goal name="f&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.24" steps="13639"/></proof>
+  </goal>
+  <goal name="f&#39;vc.5" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.24" steps="13551"/></proof>
+  </goal>
+  <goal name="f&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.26" steps="19094"/></proof>
+  </goal>
+  <goal name="f&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.23" steps="12411"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="f_1&#39;vc" expl="VC for f_1" proved="true">
+ <proof prover="0"><result status="valid" time="0.27" steps="22908"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="f_1&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.16" steps="931"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.1" expl="index in array bounds" proved="true">
+  <proof prover="0"><result status="valid" time="0.24" steps="13242"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.2" expl="index in array bounds" proved="true">
+  <proof prover="0"><result status="valid" time="0.23" steps="13242"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.26" steps="18140"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.24" steps="13637"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.5" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.23" steps="13556"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.29" steps="19094"/></proof>
+  </goal>
+  <goal name="f_1&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.26" steps="12411"/></proof>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

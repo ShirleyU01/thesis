@@ -1,0 +1,38 @@
+module Pattern2
+    use int.Int
+    use array.Array
+
+    let f (a : array int) : bool =
+        requires { length a > 0 }
+        ensures { result <-> forall i. 0 <= i < length a -> 10 <= a[i] <= 15 }
+        let n = length a in
+        let ref flag = True in
+        for i = 0 to n - 1 do
+            invariant { flag <-> forall j. 0 <= j < i -> 10 <= a[j] <= 15 }
+            match a[i] >= 10 with
+            | True -> match a[i] <= 15 with
+                    | True -> flag <- flag
+                    | False -> flag <- False
+                    end
+            | False -> flag <- False
+            end
+        done ;
+        flag
+
+    
+    let f_1 (a : array int) : bool =
+        requires { length a > 0 }
+        ensures { result <-> forall i. 0 <= i < length a -> 10 <= a[i] <= 15 }
+        let n = length a in
+        let ref flag = True in
+        for i = 0 to n - 1 do
+            invariant { flag <-> forall j. 0 <= j < i -> 10 <= a[j] <= 15 }
+            match (a[i] >= 10, a[i] <= 15) with
+            | (True, True) -> flag <- flag 
+            | _ -> flag <- False
+            end
+        done ;
+        flag
+end
+
+        

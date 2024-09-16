@@ -1,0 +1,150 @@
+module BitTrie
+
+    use list.List
+    use int.Int
+    use bool.Bool
+
+    type bitseq = list bool
+    type trie = Empty | Node trie trie bool
+
+    let rec predicate mem (x : bitseq) (t : trie) : bool =
+        match x, t with
+        | Nil, Empty -> false
+        | Nil, Node _ _ is_end -> is_end
+        | _, Empty -> false
+        | Cons x xs, Node left right is_end -> if x 
+                                               then mem xs left 
+                                               else mem xs right
+        end
+
+    let empty () : trie = 
+        ensures { forall y . mem y result <-> false }
+        Empty
+
+    let rec insert (x : bitseq) (t : trie) : trie =
+        variant { x }
+        ensures { mem x result <-> true }
+        ensures { forall y . mem y t \/ y = x <-> mem y result }
+        match x, t with
+        | Nil, Empty -> Node Empty Empty true
+        | Cons x xs, Empty -> if x 
+                              then Node (insert xs Empty) Empty false
+                              else Node Empty (insert xs Empty) false
+        | Nil, Node left right is_end -> Node left right true
+        | Cons x xs, Node left right is_end -> if x 
+                                               then Node (insert xs left) right is_end
+                                               else Node left (insert xs right) is_end
+        end
+    
+    let rec insert_1 (x : bitseq) (t : trie) : trie =
+        variant { x }
+        ensures { mem x result <-> true }
+        ensures { forall y . mem y t \/ y = x <-> mem y result }
+        match x with
+        | Nil -> match t with
+                | Empty -> Node Empty Empty true
+                | Node left right is_end -> Node left right true
+                end
+        | Cons x xs -> match t with 
+                       | Empty ->   if x 
+                                    then Node (insert_1 xs Empty) Empty false
+                                    else Node Empty (insert_1 xs Empty) false
+                       | Node left right is_end -> if x 
+                                                   then Node (insert_1 xs left) right is_end
+                                                   else Node left (insert_1 xs right) is_end
+                        end
+        end
+     
+    let rec delete ( x : bitseq ) ( s : trie ) : trie = 
+        variant { x }
+        ensures { mem x result <-> false }
+        ensures { forall y . mem y s /\ x <> y -> mem y result }
+        ensures { forall y . mem y result -> x <> y /\ mem y s }
+        match x, s with
+        | _, Empty -> Empty
+        | Nil, Node left right is_end -> Node left right false
+        | Cons x xs, Node left right is_end -> if x 
+                                               then Node (delete xs left) right is_end
+                                                else Node left (delete xs right) is_end
+        end
+    
+    let rec delete_1 ( x : bitseq ) ( s : trie ) : trie = 
+        variant { x }
+        ensures { mem x result <-> false }
+        ensures { forall y . mem y s /\ x <> y -> mem y result }
+        ensures { forall y . mem y result -> x <> y /\ mem y s }
+        match x with
+        | Nil -> match s with
+                | Empty -> Empty
+                | Node left right is_end -> Node left right false
+                end
+        | Cons x xs -> match s with
+                       | Empty -> Empty 
+                       | Node left right is_end -> if x 
+                                                   then Node (delete_1 xs left) right is_end
+                                                   else Node left (delete_1 xs right) is_end
+                       end
+        end
+
+    let rec union ( s : trie ) ( t : trie ) : trie =
+        variant { s, t }
+        ensures { forall x . mem x s \/ mem x t <-> mem x result }
+        match s, t with
+        | _, Empty -> s
+        | Empty, _ -> t
+        | Node l1 r1 b1, Node l2 r2 b2 ->
+            Node (union l1 l2) (union r1 r2) (b1 || b2)
+        end
+
+    let rec union_1 ( s : trie ) ( t : trie ) : trie =
+        variant { s, t }
+        ensures { forall x . mem x s \/ mem x t <-> mem x result }
+        match s with
+        | Empty -> t 
+        | Node l1 r1 b1 -> match t with
+                           | Empty -> s
+                           | Node l2 r2 b2 -> Node (union_1 l1 l2) (union_1 r1 r2) (b1 || b2)
+                           end
+        end
+
+    let rec intersection (s : trie) (t : trie) : trie =
+        variant { s, t }
+        ensures { forall x . mem x s /\ mem x t <-> mem x result }
+        match s, t with
+        | Empty, Empty -> Empty
+        | Empty, _ -> Empty
+        | _, Empty -> Empty
+        | Node l1 r1 b1, Node l2 r2 b2 -> Node (intersection l1 l2) (intersection r1 r2) (b1 && b2)
+        end
+
+    let rec intersection_1 (s : trie) (t : trie) : trie =
+        variant { s, t }
+        ensures { forall x . mem x s /\ mem x t <-> mem x result }
+        match s with
+        | Empty -> Empty
+        | Node l1 r1 b1 -> match t with
+                           | Empty -> Empty
+                           | Node l2 r2 b2 -> Node (intersection_1 l1 l2) (intersection_1 r1 r2) (b1 && b2)
+                           end
+        end
+
+    let rec difference ( s : trie ) ( t : trie ) : trie =
+        variant { s, t }
+        ensures { forall x . (mem x s /\ not mem x t) <-> mem x result }
+        match s, t with
+        | _, Empty -> s
+        | Empty, _ -> Empty
+        | Node l1 r1 b1, Node l2 r2 b2 ->
+            Node (difference l1 l2) (difference r1 r2) (b1 && (not b2))
+        end
+
+     let rec difference_1 ( s : trie ) ( t : trie ) : trie =
+        variant { s, t }
+        ensures { forall x . (mem x s /\ not mem x t) <-> mem x result }
+        match s with
+        | Empty -> Empty
+        | Node l1 r1 b1 -> match t with
+                          | Empty -> s
+                          | Node l2 r2 b2 -> Node (difference_1 l1 l2) (difference_1 r1 r2) (b1 && (not b2))
+        end
+end

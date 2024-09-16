@@ -1,0 +1,25 @@
+module TripleTen
+
+    use int.Int
+
+    let triple10 (x : int) (y: int) (z : int) : bool =
+        ensures {result <-> x = 10 /\ y = 10 /\ z = 10}
+        match (x = 10, y = 10, z = 10) with 
+        | (True, True, True) -> True
+        | _ -> False
+        end
+
+    let triple10_1 (x : int) (y: int) (z : int) : bool =
+        ensures {result <-> x = 10 /\ y = 10 /\ z = 10}
+        match x = 10 with 
+        | True -> match y = 10 with
+                  | True -> match z = 10 with
+                            | True -> True
+                            | False -> False
+                            end
+                  | False -> False
+                  end
+        | False -> False
+        end
+
+ end

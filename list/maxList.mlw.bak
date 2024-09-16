@@ -4,6 +4,7 @@ module MaxList
     use list.List
     use list.Length
     use list.NthNoOpt
+    use MinMax
 
     let rec nth_1 (n : int) (l : list int) : int =
     requires { length l > 0 }

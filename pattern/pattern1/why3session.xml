@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="pattern1.mlw"/>
+<theory name="TripleTen" proved="true">
+ <goal name="triple10&#39;vc" expl="VC for triple10" proved="true">
+ <proof prover="0"><result status="valid" time="0.23" steps="2471"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="triple10&#39;vc.0" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="306"/></proof>
+  </goal>
+  <goal name="triple10&#39;vc.1" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.16" steps="310"/></proof>
+  </goal>
+  <goal name="triple10&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="303"/></proof>
+  </goal>
+  <goal name="triple10&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="294"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="triple10_1&#39;vc" expl="VC for triple10_1" proved="true">
+ <proof prover="0"><result status="valid" time="0.22" steps="2472"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="triple10_1&#39;vc.0" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="306"/></proof>
+  </goal>
+  <goal name="triple10_1&#39;vc.1" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.16" steps="310"/></proof>
+  </goal>
+  <goal name="triple10_1&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="303"/></proof>
+  </goal>
+  <goal name="triple10_1&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.17" steps="294"/></proof>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

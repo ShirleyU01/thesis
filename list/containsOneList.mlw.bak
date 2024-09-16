@@ -8,7 +8,7 @@ module ConstainsOne
     use list.Mem
     
     lemma mem_list: 
-      forall l. mem 1 l <-> (exists j. 0 <= j < length l /\ nth j l = 1)
+      forall l. mem 1 l <-> (exists. j. 0 <= j < length l /\ nth j l = 1)
     
     let rec nth_1 (n : int) (l : list int) : int =
         requires { length l > 0 }
