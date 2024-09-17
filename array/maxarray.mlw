@@ -33,7 +33,6 @@ module MaxArray
   done ;
   max
   
-  (*
   let rec max_array_recursion (t : array int) : int =
   requires { t.length > 0 }
   ensures { forall j. 0 <= j < t.length -> t[j] <= result }
@@ -47,6 +46,5 @@ module MaxArray
       let t' = sub t 1 (n-1) in 
       if t[0] > (max_array_recursion t') then t[0] else max_array_recursion t'
     end
-  *)
   
 end

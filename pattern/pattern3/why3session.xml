@@ -5,9 +5,9 @@
 <prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="1" name="CVC4" version="1.8" timelimit="1" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Z3" version="4.8.6" timelimit="1" steplimit="0" memlimit="1000"/>
-<file format="whyml">
+<file format="whyml" proved="true">
 <path name=".."/><path name="pattern3.mlw"/>
-<theory name="BitTrie">
+<theory name="BitTrie" proved="true">
  <goal name="empty&#39;vc" expl="VC for empty" proved="true">
  <proof prover="0"><result status="valid" time="0.05" steps="21"/></proof>
  <proof prover="1"><result status="unknown" time="0.46" steps="7971"/></proof>
@@ -50,11 +50,193 @@
  <goal name="delete_1&#39;vc" expl="VC for delete_1" proved="true">
  <proof prover="2"><result status="valid" time="0.82" steps="848209"/></proof>
  </goal>
- <goal name="union&#39;vc" expl="VC for union">
+ <goal name="union&#39;vc" expl="VC for union" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.49" steps="14609"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1385974"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="union&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15222"/></proof>
+  </goal>
+  <goal name="union&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15597"/></proof>
+  </goal>
+  <goal name="union&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="unknown" time="0.42" steps="8677"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1232084"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="union&#39;vc.2.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.67" steps="2721"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8647"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1278660"/></proof>
+   </goal>
+   <goal name="union&#39;vc.2.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.52" steps="1993"/></proof>
+   <proof prover="1"><result status="unknown" time="0.44" steps="8631"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1275672"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
  </goal>
- <goal name="intersection&#39;vc" expl="VC for intersection">
+ <goal name="union_1&#39;vc" expl="VC for union_1" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.46" steps="13219"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1424542"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="union_1&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15222"/></proof>
+  </goal>
+  <goal name="union_1&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15597"/></proof>
+  </goal>
+  <goal name="union_1&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.94" steps="3961"/></proof>
+  <proof prover="1"><result status="unknown" time="0.42" steps="8594"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1347316"/></proof>
+  </goal>
+ </transf>
  </goal>
- <goal name="difference&#39;vc" expl="VC for difference">
+ <goal name="intersection&#39;vc" expl="VC for intersection" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.49" steps="14510"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1349849"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="intersection&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15222"/></proof>
+  </goal>
+  <goal name="intersection&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15651"/></proof>
+  </goal>
+  <goal name="intersection&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="unknown" time="0.42" steps="8631"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1267898"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="intersection&#39;vc.2.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.58" steps="2238"/></proof>
+   <proof prover="1"><result status="unknown" time="0.44" steps="8749"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1290481"/></proof>
+   </goal>
+   <goal name="intersection&#39;vc.2.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.44" steps="1805"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8587"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1279031"/></proof>
+   </goal>
+   <goal name="intersection&#39;vc.2.2" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.40" steps="1475"/></proof>
+   <proof prover="1"><result status="unknown" time="0.42" steps="8587"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1257719"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="intersection_1&#39;vc" expl="VC for intersection_1" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.46" steps="13163"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1293996"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="intersection_1&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15222"/></proof>
+  </goal>
+  <goal name="intersection_1&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15651"/></proof>
+  </goal>
+  <goal name="intersection_1&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="unknown" time="0.42" steps="8555"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1262803"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="intersection_1&#39;vc.2.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.48" steps="1931"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8673"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1305326"/></proof>
+   </goal>
+   <goal name="intersection_1&#39;vc.2.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.55" steps="2318"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8511"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1326342"/></proof>
+   </goal>
+   <goal name="intersection_1&#39;vc.2.2" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.40" steps="1601"/></proof>
+   <proof prover="1"><result status="unknown" time="0.42" steps="8511"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1269322"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="difference&#39;vc" expl="VC for difference" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.62" steps="21152"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1367805"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="difference&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15449"/></proof>
+  </goal>
+  <goal name="difference&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15894"/></proof>
+  </goal>
+  <goal name="difference&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="unknown" time="0.42" steps="8688"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1317181"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="difference&#39;vc.2.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.74" steps="2910"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8656"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1229964"/></proof>
+   </goal>
+   <goal name="difference&#39;vc.2.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.77" steps="3164"/></proof>
+   <proof prover="1"><result status="unknown" time="0.42" steps="8640"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1258691"/></proof>
+   </goal>
+   <goal name="difference&#39;vc.2.2" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.78" steps="3306"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8795"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1230472"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="difference_1&#39;vc" expl="VC for difference_1" proved="true">
+ <proof prover="0"><result status="timeout" time="1.00"/></proof>
+ <proof prover="1"><result status="unknown" time="0.59" steps="20001"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="1395668"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="difference_1&#39;vc.0" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.25" steps="15449"/></proof>
+  </goal>
+  <goal name="difference_1&#39;vc.1" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.24" steps="15894"/></proof>
+  </goal>
+  <goal name="difference_1&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="timeout" time="1.00"/></proof>
+  <proof prover="1"><result status="unknown" time="0.43" steps="8611"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="1234823"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="difference_1&#39;vc.2.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.64" steps="2334"/></proof>
+   <proof prover="1"><result status="unknown" time="0.43" steps="8579"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1248862"/></proof>
+   </goal>
+   <goal name="difference_1&#39;vc.2.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.63" steps="2255"/></proof>
+   <proof prover="1"><result status="unknown" time="0.44" steps="8563"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1263716"/></proof>
+   </goal>
+   <goal name="difference_1&#39;vc.2.2" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.72" steps="2770"/></proof>
+   <proof prover="1"><result status="unknown" time="0.44" steps="8718"/></proof>
+   <proof prover="2"><result status="timeout" time="1.00" steps="1279011"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
  </goal>
 </theory>
 </file>
