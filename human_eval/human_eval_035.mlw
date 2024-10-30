@@ -1,0 +1,29 @@
+(*
+def max_element(l: list):
+    """Return maximum element in the list.
+    >>> max_element([1, 2, 3])
+    3
+    >>> max_element([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    123
+    """ 
+ *)
+
+module HumanEval035
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+
+    (* verified *)
+    let rec max_element (t : list int) : int =
+    requires { length t > 0 }
+    ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t /\ result = nth j t } 
+    variant { t }
+    match t with
+    | Cons x Nil -> x
+    | Cons x xs -> if x > (max_element xs) then x else (max_element xs)
+    end
+   
+end

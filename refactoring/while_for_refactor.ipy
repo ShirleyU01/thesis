@@ -1,0 +1,61 @@
+import re
+
+def transform_why3_while_to_for(source_code):
+    # Regular expression pattern to match Why3 while-loop
+    while_loop_pattern = r'let\sref\s(\w+)\s=\s(\d+)\sin\s*while\s!(\w+)\s(<=|>=|<|>)\s(\d+)\sdo(.*?)\s(\w+)\s:=\s(\w+)\s([+-])\s(\d+)\s*done'
+
+    # Function to replace while-loop with for-loop
+    # print(1)
+    def replace_while_with_for(match):
+        loop_var = match.group(1)  # The loop variable (e.g., i)
+        start_value = match.group(2)  # The start value (e.g., 0)
+        condition_var = match.group(3)  # The loop variable in the condition (e.g., i)
+        comparison_op = match.group(4)  # The comparison operator (e.g., <=)
+        end_value = match.group(5)  # The end value (e.g., 10)
+        loop_body = match.group(6).strip()  # The body of the loop
+        increment_var = match.group(7)  # The loop variable for increment (e.g., i)
+        increment_op = match.group(8)  # The increment operator (e.g., + or -)
+        increment_value = match.group(9)  # The increment value (e.g., 1)
+
+        # Map comparison operator to appropriate range limits for `for` loop
+        if comparison_op == "<=":
+            for_condition = f"for {loop_var} = {start_value} to {end_value}"
+        elif comparison_op == "<":
+            for_condition = f"for {loop_var} = {start_value} to {end_value} - 1"
+        elif comparison_op == ">=":
+            for_condition = f"for {loop_var} = {start_value} downto {end_value}"
+        elif comparison_op == ">":
+            for_condition = f"for {loop_var} = {start_value} downto {end_value} + 1"
+
+        # Adjust the loop body to remove the manual increment/decrement
+        if increment_op == "+":
+            increment_statement = f"{increment_var} := {increment_var} + {increment_value}"
+        else:
+            increment_statement = f"{increment_var} := {increment_var} - {increment_value}"
+
+        # Generate the `for` loop by removing the manual increment in the body
+        for_loop = (
+            f"{for_condition} do\n"
+            f"  {loop_body.replace(increment_statement, '').strip()}\n"  # Remove increment from body
+            f"done"
+        )
+        return for_loop
+
+    # Perform the replacement using regex
+    transformed_code = re.sub(while_loop_pattern, replace_while_with_for, source_code, flags=re.DOTALL)
+    
+    return transformed_code
+
+# Example usage with a typical Why3 while-loop
+source_code = """
+let foo () =
+  let ref i = 0 in
+  while i <= 10 do
+    print_int !i;
+    i := i + 1
+  done
+"""
+
+# Transform the source code
+transformed_code = transform_why3_while_to_for(source_code)
+print(transformed_code)

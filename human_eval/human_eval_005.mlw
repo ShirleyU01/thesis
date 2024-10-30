@@ -1,0 +1,25 @@
+(*
+def intersperse(numbers: List[int], delimiter: int) -> List[int]:
+    """ Insert a number 'delimiter' between every two consecutive elements of input list `numbers'
+    >>> intersperse([], 4)
+    []
+    >>> intersperse([1, 2, 3], 4)
+    [1, 4, 2, 4, 3]
+    """
+*)
+
+
+module HumanEval005
+
+    use int.Int
+    use list.List
+
+    let rec intersperse (l : list int) (n : int) =
+        match l with
+        | Nil -> Nil
+        | Cons x Nil -> l
+        | Cons x xs -> Cons x (Cons n (intersperse xs))
+        end
+
+end
+

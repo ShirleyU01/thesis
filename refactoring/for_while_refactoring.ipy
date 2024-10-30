@@ -1,0 +1,68 @@
+import re
+
+def transform_why3_for_loop(source_code):
+    # Regular expression pattern to match Why3 for-loop
+    for_loop_pattern = r'for\s+(\w+)\s*=\s*(\d+)\s+to\s+(\w+)\s*do\s*(.*?)done'
+    
+    # Function to replace for-loop with while-loop
+    def replace_for_with_while(match):
+        loop_var = match.group(1)  # loop variable, e.g., i
+        start_value = match.group(2)  # start value, e.g., 0
+        end_value = match.group(3)  # end value, e.g., 10
+        loop_body = match.group(4).strip()  # loop body
+
+        # Build the equivalent while-loop
+        while_loop = (
+            f"let {loop_var} = ref {start_value} in\n"
+            f"while {loop_var} <= {end_value} do\n"
+            f"{loop_body}\n"
+            f"{loop_var} := !{loop_var} + 1\n"
+            "done"
+        )
+        return while_loop
+
+    # Perform the replacement using regex
+    transformed_code = re.sub(for_loop_pattern, replace_for_with_while, source_code, flags=re.DOTALL)
+    
+    return transformed_code
+
+# Example usage
+test1 = """
+let foo () =
+  let ref x = 0;
+  for i = 0 to 10 do
+    (* Loop Body *)
+    x += 1;
+  done;
+  x
+"""
+
+test1 = """
+let foo () =
+  let ref x = 0 in 
+  for i = 0 to 10 do
+    (* Loop Body *)
+    x += 1;
+  done;
+  x
+"""
+
+test2 = """
+let foo () =
+  let n = length l in
+  let ref res = Nil in
+  let ref tmp = Cons ((nth_1 0 l) + 1) Nil in
+  for i = 0 to n do 
+      (* Loop Body *)
+      res <- res ++ tmp ;
+      if i < n - 1
+      then tmp <- Cons ((nth_1 (i+1) l)+1) Nil
+  done;
+  res
+"""
+
+result1 = transform_why3_for_loop(test1)
+print(result1)
+
+result2 = transform_why3_for_loop(test2)
+print(result2)

@@ -1,0 +1,69 @@
+(* 
+def incr_list(l: list):
+    """Return list with elements incremented by 1.
+    >>> incr_list([1, 2, 3])
+    [2, 3, 4]
+    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
+    [6, 4, 6, 3, 4, 4, 10, 1, 124]
+    """
+ *)
+    
+    
+(* verified *)
+module HumanEval042
+
+    (* use list.List
+    use list.Length
+    use int.Int
+    use list.NthNoOpt
+
+    let rec incr_list (l : list int) : list int = 
+        ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }
+        ensures { length result = length l }
+        variant { l }
+        match l with
+        | Nil -> Nil 
+        | Cons x xs -> Cons (x+1) (incr_list xs)
+        end *)
+    let rec incr_list (l : list int) : list int =
+        match l with
+        | Nil -> Nil
+        | Cons x xs ->
+            if x < 0 then
+                Cons (x + 1) (incr_list xs)  (* Handle negative values explicitly *)
+            else if x >= 0 then
+                Cons (x + 1) (incr_list xs)  (* Handle non-negative values explicitly *)
+            else
+                incr_list xs  (* This condition shouldn't occur, used for illustration *)
+        end
+
+end
+
+module TestIncrList
+
+    use int.Int
+    use list.List
+    use HumanEval042  (* Import the module with incr_list *)
+
+    (* Test Case 1: Test with an empty list *)
+    let test() : list int =
+        incr_list Nil 
+
+    (* Test Case 2: Test with a list of positive integers
+    let test_incr_list_positive () =
+        assert { incr_list (Cons 1 (Cons 2 (Cons 3 Nil))) = Cons 2 (Cons 3 (Cons 4 Nil)) }
+
+    (* Test Case 3: Test with a list containing a single element *)
+    let test_incr_list_single () =
+        assert { incr_list (Cons 5 Nil) = Cons 6 Nil }
+
+    (* Test Case 4: Test with a list containing negative and positive integers *)
+    let test_incr_list_mixed () =
+        assert { incr_list (Cons (-1) (Cons 0 (Cons 1 Nil))) = Cons 0 (Cons 1 (Cons 2 Nil)) }
+
+    (* Test Case 5: Test with a larger list with various values *)
+    let test_incr_list_varied () =
+        assert { incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil))))))))) = 
+                 Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))) } *)
+
+end

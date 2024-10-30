@@ -1,0 +1,20 @@
+(*
+def add(x: int, y: int):
+    """Add two numbers x and y
+    >>> add(2, 3)
+    5
+    >>> add(5, 7)
+    12
+    """
+*)
+
+(* verified *)
+module HumanEval053
+
+    use int.Int
+
+    let add (x : int) (y : int) : int = 
+        ensures { result = x + y }
+        x+y
+
+end
