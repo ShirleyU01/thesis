@@ -27,3 +27,44 @@ module HumanEval035
     end
    
 end
+
+module TestHumanEval035
+
+    use int.Int
+    use list.List
+    use HumanEval035
+
+    let test1 () : bool =
+        max_element (Cons 1 (Cons 2 (Cons 3 Nil))) = 3
+
+    let test2 () : bool =
+        max_element (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil))))))))))) = 123
+
+    let test3 () : bool =
+        max_element (Cons (-1) (Cons (-2) (Cons (-3) (Cons (-4) (Cons (-5) Nil))))) = (-1)
+
+    let test4 () : bool =
+        max_element (Cons 100 Nil) = 100
+
+    let test5 () : bool =
+        max_element (Cons 1 (Cons 1 (Cons 1 (Cons 1 Nil)))) = 1
+
+    let test6 () : bool =
+        max_element (Cons 10 (Cons 20 (Cons 30 (Cons 40 (Cons 50 Nil))))) = 50
+
+    let test7 () : bool =
+        max_element (Cons 0 (Cons (-10) (Cons 10 (Cons (-10) (Cons 0 Nil))))) = 10
+
+    let test8 () : bool =
+        max_element (Cons 7 (Cons 7 (Cons 3 (Cons 5 (Cons 7 (Cons 2 (Cons 7 (Cons 1 (Cons 7 Nil))))))))) = 7
+
+    let test9 () : bool =
+        max_element (Cons (-100) (Cons (-200) (Cons (-300) (Cons (-400) (Cons (-50) Nil))))) = (-50)
+
+    let test10 () : bool =
+        max_element (Cons 123 (Cons 4 (Cons 56 (Cons 78 (Cons 99 (Cons 0 Nil)))))) = 123
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+end

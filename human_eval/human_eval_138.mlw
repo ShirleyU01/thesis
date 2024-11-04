@@ -22,3 +22,44 @@ module HumanEval138
                 else true
             end
 end
+
+module TestHumanEval138
+
+    use int.Int
+    use HumanEval138
+
+    let test1 () : bool =
+        not is_equal_to_sum_even 4
+
+    let test2 () : bool =
+        not is_equal_to_sum_even 6
+
+    let test3 () : bool =
+        is_equal_to_sum_even 8
+
+    let test4 () : bool =
+        is_equal_to_sum_even 10
+
+    let test5 () : bool =
+        is_equal_to_sum_even 12
+
+    let test6 () : bool =
+        is_equal_to_sum_even 20
+
+    let test7 () : bool =
+        not is_equal_to_sum_even 7
+
+    let test8 () : bool =
+        not is_equal_to_sum_even (-8)
+
+    let test9 () : bool =
+        not is_equal_to_sum_even 0
+
+    let test10 () : bool =
+        is_equal_to_sum_even 100
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+end
+

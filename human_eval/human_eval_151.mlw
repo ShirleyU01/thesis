@@ -22,9 +22,51 @@ module HumanEval151
     let rec double_the_difference (l : list int) : int = 
         match l with
         | Nil -> 0
-        | Cons x xs -> if mod x 2 = 1 
+        | Cons x xs -> if mod x 2 = 1 && x > 0
                        then (x * x) + double_the_difference xs
                        else double_the_difference xs
         end
+
+end
+
+
+module TestHumanEval151
+
+    use int.Int
+    use list.List
+    use HumanEval151
+
+    let test1 () : bool =
+        double_the_difference (Cons 1 (Cons 3 (Cons 2 (Cons 0 Nil)))) = 10  (* 1^2 + 3^2 = 10 *)
+
+    let test2 () : bool =
+        double_the_difference (Cons (-1) (Cons (-2) (Cons 0 Nil))) = 0  (* All negative or zero, result is 0 *)
+
+    let test3 () : bool =
+        double_the_difference (Cons 9 (Cons (-2) Nil)) = 81  (* 9^2 = 81 *)
+
+    let test4 () : bool =
+        double_the_difference (Cons 0 Nil) = 0  (* Only zero, result is 0 *)
+
+    let test5 () : bool =
+        double_the_difference Nil = 0  (* Empty list, result is 0 *)
+
+    let test6 () : bool =
+        double_the_difference (Cons 5 (Cons 6 (Cons 7 Nil))) = 74  (* 5^2 + 7^2 = 25 + 49 = 74 *)
+
+    let test7 () : bool =
+        double_the_difference (Cons (-3) (Cons 1 (Cons 4 (Cons 3 Nil)))) = 10  (* Only positive odds count, 1^2 + 3^2 = 10 *)
+
+    let test8 () : bool =
+        double_the_difference (Cons 2 (Cons 4 (Cons 6 (Cons 8 Nil)))) = 0  (* All even numbers, result is 0 *)
+
+    let test9 () : bool =
+        double_the_difference (Cons 7 (Cons 0 (Cons 7 (Cons (-7) (Cons 7 Nil))))) = 147  (* 7^2 + 7^2 + 7^2 = 196 *)
+
+    let test10 () : bool =
+        double_the_difference (Cons 11 (Cons 3 (Cons (-5) (Cons 3 (Cons 2 Nil))))) = 139  (* 11^2 + 3^2 + 3^2 = 139 *)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
 
 end

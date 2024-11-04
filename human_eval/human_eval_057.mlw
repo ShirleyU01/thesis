@@ -26,12 +26,57 @@ module HumanEval057
         | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
         end 
 
-    let rec helper (l : list int) (acc : int) : bool =
+    let rec helper (l : list int) (acc : int) (increasing : bool) : bool =
         match l with 
         | Nil -> true
-        | Cons x xs -> if x < acc then false else helper xs x
+        | Cons x xs -> if increasing 
+                       then if x < acc then false else helper xs x increasing
+                       else if x > acc then false else helper xs x increasing
         end
 
     let monotonic (l : list int) : bool =
-        helper l (nth_1 0 l)
+        if length l <= 1 then true
+        else helper l (nth_1 0 l) (nth_1 0 l < nth_1 1 l)
+end
+
+
+module TestHumanEval057
+
+    use int.Int
+    use list.List
+    use HumanEval057
+
+    let test1 () : bool =
+        monotonic (Cons 1 (Cons 2 (Cons 4 (Cons 20 Nil))))
+
+    let test2 () : bool =
+        not monotonic (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil))))
+
+    let test3 () : bool =
+        monotonic (Cons 4 (Cons 1 (Cons 0 (Cons (-10) Nil))))
+
+    let test4 () : bool =
+        monotonic (Cons 5 Nil)
+
+    let test5 () : bool =
+        monotonic (Cons (-1) (Cons (-2) (Cons (-3) Nil)))
+
+    let test6 () : bool =
+        not monotonic (Cons 1 (Cons 3 (Cons 2 Nil)))
+
+    let test7 () : bool =
+        monotonic (Cons 0 (Cons 0 (Cons 0 Nil)))
+
+    let test8 () : bool =
+        monotonic (Cons (-5) (Cons (-3) (Cons 0 (Cons 2 (Cons 4 Nil)))))
+
+    let test9 () : bool =
+        not monotonic (Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 Nil)))))
+
+    let test10 () : bool =
+        monotonic (Cons 100 (Cons 50 (Cons 50 (Cons 25 Nil))))
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
 end

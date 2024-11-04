@@ -22,3 +22,43 @@ module HumanEval139
         if n = 0 then 1
         else (fact n) * special_factorial (n - 1)
 end
+
+module TestHumanEval139
+
+    use int.Int
+    use HumanEval139
+
+    let test1 () : bool =
+        special_factorial 1 = 1
+
+    let test2 () : bool =
+        special_factorial 2 = 2
+
+    let test3 () : bool =
+        special_factorial 3 = 12  (* 3! * 2! * 1! = 6 * 2 * 1 = 12 *)
+
+    let test4 () : bool =
+        special_factorial 4 = 288  (* 4! * 3! * 2! * 1! = 24 * 6 * 2 * 1 = 288 *)
+
+    let test5 () : bool =
+        special_factorial 5 = 34560  (* 5! * 4! * 3! * 2! * 1! = 120 * 24 * 6 * 2 * 1 = 34560 *)
+
+    let test6 () : bool =
+        special_factorial 6 = 24883200  (* 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test7 () : bool =
+        special_factorial 0 = 1  (* Edge case: special factorial of 0 defined as 1 *)
+
+    let test8 () : bool =
+        special_factorial 7 = 125411328000  (* 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test9 () : bool =
+        special_factorial 8 = 5056584744960000 (* 8! * 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test10 () : bool =
+        special_factorial 9 = 1834933472251084800000  (* 9! * 8! * 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+end

@@ -15,10 +15,51 @@ def multiply(a, b):
 module HumanEval097
 
     use int.Int
+    use int.Abs
     use int.EuclideanDivision
 
     let multiply (a : int) (b : int) = 
-        let d1 = mod a 10 in
-        let d2 = mod b 10 in
+        let d1 = mod (abs a) 10 in
+        let d2 = mod (abs b) 10 in
         d1 * d2
+end
+
+module TestHumanEval097
+
+    use int.Int
+    use HumanEval097
+
+    let test1 () : bool =
+        multiply 148 412 = 16
+
+    let test2 () : bool =
+        multiply 19 (-8) = 72
+
+    let test3 () : bool =
+        multiply 2020 1851 = 0
+
+    let test4 () : bool =
+        multiply 14 (-15) = 20
+
+    let test5 () : bool =
+        multiply 123 456 = 18
+
+    let test6 () : bool =
+        multiply (-7) 8 = 56
+
+    let test7 () : bool =
+        multiply 0 999 = 0
+
+    let test8 () : bool =
+        multiply 1234 (-9876) = 24
+
+    let test9 () : bool =
+        multiply (-55) (-35) = 25
+
+    let test10 () : bool =
+        multiply 1 1 = 1
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
 end

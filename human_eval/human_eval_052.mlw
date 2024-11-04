@@ -23,3 +23,44 @@ module HumanEval052
         | Cons x r -> x < t && below_threshold r t
         end
 end
+
+module TestHumanEval052
+
+    use int.Int
+    use list.List
+    use HumanEval052
+
+    let test1 () : bool =
+        below_threshold (Nil : list int) 10
+
+    let test2 () : bool =
+        below_threshold (Cons 1 (Cons 2 (Cons 4 (Cons 10 Nil)))) 100
+
+    let test3 () : bool =
+        not below_threshold (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil)))) 5
+
+    let test4 () : bool =
+        below_threshold (Cons (-10) (Cons (-20) (Cons (-30) Nil))) 0
+
+    let test5 () : bool =
+        below_threshold (Cons (-1) (Cons (-2) (Cons 3 (Cons 4 Nil)))) 5
+
+    let test6 () : bool =
+        below_threshold (Cons 0 (Cons 1 (Cons 2 Nil))) 3
+
+    let test7 () : bool =
+        not below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 25
+
+    let test8 () : bool =
+        below_threshold (Cons 5 (Cons 3 (Cons 8 (Cons 2 Nil)))) 10
+
+    let test9 () : bool =
+        not below_threshold (Cons (-5) (Cons 5 (Cons (-3) (Cons 3 Nil)))) 5
+
+    let test10 () : bool =
+        not below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 10
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+end

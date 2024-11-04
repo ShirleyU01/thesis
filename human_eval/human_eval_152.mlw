@@ -29,3 +29,88 @@ module HumanEval152
         end
 
 end
+
+module TestHumanEval152
+
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval152
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+    let test1 () : bool =
+        list_eq (compare (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 1 Nil)))))) 
+                         (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Cons (-2) Nil))))))) 
+                (Cons 0 (Cons 0 (Cons 0 (Cons 0 (Cons 3 (Cons 3 Nil))))))
+
+    let test2 () : bool =
+        list_eq (compare (Cons 0 (Cons 5 (Cons 0 (Cons 0 (Cons 0 (Cons 4 Nil)))))) 
+                         (Cons 4 (Cons 1 (Cons 1 (Cons 0 (Cons 0 (Cons (-2) Nil))))))) 
+                (Cons 4 (Cons 4 (Cons 1 (Cons 0 (Cons 0 (Cons 6 Nil))))))
+
+    let test3 () : bool =
+        list_eq (compare (Cons 3 (Cons 3 (Cons 3 Nil))) 
+                         (Cons 3 (Cons 3 (Cons 3 Nil)))) 
+                (Cons 0 (Cons 0 (Cons 0 Nil)))
+
+    let test4 () : bool =
+        list_eq (compare (Cons 10 (Cons (-5) (Cons 8 Nil))) 
+                         (Cons 5 (Cons 5 (Cons 12 Nil)))) 
+                (Cons 5 (Cons 10 (Cons 4 Nil)))
+
+    let test5 () : bool =
+        list_eq (compare (Cons (-1) (Cons (-2) (Cons (-3) Nil))) 
+                         (Cons (-1) (Cons (-2) (Cons (-3) Nil)))) 
+                (Cons 0 (Cons 0 (Cons 0 Nil)))
+
+    let test6 () : bool =
+        list_eq (compare (Cons 0 Nil) 
+                         (Cons 0 Nil)) 
+                (Cons 0 Nil)
+
+    let test7 () : bool =
+        list_eq (compare (Cons 0 (Cons 0 (Cons 0 Nil))) 
+                         (Cons 1 (Cons 1 (Cons 1 Nil)))) 
+                (Cons 1 (Cons 1 (Cons 1 Nil)))
+
+    let test8 () : bool =
+        list_eq (compare (Cons 7 (Cons 2 (Cons (-3) Nil))) 
+                         (Cons 3 (Cons 2 (Cons (-8) Nil)))) 
+                (Cons 4 (Cons 0 (Cons 5 Nil)))
+
+    let test9 () : bool =
+        list_eq (compare (Cons 100 (Cons 50 (Cons (-100) Nil))) 
+                         (Cons 0 (Cons 50 (Cons 0 Nil)))) 
+                (Cons 100 (Cons 0 (Cons 100 Nil)))
+
+    let test10 () : bool =
+        list_eq (compare (Cons 1 (Cons 1 (Cons 1 (Cons 1 Nil)))) 
+                         (Cons 2 (Cons 2 (Cons 2 (Cons 2 Nil))))) 
+                (Cons 1 (Cons 1 (Cons 1 (Cons 1 Nil))))
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+
+end

@@ -1,7 +1,7 @@
-(*
+(* modified
 def rolling_max(numbers: List[int]) -> List[int]:
     """ From a given list of integers, generate a list of rolling maximum element found until given moment
-    in the sequence.
+    in the sequence. Assume that all values in the given list is larger than -1000
     >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
     [1, 2, 3, 3, 3, 4, 4]
     """
@@ -20,6 +20,77 @@ module HumanEval009
         end
     
     let rolling_max (l : list int) : list int =
-        helper l 0
+        helper l (-1000)
 
+end
+
+module TestHumanEval009
+ use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval009
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+     let test1 () : bool =
+        list_eq (rolling_max (Nil : list int)) Nil
+
+    let test2 () : bool =
+        list_eq (rolling_max (Cons 1 Nil)) (Cons 1 Nil)
+
+    let test3 () : bool =
+        list_eq (rolling_max (Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 Nil)))))))) 
+                (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 Nil)))))))
+
+    let test4 () : bool =
+        list_eq (rolling_max (Cons 5 (Cons 3 (Cons 1 (Cons 4 (Cons 2 Nil))))))
+                (Cons 5 (Cons 5 (Cons 5 (Cons 5 (Cons 5 Nil)))))
+
+    let test5 () : bool =
+        list_eq (rolling_max (Cons (-1) (Cons (-2) (Cons (-3) Nil))))
+                (Cons (-1) (Cons (-1) (Cons (-1) Nil)))
+
+    let test6 () : bool =
+        list_eq (rolling_max (Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 Nil)))))))
+                (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 Nil))))))
+
+    let test7 () : bool =
+        list_eq (rolling_max (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil)))))
+                (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil))))
+
+    let test8 () : bool =
+        list_eq (rolling_max (Cons 3 (Cons 1 (Cons 3 (Cons 1 (Cons 3 Nil))))))
+                (Cons 3 (Cons 3 (Cons 3 (Cons 3 (Cons 3 Nil)))))
+
+    let test9 () : bool =
+        list_eq (rolling_max (Cons 10 (Cons 5 (Cons 20 (Cons 15 Nil)))))
+                (Cons 10 (Cons 10 (Cons 20 (Cons 20 Nil))))
+
+    let test10 () : bool =
+        list_eq (rolling_max (Cons (-5) (Cons 0 (Cons (-10) (Cons 5 Nil)))))
+                (Cons (-5) (Cons 0 (Cons 0 (Cons 5 Nil))))
+    
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+    
 end

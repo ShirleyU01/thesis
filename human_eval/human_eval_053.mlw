@@ -8,7 +8,6 @@ def add(x: int, y: int):
     """
 *)
 
-(* verified *)
 module HumanEval053
 
     use int.Int
@@ -16,5 +15,39 @@ module HumanEval053
     let add (x : int) (y : int) : int = 
         ensures { result = x + y }
         x+y
+
+end
+
+module TestHumanEval053
+
+    use int.Int
+    use HumanEval053
+
+    let test1 () : bool =
+        add 2 3 = 5
+
+    let test2 () : bool =
+        add 5 7 = 12
+
+    let test3 () : bool =
+        add 0 0 = 0
+
+    let test4 () : bool =
+        add (-1) 1 = 0
+
+    let test5 () : bool =
+        add 100 (-50) = 50
+
+    let test6 () : bool =
+        add (-10) (-20) = (-30)
+
+    let test7 () : bool =
+        add 12345 67890 = 80235
+
+    let test8 () : bool =
+        add (-12345) 67890 = 55545
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() 
 
 end

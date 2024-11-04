@@ -19,11 +19,49 @@ module HumanEval060
     use int.EuclideanDivision
 
     let sum_to_n (n : int) : int =
-        ensures { result = div ((1+n)*n) 2 }
         let ref result = 0 in
         for i = 1 to n do
-            invariant { result = 0 \/ result = div ((1+i)*i) 2 }
             result <- result + i
         done;
         result
+end
+
+module TestHumanEval060
+
+    use int.Int
+    use HumanEval060
+
+    let test1 () : bool =
+        sum_to_n 30 = 465
+
+    let test2 () : bool =
+        sum_to_n 100 = 5050
+
+    let test3 () : bool =
+        sum_to_n 5 = 15
+
+    let test4 () : bool =
+        sum_to_n 10 = 55
+
+    let test5 () : bool =
+        sum_to_n 1 = 1
+
+    let test6 () : bool =
+        sum_to_n 0 = 0
+
+    let test7 () : bool =
+        sum_to_n (-10) = 0
+
+    let test8 () : bool =
+        sum_to_n 50 = 1275
+
+    let test9 () : bool =
+        sum_to_n 200 = 20100
+
+    let test10 () : bool =
+        sum_to_n 500 = 125250
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
 end

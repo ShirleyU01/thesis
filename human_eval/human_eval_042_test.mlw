@@ -1,28 +1,48 @@
-module TestIncrList
+module TestHumanEval042
 
     use int.Int
     use list.List
+    use list.NthNoOpt
+    use list.Length
     use humanEval042.Incr_list  (* Import the module with incr_list *)
 
-    (* Test Case 1: Test with an empty list *)
-    let test_incr_list_empty () =
-        assert { incr_list (Nil : list int) = Nil }
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
 
-    (* Test Case 2: Test with a list of positive integers *)
-    let test_incr_list_positive () =
-        assert { incr_list (Cons 1 (Cons 2 (Cons 3 Nil))) = Cons 2 (Cons 3 (Cons 4 Nil)) }
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+            
 
-    (* Test Case 3: Test with a list containing a single element *)
-    let test_incr_list_single () =
-        assert { incr_list (Cons 5 Nil) = Cons 6 Nil }
+    let test1() : bool =
+        list_eq (incr_list Nil) Nil 
 
-    (* Test Case 4: Test with a list containing negative and positive integers *)
-    let test_incr_list_mixed () =
-        assert { incr_list (Cons (-1) (Cons 0 (Cons 1 Nil))) = Cons 0 (Cons 1 (Cons 2 Nil)) }
+    let test2() : bool = 
+        list_eq (Cons 1 (Cons 2 (Cons 3 Nil))) (Cons 2 (Cons 3 (Cons 4 Nil))) 
 
-    (* Test Case 5: Test with a larger list with various values *)
-    let test_incr_list_varied () =
-        assert { incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil))))))))) = 
-                 Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))) }
+    let test3() : bool =
+        list_eq (incr_list (Cons 5 Nil)) (Cons 6 Nil)
 
+    let test4() : bool =
+        list_eq (incr_list (Cons (-1) (Cons 0 (Cons 1 Nil)))) (Cons 0 (Cons 1 (Cons 2 Nil)))
+
+    let test5() : bool =
+        list_eq (incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))))) (Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
+
+    let testall() : bool = 
+        test1() && test2() && test3() && test4() && test5()
 end

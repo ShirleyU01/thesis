@@ -25,10 +25,20 @@ module HumanEval031
     use int.EuclideanDivision
     
     let is_prime (n : int) : bool =
-        let ref flag = false in
-        for i = 2 to n - 1 do
-            if mod n i = 0 
-            then flag <- true
-        done ;
-        flag
+        if n <= 2 then false
+        else
+            let ref flag = true in
+            for i = 2 to n - 1 do
+                if mod n i = 0 
+                then flag <- false
+            done ;
+            flag
+end
+
+module TestHumanEval031
+    use int.Int
+    use HumanEval031
+
+    let testall() : bool =
+        (not is_prime(6)) && is_prime(101) && is_prime(11) && is_prime(13441) && is_prime(61) && (not is_prime(4)) && (not is_prime(1))
 end

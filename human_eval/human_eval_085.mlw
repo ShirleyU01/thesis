@@ -35,3 +35,45 @@ module HumanEval085
         done ;
         res
 end
+
+
+module TestHumanEval085
+
+    use int.Int
+    use list.List
+    use HumanEval085
+
+    let test1 () : bool =
+        add (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil)))) = 2
+
+    let test2 () : bool =
+        add (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil))))) = 0
+
+    let test3 () : bool =
+        add (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil))))) = 12
+
+    let test4 () : bool =
+        add (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil)))) = 6
+
+    let test5 () : bool =
+        add (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil)))))))))) = 30
+
+    let test6 () : bool =
+        add (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil)))))) = 0
+
+    let test7 () : bool =
+        add (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil)))))) = 12
+
+    let test8 () : bool =
+        add (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil)))))) = (-6)
+
+    let test9 () : bool =
+        add (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil))))) = 0
+
+    let test10 () : bool =
+        add (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil)))))) = 56
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+end
