@@ -1,10 +1,25 @@
-# prompt for ideas
-def idea(description: str) -> str:
+# # prompt for ideas
+# def idea(description: str) -> str:
+#     prompt_functionality_brainstorming = f"""
+#     According to the following description `{description}`, generate 5 different ways that 
+#     a developer might commonly implement using why3. For instance, consider loops, recursions, pattern matching, 
+#     and different branching conditions. Describe the high-level behavior and expected outcomes and how you would like to 
+#     implement them. 
+# """
+#     return prompt_functionality_brainstorming
+
+# prompt for ideas with examples
+example_file = open('/Users/weiranyu/Desktop/15414/thesis/LLM/prompt/example.txt', 'r')
+example = example_file.read()
+print(example)
+def idea(description : str, example : str) -> str:
     prompt_functionality_brainstorming = f"""
-    According to the following description `{description}`, generate 5 different ways that 
-    a developer might commonly implement using why3. For instance, consider loops, recursions, pattern matching, 
-    and different branching conditions. Describe the high-level behavior and expected outcomes and how you would like to 
-    implement them. 
+    Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions, 
+    pattern matching, and different branching conditions. Here is an example of 5 different algorithms for one example description:
+    `{example}`
+    According to the following description `{description}`, please generate 5 different ways that a developer might implement 
+    using why3. Try to make sure that the ways of implementation is as diverse as possible. Describe the high-level behavior 
+    and expected outcomes and how you would like to implement them. 
 """
     return prompt_functionality_brainstorming
 
