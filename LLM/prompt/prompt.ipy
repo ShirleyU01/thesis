@@ -2,8 +2,8 @@
 def idea(description: str) -> str:
     prompt_functionality_brainstorming = f"""
     According to the following description `{description}`, generate 5 different ways that 
-    a developer might commonly implement using why3. For instance, consider loops, recursions, and different
-    branching conditions. Describe the high-level behavior and expected outcomes and how you would like to 
+    a developer might commonly implement using why3. For instance, consider loops, recursions, pattern matching, 
+    and different branching conditions. Describe the high-level behavior and expected outcomes and how you would like to 
     implement them. 
 """
     return prompt_functionality_brainstorming
@@ -17,9 +17,9 @@ def implement() -> str:
     prompt_implementation = f"""
     Implement the functionality described above using why3. Ensure that the implementation
     is syntax-error free, clear, and easy to test. Pay attention to correct library usage. For instance,
-    if the implementation uses function length from list module, please include it correctly. Remove unnecessary 
-    comments. The implementation should focus on achieving the high-level behavior described, while not implementating 
-    specification.
+    if the implementation uses function length from list module, please include it correctly as list.Length. 
+    Remove unnecessary comments and don't implement specification. The implementation should focus on 
+    achieving the high-level behavior described.
 """
     return prompt_implementation
 

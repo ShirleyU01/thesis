@@ -1,0 +1,29 @@
+Function,Module,Type,Description,Import Statement
+(=),Int,int -> int -> bool,Checks if two integers are equal.,use int.Int
+(-_),Int,int -> int,Negates an integer.,use int.Int
+(+),Int,int -> int -> int,Adds two integers.,use int.Int
+(*),Int,int -> int -> int,Multiplies two integers.,use int.Int
+(<),Int,int -> int -> bool,Checks if the first integer is less than the second.,use int.Int
+(-),Int,int -> int -> int,Subtracts the second integer from the first.,use int.Int
+(>),Int,int -> int -> bool,Checks if the first integer is greater than the second.,use int.Int
+(<=),Int,int -> int -> bool,Checks if the first integer is less than or equal to the second.,use int.Int
+(>=),Int,int -> int -> bool,Checks if the first integer is greater than or equal to the second.,use int.Int
+abs,Abs,int -> int,Computes the absolute value of an integer.,use int.Abs
+min,MinMax,int -> int -> int,Returns the smaller of two integers.,use int.MinMax
+max,MinMax,int -> int -> int,Returns the larger of two integers.,use int.MinMax
+lt_nat,Lex2,int -> int -> bool,Defines the well-founded order on integers.,use int.Lex2
+div,EuclideanDivision,int -> int -> int,Computes integer division with Euclidean rules.,use int.EuclideanDivision
+mod,EuclideanDivision,int -> int -> int,"Computes the modulus with Euclidean rules, always non-negative.",use int.EuclideanDivision
+div,ComputerDivision,int -> int -> int,"Computes integer division, rounding towards zero.",use int.ComputerDivision
+mod,ComputerDivision,int -> int -> int,Computes modulus operation with sign of dividend.,use int.ComputerDivision
+power,Exponentiation,t -> int -> t,Raises an element of type t to an integer power.,use int.Exponentiation
+power,Power,int -> int -> int,Computes an integer raised to an integer power.,use int.Power
+numof,NumOf,(int -> bool) -> int -> int -> int,Counts integers in a range that satisfy a predicate.,use int.NumOf
+sum,Sum,(int -> int) -> int -> int -> int,Computes the sum of a function applied to integers in a range.,use int.Sum
+sum,SumParam,('a -> int -> int) -> 'a -> int -> int -> int,Computes the sum with a parameterized function.,use int.SumParam
+fact,Fact,int -> int,Computes the factorial of an integer.,use int.Fact
+iter,Iter,('a -> 'a) -> int -> 'a -> 'a,"Applies a function repeatedly, a specified number of times.",use int.Iter
+add,IntInf,t -> t -> t,"Adds two elements, with support for infinite values.",use int.IntInf
+fib,Fibonacci,int -> int,Computes the Fibonacci number for a given integer.,use int.Fibonacci
+p,SimpleInduction,int -> bool,Induction principle for nonnegative integers.,use int.SimpleInduction
+p,Induction,int -> bool,General induction principle with a customizable lower bound.,use int.Induction

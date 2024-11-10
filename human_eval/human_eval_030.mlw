@@ -22,7 +22,7 @@ module HumanEval030
 end
 
 module TestHumanEval030
- use int.Int
+    use int.Int
     use list.List
     use list.NthNoOpt
     use list.Length
