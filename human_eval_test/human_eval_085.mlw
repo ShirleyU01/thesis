@@ -46,34 +46,79 @@ module TestHumanEval085
     let test1 () : bool =
         add (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil)))) = 2
 
+    let test1_output () : (list int, int, int) =
+        (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil))), add (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil)))), 2)
+
     let test2 () : bool =
         add (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil))))) = 0
+
+    let test2_output () : (list int, int, int) =
+        (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil)))), add (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil))))), 0)
 
     let test3 () : bool =
         add (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil))))) = 12
 
+    let test3_output () : (list int, int, int) =
+        (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil)))), add (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil))))), 12)
+
     let test4 () : bool =
         add (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil)))) = 6
+
+    let test4_output () : (list int, int, int) =
+        (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil))), add (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil)))), 6)
 
     let test5 () : bool =
         add (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil)))))))))) = 30
 
+    let test5_output () : (list int, int, int) =
+        (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil))))))))),
+         add (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil)))))))))), 30)
+
     let test6 () : bool =
         add (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil)))))) = 0
+
+    let test6_output () : (list int, int, int) =
+        (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil))))), add (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil)))))), 0)
 
     let test7 () : bool =
         add (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil)))))) = 12
 
+    let test7_output () : (list int, int, int) =
+        (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil))))), add (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil)))))), 12)
+
     let test8 () : bool =
         add (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil)))))) = (-6)
+
+    let test8_output () : (list int, int, int) =
+        (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil))))), add (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil)))))), (-6))
 
     let test9 () : bool =
         add (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil))))) = 0
 
+    let test9_output () : (list int, int, int) =
+        (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil)))), add (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil))))), 0)
+
     let test10 () : bool =
         add (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil)))))) = 56
 
+    let test10_output () : (list int, int, int) =
+        (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil))))), add (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil)))))), 56)
+
     let testall () : bool = 
         test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
 
 end

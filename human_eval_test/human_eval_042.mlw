@@ -61,18 +61,45 @@ module TestHumanEval042
     let test1() : bool =
         list_eq (incr_list Nil) Nil 
 
+    let test1_output() : (list int, list int, list int) =
+        (Nil, incr_list Nil, Nil)
+
     let test2() : bool = 
-        list_eq (Cons 1 (Cons 2 (Cons 3 Nil))) (Cons 2 (Cons 3 (Cons 4 Nil))) 
+        list_eq (incr_list (Cons 1 (Cons 2 (Cons 3 Nil)))) (Cons 2 (Cons 3 (Cons 4 Nil))) 
+
+    let test2_output() : (list int, list int, list int) =
+        (Cons 1 (Cons 2 (Cons 3 Nil)), incr_list (Cons 1 (Cons 2 (Cons 3 Nil))), Cons 2 (Cons 3 (Cons 4 Nil)))
 
     let test3() : bool =
         list_eq (incr_list (Cons 5 Nil)) (Cons 6 Nil)
 
+    let test3_output() : (list int, list int, list int) =
+        (Cons 5 Nil, incr_list (Cons 5 Nil), Cons 6 Nil)
+
     let test4() : bool =
         list_eq (incr_list (Cons (-1) (Cons 0 (Cons 1 Nil)))) (Cons 0 (Cons 1 (Cons 2 Nil)))
 
+    let test4_output() : (list int, list int, list int) =
+        (Cons (-1) (Cons 0 (Cons 1 Nil)), incr_list (Cons (-1) (Cons 0 (Cons 1 Nil))), Cons 0 (Cons 1 (Cons 2 Nil)))
+
     let test5() : bool =
-        list_eq (incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))))) (Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
+        list_eq (incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))))) 
+                (Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
+
+    let test5_output() : (list int, list int, list int) =
+        (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))),
+         incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil))))))))),
+         Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
 
     let testall() : bool = 
         test1() && test2() && test3() && test4() && test5()
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
 end

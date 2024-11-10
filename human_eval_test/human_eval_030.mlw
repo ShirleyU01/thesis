@@ -52,40 +52,100 @@ module TestHumanEval030
     let test1 () : bool =
         list_eq (get_positive (Nil : list int)) Nil
 
+    let test1_output () : (list int, list int, list int) =
+        (Nil, get_positive (Nil : list int), Nil)
+
     let test2 () : bool =
         list_eq (get_positive (Cons 1 Nil)) (Cons 1 Nil)
+
+    let test2_output () : (list int, list int, list int) =
+        (Cons 1 Nil, get_positive (Cons 1 Nil), Cons 1 Nil)
 
     let test3 () : bool =
         list_eq (get_positive (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil)))))) 
                 (Cons 2 (Cons 5 (Cons 6 Nil)))
 
+    let test3_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil)))),
+         get_positive (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil))))),
+         Cons 2 (Cons 5 (Cons 6 Nil)))
+
     let test4 () : bool =
         list_eq (get_positive (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil)))))))))))) 
-        (Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 Nil))))))) 
+                (Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 Nil))))))) 
+
+    let test4_output () : (list int, list int, list int) =
+        (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil)))))))))),
+         get_positive (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil))))))))))),
+         Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 Nil)))))))
 
     let test5 () : bool =
         list_eq (get_positive (Cons (-1) (Cons (-2) (Cons (-3) Nil)))) Nil
+
+    let test5_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons (-2) (Cons (-3) Nil)),
+         get_positive (Cons (-1) (Cons (-2) (Cons (-3) Nil))),
+         Nil)
 
     let test6 () : bool =
         list_eq (get_positive (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil)))))))
                 (Cons 2 (Cons 4 Nil))
 
+    let test6_output () : (list int, list int, list int) =
+        (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil))))),
+         get_positive (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil)))))),
+         Cons 2 (Cons 4 Nil))
+
     let test7 () : bool =
         list_eq (get_positive (Cons 0 (Cons 0 (Cons 0 Nil)))) Nil
+
+    let test7_output () : (list int, list int, list int) =
+        (Cons 0 (Cons 0 (Cons 0 Nil)),
+         get_positive (Cons 0 (Cons 0 (Cons 0 Nil))),
+         Nil)
 
     let test8 () : bool =
         list_eq (get_positive (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil)))))) 
                 (Cons 1 (Cons 1 (Cons 1 Nil)))
 
+    let test8_output () : (list int, list int, list int) =
+        (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil)))),
+         get_positive (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil))))),
+         Cons 1 (Cons 1 (Cons 1 Nil)))
+
     let test9 () : bool =
         list_eq (get_positive (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil))))) 
                 (Cons 20 (Cons 40 Nil))
 
+    let test9_output () : (list int, list int, list int) =
+        (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil))),
+         get_positive (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil)))),
+         Cons 20 (Cons 40 Nil))
+
     let test10 () : bool =
         list_eq (get_positive (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil))))) 
                 (Cons 100 (Cons 50 Nil))
-    
-     let testall () : bool = 
+
+    let test10_output () : (list int, list int, list int) =
+        (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil))),
+         get_positive (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil)))),
+         Cons 100 (Cons 50 Nil))
+
+    let testall () : bool = 
         test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
 
 end

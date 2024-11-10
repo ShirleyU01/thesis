@@ -54,34 +54,78 @@ module TestHumanEval008
     let test1 () : bool =
         list_eq (sum_product (Nil : list int)) (Cons 0 (Cons 1 Nil))
 
+    let test1_output () : (list int, list int, list int) =
+        (Nil : list int, sum_product (Nil : list int), Cons 0 (Cons 1 Nil))
+
     let test2 () : bool =
         list_eq (sum_product (Cons 5 Nil)) (Cons 5 (Cons 5 Nil))
+
+    let test2_output () : (list int, list int, list int) =
+        (Cons 5 Nil, sum_product (Cons 5 Nil), Cons 5 (Cons 5 Nil))
 
     let test3 () : bool =
         list_eq (sum_product (Cons (-3) Nil)) (Cons (-3) (Cons (-3) Nil))
 
+    let test3_output () : (list int, list int, list int) =
+        (Cons (-3) Nil, sum_product (Cons (-3) Nil), Cons (-3) (Cons (-3) Nil))
+
     let test4 () : bool =
         list_eq (sum_product (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil))))) (Cons 10 (Cons 24 Nil))
+
+    let test4_output () : (list int, list int, list int) =
+        (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil))), sum_product (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil)))), Cons 10 (Cons 24 Nil))
 
     let test5 () : bool =
         list_eq (sum_product (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 Nil))))) (Cons 2 (Cons 24 Nil))
 
+    let test5_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 Nil))), sum_product (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 Nil)))), Cons 2 (Cons 24 Nil))
+
     let test6 () : bool =
         list_eq (sum_product (Cons 0 (Cons 2 (Cons (-3) (Cons 4 Nil))))) (Cons 3 (Cons 0 Nil))
+
+    let test6_output () : (list int, list int, list int) =
+        (Cons 0 (Cons 2 (Cons (-3) (Cons 4 Nil))), sum_product (Cons 0 (Cons 2 (Cons (-3) (Cons 4 Nil)))), Cons 3 (Cons 0 Nil))
 
     let test7 () : bool =
         list_eq (sum_product (Cons 0 (Cons 0 (Cons 0 Nil)))) (Cons 0 (Cons 0 Nil))
 
+    let test7_output () : (list int, list int, list int) =
+        (Cons 0 (Cons 0 (Cons 0 Nil)), sum_product (Cons 0 (Cons 0 (Cons 0 Nil))), Cons 0 (Cons 0 Nil))
+
     let test8 () : bool =
-        list_eq (sum_product (Cons (-1) (Cons (-2) (Cons (-3) (Cons (-4) Nil))))) (Cons (-10) (Cons (24) Nil))
+        list_eq (sum_product (Cons (-1) (Cons (-2) (Cons (-3) (Cons (-4) Nil))))) (Cons (-10) (Cons 24 Nil))
+
+    let test8_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons (-2) (Cons (-3) (Cons (-4) Nil))), sum_product (Cons (-1) (Cons (-2) (Cons (-3) (Cons (-4) Nil)))), Cons (-10) (Cons 24 Nil))
 
     let test9 () : bool =
         list_eq (sum_product (Cons 100 (Cons 200 (Cons 300 (Cons 400 Nil))))) (Cons 1000 (Cons 2400000000 Nil))
 
+    let test9_output () : (list int, list int, list int) =
+        (Cons 100 (Cons 200 (Cons 300 (Cons 400 Nil))), sum_product (Cons 100 (Cons 200 (Cons 300 (Cons 400 Nil)))), Cons 1000 (Cons 2400000000 Nil))
+
     let test10 () : bool =
         list_eq (sum_product (Cons 100 (Cons 0 (Cons 300 (Cons 400 Nil))))) (Cons 800 (Cons 0 Nil))
 
+    let test10_output () : (list int, list int, list int) =
+        (Cons 100 (Cons 0 (Cons 300 (Cons 400 Nil))), sum_product (Cons 100 (Cons 0 (Cons 300 (Cons 400 Nil)))), Cons 800 (Cons 0 Nil))
+
     let testall () : bool = 
         test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
 
 end

@@ -21,33 +21,70 @@ end
 module TestHumanEval053
 
     use int.Int
+    use list.List
     use HumanEval053
 
     let test1 () : bool =
         add 2 3 = 5
 
+    let test1_output () : (int, int, int, int) =
+        (2, 3, add 2 3, 5)
+
     let test2 () : bool =
         add 5 7 = 12
+
+    let test2_output () : (int, int, int, int) =
+        (5, 7, add 5 7, 12)
 
     let test3 () : bool =
         add 0 0 = 0
 
+    let test3_output () : (int, int, int, int) =
+        (0, 0, add 0 0, 0)
+
     let test4 () : bool =
         add (-1) 1 = 0
+
+    let test4_output () : (int, int, int, int) =
+        ((-1), 1, add (-1) 1, 0)
 
     let test5 () : bool =
         add 100 (-50) = 50
 
+    let test5_output () : (int, int, int, int) =
+        (100, (-50), add 100 (-50), 50)
+
     let test6 () : bool =
         add (-10) (-20) = (-30)
+
+    let test6_output () : (int, int, int, int) =
+        ((-10), (-20), add (-10) (-20), (-30))
 
     let test7 () : bool =
         add 12345 67890 = 80235
 
+    let test7_output () : (int, int, int, int) =
+        (12345, 67890, add 12345 67890, 80235)
+
     let test8 () : bool =
         add (-12345) 67890 = 55545
 
+    let test8_output () : (int, int, int, int) =
+        ((-12345), 67890, add (-12345) 67890, 55545)
+
     let testall () : bool = 
-        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        res
 
 end
