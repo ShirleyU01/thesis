@@ -107,4 +107,28 @@ module TestHumanEval052
         if not test10() then res <- Cons 10 res;
         res
 
+    let runtest (x : int) : (list int, int, bool, bool) =
+        let ref res = (Nil, -1, false, false) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, int, bool, bool) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, int, bool, bool) =
+        let l = testfail () in
+        failoutput l
+
 end

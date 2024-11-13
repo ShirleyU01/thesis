@@ -9,9 +9,9 @@
 #     return prompt_functionality_brainstorming
 
 # prompt for ideas with examples
-example_file = open('/Users/weiranyu/Desktop/15414/thesis/LLM/prompt/example.txt', 'r')
+example_file = open('/Users/weiranyu/Desktop/15414/thesis/LLM/prompt/example.txt', 'r') 
 example = example_file.read()
-print(example)
+
 def idea(description : str, example : str) -> str:
     prompt_functionality_brainstorming = f"""
     Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions, 
@@ -23,16 +23,20 @@ def idea(description : str, example : str) -> str:
 """
     return prompt_functionality_brainstorming
 
-# prompt for implementation
+# # prompt for implementation
+# def implement() -> str:
+#     prompt_implementation = f"""
+#     Implement the functionality described above using why3. Ensure that the implementation
+#     is syntax-error free, clear, and easy to test. The implementation should focus on 
+#     achieving the high-level behavior described, while not implementating specification."""
+#     return prompt_implementation
+
+# prompt for implementation with examples of library usage
 def implement() -> str:
-    # prompt_implementation = f"""
-    # Implement the functionality described above using why3. Ensure that the implementation
-    # is syntax-error free, clear, and easy to test. The implementation should focus on 
-    # achieving the high-level behavior described, while not implementating specification."""
     prompt_implementation = f"""
     Implement the functionality described above using why3. Ensure that the implementation
     is syntax-error free, clear, and easy to test. Pay attention to correct library usage. For instance,
-    if the implementation uses function length from list module, please include it correctly as list.Length. 
+    if the implementation uses function length from list module, please include it correctly as `use list.Length`. 
     Remove unnecessary comments and don't implement specification. The implementation should focus on 
     achieving the high-level behavior described.
 """
