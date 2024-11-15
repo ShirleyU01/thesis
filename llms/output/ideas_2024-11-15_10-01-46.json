@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using for-loop to calculate sum and product of a list",
+            "implementation": "module SumProductFor\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product_for (t : list int) : (int, int) =\n        let n = length t in\n        let ref sum = 0 in\n        let ref product = 1 in\n        for i = 0 to n - 1 do\n            sum <- sum + nth i t;\n            product <- product * nth i t\n        done;\n        (sum, product)\nend"
+        },
+        {
+            "description": "Using while-loop to calculate sum and product of a list",
+            "implementation": "module SumProductWhile\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product_while (t : list int) : (int, int) =\n        let n = length t in\n        let ref i = 0 in\n        let ref sum = 0 in\n        let ref product = 1 in\n        while i < n do\n            sum <- sum + nth i t;\n            product <- product * nth i t;\n            i <- i + 1\n        done;\n        (sum, product)\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to calculate sum and product",
+            "implementation": "module SumProductRecurPattern\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_pattern (t : list int) : (int, int) =\n        match t with\n        | Nil -> (0, 1)\n        | Cons x xs -> let (sum, product) = sum_product_recur_pattern xs in\n                        (x + sum, x * product)\n        end\nend"
+        },
+        {
+            "description": "Using accumulator within recursion to calculate sum and product",
+            "implementation": "module SumProductRecurAccumulator\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_accumulator (t : list int) (acc_sum : int) (acc_product : int) : (int, int) =\n        match t with\n        | Nil -> (acc_sum, acc_product)\n        | Cons x xs -> sum_product_recur_accumulator xs (acc_sum + x) (acc_product * x)\n        end\n\n    let sum_product_recur (t : list int) : (int, int) =\n        sum_product_recur_accumulator t 0 1\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) to calculate sum and product",
+            "implementation": "module SumProductRecurBranching\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_branching (t : list int) : (int, int) =\n        match t with\n        | Nil -> (0, 1)\n        | Cons x xs -> let (sum, product) = sum_product_recur_branching xs in\n                        ((if true then x + sum else sum), (if true then x * product else product))\n        end\nend"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using for-loop to compute sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let sum_product_for (numbers : list int) : list int = \n        let n = length numbers in\n        let ref sum = 0 in\n        let ref product = 1 in\n        for i = 0 to n - 1 do\n            sum <- sum + nth i numbers;\n            product <- product * nth i numbers;\n        done;\n        [sum; product]\nend"
+        },
+        {
+            "description": "Using while-loop to compute sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let sum_product_while (numbers : list int) : list int = \n        let n = length numbers in\n        let ref i = 0 in\n        let ref sum = 0 in\n        let ref product = 1 in\n        while i < n do\n            sum <- sum + nth i numbers;\n            product <- product * nth i numbers;\n            i <- i + 1;\n        done;\n        [sum; product]\nend"
+        },
+        {
+            "description": "Using recursion to compute sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur (numbers : list int) : list int = \n        match numbers with\n        | Nil -> [0; 1]\n        | Cons x xs -> let [sum_rest; prod_rest] = sum_product_recur xs in\n                       [sum_rest + x; prod_rest * x]\nend"
+        },
+        {
+            "description": "Using accumulator in recursion to compute sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_acc (numbers : list int) (acc_sum : int) (acc_prod : int) : list int = \n        match numbers with\n        | Nil -> [acc_sum; acc_prod]\n        | Cons x xs -> sum_product_acc xs (acc_sum + x) (acc_prod * x)\n\n    let sum_product (numbers : list int) : list int = \n        sum_product_acc numbers 0 1\nend"
+        },
+        {
+            "description": "Using pattern matching with if-then-else to compute sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_if (numbers : list int) : list int = \n        match numbers with\n        | Nil -> [0; 1]\n        | Cons x xs -> if xs = Nil then [x; x] else let [sum_rest; prod_rest] = sum_product_if xs in\n                       [sum_rest + x; prod_rest * x]\nend"
+        }
+    ]
+}

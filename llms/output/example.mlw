@@ -1,0 +1,108 @@
+module SumProduct
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    
+   let rec function my_nth (n: int) (l: list int) : int =
+     requires { length l > 0}
+     requires { n >= 0 /\ n < length l}
+     variant { l }
+     ensures { result = nth n l } 
+    match l with
+    | Nil -> absurd
+    | Cons x r -> if n = 0 then x else my_nth (n - 1) r
+    end
+
+
+    let sum_product_for (t : list int) : (int, int) =
+        let n = length t in
+        let ref sum = 0 in
+        let ref product = 1 in
+        for i = 0 to n-1 do
+            sum <- sum + my_nth i t;
+            product <- product * my_nth i t
+        done;
+        (sum, product)
+
+end
+
+module SumProduct2
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    
+   let rec function my_nth (n: int) (l: list int) : int =
+     requires { length l > n }
+     variant { l }
+     ensures { result = nth n l } 
+    match l with
+    | Nil      -> absurd
+    | Cons x r -> if n = 0 then x else my_nth (n - 1) r
+    end
+
+    let sum_product_while (t : list int) : (int, int) =
+        let n = length t in
+        let ref i = 0 in
+        let ref sum = 0 in
+        let ref product = 1 in
+        while i < n do
+            sum <- sum + my_nth i t;
+            product <- product * my_nth i t;
+            i <- i + 1
+        done;
+        (sum, product)
+
+end
+
+module SumProduct3
+
+    use int.Int
+    use list.List
+    use list.Length
+
+    let rec sum_product_recur_1 (t : list int) : (int, int) =
+        match t with
+        | Nil -> (0, 1)
+        | Cons x xs ->
+            let (sum, product) = sum_product_recur_1 xs in
+            (x + sum, x * product)
+        end
+
+end
+
+module SumProduct4
+
+    use int.Int
+    use list.List
+    use list.Length
+
+    let rec sum_product_recur_2_accumulator (t : list int) (acc_sum : int) (acc_product : int) : (int, int) =
+        match t with
+        | Nil -> (acc_sum, acc_product)
+        | Cons x xs -> sum_product_recur_2_accumulator xs (acc_sum + x) (acc_product * x)
+        end
+
+    let sum_product_recur_2 (t : list int) : (int, int) =
+        sum_product_recur_2_accumulator t 0 1
+
+end
+
+module SumProduct5
+
+    use int.Int
+    use list.List
+    use list.Length
+
+    let rec sum_product_recur_3 (t : list int) : (int, int) =
+        match t with
+        | Nil -> (0, 1)
+        | Cons x xs ->
+            let (sum, product) = sum_product_recur_3 xs in
+            (x + sum, x * product)
+        end
+
+end
