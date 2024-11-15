@@ -8,7 +8,7 @@ def add(x: int, y: int):
     """
 *)
 
-module HumanEval053
+module HumanEval053Goal
 
     use int.Int
 
@@ -17,6 +17,8 @@ module HumanEval053
         x+y
 
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 module TestHumanEval053
 
@@ -87,7 +89,7 @@ module TestHumanEval053
         if not test8() then res <- Cons 8 res;
         res
 
-     let runtest (x : int) : (int, int, int, int) =
+    let runtest (x : int) : (int, int, int, int) =
         let ref res = (-1, -1, -1, -1) in
         if x = 1 then res <- test1_output();
         if x = 2 then res <- test2_output();

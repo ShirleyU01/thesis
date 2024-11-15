@@ -9,7 +9,7 @@ def below_threshold(l: list, t: int):
 *)
 
 (* verified *)
-module HumanEval052
+module HumanEval052Goal
 
     use int.Int
     use list.List
@@ -23,6 +23,9 @@ module HumanEval052
         | Cons x r -> x < t && below_threshold r t
         end
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
+
 
 module TestHumanEval052
 

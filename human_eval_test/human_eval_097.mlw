@@ -12,7 +12,7 @@ def multiply(a, b):
 
  *)
 
-module HumanEval097
+module HumanEval097Goal
 
     use int.Int
     use int.Abs
@@ -23,6 +23,10 @@ module HumanEval097
         let d2 = mod (abs b) 10 in
         d1 * d2
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
+
+
 
 module TestHumanEval097
 

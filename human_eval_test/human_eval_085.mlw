@@ -8,7 +8,7 @@ def add(lst):
     """
 *)
 
-module HumanEval085
+module HumanEval085Goal
     
     use int.Int
     use list.List
@@ -35,6 +35,9 @@ module HumanEval085
         done ;
         res
 end
+
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 
 module TestHumanEval085

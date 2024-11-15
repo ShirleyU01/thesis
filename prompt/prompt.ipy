@@ -1,3 +1,13 @@
+import csv
+
+description = """def sum_product(numbers: List[int]) -> list [int]:
+    For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+    Empty sum should be equal to 0 and empty product should be equal to 1.
+    >>> sum_product([])
+    [0, 1]
+    >>> sum_product([1, 2, 3, 4])
+    [10, 24]
+    """
 # # prompt for ideas
 # def idea(description: str) -> str:
 #     prompt_functionality_brainstorming = f"""
@@ -9,8 +19,24 @@
 #     return prompt_functionality_brainstorming
 
 # prompt for ideas with examples
-example_file = open('/Users/weiranyu/Desktop/15414/thesis/LLM/prompt/example.txt', 'r') 
+# example_file = open('/Users/weiranyu/Desktop/15414/thesis/LLM/prompt/example.txt', 'r') 
+# example = example_file.read()
+
+# def idea(description : str, example : str) -> str:
+#     prompt_functionality_brainstorming = f"""
+#     Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions, 
+#     pattern matching, and different branching conditions. Here is an example of 5 different algorithms for one example description:
+#     `{example}`
+#     According to the following description `{description}`, please generate 5 different ways that a developer might implement 
+#     using why3. Try to make sure that the ways of implementation is as diverse as possible. Describe the high-level behavior 
+#     and expected outcomes and how you would like to implement them. 
+# """
+#     return prompt_functionality_brainstorming
+
+# prompt for ideas with examples 
+example_file = open('/Users/weiranyu/Desktop/15414/thesis/prompt/example.txt', 'r') 
 example = example_file.read()
+
 
 def idea(description : str, example : str) -> str:
     prompt_functionality_brainstorming = f"""
@@ -21,24 +47,51 @@ def idea(description : str, example : str) -> str:
     using why3. Try to make sure that the ways of implementation is as diverse as possible. Describe the high-level behavior 
     and expected outcomes and how you would like to implement them. 
 """
+    print(prompt_functionality_brainstorming)
     return prompt_functionality_brainstorming
 
-# # prompt for implementation
-# def implement() -> str:
-#     prompt_implementation = f"""
-#     Implement the functionality described above using why3. Ensure that the implementation
-#     is syntax-error free, clear, and easy to test. The implementation should focus on 
-#     achieving the high-level behavior described, while not implementating specification."""
-#     return prompt_implementation
+idea(description, example)
+
+
+# prompt for implementation
+def implement() -> str:
+    prompt_implementation = f"""
+    Implement the functionality described above using why3. Ensure that the implementation
+    is syntax-error free, clear, and easy to test. The implementation should focus on 
+    achieving the high-level behavior described, while not implementating specification."""
+    print(prompt_implementation)
+    return prompt_implementation
+
+print(implement())
 
 # prompt for implementation with examples of library usage
-def implement() -> str:
+
+int_lib_file = open('/Users/weiranyu/Desktop/15414/thesis/prompt/lib_summary_int.csv', 'r')
+int_lib = csv.reader(int_lib_file)
+int_lib_str = ''
+for row in int_lib:
+    int_lib_str += ', '.join(row) + '\n'
+
+list_lib_file = open('/Users/weiranyu/Desktop/15414/thesis/prompt/lib_summary_list.csv', 'r')
+list_lib = csv.reader(list_lib_file)
+list_lib_str = ''
+for row in list_lib:
+    list_lib_str += ', '.join(row) + '\n'
+
+def implement(int_lib : str, list_lib : str) -> str:
     prompt_implementation = f"""
     Implement the functionality described above using why3. Ensure that the implementation
     is syntax-error free, clear, and easy to test. Pay attention to correct library usage. For instance,
     if the implementation uses function length from list module, please include it correctly as `use list.Length`. 
+    To provide a boarder sense of available libraries, functions, and correct way of using them, here are two tables
+    for why3 library List and Int, which summarizes function name, function description, function type, and correct
+    way of import:
+    `{list_lib_str}`
+    `{int_lib_str}`
     Remove unnecessary comments and don't implement specification. The implementation should focus on 
     achieving the high-level behavior described.
 """
+    print(prompt_implementation)
     return prompt_implementation
 
+implement(int_lib_str, list_lib_str)

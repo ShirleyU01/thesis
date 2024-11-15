@@ -1,0 +1,181 @@
+module Intersperse
+
+  use list.List
+  use int.Int
+  use list.Length
+  use list.NthNoOpt
+  use list.HdTlNoOpt
+  use list.Reverse
+
+  (* Implementation 1: Using a For-Loop *)
+  let intersperse_for (numbers : list int) (delimiter : int) : list int =
+    let n = length numbers in
+    let ref result = Nil in
+    for i = 0 to n - 1 do
+      result <- Cons (nth i numbers) result;
+      if i < n - 1 then result <- Cons delimiter result
+    done;
+    reverse result
+
+  (* Implementation 2: Using a While-Loop *)
+  let intersperse_while (numbers : list int) (delimiter : int) : list int =
+    let n = length numbers in
+    let ref result = Nil in
+    let ref i = 0 in
+    while i < n do
+      result <- Cons (nth i numbers) result;
+      if i < n - 1 then result <- Cons delimiter result;
+      i <- i + 1
+    done;
+    rev result
+
+  (* Implementation 3: Using Recursion and Pattern Matching *)
+  let rec intersperse_recur_1 (numbers : list int) (delimiter : int) : list int =
+    match numbers with
+    | Nil -> Nil
+    | Cons x Nil -> Cons x Nil
+    | Cons x (Cons y _ as xs) -> Cons x (Cons delimiter (intersperse_recur_1 xs delimiter))
+    end
+
+  (* Implementation 4: Using Tail-Recursion with an Accumulator *)
+  let rec intersperse_tail_recur (numbers : list int) (delimiter : int) (acc : list int) : list int =
+    match numbers with
+    | Nil -> rev acc
+    | Cons x Nil -> rev (Cons x acc)
+    | Cons x (Cons y _ as xs) -> intersperse_tail_recur xs delimiter (Cons delimiter (Cons x acc))
+    end
+
+  let intersperse_tail (numbers : list int) (delimiter : int) : list int =
+    intersperse_tail_recur numbers delimiter Nil
+
+  (* Implementation 5: Using Recursive Branching with If-Then-Else *)
+  let rec intersperse_branch (numbers : list int) (delimiter : int) : list int =
+    if numbers = Nil then Nil
+    else if tl numbers = Nil then numbers
+    else Cons (hd numbers) (Cons delimiter (intersperse_branch (tl numbers) delimiter))
+
+end *)
+
+(* module Intersperse
+
+    use int.Int
+    use list.List
+    use list.Append
+    use list.Length
+    use list.NthNoOpt
+
+    (* Idea 1: Using for-loop *)
+    (* let intersperse_for (numbers : list int) (delimiter : int) : list int =
+        let n = length numbers in
+        let ref result = Nil in
+        for i = 0 to n - 1 do
+            result <- result ++ Cons (nth i numbers) Nil;
+            if i < n - 1 then
+                result <- result ++ Cons delimiter Nil
+        done;
+        result
+
+    (* Idea 2: Using while-loop *)
+    let intersperse_while (numbers : list int) (delimiter : int) : list int =
+        let n = length numbers in
+        let ref i = 0 in
+        let ref result = Nil in
+        while i < n do
+            result <- result ++ Cons (nth i numbers) Nil;
+            if i < n - 1 then
+                result <- result ++ Cons delimiter Nil;
+            i <- i + 1
+        done;
+        result *)
+
+    (* Idea 3: Using recursion and pattern matching *)
+    let rec intersperse_recur_1 (numbers : list int) (delimiter : int) : list int =
+        match numbers with
+        | Nil -> Nil
+        | Cons x Nil -> Cons x Nil
+        | Cons x (Cons y _ as xs) -> Cons x (Cons delimiter (intersperse_recur_1 xs delimiter))
+        end
+
+    (* Idea 4: Using accumulator within recursion *)
+    let rec intersperse_recur_2_accumulator (numbers : list int) (delimiter : int) (acc : list int) : list int =
+        match numbers with
+        | Nil -> acc
+        | Cons x Nil -> acc ++ Cons x Nil
+        | Cons x xs -> intersperse_recur_2_accumulator xs delimiter (acc ++ Cons x (Cons delimiter Nil))
+        end
+
+    let intersperse_recur_2 (numbers : list int) (delimiter : int) : list int =
+        intersperse_recur_2_accumulator numbers delimiter Nil
+
+    (* Idea 5: Using recursion and branching (if-then-else) *)
+    let rec intersperse_recur_3 (numbers : list int) (delimiter : int) : list int =
+        match numbers with
+        | Nil -> Nil
+        | Cons x Nil -> Cons x Nil
+        | Cons x xs -> Cons x (Cons delimiter (intersperse_recur_3 xs delimiter))
+        end
+
+end
+(* 
+module SumProduct
+
+use int.Int
+use list.List
+use list.Length
+use list.NthNoOpt
+
+(* Idea 1: Using a For-Loop *)
+let sum_product_for (numbers: list int) : list int =
+    let n = length numbers in
+    let ref sum = 0 in
+    let ref product = 1 in
+    for i = 0 to n - 1 do
+        sum <- sum + nth_1 i numbers;
+        product <- product * nth_1 i numbers
+    done ;
+    [sum; product]
+
+(* Idea 2: Using a While-Loop *)
+let sum_product_while (numbers: list int) : list int =
+    let n = length numbers in
+    let ref i = 0 in
+    let ref sum = 0 in
+    let ref product = 1 in
+    while i < n do
+        sum <- sum + nth_1 i numbers;
+        product <- product * nth_1 i numbers;
+        i <- i + 1
+    done ;
+    [sum; product]
+
+(* Idea 3: Using Recursion and Pattern Matching *)
+let rec sum_product_recur (numbers: list int) : list int =
+    match numbers with
+    | Nil -> [0; 1]
+    | Cons x xs -> 
+        let [sum_rest; prod_rest] = sum_product_recur xs in
+        [sum_rest + x; prod_rest * x]
+
+(* Idea 4: Using Accumulators Within Recursion *)
+let rec sum_product_accumulator (numbers: list int) (acc_sum: int) (acc_prod: int) : list int =
+    match numbers with
+    | Nil -> [acc_sum; acc_prod]
+    | Cons x xs -> sum_product_accumulator xs (acc_sum + x) (acc_prod * x)
+
+let sum_product_recur_acc (numbers: list int) : list int =
+    sum_product_accumulator numbers 0 1
+
+(* Idea 5: Using Recursion and Branching (If-Then-Else) *)
+let rec sum_product_branching (numbers: list int) : list int =
+    match numbers with
+    | Nil -> [0; 1]
+    | Cons x xs -> 
+        let [sum_rest; prod_rest] = sum_product_branching xs in
+        if sum_rest + x > sum_rest then 
+            [sum_rest + x; prod_rest * x]
+        else 
+            [sum_rest + x; prod_rest * x]
+
+end *)
+
+

@@ -13,7 +13,7 @@ def double_the_difference(lst):
     '''
  *)
 
-module HumanEval151
+module HumanEval151Goal
 
     use int.Int
     use list.List
@@ -28,6 +28,9 @@ module HumanEval151
         end
 
 end
+
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 
 module TestHumanEval151

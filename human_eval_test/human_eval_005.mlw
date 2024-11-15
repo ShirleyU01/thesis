@@ -9,7 +9,7 @@ def intersperse(numbers: List[int], delimiter: int) -> List[int]:
 *)
 
 
-module HumanEval005
+module HumanEval005Goal
 
     use int.Int
     use list.List
@@ -22,6 +22,9 @@ module HumanEval005
         end
 
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
+
 
 module TestHumanEval005
 
@@ -95,13 +98,12 @@ module TestHumanEval005
         res
 
     let runtest (x : int) : (list int, int, list int, list int) =
-        let ref res = (Nil, -1, Nil, Nil) in
-        if x = 1 then res <- test1_output();
-        if x = 2 then res <- test2_output();
-        if x = 3 then res <- test3_output();
-        if x = 4 then res <- test4_output();
-        if x = 5 then res <- test5_output();
-        res
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else (Nil, -1, Nil, Nil)
     
     let rec failoutput (l : list int) : list (list int, int, list int, list int) =
         match l with

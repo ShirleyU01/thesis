@@ -13,7 +13,7 @@ def sum_to_n(n: int):
     1
 *)
 
-module HumanEval060
+module HumanEval060Goal
 
     use int.Int
     use int.EuclideanDivision
@@ -25,6 +25,8 @@ module HumanEval060
         done;
         result
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 module TestHumanEval060
 

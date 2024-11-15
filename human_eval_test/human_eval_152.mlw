@@ -16,7 +16,7 @@ def compare(game,guess):
     """
  *)
 
-module HumanEval152
+module HumanEval152Goal
 
     use int.Int
     use int.Abs
@@ -29,6 +29,9 @@ module HumanEval152
         end
 
 end
+
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 module TestHumanEval152
 

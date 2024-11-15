@@ -10,7 +10,7 @@ def monotonic(l: list):
     """
  *)
 
-module HumanEval057
+module HumanEval057Goal
     
     use int.Int
     use list.List
@@ -38,6 +38,8 @@ module HumanEval057
         if length l <= 1 then true
         else helper l (nth_1 0 l) (nth_1 0 l < nth_1 1 l)
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 
 module TestHumanEval057

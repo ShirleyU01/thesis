@@ -19,7 +19,7 @@ def is_prime(n):
  *)
 
 
-module HumanEval031
+module HumanEval031Goal
 
     use int.Int
     use int.EuclideanDivision
@@ -34,6 +34,10 @@ module HumanEval031
             done ;
             flag
 end
+
+
+(* Todo: Put the implementation from ChatGPT here *)
+
 
 module TestHumanEval031
     use int.Int

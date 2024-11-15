@@ -31,7 +31,7 @@ def eat(number, need, remaining):
 
  *)
 
-module HumanEval159
+module HumanEval159Goal
 
     use int.Int
     use list.List
@@ -40,8 +40,10 @@ module HumanEval159
         if need <= remaining 
         then Cons (need + number) (Cons (remaining - need) Nil)
         else Cons (number + remaining) (Cons 0 Nil)
-
+        
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
 
 module TestHumanEval159
 

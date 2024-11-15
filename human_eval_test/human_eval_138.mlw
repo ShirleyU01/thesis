@@ -8,7 +8,7 @@ def is_equal_to_sum_even(n):
     """
 *)
 
-module HumanEval138
+module HumanEval138Goal
 
     use int.Int
     use int.EuclideanDivision
@@ -22,6 +22,10 @@ module HumanEval138
                 else true
             end
 end
+
+(* Todo: Put the implementation from ChatGPT here *)
+
+
 
 module TestHumanEval138
 
