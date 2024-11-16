@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to increment each element of the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Append\n\nlet incr_list_for (t: list int) : list int =\n  let n = length t in\n  let ref result = Nil in\n  for i = 0 to n-1 do\n    result <- append result (Cons ((nth i t) + 1) Nil)\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using a while-loop to increment each element of the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Append\n\nlet incr_list_while (t: list int) : list int =\n  let n = length t in\n  let ref i = 0 in\n  let ref result = Nil in\n  while i < n do\n    result <- append result (Cons ((nth i t) + 1) Nil);\n    i <- i + 1\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to increment each element",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec incr_list_recur_1 (t: list int) : list int =\n  match t with\n  | Nil -> Nil\n  | Cons x xs -> Cons (x + 1) (incr_list_recur_1 xs)\n  end\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to increment each element",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec incr_list_recur_2_accumulator (t: list int) (accumulator: list int) : list int =\n  match t with\n  | Nil -> accumulator\n  | Cons x xs -> incr_list_recur_2_accumulator xs (append accumulator (Cons (x + 1) Nil))\n  end\n\nlet incr_list_recur_2 (t: list int) : list int =\n  incr_list_recur_2_accumulator t Nil\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) to increment each element",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec incr_list_recur_3 (t: list int) : list int =\n  match t with\n  | Nil -> Nil\n  | Cons x xs -> let result = incr_list_recur_3 xs in\n                 if true then Cons (x + 1) result else result\n  end\nend"
+        },
+        {
+            "description": "Using map function to increment each element in the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec map (f: int -> int) (l: list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> Cons (f x) (map f xs)\n  end\n\nlet incr_list_map (t: list int) : list int =\n  map (fun x -> x + 1) t\nend"
+        },
+        {
+            "description": "Using fold-right to increment each element of the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec fold_right (f: int -> list int -> list int) (l: list int) (acc: list int) : list int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> f x (fold_right f xs acc)\n  end\n\nlet incr_list_fold_right (t: list int) : list int =\n  fold_right (fun x acc -> Cons (x + 1) acc) t Nil\nend"
+        },
+        {
+            "description": "Using fold-left to increment each element of the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec fold_left (f: list int -> int -> list int) (acc: list int) (l: list int) : list int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> fold_left f (f acc x) xs\n  end\n\nlet incr_list_fold_left (t: list int) : list int =\n  fold_left (fun acc x -> append acc (Cons (x + 1) Nil)) Nil t\nend"
+        },
+        {
+            "description": "Using tail recursion to increment each element of the list",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec incr_list_tail (t: list int) (acc: list int) : list int =\n  match t with\n  | Nil -> acc\n  | Cons x xs -> incr_list_tail xs (append acc (Cons (x + 1) Nil))\n  end\n\nlet incr_list_tail_main (t: list int) : list int =\n  incr_list_tail t Nil\nend"
+        },
+        {
+            "description": "Using list comprehension (conceptual) to increment each element",
+            "implementation": "module IncrList\n\nuse int.Int\nuse list.List\n\nlet rec list_comprehension (f: int -> int) (l: list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> append (Cons (f x) Nil) (list_comprehension f xs)\n  end\n\nlet incr_list_comprehension (t: list int) : list int =\n  list_comprehension (fun x -> x + 1) t\nend"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using for-loop to iterate through the list and check conditions.",
+            "implementation": "module AddEvenOddIndices\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let add_even_odd_indices_for (lst : list int) : int = \n        let n = length lst in\n        let ref sum = 0 in\n        for i = 1 to n-1 do\n            if i mod 2 = 1 && (nth i lst) mod 2 = 0 then\n                sum <- sum + nth i lst;\n        done;\n        sum\nend"
+        },
+        {
+            "description": "Using while-loop to traverse the list and accumulate the sum of even numbers at odd indices.",
+            "implementation": "module AddEvenOddIndices\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let add_even_odd_indices_while (lst : list int) : int = \n        let n = length lst in\n        let ref i = 1 in \n        let ref sum = 0 in\n        while i < n do\n            if i mod 2 = 1 && (nth i lst) mod 2 = 0 then\n                sum <- sum + nth i lst;\n            i <- i + 1;\n        done;\n        sum\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to accumulate the sum of even numbers at odd indices.",
+            "implementation": "module AddEvenOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_even_odd_indices_recur (lst : list int) (index : int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs ->\n            let current_sum = if index mod 2 = 1 && x mod 2 = 0 then x else 0 in\n            current_sum + add_even_odd_indices_recur xs (index + 1)\n    \n    let add (lst : list int) : int = \n        add_even_odd_indices_recur lst 0\nend"
+        },
+        {
+            "description": "Using an accumulator in a recursive function to keep track of the sum.",
+            "implementation": "module AddEvenOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_even_odd_indices_acc (lst : list int) (index : int) (acc : int) : int = \n        match lst with\n        | Nil -> acc\n        | Cons x xs ->\n            let new_acc = if index mod 2 = 1 && x mod 2 = 0 then acc + x else acc in\n            add_even_odd_indices_acc xs (index + 1) new_acc\n    \n    let add (lst : list int) : int = \n        add_even_odd_indices_acc lst 0 0\nend"
+        },
+        {
+            "description": "Using recursion with branching (if-then-else) to handle the conditions.",
+            "implementation": "module AddEvenOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_even_odd_indices_branch (lst : list int) (index : int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs -> \n            let current_sum = if index mod 2 = 1 then if x mod 2 = 0 then x else 0 else 0 in\n            current_sum + add_even_odd_indices_branch xs (index + 1)\n    \n    let add (lst : list int) : int = \n        add_even_odd_indices_branch lst 0\nend"
+        }
+    ]
+}

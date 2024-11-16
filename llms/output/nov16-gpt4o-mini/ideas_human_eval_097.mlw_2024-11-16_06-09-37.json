@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using simple modulo arithmetic to extract unit digits directly.",
+            "implementation": "module Multiply\n\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let unit_digit_a = abs(a) mod 10 in\n    let unit_digit_b = abs(b) mod 10 in\n    unit_digit_a * unit_digit_b\nend"
+        },
+        {
+            "description": "Using string conversion to retrieve unit digits from the integers.",
+            "implementation": "module Multiply\n\n  use int.Int\n  use string.String\n\n  let multiply (a: int) (b: int) : int =\n    let str_a = string_of_int (abs(a)) in\n    let str_b = string_of_int (abs(b)) in\n    let unit_digit_a = int_of_string (String.sub str_a (String.length str_a - 1) 1) in\n    let unit_digit_b = int_of_string (String.sub str_b (String.length str_b - 1) 1) in\n    unit_digit_a * unit_digit_b\nend"
+        },
+        {
+            "description": "Using a loop to extract unit digits by continuously dividing by 10.",
+            "implementation": "module Multiply\n\n  use int.Int\n\n  let rec get_unit_digit (n: int) : int =\n    if n < 10 then abs(n) else get_unit_digit (n / 10)\n\n  let multiply (a: int) (b: int) : int =\n    get_unit_digit a * get_unit_digit b\nend"
+        },
+        {
+            "description": "Using recursion to calculate the unit digit through repeated subtraction.",
+            "implementation": "module Multiply\n\n  use int.Int\n\n  let rec unit_digit (n: int) : int =\n    if n < 10 then abs(n) else unit_digit (n - 10)\n\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Using pattern matching to separate positive and negative inputs for unit digit extraction.",
+            "implementation": "module Multiply\n\n  use int.Int\n\n  let rec unit_digit (n: int) : int =\n    match n with\n    | n when n < 10 -> abs(n)\n    | _ -> unit_digit (n / 10)\n\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        }
+    ]
+}

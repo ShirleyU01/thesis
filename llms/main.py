@@ -1,15 +1,30 @@
-# main.py
+import csv
+
 from ideas_generation import IdeasGeneration
 from llm import LLM
 
 def main():
-    llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
-    #llm = LLM(model="gpt4o", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
-    # Create an instance of IdeasGeneration
-    ideas_generator = IdeasGeneration(nb_ideas=5,attempts=3,llm=llm)
-    
-    # Call the run method
-    ideas_generator.run()
+    # Open the CSV file and read its contents
+    with open('data/description.csv', mode='r') as file:
+        reader = csv.reader(file)
+        
+        # Skip the header row if your CSV file has one
+        header = next(reader, None)
+        
+        # Read rows and process them
+        for row in reader:
+            if len(row) == 2:  # Ensure the row has exactly two columns
+                column1, column2 = row
+                #print(f"Column 1: {column1}, Column 2: {column2}")
+
+                #llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+                llm = LLM(model="gpt4o", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+
+                # Create an instance of IdeasGeneration
+                ideas_generator = IdeasGeneration(nb_ideas=10,attempts=3,llm=llm,description=column2,filename=column1)
+                
+                # Call the run method
+                ideas_generator.run()
 
 if __name__ == "__main__":
     main()

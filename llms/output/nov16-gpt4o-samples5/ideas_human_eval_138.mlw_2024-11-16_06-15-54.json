@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate through even numbers and check combinations.",
+            "implementation": "module SumEven\n\nuse int.Int\n\n(* Idea 1: Using for-loop *)\nlet is_equal_to_sum_even_for (n : int) : bool = \n  let ref found = false in\n  for a = 2 to n do\n    if a mod 2 = 0 then\n      for b = 2 to n do\n        if b mod 2 = 0 then\n          for c = 2 to n do\n            if c mod 2 = 0 then\n              for d = 2 to n do\n                if d mod 2 = 0 then\n                  if a + b + c + d = n then found <- true\n              done\n          done\n      done\n  done;\n  found\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iteratively check possible sums of even numbers.",
+            "implementation": "module SumEven\n\nuse int.Int\n\n(* Idea 2: Using while-loop *)\nlet is_equal_to_sum_even_while (n : int) : bool = \n  let ref found = false in\n  let ref a = 2 in\n  while a <= n do\n    if a mod 2 = 0 then\n      let ref b = 2 in\n      while b <= n do\n        if b mod 2 = 0 then\n          let ref c = 2 in\n          while c <= n do\n            if c mod 2 = 0 then\n              let ref d = 2 in\n              while d <= n do\n                if d mod 2 = 0 && a + b + c + d = n then found <- true;\n                d <- d + 2\n              done;\n            c <- c + 2\n          done;\n        b <- b + 2\n      done;\n    a <- a + 2\n  done;\n  found\n\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to explore combinations of even numbers.",
+            "implementation": "module SumEven\n\nuse int.Int\n\n(* Idea 3: Using recursion and pattern matching *)\nlet rec is_equal_to_sum_even_recur_1 (n : int) (depth : int) : bool =\n  match depth with\n  | 0 -> n = 0\n  | _ -> (let rec aux (x : int) : bool =\n            if x > n then false\n            else if is_equal_to_sum_even_recur_1 (n - x) (depth - 1) then true\n            else aux (x + 2))\n          in aux 2\n  end\n\nlet is_equal_to_sum_even (n : int) : bool =\n  is_equal_to_sum_even_recur_1 n 4\n\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to track the sum of elements.",
+            "implementation": "module SumEven\n\nuse int.Int\n\n(* Idea 4: Using accumulator within recursion *)\nlet rec is_equal_to_sum_even_recur_2_accumulator (n : int) (sum : int) (depth : int) : bool =\n  if depth = 0 then sum = n\n  else\n    let rec aux (x : int) : bool =\n      if x > n then false\n      else if is_equal_to_sum_even_recur_2_accumulator n (sum + x) (depth - 1) then true\n      else aux (x + 2)\n    in aux 2\n\nlet is_equal_to_sum_even (n : int) : bool =\n  is_equal_to_sum_even_recur_2_accumulator n 0 4\n\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) to explore possible sums.",
+            "implementation": "module SumEven\n\nuse int.Int\n\n(* Idea 5: Using recursion and branching (if-then-else) *)\nlet rec is_equal_to_sum_even_recur_3 (n : int) (depth : int) : bool =\n  if depth = 0 then n = 0\n  else\n    let rec aux (x : int) : bool =\n      if x > n then false\n      else if is_equal_to_sum_even_recur_3 (n - x) (depth - 1) then true\n      else aux (x + 2)\n    in aux 2\n\nlet is_equal_to_sum_even (n : int) : bool =\n  is_equal_to_sum_even_recur_3 n 4\n\nend"
+        }
+    ]
+}

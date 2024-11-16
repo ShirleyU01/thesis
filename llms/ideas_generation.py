@@ -33,6 +33,8 @@ class IdeasGeneration():
     nb_ideas: int # number of ideas
     attempts: int # number of attempts
     llm: LLM # LLM object
+    description: str # description of the problem
+    filename: str # filename
 
     def _create_system_prompt(self):
         return """
@@ -139,11 +141,8 @@ class IdeasGeneration():
 
         return None
 
-    def _get_ideas(self) -> Ideas | None:
+    def _get_ideas(self, description, example) -> Ideas | None:
         system_prompt = self._create_system_prompt()
-
-        example_file = open('prompt/example.txt', 'r')
-        example = example_file.read()
         user_prompt = self._create_user_prompt(description, example, self.nb_ideas)
 
         logger.debug(f"user prompt tokens: {Util.count_tokens(user_prompt, self.llm.model)}")
@@ -159,12 +158,15 @@ class IdeasGeneration():
 
         
     def run(self):
-        ideas = self._get_ideas()
+        example_file = open('data/example.txt', 'r')
+        example = example_file.read()
+        
+        ideas = self._get_ideas(self.description, example)
         if ideas is not None:
             try:
                 # Generate filename with current date and time
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                filename = f"ideas_{timestamp}.json"
+                filename = f"ideas_{self.filename}_{timestamp}.json"
 
                 with open(filename, "w") as file:
                     # Write ideas to the file in JSON format

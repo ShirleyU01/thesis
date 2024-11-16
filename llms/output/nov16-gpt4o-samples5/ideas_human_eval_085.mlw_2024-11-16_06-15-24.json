@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using for-loop to iterate through the list and add even elements at odd indices",
+            "implementation": "module AddEvenAtOddIndices\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let add_for_loop (lst: list int) : int =\n        let n = length lst in\n        let ref sum = 0 in\n        for i = 0 to n - 1 do\n            if i mod 2 = 1 && nth i lst mod 2 = 0 then\n                sum <- sum + nth i lst\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using while-loop to traverse the list and accumulate the sum of even elements at odd indices",
+            "implementation": "module AddEvenAtOddIndices\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let add_while_loop (lst: list int) : int =\n        let n = length lst in\n        let ref i = 0 in\n        let ref sum = 0 in\n        while i < n do\n            if i mod 2 = 1 && nth i lst mod 2 = 0 then\n                sum <- sum + nth i lst;\n            i <- i + 1\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to sum even elements at odd indices",
+            "implementation": "module AddEvenAtOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_recursive_pattern (lst: list int) (index: int) : int =\n        match lst with\n        | Nil -> 0\n        | Cons x xs ->\n            if index mod 2 = 1 && x mod 2 = 0 then\n                x + add_recursive_pattern xs (index + 1)\n            else\n                add_recursive_pattern xs (index + 1)\n        end\n\n    let add_recursive lst = add_recursive_pattern lst 0\n\nend"
+        },
+        {
+            "description": "Using accumulator within recursion to sum even elements at odd indices",
+            "implementation": "module AddEvenAtOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_recursive_accumulator (lst: list int) (index: int) (accumulator: int) : int =\n        match lst with\n        | Nil -> accumulator\n        | Cons x xs ->\n            let new_accumulator = if index mod 2 = 1 && x mod 2 = 0 then accumulator + x else accumulator in\n            add_recursive_accumulator xs (index + 1) new_accumulator\n        end\n\n    let add_accumulator lst = add_recursive_accumulator lst 0 0\n\nend"
+        },
+        {
+            "description": "Using recursion with branching (if-then-else) to sum even elements at odd indices",
+            "implementation": "module AddEvenAtOddIndices\n\n    use int.Int\n    use list.List\n\n    let rec add_recursive_branching (lst: list int) (index: int) : int =\n        match lst with\n        | Nil -> 0\n        | Cons x xs ->\n            if index mod 2 = 1 && x mod 2 = 0 then\n                x + add_recursive_branching xs (index + 1)\n            else\n                add_recursive_branching xs (index + 1)\n        end\n\n    let add_branching lst = add_recursive_branching lst 0\n\nend"
+        }
+    ]
+}

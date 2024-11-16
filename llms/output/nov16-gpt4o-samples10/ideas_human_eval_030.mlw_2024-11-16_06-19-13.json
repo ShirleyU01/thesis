@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to filter positive numbers",
+            "implementation": "module GetPositiveForLoop\n\n  use list.List\n  use list.Length\n\n  let get_positive_for (l: list int) : list int =\n    let n = length l in\n    let ref result = Nil in\n    for i = 0 to n - 1 do\n      let x = nth i l in\n      if x > 0 then result <- Cons x result\n    done;\n    reverse result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to filter positive numbers",
+            "implementation": "module GetPositiveWhileLoop\n\n  use list.List\n  use list.Length\n\n  let get_positive_while (l: list int) : list int =\n    let ref i = 0 in\n    let ref result = Nil in\n    let n = length l in\n    while i < n do\n      let x = nth i l in\n      if x > 0 then result <- Cons x result;\n      i <- i + 1\n    done;\n    reverse result\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to filter positive numbers",
+            "implementation": "module GetPositiveRecursionPattern\n\n  use list.List\n\n  let rec get_positive_recur_pattern (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive_recur_pattern xs) else get_positive_recur_pattern xs\n    end\n\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator to build the list of positive numbers",
+            "implementation": "module GetPositiveRecursionAccumulator\n\n  use list.List\n\n  let rec get_positive_recur_acc (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> reverse acc\n    | Cons x xs -> if x > 0 then get_positive_recur_acc xs (Cons x acc) else get_positive_recur_acc xs acc\n    end\n\n  let get_positive (l: list int) : list int =\n    get_positive_recur_acc l Nil\n\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) to filter positive numbers",
+            "implementation": "module GetPositiveRecursionBranching\n\n  use list.List\n\n  let rec get_positive_recur_branch (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive_recur_branch xs) else get_positive_recur_branch xs\n    end\n\nend"
+        },
+        {
+            "description": "Using high-order function (map and filter approach) to filter positive numbers",
+            "implementation": "module GetPositiveHighOrder\n\n  use list.List\n\n  let rec filter_positive (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (filter_positive xs) else filter_positive xs\n    end\n\n  let get_positive_high_order (l: list int) : list int =\n    filter_positive l\n\nend"
+        },
+        {
+            "description": "Using functional fold to accumulate positive numbers",
+            "implementation": "module GetPositiveFold\n\n  use list.List\n  use list.Length\n\n  let rec fold (f: 'a -> 'b -> 'a) (acc: 'a) (l: list 'b) : 'a =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> fold f (f acc x) xs\n    end\n\n  let add_if_positive (acc: list int) (x: int) : list int =\n    if x > 0 then Cons x acc else acc\n\n  let get_positive_fold (l: list int) : list int =\n    reverse (fold add_if_positive Nil l)\n\nend"
+        },
+        {
+            "description": "Using a list comprehension style approach to filter positive numbers",
+            "implementation": "module GetPositiveComprehension\n\n  use list.List\n\n  let rec get_positive_comprehension (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive_comprehension xs) else get_positive_comprehension xs\n    end\n\nend"
+        },
+        {
+            "description": "Using explicit stack to simulate recursion for filtering positive numbers",
+            "implementation": "module GetPositiveStack\n\n  use list.List\n  use list.Length\n\n  let get_positive_stack (l: list int) : list int =\n    let ref stack = l in\n    let ref result = Nil in\n    while stack <> Nil do\n      match stack with\n      | Cons x xs ->\n        if x > 0 then result <- Cons x result;\n        stack <- xs\n      end\n    done;\n    reverse result\n\nend"
+        },
+        {
+            "description": "Using tail recursion to filter positive numbers",
+            "implementation": "module GetPositiveTailRecursion\n\n  use list.List\n\n  let rec get_positive_tail (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> reverse acc\n    | Cons x xs -> if x > 0 then get_positive_tail xs (Cons x acc) else get_positive_tail xs acc\n    end\n\n  let get_positive (l: list int) : list int =\n    get_positive_tail l Nil\n\nend"
+        }
+    ]
+}

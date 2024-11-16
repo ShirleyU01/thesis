@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using a simple for-loop to accumulate the sum from 1 to n.",
+            "implementation": "module SumToN\n\n    use int.Int\n\n    let sum_to_n_for (n: int) : int =\n        let ref sum = 0 in\n        for i = 1 to n do\n            sum <- sum + i\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop with an index to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n    use int.Int\n\n    let sum_to_n_while (n: int) : int =\n        let ref i = 1 in\n        let ref sum = 0 in\n        while i <= n do\n            sum <- sum + i;\n            i <- i + 1\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using recursion to compute the sum from 1 to n with pattern matching.",
+            "implementation": "module SumToN\n\n    use int.Int\n\n    let rec sum_to_n_recur_1 (n: int) : int =\n        match n with\n        | 0 -> 0\n        | m -> m + (sum_to_n_recur_1 (m - 1))\n        end\n\nend"
+        },
+        {
+            "description": "Using tail recursion with an accumulator to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n    use int.Int\n\n    let rec sum_to_n_recur_2_acc (n: int) (accumulator: int) : int =\n        match n with\n        | 0 -> accumulator\n        | m -> sum_to_n_recur_2_acc (m - 1) (accumulator + m)\n        end\n\n    let sum_to_n_recur_2 (n: int) : int =\n        sum_to_n_recur_2_acc n 0\n\nend"
+        },
+        {
+            "description": "Using mathematical formula as an alternative approach to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n    use int.Int\n\n    let sum_to_n_formula (n: int) : int =\n        n * (n + 1) / 2\n\nend"
+        }
+    ]
+}

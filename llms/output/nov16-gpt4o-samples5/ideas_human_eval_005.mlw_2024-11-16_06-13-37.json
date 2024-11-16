@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to intersperse the delimiter between elements",
+            "implementation": "module Intersperse\n\n  use list.List\n  use list.Append\n\n  let intersperse_for (numbers: list int) (delimiter: int): list int =\n    let n = length numbers in\n    let ref result = Nil in\n    for i = 0 to n - 1 do\n      result <- append result (Cons (nth i numbers) Nil);\n      if i < n - 1 then\n        result <- append result (Cons delimiter Nil)\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to intersperse the delimiter between elements",
+            "implementation": "module Intersperse\n\n  use list.List\n  use list.Append\n\n  let intersperse_while (numbers: list int) (delimiter: int): list int =\n    let n = length numbers in\n    let ref i = 0 in\n    let ref result = Nil in\n    while i < n do\n      result <- append result (Cons (nth i numbers) Nil);\n      if i < n - 1 then\n        result <- append result (Cons delimiter Nil);\n      i <- i + 1\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to intersperse the delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n  use list.Append\n\n  let rec intersperse_recur_pattern (numbers: list int) (delimiter: int): list int =\n    match numbers with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y xs) -> Cons x (Cons delimiter (intersperse_recur_pattern (Cons y xs) delimiter))\n    end\n\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator to intersperse the delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n  use list.Append\n\n  let rec intersperse_recur_acc (numbers: list int) (delimiter: int) (acc: list int): list int =\n    match numbers with\n    | Nil -> acc\n    | Cons x Nil -> append acc (Cons x Nil)\n    | Cons x xs ->\n        let acc_with_delim = append acc (Cons x (Cons delimiter Nil)) in\n        intersperse_recur_acc xs delimiter acc_with_delim\n    end\n\n  let intersperse_acc (numbers: list int) (delimiter: int): list int =\n    intersperse_recur_acc numbers delimiter Nil\n\nend"
+        },
+        {
+            "description": "Using recursion with if-then-else branching to intersperse the delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n  use list.Append\n\n  let rec intersperse_recur_branch (numbers: list int) (delimiter: int): list int =\n    match numbers with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> \n        let rest = intersperse_recur_branch xs delimiter in\n        if length xs > 0 then\n          append (Cons x (Cons delimiter Nil)) rest\n        else\n          Cons x rest\n    end\n\nend"
+        }
+    ]
+}

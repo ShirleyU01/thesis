@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to check if the list is monotonically increasing or decreasing.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n    use bool.Bool\n\n    let monotonic_for (t: list int) : bool =\n        let n = length t in\n        let ref increasing = True in\n        let ref decreasing = True in\n        for i = 0 to n-2 do\n            if nth i t < nth (i+1) t then decreasing <- False;\n            if nth i t > nth (i+1) t then increasing <- False\n        done;\n        increasing || decreasing\n\nend"
+        },
+        {
+            "description": "Using a while-loop to determine if the list is monotonically increasing or decreasing.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n    use bool.Bool\n\n    let monotonic_while (t: list int) : bool =\n        let n = length t in\n        let ref i = 0 in\n        let ref increasing = True in\n        let ref decreasing = True in\n        while i < n-1 do\n            if nth i t < nth (i+1) t then decreasing <- False;\n            if nth i t > nth (i+1) t then increasing <- False;\n            i <- i + 1\n        done;\n        increasing || decreasing\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to check list monotonicity.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let rec monotonic_recur_pattern (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) -> \n            if x < y then monotonic_recur_pattern (Cons y ys)\n            else if x > y then monotonic_recur_pattern (Cons y ys)\n            else False\n        end\n\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to determine monotonicity.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let rec monotonic_accumulator (t: list int) (increasing: bool) (decreasing: bool) : bool =\n        match t with\n        | Nil -> increasing || decreasing\n        | Cons x Nil -> increasing || decreasing\n        | Cons x (Cons y ys) ->\n            if increasing && x <= y then monotonic_accumulator (Cons y ys) True decreasing\n            else if decreasing && x >= y then monotonic_accumulator (Cons y ys) increasing True\n            else False\n        end\n\n    let monotonic_recur_acc (t: list int) : bool =\n        monotonic_accumulator t True True\n\nend"
+        },
+        {
+            "description": "Using recursion with explicit if-then-else branching.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let rec monotonic_recur_branch (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) ->\n            if x <= y then monotonic_recur_branch (Cons y ys)\n            else if x >= y then monotonic_recur_branch (Cons y ys)\n            else False\n        end\n\nend"
+        },
+        {
+            "description": "Using two separate recursive functions, one for increasing and one for decreasing.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let rec is_increasing (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) ->\n            if x <= y then is_increasing (Cons y ys) else False\n        end\n\n    let rec is_decreasing (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) ->\n            if x >= y then is_decreasing (Cons y ys) else False\n        end\n\n    let monotonic_separate (t: list int) : bool =\n        is_increasing t || is_decreasing t\n\nend"
+        },
+        {
+            "description": "Using an iterative approach with a single pass and a direction flag.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n    use bool.Bool\n\n    let monotonic_iterative (t: list int) : bool =\n        let n = length t in\n        if n < 2 then True\n        else let ref direction = 0 in\n             let ref i = 0 in\n             while i < n-1 do\n                 let current = nth i t in\n                 let next = nth (i+1) t in\n                 if direction = 0 then\n                     if current < next then direction <- 1\n                     else if current > next then direction <- -1;\n                 if (direction = 1 && current > next) || (direction = -1 && current < next) then\n                     False;\n                 i <- i + 1\n             done;\n             True\n\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the monotonicity state.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let monotonic_fold (t: list int) : bool =\n        let rec fold_left f acc l =\n            match l with\n            | Nil -> acc\n            | Cons x xs -> fold_left f (f acc x) xs\n            end\n        in\n        let check (increasing, decreasing) x y =\n            (increasing && x <= y, decreasing && x >= y)\n        in\n        let initial = (True, True) in\n        let (increasing, decreasing) = fold_left check initial t in\n        increasing || decreasing\n\nend"
+        },
+        {
+            "description": "Using a combinatorial approach with separate checks for increasing and decreasing elements.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use bool.Bool\n\n    let rec check_increasing (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) ->\n            if x <= y then check_increasing (Cons y ys) else False\n        end\n\n    let rec check_decreasing (t: list int) : bool =\n        match t with\n        | Nil -> True\n        | Cons x Nil -> True\n        | Cons x (Cons y ys) ->\n            if x >= y then check_decreasing (Cons y ys) else False\n        end\n\n    let monotonic_combinatorial (t: list int) : bool =\n        check_increasing t || check_decreasing t\n\nend"
+        },
+        {
+            "description": "Using nested for-loops to check for both increasing and decreasing sequences.",
+            "implementation": "module Monotonic\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n    use bool.Bool\n\n    let monotonic_nested_for (t: list int) : bool =\n        let n = length t in\n        let ref increasing = True in\n        let ref decreasing = True in\n        for i = 0 to n-2 do\n            if nth i t < nth (i+1) t then decreasing <- False;\n            if nth i t > nth (i+1) t then increasing <- False\n        done;\n        increasing || decreasing\n\nend"
+        }
+    ]
+}

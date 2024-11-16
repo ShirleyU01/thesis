@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate over the list and check conditions for odd integers.",
+            "implementation": "module DoubleTheDifferenceFor\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_for (lst : list int) : int =\n        let n = length lst in\n        let ref sum = 0 in\n        for i = 0 to n - 1 do\n            let value = nth i lst in\n            if value >= 0 && value mod 2 = 1 then\n                sum <- sum + value * value\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate over the list and accumulate the sum of squares of odd numbers.",
+            "implementation": "module DoubleTheDifferenceWhile\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_while (lst : list int) : int =\n        let n = length lst in\n        let ref i = 0 in\n        let ref sum = 0 in\n        while i < n do\n            let value = nth i lst in\n            if value >= 0 && value mod 2 = 1 then\n                sum <- sum + value * value;\n            i <- i + 1\n        done;\n        sum\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to calculate the sum of squares of odd numbers.",
+            "implementation": "module DoubleTheDifferenceRecursion\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_recur (lst : list int) : int =\n        match lst with\n        | Nil -> 0\n        | Cons x xs -> if x >= 0 && x mod 2 = 1 then\n                          x * x + double_the_difference_recur xs\n                       else\n                          double_the_difference_recur xs\n        end\n\nend"
+        },
+        {
+            "description": "Using an accumulator within recursive function to keep track of the sum.",
+            "implementation": "module DoubleTheDifferenceAccumulator\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_acc (lst : list int) (acc : int) : int =\n        match lst with\n        | Nil -> acc\n        | Cons x xs -> if x >= 0 && x mod 2 = 1 then\n                          double_the_difference_acc xs (acc + x * x)\n                       else\n                          double_the_difference_acc xs acc\n        end\n\n    let double_the_difference (lst : list int) : int =\n        double_the_difference_acc lst 0\n\nend"
+        },
+        {
+            "description": "Using recursion and if-then-else branching to compute the sum of squares of odd numbers.",
+            "implementation": "module DoubleTheDifferenceBranching\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_branch (lst : list int) : int =\n        if length lst = 0 then 0\n        else let value = head lst in\n             let rest = tail lst in\n             if value >= 0 && value mod 2 = 1 then\n                value * value + double_the_difference_branch rest\n             else\n                double_the_difference_branch rest\n\nend"
+        },
+        {
+            "description": "Using map and fold to transform and reduce the list.",
+            "implementation": "module DoubleTheDifferenceMapFold\n\n    use int.Int\n    use list.List\n\n    let square_odd (x : int) : int =\n        if x >= 0 && x mod 2 = 1 then x * x else 0\n\n    let double_the_difference_map_fold (lst : list int) : int =\n        let squared = map square_odd lst in\n        fold (fun acc x -> acc + x) 0 squared\n\nend"
+        },
+        {
+            "description": "Using list filter to filter out non-odd numbers and then summing the squares.",
+            "implementation": "module DoubleTheDifferenceFilter\n\n    use int.Int\n    use list.List\n\n    let is_odd (x : int) : bool = x >= 0 && x mod 2 = 1\n\n    let double_the_difference_filter (lst : list int) : int =\n        let filtered = filter is_odd lst in\n        fold (fun acc x -> acc + x * x) 0 filtered\n\nend"
+        },
+        {
+            "description": "Using a higher-order function to encapsulate checking and squaring logic.",
+            "implementation": "module DoubleTheDifferenceHigherOrder\n\n    use int.Int\n    use list.List\n\n    let check_and_square (x : int) (acc : int) : int =\n        if x >= 0 && x mod 2 = 1 then acc + x * x else acc\n\n    let double_the_difference_higher_order (lst : list int) : int =\n        fold check_and_square 0 lst\n\nend"
+        },
+        {
+            "description": "Using a combination of list comprehension-like syntax and recursion.",
+            "implementation": "module DoubleTheDifferenceComprehension\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_comp (lst : list int) : int =\n        list_fold (fun acc x -> acc + (if x >= 0 && x mod 2 = 1 then x * x else 0)) 0 lst\n\n    let list_fold f acc lst =\n        match lst with\n        | Nil -> acc\n        | Cons x xs -> list_fold f (f acc x) xs\n        end\n\nend"
+        },
+        {
+            "description": "Using a tail-recursive helper function to accumulate results.",
+            "implementation": "module DoubleTheDifferenceTailRec\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_tail (lst : list int) (acc : int) : int =\n        match lst with\n        | Nil -> acc\n        | Cons x xs -> if x >= 0 && x mod 2 = 1 then\n                          double_the_difference_tail xs (acc + x * x)\n                       else\n                          double_the_difference_tail xs acc\n        end\n\n    let double_the_difference (lst : list int) : int =\n        double_the_difference_tail lst 0\n\nend"
+        }
+    ]
+}

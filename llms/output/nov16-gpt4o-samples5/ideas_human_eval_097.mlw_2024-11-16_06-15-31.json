@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using direct calculation with modulo operator",
+            "implementation": "module MultiplyUnitDigits\n\n  use int.Int\n\n  let multiply_modulo (a: int) (b: int): int =\n    let unit_digit_a = a mod 10 in\n    let unit_digit_b = b mod 10 in\n    unit_digit_a * unit_digit_b\n\nend"
+        },
+        {
+            "description": "Using pattern matching on unit digits extracted via division and modulo",
+            "implementation": "module MultiplyUnitDigits\n\n  use int.Int\n\n  let multiply_pattern (a: int) (b: int): int =\n    let unit_digit_a = a - (a / 10) * 10 in\n    let unit_digit_b = b - (b / 10) * 10 in\n    match unit_digit_a, unit_digit_b with\n    | a, b -> a * b\n    end\n\nend"
+        },
+        {
+            "description": "Using recursive function to reduce numbers to their unit digits before multiplication",
+            "implementation": "module MultiplyUnitDigits\n\n  use int.Int\n\n  let rec get_unit_digit (n: int): int =\n    if n < 10 then n else get_unit_digit (n mod 10)\n\n  let multiply_recursive (a: int) (b: int): int =\n    get_unit_digit a * get_unit_digit b\n\nend"
+        },
+        {
+            "description": "Using accumulator to iterate over the integer and extract unit digit",
+            "implementation": "module MultiplyUnitDigits\n\n  use int.Int\n\n  let rec get_unit_digit_acc (n: int) (acc: int): int =\n    if n < 10 then acc else get_unit_digit_acc (n / 10) (n mod 10)\n\n  let multiply_accumulator (a: int) (b: int): int =\n    let unit_digit_a = get_unit_digit_acc a (a mod 10) in\n    let unit_digit_b = get_unit_digit_acc b (b mod 10) in\n    unit_digit_a * unit_digit_b\n\nend"
+        },
+        {
+            "description": "Using if-then-else branching to handle positive and negative numbers",
+            "implementation": "module MultiplyUnitDigits\n\n  use int.Int\n\n  let multiply_branching (a: int) (b: int): int =\n    let unit_digit_a = if a >= 0 then a mod 10 else 10 - (a mod 10) in\n    let unit_digit_b = if b >= 0 then b mod 10 else 10 - (b mod 10) in\n    unit_digit_a * unit_digit_b\n\nend"
+        }
+    ]
+}

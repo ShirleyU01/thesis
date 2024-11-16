@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a recursive function to calculate the Brazilian factorial with a helper function for traditional factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec factorial (n: int) : int =\n    requires { n >= 0 }\n    ensures { result >= 1 }\n    variant { n }\n    match n with\n    | 0 -> 1\n    | _ -> n * (factorial (n - 1))\n    end\n\n    let rec brazilian_factorial (n: int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> 1\n    | _ -> (factorial n) * (brazilian_factorial (n - 1))\n    end\n\nend"
+        },
+        {
+            "description": "Using an accumulator in a recursive function to calculate the Brazilian factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec factorial_acc (n: int) (acc: int) : int =\n    requires { n >= 0 }\n    ensures { result >= acc }\n    variant { n }\n    match n with\n    | 0 -> acc\n    | _ -> factorial_acc (n - 1) (n * acc)\n    end\n\n    let rec brazilian_factorial_acc (n: int) (acc: int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> acc\n    | _ -> brazilian_factorial_acc (n - 1) (acc * (factorial_acc n 1))\n    end\n\n    let brazilian_factorial (n: int) : int =\n    brazilian_factorial_acc n 1\n\nend"
+        },
+        {
+            "description": "Using a for-loop to implement the Brazilian factorial with a helper function for factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let factorial_for (n: int) : int =\n    requires { n >= 0 }\n    ensures { result >= 1 }\n    let ref result = 1 in\n    for i = 2 to n do\n        result <- result * i\n    done;\n    result\n\n    let brazilian_factorial_for (n: int) : int =\n    requires { n > 0 }\n    let ref result = 1 in\n    for i = 1 to n do\n        result <- result * factorial_for i\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to implement the Brazilian factorial with a helper function for factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let factorial_while (n: int) : int =\n    requires { n >= 0 }\n    ensures { result >= 1 }\n    let ref result = 1 in\n    let ref i = 2 in\n    while i <= n do\n        result <- result * i;\n        i <- i + 1\n    done;\n    result\n\n    let brazilian_factorial_while (n: int) : int =\n    requires { n > 0 }\n    let ref result = 1 in\n    let ref i = 1 in\n    while i <= n do\n        result <- result * factorial_while i;\n        i <- i + 1\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using nested recursion for both the Brazilian factorial and the traditional factorial calculation.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec factorial_nested (n: int) : int =\n    requires { n >= 0 }\n    variant { n }\n    match n with\n    | 0 -> 1\n    | _ -> n * factorial_nested (n - 1)\n    end\n\n    let rec brazilian_factorial_nested (n: int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> 1\n    | _ -> factorial_nested n * brazilian_factorial_nested (n - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using pattern matching and accumulator in a single recursive function.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec brazilian_factorial_pm (n: int) (acc: int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> acc\n    | _ -> brazilian_factorial_pm (n - 1) (acc * (let rec factorial (m: int) : int = match m with | 0 -> 1 | _ -> m * factorial (m - 1) end in factorial n))\n    end\n\n    let brazilian_factorial (n: int) : int =\n    brazilian_factorial_pm n 1\n\nend"
+        },
+        {
+            "description": "Using a list to store factorials and then computing the Brazilian factorial by reducing the list.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec factorial (n: int) : int =\n    requires { n >= 0 }\n    variant { n }\n    match n with\n    | 0 -> 1\n    | _ -> n * factorial (n - 1)\n    end\n\n    let brazilian_factorial_list (n: int) : int =\n    requires { n > 0 }\n    let rec list_of_factorials (m: int) : list int =\n        if m = 0 then Nil else Cons (factorial m) (list_of_factorials (m - 1)) in\n\n    let rec product (lst: list int) : int =\n        match lst with\n        | Nil -> 1\n        | Cons x xs -> x * product xs\n        end in\n\n    product (list_of_factorials n)\n\nend"
+        },
+        {
+            "description": "Using a combination of for-loop and list to compute the Brazilian factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let factorial_for_list (n: int) : int =\n    requires { n >= 0 }\n    ensures { result >= 1 }\n    let ref result = 1 in\n    for i = 2 to n do\n        result <- result * i\n    done;\n    result\n\n    let brazilian_factorial_for_list (n: int) : int =\n    requires { n > 0 }\n    let ref result = 1 in\n    let rec list_of_factorials (m: int) : list int =\n        if m = 0 then Nil else Cons (factorial_for_list m) (list_of_factorials (m - 1)) in\n\n    let rec product (lst: list int) : int =\n        match lst with\n        | Nil -> 1\n        | Cons x xs -> x * product xs\n        end in\n\n    product (list_of_factorials n)\n\nend"
+        },
+        {
+            "description": "Using tail recursion to optimize the factorial calculation in the Brazilian factorial.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let rec factorial_tail (n: int) (acc: int) : int =\n    requires { n >= 0 }\n    ensures { result >= acc }\n    variant { n }\n    match n with\n    | 0 -> acc\n    | _ -> factorial_tail (n - 1) (n * acc)\n    end\n\n    let rec brazilian_factorial_tail (n: int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> 1\n    | _ -> factorial_tail n 1 * brazilian_factorial_tail (n - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using a direct mathematical formula approach to calculate the Brazilian factorial without recursion.",
+            "implementation": "module SpecialFactorial\n\n    use int.Int\n    use list.List\n\n    let factorial_formula (n: int) : int =\n    requires { n >= 0 }\n    ensures { result >= 1 }\n    let ref result = 1 in\n    for i = 2 to n do\n        result <- result * i\n    done;\n    result\n\n    let brazilian_factorial_formula (n: int) : int =\n    requires { n > 0 }\n    let ref result = 1 in\n    for i = 1 to n do\n        result <- result * factorial_formula i\n    done;\n    result\n\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let sum_to_n_for (n: int) : int =\n    let ref sum = 0 in\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let sum_to_n_while (n: int) : int =\n    let ref i = 1 in\n    let ref sum = 0 in\n    while i <= n do\n      sum <- sum + i;\n      i <- i + 1\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using recursion to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let rec sum_to_n_recur (n: int) : int =\n    if n <= 1 then n else n + sum_to_n_recur (n - 1)\n\nend"
+        },
+        {
+            "description": "Using tail recursion to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let rec sum_to_n_tailrec_aux (n: int) (acc: int) : int =\n    if n <= 0 then acc else sum_to_n_tailrec_aux (n - 1) (acc + n)\n\n  let sum_to_n_tailrec (n: int) : int =\n    sum_to_n_tailrec_aux n 0\n\nend"
+        },
+        {
+            "description": "Using pattern matching to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let rec sum_to_n_pattern (n: int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n_pattern (n - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using a mathematical formula to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let sum_to_n_formula (n: int) : int =\n    (n * (n + 1)) / 2\n\nend"
+        },
+        {
+            "description": "Using a recursive helper function with an accumulator to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n\n  let rec sum_helper (n: int) (acc: int) : int =\n    if n = 0 then acc else sum_helper (n - 1) (acc + n)\n\n  let sum_to_n_helper (n: int) : int =\n    sum_helper n 0\n\nend"
+        },
+        {
+            "description": "Using a list and folding to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n  use list.List\n  use list.Fold\n\n  let sum_to_n_fold (n: int) : int =\n    let l = list_from_to 1 n in\n    fold (fun acc x -> acc + x) 0 l\n\nend"
+        },
+        {
+            "description": "Using a functional-style map and reduce approach to sum numbers from 1 to n.",
+            "implementation": "module SumToN\n\n  use int.Int\n  use list.List\n  use list.Map\n  use list.Fold\n\n  let sum_to_n_map_reduce (n: int) : int =\n    let numbers = list_from_to 1 n in\n    let add x y = x + y in\n    fold add 0 numbers\n\nend"
+        },
+        {
+            "description": "Using a sequence and summing it directly.",
+            "implementation": "module SumToN\n\n  use int.Int\n  use seq.Seq\n  use seq.SeqOfList\n  use seq.Fold\n\n  let sum_to_n_sequence (n: int) : int =\n    let seq = seq_of_list (list_from_to 1 n) in\n    fold (fun acc x -> acc + x) 0 seq\n\nend"
+        }
+    ]
+}

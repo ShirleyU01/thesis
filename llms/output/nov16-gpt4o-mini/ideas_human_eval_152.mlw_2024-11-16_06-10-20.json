@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate through the scores and guesses to calculate the differences.",
+            "implementation": "module Compare\n\n    use int.Int\n    use list.List\n\n    let compare_for (scores : list int) (guesses : list int) : list int = \n        let n = length scores in\n        let ref result = [] in\n        for i = 0 to n - 1 do\n            let diff = abs (nth i scores - nth i guesses) in\n            result <- result @ [diff]\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using a while-loop to process the scores and guesses and calculate the differences.",
+            "implementation": "module Compare\n\n    use int.Int\n    use list.List\n\n    let compare_while (scores : list int) (guesses : list int) : list int = \n        let n = length scores in\n        let ref i = 0 in\n        let ref result = [] in\n        while i < n do\n            let diff = abs (nth i scores - nth i guesses) in\n            result <- result @ [diff];\n            i <- i + 1;\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to calculate the differences.",
+            "implementation": "module Compare\n\n    use int.Int\n    use list.List\n\n    let rec compare_recur (scores : list int) (guesses : list int) : list int = \n        match (scores, guesses) with\n        | (Nil, Nil) -> Nil\n        | (Cons s ss, Cons g gs) -> Cons (abs (s - g)) (compare_recur ss gs)\n        end\nend"
+        },
+        {
+            "description": "Using tail recursion with an accumulator to store results.",
+            "implementation": "module Compare\n\n    use int.Int\n    use list.List\n\n    let rec compare_recur_acc (scores : list int) (guesses : list int) (acc : list int) : list int = \n        match (scores, guesses) with\n        | (Nil, Nil) -> reverse acc\n        | (Cons s ss, Cons g gs) -> compare_recur_acc ss gs (Cons (abs (s - g)) acc)\n        end\n\n    let compare (scores : list int) (guesses : list int) : list int = \n        compare_recur_acc scores guesses Nil\nend"
+        },
+        {
+            "description": "Using recursion with branching (if-then-else) for calculating differences.",
+            "implementation": "module Compare\n\n    use int.Int\n    use list.List\n\n    let rec compare_branch (scores : list int) (guesses : list int) : list int = \n        requires { length scores = length guesses }\n        match (scores, guesses) with\n        | (Nil, Nil) -> Nil\n        | (Cons s ss, Cons g gs) ->\n            if s = g then\n                Cons 0 (compare_branch ss gs)\n            else\n                Cons (abs (s - g)) (compare_branch ss gs)\n            end\n        end\nend"
+        }
+    ]
+}

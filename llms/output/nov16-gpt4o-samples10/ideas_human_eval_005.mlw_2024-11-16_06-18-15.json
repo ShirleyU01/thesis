@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate over the list and insert delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let intersperse_for (t : list int) (delimiter : int) : list int =\n    let n = length t in\n    let ref result = Nil in\n    for i = 0 to n - 1 do\n      result <- Cons (nth i t) result;\n      if i < n - 1 then result <- Cons delimiter result;\n    done;\n    rev result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate and insert delimiter between elements",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let intersperse_while (t : list int) (delimiter : int) : list int =\n    let n = length t in\n    let ref i = 0 in\n    let ref result = Nil in\n    while i < n do\n      result <- Cons (nth i t) result;\n      if i < n - 1 then result <- Cons delimiter result;\n      i <- i + 1;\n    done;\n    rev result\n\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to insert delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec intersperse_recur_match (t : list int) (delimiter : int) : list int =\n    match t with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y _ as xs) -> Cons x (Cons delimiter (intersperse_recur_match xs delimiter))\n    end\n\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator to build the result list",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec intersperse_recur_acc (t : list int) (delimiter : int) (acc : list int) : list int =\n    match t with\n    | Nil -> rev acc\n    | Cons x Nil -> rev (Cons x acc)\n    | Cons x (Cons y _ as xs) -> intersperse_recur_acc xs delimiter (Cons delimiter (Cons x acc))\n    end\n\n  let intersperse_2 (t : list int) (delimiter : int) : list int =\n    intersperse_recur_acc t delimiter Nil\n\nend"
+        },
+        {
+            "description": "Using recursion with if-then-else branching",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec intersperse_recur_branch (t : list int) (delimiter : int) : list int =\n    if t = Nil then Nil\n    else match t with\n      | Cons x Nil -> Cons x Nil\n      | Cons x xs -> Cons x (Cons delimiter (intersperse_recur_branch xs delimiter))\n    end\n\nend"
+        },
+        {
+            "description": "Using tail recursion to accumulate the result list",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec intersperse_tail_recur (t : list int) (delimiter : int) (acc : list int) : list int =\n    match t with\n    | Nil -> rev acc\n    | Cons x Nil -> rev (Cons x acc)\n    | Cons x xs -> intersperse_tail_recur xs delimiter (Cons delimiter (Cons x acc))\n    end\n\n  let intersperse_3 (t : list int) (delimiter : int) : list int =\n    intersperse_tail_recur t delimiter Nil\n\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the result list",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let intersperse_fold (t : list int) (delimiter : int) : list int =\n    let folder acc x = match acc with\n      | Nil -> Cons x Nil\n      | _ -> Cons x (Cons delimiter acc)\n    in\n    rev (fold_left folder Nil t)\n\nend"
+        },
+        {
+            "description": "Using a custom list-building function to insert delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec build_list (current : int) (rest : list int) (delimiter : int) : list int =\n    match rest with\n    | Nil -> Cons current Nil\n    | Cons x xs -> Cons current (Cons delimiter (build_list x xs delimiter))\n    end\n\n  let intersperse_custom_build (t : list int) (delimiter : int) : list int =\n    match t with\n    | Nil -> Nil\n    | Cons x xs -> build_list x xs delimiter\n    end\n\nend"
+        },
+        {
+            "description": "Using list concatenation to add delimiter",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let rec intersperse_concat (t : list int) (delimiter : int) : list int =\n    match t with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons delimiter (intersperse_concat xs delimiter))\n    end\n\nend"
+        },
+        {
+            "description": "Using map and flatten to achieve intersperse",
+            "implementation": "module Intersperse\n\n  use list.List\n\n  let intersperse_map_flatten (t : list int) (delimiter : int) : list int =\n    let map_delim x = Cons x (Cons delimiter Nil) in\n    let rec flatten l acc =\n      match l with\n      | Nil -> rev acc\n      | Cons x xs -> flatten xs (append x acc)\n    in\n    match rev t with\n    | Nil -> Nil\n    | Cons x xs -> let mapped = map map_delim xs in\n                   flatten mapped (Cons x Nil)\n\nend"
+        }
+    ]
+}

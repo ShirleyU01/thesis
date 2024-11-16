@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using basic if-else branching to decide how many carrots are eaten.",
+            "implementation": "module EatCarrots\n\n    use int.Int\n\n    let eat_if_else (number: int) (need: int) (remaining: int) : (int, int) =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    let total_needed = number + need in\n    if total_needed <= remaining then\n        (total_needed, remaining - need)\n    else\n        (number + remaining, 0)\n\nend"
+        },
+        {
+            "description": "Using pattern matching to determine the number of carrots eaten.",
+            "implementation": "module EatCarrots\n\n    use int.Int\n\n    let eat_pattern_matching (number: int) (need: int) (remaining: int) : (int, int) =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    match (number + need) <= remaining with\n    | True -> (number + need, remaining - need)\n    | False -> (number + remaining, 0)\n    end\n\nend"
+        },
+        {
+            "description": "Using a recursive function to simulate the process of eating one carrot at a time.",
+            "implementation": "module EatCarrots\n\n    use int.Int\n\n    let rec eat_recursive (number: int) (need: int) (remaining: int) : (int, int) =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    variant { need }\n    if need = 0 || remaining = 0 then\n        (number, remaining)\n    else\n        eat_recursive (number + 1) (need - 1) (remaining - 1)\n\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to keep track of the number of carrots eaten.",
+            "implementation": "module EatCarrots\n\n    use int.Int\n\n    let rec eat_accumulator (number: int) (need: int) (remaining: int) (acc: int) : (int, int) =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    variant { need }\n    if need = 0 || remaining = 0 then\n        (acc, remaining)\n    else\n        eat_accumulator (number) (need - 1) (remaining - 1) (acc + 1)\n\n    let eat (number: int) (need: int) (remaining: int) : (int, int) =\n        eat_accumulator number need remaining number\n\nend"
+        },
+        {
+            "description": "Using a while-loop to simulate the process of eating until no more carrots can be consumed.",
+            "implementation": "module EatCarrots\n\n    use int.Int\n\n    let eat_while_loop (number: int) (need: int) (remaining: int) : (int, int) =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    let ref total_eaten = number in\n    let ref rem = remaining in\n    while need > 0 && rem > 0 do\n        total_eaten <- total_eaten + 1;\n        rem <- rem - 1;\n        need <- need - 1\n    done;\n    (total_eaten, rem)\n\nend"
+        }
+    ]
+}

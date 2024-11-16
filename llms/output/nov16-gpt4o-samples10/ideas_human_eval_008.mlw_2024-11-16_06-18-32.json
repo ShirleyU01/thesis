@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate over the list and calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let sum_product_for (t: list int) : (int, int) =\n        let n = length t in\n        let ref sum = 0 in\n        let ref product = 1 in\n        for i = 0 to n - 1 do\n            sum <- sum + nth i t;\n            product <- product * nth i t\n        done;\n        (sum, product)\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate over the list and calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let sum_product_while (t: list int) : (int, int) =\n        let n = length t in\n        let ref i = 0 in\n        let ref sum = 0 in\n        let ref product = 1 in\n        while i < n do\n            sum <- sum + nth i t;\n            product <- product * nth i t;\n            i <- i + 1\n        done;\n        (sum, product)\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_1 (t: list int) : (int, int) =\n        match t with\n        | Nil -> (0, 1)\n        | Cons x xs -> let (s, p) = sum_product_recur_1 xs in (x + s, x * p)\n        end\n\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_2_accumulator (t: list int) (sum_acc: int) (product_acc: int) : (int, int) =\n        match t with\n        | Nil -> (sum_acc, product_acc)\n        | Cons x xs -> sum_product_recur_2_accumulator xs (sum_acc + x) (product_acc * x)\n        end\n\n    let sum_product_recur_2 (t: list int) : (int, int) =\n        sum_product_recur_2_accumulator t 0 1\n\nend"
+        },
+        {
+            "description": "Using recursion with branching (if-then-else) to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_3 (t: list int) : (int, int) =\n    requires { length t >= 0 }\n    ensures { let (s, p) = result in s >= 0 /\n              p >= 1 }\n    match t with\n    | Nil -> (0, 1)\n    | Cons x xs -> let (s, p) = sum_product_recur_3 xs in (x + s, x * p)\n    end\n\nend"
+        },
+        {
+            "description": "Using fold_left function to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let sum_product_fold (t: list int) : (int, int) =\n        let sum_fn = (fun acc x -> acc + x) in\n        let prod_fn = (fun acc x -> acc * x) in\n        let sum = fold_left sum_fn 0 t in\n        let product = fold_left prod_fn 1 t in\n        (sum, product)\n\nend"
+        },
+        {
+            "description": "Using auxiliary functions to separate sum and product calculations",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_aux (t: list int) : int =\n        match t with\n        | Nil -> 0\n        | Cons x xs -> x + sum_aux xs\n        end\n\n    let rec product_aux (t: list int) : int =\n        match t with\n        | Nil -> 1\n        | Cons x xs -> x * product_aux xs\n        end\n\n    let sum_product_aux (t: list int) : (int, int) =\n        (sum_aux t, product_aux t)\n\nend"
+        },
+        {
+            "description": "Using tail recursion to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_tail (t: list int) (sum_acc: int) (product_acc: int) : (int, int) =\n        match t with\n        | Nil -> (sum_acc, product_acc)\n        | Cons x xs -> sum_product_tail xs (sum_acc + x) (product_acc * x)\n        end\n\n    let sum_product_tail_interface (t: list int) : (int, int) =\n        sum_product_tail t 0 1\n\nend"
+        },
+        {
+            "description": "Using higher-order functions to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let sum_product_hof (t: list int) : (int, int) =\n        let sum_fn = (fun acc x -> acc + x) in\n        let product_fn = (fun acc x -> acc * x) in\n        let sum = fold_left sum_fn 0 t in\n        let product = fold_left product_fn 1 t in\n        (sum, product)\n\nend"
+        },
+        {
+            "description": "Using list comprehensions to calculate sum and product",
+            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use ref.Ref\n\n    let sum_product_comprehension (t: list int) : (int, int) =\n        let ref sum = 0 in\n        let ref product = 1 in\n        List.iter (fun x -> sum := !sum + x; product := !product * x) t;\n        (!sum, !product)\n\nend"
+        }
+    ]
+}

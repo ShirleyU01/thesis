@@ -1,0 +1,24 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate through the list, maintaining a running maximum.",
+            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Append\n    use list.NthNoOpt\n\n    let rolling_max_for (numbers: list int) : list int =\n        let n = length numbers in\n        let ref max = nth 0 numbers in\n        let ref result = Cons max Nil in\n        for i = 1 to n - 1 do\n            let current = nth i numbers in\n            if current > max then max <- current;\n            result <- result ++ Cons max Nil\n        done;\n        result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate through the list, updating the maximum and constructing the result list.",
+            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Append\n    use list.NthNoOpt\n\n    let rolling_max_while (numbers: list int) : list int =\n        let n = length numbers in\n        let ref i = 1 in\n        let ref max = nth 0 numbers in\n        let ref result = Cons max Nil in\n        while i < n do\n            let current = nth i numbers in\n            if current > max then max <- current;\n            result <- result ++ Cons max Nil;\n            i <- i + 1\n        done;\n        result\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to compute the rolling maximum list.",
+            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Append\n    use list.NthNoOpt\n\n    let rec rolling_max_recur_1 (numbers: list int) (current_max: int) : list int =\n        match numbers with\n        | Nil -> Nil\n        | Cons x xs ->\n            let new_max = if x > current_max then x else current_max in\n            Cons new_max (rolling_max_recur_1 xs new_max)\n        end\n\n    let rolling_max_recur (numbers: list int) : list int =\n        match numbers with\n        | Nil -> Nil\n        | Cons x xs -> rolling_max_recur_1 xs x\n        end\n\nend"
+        },
+        {
+            "description": "Using an accumulator function within recursion to maintain the rolling maximum.",
+            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Append\n    use list.NthNoOpt\n\n    let rec rolling_max_recur_accumulator (numbers: list int) (current_max: int) (acc: list int) : list int =\n        match numbers with\n        | Nil -> acc\n        | Cons x xs ->\n            let new_max = if x > current_max then x else current_max in\n            rolling_max_recur_accumulator xs new_max (acc ++ Cons new_max Nil)\n        end\n\n    let rolling_max_recur (numbers: list int) : list int =\n        match numbers with\n        | Nil -> Nil\n        | Cons x xs -> rolling_max_recur_accumulator xs x (Cons x Nil)\n        end\n\nend"
+        },
+        {
+            "description": "Using recursion with branching conditions to compute rolling maximum list.",
+            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Append\n    use list.NthNoOpt\n\n    let rec rolling_max_recur_branching (numbers: list int) (current_max: int) : list int =\n        match numbers with\n        | Nil -> Nil\n        | Cons x xs ->\n            let new_max = if x > current_max then x else current_max in\n            Cons new_max (rolling_max_recur_branching xs new_max)\n        end\n\n    let rolling_max_recur (numbers: list int) : list int =\n        match numbers with\n        | Nil -> Nil\n        | Cons x xs -> rolling_max_recur_branching xs x\n        end\n\nend"
+        }
+    ]
+}

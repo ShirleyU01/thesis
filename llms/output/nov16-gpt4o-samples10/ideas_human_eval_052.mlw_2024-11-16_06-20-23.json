@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to check each element against the threshold",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let below_threshold_for (l : list int) (t : int) : bool = \n      let n = length l in\n      let ref result = true in\n      for i = 0 to n-1 do \n          if nth i l >= t then result <- false\n      done ;\n      result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate through the list and compare each element with the threshold",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let below_threshold_while (l : list int) (t : int) : bool = \n      let n = length l in\n      let ref i = 0 in \n      let ref result = true in\n      while i < n && result do\n          if nth i l >= t then result <- false;\n          i <- i + 1\n      done ;\n      result\n\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to compare each element with the threshold",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec below_threshold_recur_1 (l : list int) (t : int) : bool =\n      match l with\n      | Nil -> true\n      | Cons x xs -> if x < t then below_threshold_recur_1 xs t else false\n      end\n\nend"
+        },
+        {
+            "description": "Using an accumulator with recursion to keep track of the result",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec below_threshold_recur_2_accumulator (l : list int) (t : int) (acc : bool) : bool =\n      match l with\n      | Nil -> acc\n      | Cons x xs -> if x < t\n                  then below_threshold_recur_2_accumulator xs t acc\n                  else false\n      end\n\n  let below_threshold_recur_2 (l : list int) (t : int) : bool =\n      below_threshold_recur_2_accumulator l t true\n\nend"
+        },
+        {
+            "description": "Using recursion with branching (if-then-else) logic",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec below_threshold_recur_3 (l : list int) (t : int) : bool =\n      match l with\n      | Nil -> true\n      | Cons x xs -> if x < t then below_threshold_recur_3 xs t else false\n      end\n\nend"
+        },
+        {
+            "description": "Using a fold function to aggregate results",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let below_threshold_fold (l : list int) (t : int) : bool =\n      fold (fun acc x -> acc && x < t) true l\n\nend"
+        },
+        {
+            "description": "Using a map function to transform the list to booleans and then reduce it",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let below_threshold_map_reduce (l : list int) (t : int) : bool =\n      let mapped = map (fun x -> x < t) l in\n      fold (fun acc x -> acc && x) true mapped\n\nend"
+        },
+        {
+            "description": "Using tail recursion for efficiency",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec below_threshold_tail (l : list int) (t : int) (acc : bool) : bool =\n      match l with\n      | Nil -> acc\n      | Cons x xs -> if x < t\n                  then below_threshold_tail xs t acc\n                  else false\n      end\n\n  let below_threshold (l : list int) (t : int) : bool =\n      below_threshold_tail l t true\n\nend"
+        },
+        {
+            "description": "Using direct recursion without pattern matching",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec below_threshold_simple (l : list int) (t : int) : bool =\n      if length l = 0 then true\n      else if nth 0 l < t then below_threshold_simple (tail l) t\n      else false\n\nend"
+        },
+        {
+            "description": "Using a helper function to abstract the comparison logic",
+            "implementation": "module BelowThreshold\n\n  use int.Int\n  use list.List\n\n  let rec compare_elements (l : list int) (t : int) : bool =\n      match l with\n      | Nil -> true\n      | Cons x xs -> if x < t then compare_elements xs t else false\n      end\n\n  let below_threshold_helper (l : list int) (t : int) : bool =\n      compare_elements l t\n\nend"
+        }
+    ]
+}

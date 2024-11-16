@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using simple addition within a function",
+            "implementation": "module AddSimple\n\n  use int.Int\n\n  let add_simple (x: int) (y: int) : int = x + y\n\nend"
+        },
+        {
+            "description": "Using a for-loop to simulate addition",
+            "implementation": "module AddForLoop\n\n  use int.Int\n\n  let add_for_loop (x: int) (y: int) : int =\n    let ref sum = x in\n    for i = 1 to y do\n      sum <- sum + 1\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop to simulate addition",
+            "implementation": "module AddWhileLoop\n\n  use int.Int\n\n  let add_while_loop (x: int) (y: int) : int =\n    let ref sum = x in\n    let ref count = 0 in\n    while count < y do\n      sum <- sum + 1;\n      count <- count + 1\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using recursion to add two numbers",
+            "implementation": "module AddRecursion\n\n  use int.Int\n\n  let rec add_recursion (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_recursion (x + 1) (y - 1)\n\nend"
+        },
+        {
+            "description": "Using pattern matching for addition",
+            "implementation": "module AddPatternMatching\n\n  use int.Int\n\n  let rec add_pattern_matching (x: int) (y: int) : int =\n    match y with\n    | 0 -> x\n    | _ -> add_pattern_matching (x + 1) (y - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using a helper function to increment",
+            "implementation": "module AddHelperFunction\n\n  use int.Int\n\n  let increment (x: int) : int = x + 1\n\n  let rec add_helper (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_helper (increment x) (y - 1)\n\nend"
+        },
+        {
+            "description": "Using an accumulator in recursion",
+            "implementation": "module AddAccumulator\n\n  use int.Int\n\n  let rec add_accumulator (x: int) (y: int) (acc: int) : int =\n    if y = 0 then acc\n    else add_accumulator (x + 1) (y - 1) (acc + 1)\n\n  let add_with_accumulator (x: int) (y: int) : int =\n    add_accumulator x y 0\n\nend"
+        },
+        {
+            "description": "Using if-then-else branching to add",
+            "implementation": "module AddBranching\n\n  use int.Int\n\n  let rec add_branching (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_branching (x + 1) (y - 1)\n\nend"
+        },
+        {
+            "description": "Using tail-recursion to add two numbers",
+            "implementation": "module AddTailRecursion\n\n  use int.Int\n\n  let rec add_tail_recursion (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_tail_recursion (x + 1) (y - 1)\n\nend"
+        },
+        {
+            "description": "Using mutual recursion to add two numbers",
+            "implementation": "module AddMutualRecursion\n\n  use int.Int\n\n  let rec add_mutual_1 (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_mutual_2 (x + 1) (y - 1)\n\n  and add_mutual_2 (x: int) (y: int) : int =\n    if y = 0 then x\n    else add_mutual_1 (x + 1) (y - 1)\n\nend"
+        }
+    ]
+}
