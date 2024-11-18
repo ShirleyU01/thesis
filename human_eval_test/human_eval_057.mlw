@@ -39,8 +39,7 @@ module HumanEval057Goal
         else helper l (nth_1 0 l) (nth_1 0 l < nth_1 1 l)
 end
 
-(* Todo: Put the implementation from ChatGPT here *)
-
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval057
 

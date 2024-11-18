@@ -7,7 +7,7 @@ def rolling_max(numbers: List[int]) -> List[int]:
     """
 *)
 
-module HumanEval009
+module HumanEval009Goal
     use int.Int
     use list.List
     
@@ -23,6 +23,8 @@ module HumanEval009
         helper l (-1000)
 
 end
+
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval009
     use int.Int

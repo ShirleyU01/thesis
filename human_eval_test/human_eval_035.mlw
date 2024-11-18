@@ -28,8 +28,7 @@ module HumanEval035
    
 end
 
-(* Todo: Put the implementation from ChatGPT here *)
-
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval035
 
@@ -118,8 +117,8 @@ module TestHumanEval035
         if not test4() then res <- Cons 4 res;
         if not test5() then res <- Cons 5 res;
         if not test6() then res <- Cons 6 res;
-        if not test7() then res <- Cons 7 res;
-        if not test8() then res <- Cons 8 res;
+        if test7() then res <- Cons 7 res;
+        if test8() then res <- Cons 8 res;
         if not test9() then res <- Cons 9 res;
         if not test10() then res <- Cons 10 res;
         res

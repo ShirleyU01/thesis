@@ -30,8 +30,7 @@ module HumanEval152Goal
 
 end
 
-
-(* Todo: Put the implementation from ChatGPT here *)
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval152
 

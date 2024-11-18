@@ -9,7 +9,7 @@ def sum_product(numbers: List[int]) -> list [int]:
     """
 *)
 
-module HumanEval008
+(* module HumanEval008Goal
     use int.Int
     use list.List
 
@@ -21,7 +21,7 @@ module HumanEval008
 
     let sum_product (l : list int) : list int =
         helper l 0 1
-end
+end *)
 
 module TestHumanEval008
  use int.Int

@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to iterate through the list and find the maximum element.",
-            "implementation": "module MaxElement\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let max_element_for (l : list int) : int = \n        let n = length l in\n        let ref max = nth_1 0 l in\n        for i = 0 to n - 1 do \n            if max < nth_1 i l then max <- nth_1 i l;\n        done;\n        max\nend"
+            "implementation": "module HumanEval035\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let max_element_for (l : list int) : int = \n        let n = length l in\n        let ref max = nth_1 0 l in\n        for i = 0 to n - 1 do \n            if max < nth_1 i l then max <- nth_1 i l;\n        done;\n        max\nend"
         },
         {
             "description": "Using a while-loop to traverse the list and track the maximum value.",
-            "implementation": "module MaxElement\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let max_element_while (l : list int) : int = \n        let n = length l in\n        let ref i = 0 in\n        let ref max = nth_1 0 l in\n        while i < n do \n            if max < nth_1 i l then max <- nth_1 i l;\n            i <- i + 1;\n        done;\n        max\nend"
+            "implementation": "module HumanEval035\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let max_element_while (l : list int) : int = \n        let n = length l in\n        let ref i = 0 in\n        let ref max = nth_1 0 l in\n        while i < n do \n            if max < nth_1 i l then max <- nth_1 i l;\n            i <- i + 1;\n        done;\n        max\nend"
         },
         {
             "description": "Using recursion and pattern matching to find the maximum element in the list.",
-            "implementation": "module MaxElement\n\n    use int.Int\n    use list.List\n\n    let rec max_element_recur (l : list int) : int = \n        match l with\n        | Nil -> -1000  (* Assuming all elements are greater than -1000 *)\n        | Cons x xs -> if x > max_element_recur xs then x else max_element_recur xs;\n    end"
+            "implementation": "module HumanEval035\n\n    use int.Int\n    use list.List\n\n    let rec max_element_recur (l : list int) : int = \n        match l with\n        | Nil -> -1000  (* Assuming all elements are greater than -1000 *)\n        | Cons x xs -> if x > max_element_recur xs then x else max_element_recur xs;\n    end"
         },
         {
             "description": "Using recursion with an accumulator to track the maximum value.",
-            "implementation": "module MaxElement\n\n    use int.Int\n    use list.List\n\n    let rec max_element_recur_acc (l : list int) (acc : int) : int = \n        match l with\n        | Nil -> acc\n        | Cons x xs -> max_element_recur_acc xs (if x > acc then x else acc);\n\n    let max_element (l : list int) : int = \n        max_element_recur_acc l -1000\nend"
+            "implementation": "module HumanEval035\n\n    use int.Int\n    use list.List\n\n    let rec max_element_recur_acc (l : list int) (acc : int) : int = \n        match l with\n        | Nil -> acc\n        | Cons x xs -> max_element_recur_acc xs (if x > acc then x else acc);\n\n    let max_element (l : list int) : int = \n        max_element_recur_acc l -1000\nend"
         },
         {
             "description": "Using recursion with branching (if-then-else) to find the maximum element.",
-            "implementation": "module MaxElement\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rec max_element_recur_branch (l : list int) : int = \n        requires { length l > 0 }\n        ensures { forall j. 0 <= j < length l -> result >= nth j l }\n        ensures { exists j. 0 <= j < length l /\result = nth j l }\n        match l with\n        | Nil -> -1000  (* Should not reach here if precondition holds *)\n        | Cons x xs -> if x > max_element_recur_branch xs then x else max_element_recur_branch xs;\n    end"
+            "implementation": "module HumanEval035\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rec max_element_recur_branch (l : list int) : int = \n        requires { length l > 0 }\n        ensures { forall j. 0 <= j < length l -> result >= nth j l }\n        ensures { exists j. 0 <= j < length l /\result = nth j l }\n        match l with\n        | Nil -> -1000  (* Should not reach here if precondition holds *)\n        | Cons x xs -> if x > max_element_recur_branch xs then x else max_element_recur_branch xs;\n    end"
         }
     ]
 }

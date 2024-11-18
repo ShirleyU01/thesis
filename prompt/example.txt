@@ -29,18 +29,25 @@ module MaxList
     match l with 
     | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
     end 
-    
+
     (* Idea 1: Using for-loop *)
-    let max_list_for (t : list int) : int = 
+    let max_list (t : list int) : int = 
         let n = length t in
         let ref max = nth_1 0 t in
         for i = 0 to n-1 do 
             if max < nth_1 i t then max <- nth_1 i t
         done ;
         max
+end
 
+module MaxList
+
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
     (* Idea 2: Using while-loop *)
-    let max_list_while (t : list int) : int = 
+    let max_list (t : list int) : int = 
         let n = length t in
         let ref i = 0 in 
         let ref max = nth_1 0 t in
@@ -49,17 +56,28 @@ module MaxList
             i <- i + 1
         done ;
         max
+end
 
+
+module MaxList
+
+    use int.Int
+    use list.List
     (* Idea 3: Using recursion and pattern matching *)
-    let rec max_list_recur_1 (t : list int) : int =
+    let rec max_list (t : list int) : int =
         match t with
         | Cons x Nil -> x
-        | Cons x xs -> match x > (max_list_recur_1 xs) with
-                    | False -> max_list_recur_1 xs
+        | Cons x xs -> match x > (max_list xs) with
+                    | False -> max_list xs
                     | True -> x
                     end
         end 
+end
 
+module MaxList
+
+    use int.Int
+    use list.List
     (* Idea 4: Using accumulator within recursion *)
     let rec max_list_recur_2_accumulator (t : list int) (accumulator : int) : int =
         match t with
@@ -69,20 +87,23 @@ module MaxList
                     else max_list_recur_2_accumulator xs accumulator
         end 
 
-    let rec max_list_recur_2 (t : list int) : int =
+    let rec max_list (t : list int) : int =
         max_list_recur_2_accumulator t -1000
+end
 
+module MaxList
 
+    use int.Int
+    use list.List
     (* Idea 5: Using recursion and branching (if-then-else) *)
-    let rec max_list_recur_3 (t : list int) : int =
+    let rec max_list (t : list int) : int =
     requires { length t > 0 }
     ensures { forall j. 0 <= j < length t -> result >= nth j t }
     ensures { exists j. 0 <= j < length t /\ result = nth j t } 
     variant { t }
     match t with
     | Cons x Nil -> x
-    | Cons x xs -> if x > (max_list_recur_3 xs) then x else (max_list_recur_3 xs)
+    | Cons x xs -> if x > (max_list xs) then x else (max_list xs)
     end
-
 end
 

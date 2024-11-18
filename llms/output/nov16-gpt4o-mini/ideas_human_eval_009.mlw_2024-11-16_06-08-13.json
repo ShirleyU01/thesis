@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to generate the rolling maximum list.",
-            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_for (numbers: list int) : list int = \n        let n = length numbers in\n        let ref max = -1000 in\n        let ref result = [] in\n        for i = 0 to n - 1 do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n        done;\n        rev !result\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_for (numbers: list int) : list int = \n        let n = length numbers in\n        let ref max = -1000 in\n        let ref result = [] in\n        for i = 0 to n - 1 do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n        done;\n        rev !result\nend"
         },
         {
             "description": "Using a while-loop to calculate the rolling maximum list.",
-            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_while (numbers: list int) : list int = \n        let n = length numbers in\n        let ref i = 0 in\n        let ref max = -1000 in\n        let ref result = [] in\n        while i < n do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n            i := i + 1;\n        done;\n        rev !result\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_while (numbers: list int) : list int = \n        let n = length numbers in\n        let ref i = 0 in\n        let ref max = -1000 in\n        let ref result = [] in\n        while i < n do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n            i := i + 1;\n        done;\n        rev !result\nend"
         },
         {
             "description": "Using recursion and pattern matching to implement rolling maximum.",
-            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_recur (numbers: list int) (current_max: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> let new_max = if x > current_max then x else current_max in\n                       new_max :: rolling_max_recur xs new_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_recur numbers -1000\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_recur (numbers: list int) (current_max: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> let new_max = if x > current_max then x else current_max in\n                       new_max :: rolling_max_recur xs new_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_recur numbers -1000\nend"
         },
         {
             "description": "Using an accumulator within recursion to track rolling maximum.",
-            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_acc (numbers: list int) (acc: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> let new_max = if x > acc then x else acc in\n                       new_max :: rolling_max_acc xs new_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_acc numbers -1000\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_acc (numbers: list int) (acc: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> let new_max = if x > acc then x else acc in\n                       new_max :: rolling_max_acc xs new_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_acc numbers -1000\nend"
         },
         {
             "description": "Using recursion and conditional branching to implement rolling maximum.",
-            "implementation": "module RollingMax\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_cond (numbers: list int) (current_max: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> if x > current_max then\n                           x :: rolling_max_cond xs x\n                       else\n                           current_max :: rolling_max_cond xs current_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_cond numbers -1000\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n\n    let rec rolling_max_cond (numbers: list int) (current_max: int) : list int = \n        match numbers with\n        | Nil -> []\n        | Cons x xs -> if x > current_max then\n                           x :: rolling_max_cond xs x\n                       else\n                           current_max :: rolling_max_cond xs current_max\n    \n    let rolling_max (numbers: list int) : list int = \n        rolling_max_cond numbers -1000\nend"
         }
     ]
 }

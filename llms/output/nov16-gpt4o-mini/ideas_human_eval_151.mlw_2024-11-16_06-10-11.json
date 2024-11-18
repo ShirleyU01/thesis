@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to iterate through the list and calculate the sum of squares of odd numbers.",
-            "implementation": "module DoubleTheDifference\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_for (lst : list int) : int = \n        let ref sum = 0 in\n        for i = 0 to length lst - 1 do\n            match nth i lst with\n            | x when x >= 0 && x mod 2 <> 0 -> sum <- sum + x * x\n            | _ -> ()\n        done;\n        sum\nend"
+            "implementation": "module HumanEval151\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_for (lst : list int) : int = \n        let ref sum = 0 in\n        for i = 0 to length lst - 1 do\n            match nth i lst with\n            | x when x >= 0 && x mod 2 <> 0 -> sum <- sum + x * x\n            | _ -> ()\n        done;\n        sum\nend"
         },
         {
             "description": "Using a while-loop to traverse the list and accumulate the sum of squares of odd numbers.",
-            "implementation": "module DoubleTheDifference\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_while (lst : list int) : int = \n        let n = length lst in\n        let ref i = 0 in\n        let ref sum = 0 in\n        while i < n do\n            match nth i lst with\n            | x when x >= 0 && x mod 2 <> 0 -> sum <- sum + x * x;\n            | _ -> ()\n            i <- i + 1\n        done;\n        sum\nend"
+            "implementation": "module HumanEval151\n\n    use int.Int\n    use list.List\n\n    let double_the_difference_while (lst : list int) : int = \n        let n = length lst in\n        let ref i = 0 in\n        let ref sum = 0 in\n        while i < n do\n            match nth i lst with\n            | x when x >= 0 && x mod 2 <> 0 -> sum <- sum + x * x;\n            | _ -> ()\n            i <- i + 1\n        done;\n        sum\nend"
         },
         {
             "description": "Using recursion and pattern matching to process each element and accumulate the sum of squares of odd numbers.",
-            "implementation": "module DoubleTheDifference\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_recur (lst : list int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs -> \n            if x >= 0 && x mod 2 <> 0 then x * x + double_the_difference_recur xs\n            else double_the_difference_recur xs\nend"
+            "implementation": "module HumanEval151\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_recur (lst : list int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs -> \n            if x >= 0 && x mod 2 <> 0 then x * x + double_the_difference_recur xs\n            else double_the_difference_recur xs\nend"
         },
         {
             "description": "Using an accumulator in the recursive function to keep track of the total sum of squares of odd numbers.",
-            "implementation": "module DoubleTheDifference\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_recur_acc (lst : list int) (accumulator : int) : int = \n        match lst with\n        | Nil -> accumulator\n        | Cons x xs -> \n            let new_acc = if x >= 0 && x mod 2 <> 0 then accumulator + x * x else accumulator in\n            double_the_difference_recur_acc xs new_acc\n\n    let double_the_difference (lst : list int) : int = \n        double_the_difference_recur_acc lst 0\nend"
+            "implementation": "module HumanEval151\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_recur_acc (lst : list int) (accumulator : int) : int = \n        match lst with\n        | Nil -> accumulator\n        | Cons x xs -> \n            let new_acc = if x >= 0 && x mod 2 <> 0 then accumulator + x * x else accumulator in\n            double_the_difference_recur_acc xs new_acc\n\n    let double_the_difference (lst : list int) : int = \n        double_the_difference_recur_acc lst 0\nend"
         },
         {
             "description": "Using recursion with if-then-else conditions to selectively sum the squares of odd numbers.",
-            "implementation": "module DoubleTheDifference\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_if_else (lst : list int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs -> \n            if x >= 0 && x mod 2 <> 0 then x * x + double_the_difference_if_else xs\n            else double_the_difference_if_else xs\nend"
+            "implementation": "module HumanEval151\n\n    use int.Int\n    use list.List\n\n    let rec double_the_difference_if_else (lst : list int) : int = \n        match lst with\n        | Nil -> 0\n        | Cons x xs -> \n            if x >= 0 && x mod 2 <> 0 then x * x + double_the_difference_if_else xs\n            else double_the_difference_if_else xs\nend"
         }
     ]
 }

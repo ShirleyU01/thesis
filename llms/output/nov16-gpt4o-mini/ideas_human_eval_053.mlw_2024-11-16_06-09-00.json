@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using basic arithmetic operation to implement addition.",
-            "implementation": "module Add\n\n    use int.Int\n\n    let add (x: int) (y: int) : int =\n        x + y\nend"
+            "implementation": "module HumanEval053\n\n    use int.Int\n\n    let add (x: int) (y: int) : int =\n        x + y\nend"
         },
         {
             "description": "Using a loop to implement addition iteratively, incrementing a counter.",
-            "implementation": "module Add\n\n    use int.Int\n\n    let add (x: int) (y: int) : int =\n        let ref sum = x in\n        let ref i = 0 in\n        while i < y do\n            sum <- sum + 1;\n            i <- i + 1\n        done;\n        sum\nend"
+            "implementation": "module HumanEval053\n\n    use int.Int\n\n    let add (x: int) (y: int) : int =\n        let ref sum = x in\n        let ref i = 0 in\n        while i < y do\n            sum <- sum + 1;\n            i <- i + 1\n        done;\n        sum\nend"
         },
         {
             "description": "Using recursion to implement addition by recursively decrementing y.",
-            "implementation": "module Add\n\n    use int.Int\n\n    let rec add (x: int) (y: int) : int =\n        if y = 0 then x else add (x + 1) (y - 1)\nend"
+            "implementation": "module HumanEval053\n\n    use int.Int\n\n    let rec add (x: int) (y: int) : int =\n        if y = 0 then x else add (x + 1) (y - 1)\nend"
         },
         {
             "description": "Using tail recursion and an accumulator to implement addition.",
-            "implementation": "module Add\n\n    use int.Int\n\n    let rec add_helper (x: int) (y: int) (acc: int) : int =\n        if y = 0 then acc else add_helper (x) (y - 1) (acc + 1)\n\n    let add (x: int) (y: int) : int =\n        add_helper x y x\nend"
+            "implementation": "module HumanEval053\n\n    use int.Int\n\n    let rec add_helper (x: int) (y: int) (acc: int) : int =\n        if y = 0 then acc else add_helper (x) (y - 1) (acc + 1)\n\n    let add (x: int) (y: int) : int =\n        add_helper x y x\nend"
         },
         {
             "description": "Using pattern matching to handle different cases of y in addition.",
-            "implementation": "module Add\n\n    use int.Int\n\n    let rec add (x: int) (y: int) : int =\n        match y with\n        | 0 -> x\n        | _ -> add (x + 1) (y - 1)\nend"
+            "implementation": "module HumanEval053\n\n    use int.Int\n\n    let rec add (x: int) (y: int) : int =\n        match y with\n        | 0 -> x\n        | _ -> add (x + 1) (y - 1)\nend"
         }
     ]
 }

@@ -9,8 +9,7 @@ def incr_list(l: list):
  *)
     
     
-(* verified *)
-module HumanEval042
+module HumanEval042Goal
 
     use list.List
     use list.Length
@@ -27,6 +26,8 @@ module HumanEval042
         end
 
 end
+
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval042
 

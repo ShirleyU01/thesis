@@ -24,9 +24,7 @@ module HumanEval097Goal
         d1 * d2
 end
 
-(* Todo: Put the implementation from ChatGPT here *)
-
-
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval097
 

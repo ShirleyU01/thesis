@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to check all even numbers up to n and count how many can sum to n.",
-            "implementation": "module IsEqualToSumEven\n\n    use int.Int\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        ensures { result <=> (exists k. k >= 0 /\\ n = 2 * k) }\n        let ref count = 0 in\n        for i = 2 to n do\n            if i mod 2 = 0 then count <- count + 1;\n            if count == 4 && i <= n then return true;\n        done;\n        false\n\nend"
+            "implementation": "module HumanEval138\n\n    use int.Int\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        ensures { result <=> (exists k. k >= 0 /\\ n = 2 * k) }\n        let ref count = 0 in\n        for i = 2 to n do\n            if i mod 2 = 0 then count <- count + 1;\n            if count == 4 && i <= n then return true;\n        done;\n        false\n\nend"
         },
         {
             "description": "Using a while-loop to count how many even numbers can sum to n.",
-            "implementation": "module IsEqualToSumEven\n\n    use int.Int\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        ensures { result <=> (exists k. k >= 0 /\\ n = 2 * k) }\n        let ref count = 0 in\n        let ref i = 2 in\n        while i <= n do\n            if i mod 2 = 0 then count <- count + 1;\n            if count == 4 then return true;\n            i <- i + 1;\n        done;\n        false\n\nend"
+            "implementation": "module HumanEval138\n\n    use int.Int\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        ensures { result <=> (exists k. k >= 0 /\\ n = 2 * k) }\n        let ref count = 0 in\n        let ref i = 2 in\n        while i <= n do\n            if i mod 2 = 0 then count <- count + 1;\n            if count == 4 then return true;\n            i <- i + 1;\n        done;\n        false\n\nend"
         },
         {
             "description": "Using recursion with pattern matching to determine if n can be expressed as the sum of four even numbers.",
-            "implementation": "module IsEqualToSumEven\n\n    use int.Int\n\n    let rec is_equal_to_sum_even_rec (n: int) (count: int) : bool =\n        match count with\n        | 4 -> n = 0\n        | _ -> if n < 0 then false else\n            is_equal_to_sum_even_rec (n - 2) (count + 1) || is_equal_to_sum_even_rec n (count + 1)\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even_rec n 0\n\nend"
+            "implementation": "module HumanEval138\n\n    use int.Int\n\n    let rec is_equal_to_sum_even_rec (n: int) (count: int) : bool =\n        match count with\n        | 4 -> n = 0\n        | _ -> if n < 0 then false else\n            is_equal_to_sum_even_rec (n - 2) (count + 1) || is_equal_to_sum_even_rec n (count + 1)\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even_rec n 0\n\nend"
         },
         {
             "description": "Using recursion with an accumulator to count the even numbers and check their sum.",
-            "implementation": "module IsEqualToSumEven\n\n    use int.Int\n\n    let rec is_equal_to_sum_even_acc (n: int) (acc: int) : bool =\n        if acc == 4 then n = 0\n        else if n < 0 then false\n        else is_equal_to_sum_even_acc (n - 2) (acc + 1) || is_equal_to_sum_even_acc n acc\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even_acc n 0\n\nend"
+            "implementation": "module HumanEval138\n\n    use int.Int\n\n    let rec is_equal_to_sum_even_acc (n: int) (acc: int) : bool =\n        if acc == 4 then n = 0\n        else if n < 0 then false\n        else is_equal_to_sum_even_acc (n - 2) (acc + 1) || is_equal_to_sum_even_acc n acc\n\n    let is_equal_to_sum_even (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even_acc n 0\n\nend"
         },
         {
             "description": "Using a combination of recursion and branching (if-then-else) to check if n can be expressed as the sum of four even numbers.",
-            "implementation": "module IsEqualToSumEven\n\n    use int.Int\n\n    let rec is_equal_to_sum_even (n: int) (count: int) : bool =\n        if count == 4 then n = 0\n        else if n < 0 then false\n        else is_equal_to_sum_even (n - 2) (count + 1) || is_equal_to_sum_even n count\n\n    let is_equal_to_sum_even_main (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even n 0\n\nend"
+            "implementation": "module HumanEval138\n\n    use int.Int\n\n    let rec is_equal_to_sum_even (n: int) (count: int) : bool =\n        if count == 4 then n = 0\n        else if n < 0 then false\n        else is_equal_to_sum_even (n - 2) (count + 1) || is_equal_to_sum_even n count\n\n    let is_equal_to_sum_even_main (n: int) : bool =\n        requires { n > 0 }\n        is_equal_to_sum_even n 0\n\nend"
         }
     ]
 }

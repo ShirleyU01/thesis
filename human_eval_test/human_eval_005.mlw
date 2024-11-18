@@ -8,7 +8,7 @@ def intersperse(numbers: List[int], delimiter: int) -> List[int]:
     """
 *)
 
-
+(* 
 module HumanEval005Goal
 
     use int.Int
@@ -21,10 +21,7 @@ module HumanEval005Goal
         | Cons x xs -> Cons x (Cons n (intersperse xs n))
         end
 
-end
-
-(* Todo: Put the implementation from ChatGPT here *)
-
+end *)
 
 module TestHumanEval005
 

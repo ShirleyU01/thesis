@@ -3,11 +3,11 @@ import re
 from parse_script import parse_result
 
 result = subprocess.run(
-    ['./script.sh', '-L', 'human_eval_test', 'execute', 'human_eval_test/human_eval_035.mlw', '--use=TestHumanEval035', 'test()'],
+    ['./script.sh', '-L', 'human_eval_test', 'execute', 'human_eval_test/human_eval_031.mlw', '--use=TestHumanEval031', 'test()'],
     capture_output=True,
     text=True
 )
-
+print(result.stderr)
 r = parse_result(result.stdout)
 
 def test(output : str) :
@@ -15,7 +15,7 @@ def test(output : str) :
         return
     prompt_revise = f"""
     For the given implementation, some of testcases failed. Here are the list of failed testcases:
-    `{output}`
+    {output} 
     Please revise the current implementation to fix the problem.
     """
     return prompt_revise
