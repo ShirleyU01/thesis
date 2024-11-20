@@ -2,43 +2,43 @@
     "ideas": [
         {
             "description": "Using a for-loop to calculate differences between scores and guesses.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_for (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let ref result = Nil in \n    for i = 0 to n-1 do \n      let diff = abs (nth i scores - nth i guesses) in \n      result <- Cons diff result \n    done ; \n    rev result \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let ref result = Nil in \n    for i = 0 to n-1 do \n      let diff = abs (nth i scores - nth i guesses) in \n      result <- Cons diff result \n    done ; \n    rev result \n\nend"
         },
         {
             "description": "Using a while-loop to calculate differences between scores and guesses.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_while (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let ref i = 0 in \n    let ref result = Nil in \n    while i < n do \n      let diff = abs (nth i scores - nth i guesses) in \n      result <- Cons diff result ; \n      i <- i + 1 \n    done ; \n    rev result \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let ref i = 0 in \n    let ref result = Nil in \n    while i < n do \n      let diff = abs (nth i scores - nth i guesses) in \n      result <- Cons diff result ; \n      i <- i + 1 \n    done ; \n    rev result \n\nend"
         },
         {
             "description": "Using recursion and pattern matching to calculate differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let rec compare_recur_pattern (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        Cons diff (compare_recur_pattern ss gs) \n    end \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let rec compare (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        Cons diff (compare ss gs) \n    end \n\nend"
         },
         {
             "description": "Using recursion with an accumulator to calculate differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let rec compare_recur_acc (scores: list int) (guesses: list int) (acc: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> rev acc \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        compare_recur_acc ss gs (Cons diff acc) \n    end \n\n  let compare_recur (scores: list int) (guesses: list int) : list int = \n    compare_recur_acc scores guesses Nil \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let rec compare (scores: list int) (guesses: list int) (acc: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> rev acc \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        compare ss gs (Cons diff acc) \n    end \n\n  let compare (scores: list int) (guesses: list int) : list int = \n    compare_acc scores guesses Nil \n\nend"
         },
         {
             "description": "Using recursion and branching (if-then-else) to calculate differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let rec compare_recur_branch (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        if diff = 0 then Cons 0 (compare_recur_branch ss gs) \n        else Cons diff (compare_recur_branch ss gs) \n    end \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let rec compare (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        let diff = abs (s - g) in \n        if diff = 0 then Cons 0 (compare ss gs) \n        else Cons diff (compare ss gs) \n    end \n\nend"
         },
         {
             "description": "Using fold left to accumulate differences in a list.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_fold_left (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let f (i : int) (acc : list int) : list int = \n      let diff = abs (nth i scores - nth i guesses) in \n      Cons diff acc \n    in \n    fold_left f (0 -- (n-1)) Nil \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare_compareold_lecomparet (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let compare (i : int) (acc : list int) : list int = \n      let dicomparecompare = abs (nth i scores - nth i guesses) in \n      Cons dicomparecompare acc \n    in \n    compareold_lecomparet compare (0 -- (n-1)) Nil \n\nend"
         },
         {
             "description": "Using map to transform lists into their differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_map (scores: list int) (guesses: list int) : list int = \n    map (fun (pair: (int, int)) -> abs (fst pair - snd pair)) (combine scores guesses) \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare (scores: list int) (guesses: list int) : list int = \n    map (fun (pair: (int, int)) -> abs (fst pair - snd pair)) (combine scores guesses) \n\nend"
         },
         {
             "description": "Using zip and map to calculate differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_zip_map (scores: list int) (guesses: list int) : list int = \n    let zipped = zip scores guesses in \n    map (fun (s, g) -> abs (s - g)) zipped \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare (scores: list int) (guesses: list int) : list int = \n    let zipped = zip scores guesses in \n    map (fun (s, g) -> abs (s - g)) zipped \n\nend"
         },
         {
             "description": "Using an imperative list buffer to calculate differences.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  use list.Buffer \n  \n  let compare_buffer (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let buffer = Buffer.create n in \n    for i = 0 to n-1 do \n      let diff = abs (nth i scores - nth i guesses) in \n      Buffer.add buffer diff \n    done ; \n    Buffer.contents buffer \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  use list.Buffer \n  \n  let compare (scores: list int) (guesses: list int) : list int = \n    let n = length scores in \n    let buffer = Buffer.create n in \n    for i = 0 to n-1 do \n      let diff = abs (nth i scores - nth i guesses) in \n      Buffer.add buffer diff \n    done ; \n    Buffer.contents buffer \n\nend"
         },
         {
             "description": "Using a functional approach to calculate differences with a helper function.",
-            "implementation": "module Compare \n\n  use int.Int \n  use list.List \n  \n  let compare_helper (s: int) (g: int) : int = \n    abs (s - g) \n  \n  let rec compare_func (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        Cons (compare_helper s g) (compare_func ss gs) \n    end \n\nend"
+            "implementation": "module HumanEval152 \n\n  use int.Int \n  use list.List \n  \n  let compare (s: int) (g: int) : int = \n    abs (s - g) \n  \n  let rec compare (scores: list int) (guesses: list int) : list int = \n    match scores, guesses with \n    | Nil, Nil -> Nil \n    | Cons s ss, Cons g gs -> \n        Cons (compare s g) (compare ss gs) \n    end \n\nend"
         }
     ]
 }

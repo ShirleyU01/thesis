@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to calculate the sum and product of the list.",
-            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product_for (t : list int) : (int, int) = \n        let n = length t in\n        let ref sum = 0 in\n        let ref product = 1 in\n        for i = 0 to n-1 do \n            sum <- sum + nth i t;\n            product <- product * nth i t;\n        done ;\n        (sum, product)\n\nend"
+            "implementation": "module HumanEval008\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product (t : list int) : (int, int) = \n        let n = length t in\n        let ref sum = 0 in\n        let ref product = 1 in\n        for i = 0 to n-1 do \n            sum <- sum + nth i t;\n            product <- product * nth i t;\n        done ;\n        (sum, product)\n\nend"
         },
         {
             "description": "Using a while-loop to calculate the sum and product of the list.",
-            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product_while (t : list int) : (int, int) = \n        let n = length t in\n        let ref i = 0 in \n        let ref sum = 0 in\n        let ref product = 1 in\n        while i < n do\n            sum <- sum + nth i t;\n            product <- product * nth i t;\n            i <- i + 1\n        done ;\n        (sum, product)\n\nend"
+            "implementation": "module HumanEval008\n\n    use int.Int\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let sum_product (t : list int) : (int, int) = \n        let n = length t in\n        let ref i = 0 in \n        let ref sum = 0 in\n        let ref product = 1 in\n        while i < n do\n            sum <- sum + nth i t;\n            product <- product * nth i t;\n            i <- i + 1\n        done ;\n        (sum, product)\n\nend"
         },
         {
             "description": "Using recursion and pattern matching to calculate the sum and product of the list.",
-            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_1 (t : list int) : (int, int) =\n        match t with\n        | Nil -> (0, 1)\n        | Cons x xs -> let (s, p) = sum_product_recur_1 xs in\n                       (x + s, x * p)\n        end\n\nend"
+            "implementation": "module HumanEval008\n\n    use int.Int\n    use list.List\n\n    let rec sum_product (t : list int) : (int, int) =\n        match t with\n        | Nil -> (0, 1)\n        | Cons x xs -> let (s, p) = sum_product xs in\n                       (x + s, x * p)\n        end\n\nend"
         },
         {
             "description": "Using accumulator within recursion to calculate the sum and product of the list.",
-            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_2_accumulator (t : list int) (sum_acc : int) (prod_acc : int) : (int, int) =\n        match t with\n        | Nil -> (sum_acc, prod_acc)\n        | Cons x xs -> sum_product_recur_2_accumulator xs (sum_acc + x) (prod_acc * x)\n        end\n\n    let sum_product_recur_2 (t : list int) : (int, int) =\n        sum_product_recur_2_accumulator t 0 1\n\nend"
+            "implementation": "module HumanEval008\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_accumulator (t : list int) (sum_acc : int) (prod_acc : int) : (int, int) =\n        match t with\n        | Nil -> (sum_acc, prod_acc)\n        | Cons x xs -> sum_product_accumulator xs (sum_acc + x) (prod_acc * x)\n        end\n\n    let sum_product (t : list int) : (int, int) =\n        sum_product_accumulator t 0 1\n\nend"
         },
         {
             "description": "Using recursion and branching (if-then-else) to calculate the sum and product of the list.",
-            "implementation": "module SumProduct\n\n    use int.Int\n    use list.List\n\n    let rec sum_product_recur_3 (t : list int) : (int, int) =\n    requires { length t >= 0 }\n    ensures { let (s, p) = result in s = fold (fun acc x -> acc + x) 0 t /\\ p = fold (fun acc x -> acc * x) 1 t }\n    match t with\n    | Nil -> (0, 1)\n    | Cons x xs -> let (s, p) = sum_product_recur_3 xs in\n                   (x + s, x * p)\n    end\n\nend"
+            "implementation": "module HumanEval008\n\n    use int.Int\n    use list.List\n\n    let rec sum_product (t : list int) : (int, int) =\n    requires { length t >= 0 }\n    ensures { let (s, p) = result in s = fold (fun acc x -> acc + x) 0 t /\\ p = fold (fun acc x -> acc * x) 1 t }\n    match t with\n    | Nil -> (0, 1)\n    | Cons x xs -> let (s, p) = sum_product xs in\n                   (x + s, x * p)\n    end\n\nend"
         }
     ]
 }

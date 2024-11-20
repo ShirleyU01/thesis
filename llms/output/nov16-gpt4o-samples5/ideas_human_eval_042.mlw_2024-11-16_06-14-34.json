@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using for-loop to iterate over the list and increment each element.",
-            "implementation": "module IncrList\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_2 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_2 (n - 1) r\n    end \n\n    let incr_list_for (t : list int) : list int =\n        let n = length t in\n        let ref result = Nil in\n        for i = n - 1 downto 0 do\n            result <- Cons (nth_2 i t + 1) result\n        done ;\n        result\n\nend"
+            "implementation": "module HumanEval042\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_2 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_2 (n - 1) r\n    end \n\n    let incr_list (t : list int) : list int =\n        let n = length t in\n        let ref result = Nil in\n        for i = n - 1 downto 0 do\n            result <- Cons (nth_2 i t + 1) result\n        done ;\n        result\n\nend"
         },
         {
             "description": "Using while-loop to increment each element in the list.",
-            "implementation": "module IncrList\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_3 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_3 (n - 1) r\n    end \n\n    let incr_list_while (t : list int) : list int =\n        let n = length t in\n        let ref i = 0 in\n        let ref result = Nil in\n        while i < n do\n            result <- Cons (nth_3 i t + 1) result;\n            i <- i + 1\n        done ;\n        result\n\nend"
+            "implementation": "module HumanEval042\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_3 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_3 (n - 1) r\n    end \n\n    let incr_list (t : list int) : list int =\n        let n = length t in\n        let ref i = 0 in\n        let ref result = Nil in\n        while i < n do\n            result <- Cons (nth_3 i t + 1) result;\n            i <- i + 1\n        done ;\n        result\n\nend"
         },
         {
             "description": "Using recursion and pattern matching to increment each element.",
-            "implementation": "module IncrList\n\n    use list.List\n\n    let rec incr_list_recur_1 (t : list int) : list int =\n        match t with\n        | Nil -> Nil\n        | Cons x xs -> Cons (x + 1) (incr_list_recur_1 xs)\n        end\n\nend"
+            "implementation": "module HumanEval042\n\n    use list.List\n\n    let rec incr_list (t : list int) : list int =\n        match t with\n        | Nil -> Nil\n        | Cons x xs -> Cons (x + 1) (incr_list xs)\n        end\n\nend"
         },
         {
             "description": "Using accumulator within recursion to build the incremented list.",
-            "implementation": "module IncrList\n\n    use list.List\n\n    let rec incr_list_recur_2_accumulator (t : list int) (accumulator : list int) : list int =\n        match t with\n        | Nil -> accumulator\n        | Cons x xs -> incr_list_recur_2_accumulator xs (Cons (x + 1) accumulator)\n        end\n\n    let incr_list_recur_2 (t : list int) : list int =\n        reverse (incr_list_recur_2_accumulator t Nil)\n\nend"
+            "implementation": "module HumanEval042\n\n    use list.List\n\n    let rec incr_list_accumulator (t : list int) (accumulator : list int) : list int =\n        match t with\n        | Nil -> accumulator\n        | Cons x xs -> incr_list_accumulator xs (Cons (x + 1) accumulator)\n        end\n\n    let incr_list (t : list int) : list int =\n        reverse (incr_list_accumulator t Nil)\n\nend"
         },
         {
             "description": "Using recursion with branching (if-then-else) to increment elements.",
-            "implementation": "module IncrList\n\n    use list.List\n\n    let rec incr_list_recur_3 (t : list int) : list int =\n        match t with\n        | Nil -> Nil\n        | Cons x xs -> Cons (x + 1) (incr_list_recur_3 xs)\n        end\n\nend"
+            "implementation": "module HumanEval042\n\n    use list.List\n\n    let rec incr_list (t : list int) : list int =\n        match t with\n        | Nil -> Nil\n        | Cons x xs -> Cons (x + 1) (incr_list xs)\n        end\n\nend"
         }
     ]
 }

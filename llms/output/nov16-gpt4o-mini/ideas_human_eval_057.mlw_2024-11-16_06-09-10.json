@@ -2,15 +2,15 @@
     "ideas": [
         {
             "description": "Using a for-loop to check for monotonic sequence.",
-            "implementation": "module HumanEval057\n\n    use list.List\n\n    let monotonic_for (l : list int) : bool = \n        let n = length l in\n        if n <= 1 then true\n        else let ref increasing = true in\n        let ref decreasing = true in\n        for i = 1 to n - 1 do\n            if nth (i - 1) l < nth i l then\n                decreasing := false;\n            else if nth (i - 1) l > nth i l then\n                increasing := false;\n        done;\n        increasing || decreasing\nend"
+            "implementation": "module HumanEval057\n\n    use list.List\n\n    let monotonic (l : list int) : bool = \n        let n = length l in\n        if n <= 1 then true\n        else let ref increasing = true in\n        let ref decreasing = true in\n        for i = 1 to n - 1 do\n            if nth (i - 1) l < nth i l then\n                decreasing := false;\n            else if nth (i - 1) l > nth i l then\n                increasing := false;\n        done;\n        increasing || decreasing\nend"
         },
         {
             "description": "Using a while-loop to check for monotonic sequence.",
-            "implementation": "module HumanEval057\n\n    use list.List\n\n    let monotonic_while (l : list int) : bool = \n        let n = length l in\n        if n <= 1 then true\n        else let ref i = 1 in\n        let ref increasing = true in\n        let ref decreasing = true in\n        while i < n do\n            if nth (i - 1) l < nth i l then\n                decreasing := false;\n            else if nth (i - 1) l > nth i l then\n                increasing := false;\n            i := i + 1;\n        done;\n        increasing || decreasing\nend"
+            "implementation": "module HumanEval057\n\n    use list.List\n\n    let monotonic (l : list int) : bool = \n        let n = length l in\n        if n <= 1 then true\n        else let ref i = 1 in\n        let ref increasing = true in\n        let ref decreasing = true in\n        while i < n do\n            if nth (i - 1) l < nth i l then\n                decreasing := false;\n            else if nth (i - 1) l > nth i l then\n                increasing := false;\n            i := i + 1;\n        done;\n        increasing || decreasing\nend"
         },
         {
             "description": "Using recursion and pattern matching to check monotonicity.",
-            "implementation": "module HumanEval057\n\n    use list.List\n\n    let rec monotonic_recur (l : list int) : bool = \n        match l with\n        | Cons x (Cons y _) -> if x < y then monotonic_recur (Cons y Nil) else monotonic_recur (Cons y Nil)\n        | Cons x (Nil) -> true\n        | Nil -> true\n        end\nend"
+            "implementation": "module HumanEval057\n\n    use list.List\n\n    let rec monotonic (l : list int) : bool = \n        match l with\n        | Cons x (Cons y _) -> if x < y then monotonic (Cons y Nil) else monotonic (Cons y Nil)\n        | Cons x (Nil) -> true\n        | Nil -> true\n        end\nend"
         },
         {
             "description": "Using an accumulator within recursion to check for monotonic sequence.",
@@ -18,7 +18,7 @@
         },
         {
             "description": "Using recursion with branching (if-then-else) to determine if the list is monotonic.",
-            "implementation": "module HumanEval057\n\n    use list.List\n\n    let rec monotonic_branch (l : list int) : bool = \n        requires { length l > 0 }\n        match l with\n        | Cons x Nil -> true\n        | Cons x (Cons y ys) ->\n            if x < y then\n                monotonic_branch (Cons y ys)\n            else if x > y then\n                monotonic_branch (Cons y ys)\n            else\n                false\n        end\nend"
+            "implementation": "module HumanEval057\n\n    use list.List\n\n    let rec monotonic (l : list int) : bool = \n        requires { length l > 0 }\n        match l with\n        | Cons x Nil -> true\n        | Cons x (Cons y ys) ->\n            if x < y then\n                monotonic (Cons y ys)\n            else if x > y then\n                monotonic (Cons y ys)\n            else\n                false\n        end\nend"
         }
     ]
 }

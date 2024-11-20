@@ -1,0 +1,9 @@
+=======================human_eval_008_4.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_008_4.mlw", line 36, characters 23-78:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_008_4.mlw", line 40, characters 8-37:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_008_4.mlw", line 73, characters 16-46:
+This expression has type (int, int), but is expected to have type list.List.
+list int

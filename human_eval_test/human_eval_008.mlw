@@ -23,6 +23,8 @@ def sum_product(numbers: List[int]) -> list [int]:
         helper l 0 1
 end *)
 
+(* INSERT_CHATGPT_CODE *)
+
 module TestHumanEval008
  use int.Int
     use list.List

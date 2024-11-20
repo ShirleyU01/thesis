@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a for-loop to check divisibility for is_prime",
-            "implementation": "module IsPrimeForLoop\n\n    use int.Int\n\n    let is_prime_for (n: int) : bool =\n        requires { n > 1 }\n        let ref is_prime = true in\n        for i = 2 to n / 2 do\n            if n mod i = 0 then is_prime <- false\n        done;\n        is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n    use int.Int\n\n    let is_prime (n: int) : bool =\n        requires { n > 1 }\n        let ref is_prime = true in\n        for i = 2 to n / 2 do\n            if n mod i = 0 then is_prime <- false\n        done;\n        is_prime\n\nend"
         },
         {
             "description": "Using a while-loop to check divisibility for is_prime",
-            "implementation": "module IsPrimeWhileLoop\n\n    use int.Int\n\n    let is_prime_while (n: int) : bool =\n        requires { n > 1 }\n        let ref i = 2 in\n        let ref is_prime = true in\n        while i <= n / 2 do\n            if n mod i = 0 then is_prime <- false;\n            i <- i + 1\n        done;\n        is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n    use int.Int\n\n    let is_prime (n: int) : bool =\n        requires { n > 1 }\n        let ref i = 2 in\n        let ref is_prime = true in\n        while i <= n / 2 do\n            if n mod i = 0 then is_prime <- false;\n            i <- i + 1\n        done;\n        is_prime\n\nend"
         },
         {
             "description": "Using recursion and pattern matching for is_prime",
-            "implementation": "module IsPrimeRecursion\n\n    use int.Int\n\n    let rec is_prime_recur (n: int) (i: int) : bool =\n        requires { n > 1 }\n        if i > n / 2 then true\n        else if n mod i = 0 then false\n        else is_prime_recur n (i + 1)\n\n    let is_prime (n: int) : bool =\n        is_prime_recur n 2\n\nend"
+            "implementation": "module HumanEval031\n\n    use int.Int\n\n    let rec is_prime_recur (n: int) (i: int) : bool =\n        requires { n > 1 }\n        if i > n / 2 then true\n        else if n mod i = 0 then false\n        else is_prime_recur n (i + 1)\n\n    let is_prime (n: int) : bool =\n        is_prime_recur n 2\n\nend"
         },
         {
             "description": "Using a helper function with an accumulator to track divisibility",
-            "implementation": "module IsPrimeWithAccumulator\n\n    use int.Int\n\n    let rec is_prime_accumulator (n: int) (i: int) (is_prime: bool) : bool =\n        requires { n > 1 }\n        if i > n / 2 then is_prime\n        else if n mod i = 0 then is_prime_accumulator n (i + 1) false\n        else is_prime_accumulator n (i + 1) is_prime\n\n    let is_prime (n: int) : bool =\n        is_prime_accumulator n 2 true\n\nend"
+            "implementation": "module HumanEval031\n\n    use int.Int\n\n    let rec is_prime_accumulator (n: int) (i: int) (is_prime: bool) : bool =\n        requires { n > 1 }\n        if i > n / 2 then is_prime\n        else if n mod i = 0 then is_prime_accumulator n (i + 1) false\n        else is_prime_accumulator n (i + 1) is_prime\n\n    let is_prime (n: int) : bool =\n        is_prime_accumulator n 2 true\n\nend"
         },
         {
             "description": "Using recursion with branching (if-then-else) to determine primality",
-            "implementation": "module IsPrimeBranching\n\n    use int.Int\n\n    let rec is_prime_branch (n: int) (i: int) : bool =\n        requires { n > 1 }\n        if i > n / 2 then true\n        else if n mod i = 0 then false\n        else is_prime_branch n (i + 1)\n\n    let is_prime (n: int) : bool =\n        is_prime_branch n 2\n\nend"
+            "implementation": "module HumanEval031\n\n    use int.Int\n\n    let rec is_prime_branch (n: int) (i: int) : bool =\n        requires { n > 1 }\n        if i > n / 2 then true\n        else if n mod i = 0 then false\n        else is_prime_branch n (i + 1)\n\n    let is_prime (n: int) : bool =\n        is_prime_branch n 2\n\nend"
         }
     ]
 }

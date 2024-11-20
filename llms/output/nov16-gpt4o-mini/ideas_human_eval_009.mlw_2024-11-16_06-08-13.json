@@ -2,11 +2,11 @@
     "ideas": [
         {
             "description": "Using a for-loop to generate the rolling maximum list.",
-            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_for (numbers: list int) : list int = \n        let n = length numbers in\n        let ref max = -1000 in\n        let ref result = [] in\n        for i = 0 to n - 1 do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n        done;\n        rev !result\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max (numbers: list int) : list int = \n        let n = length numbers in\n        let ref max = -1000 in\n        let ref result = [] in\n        for i = 0 to n - 1 do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n        done;\n        rev !result\nend"
         },
         {
             "description": "Using a while-loop to calculate the rolling maximum list.",
-            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max_while (numbers: list int) : list int = \n        let n = length numbers in\n        let ref i = 0 in\n        let ref max = -1000 in\n        let ref result = [] in\n        while i < n do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n            i := i + 1;\n        done;\n        rev !result\nend"
+            "implementation": "module HumanEval009\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rolling_max (numbers: list int) : list int = \n        let n = length numbers in\n        let ref i = 0 in\n        let ref max = -1000 in\n        let ref result = [] in\n        while i < n do\n            max := if nth i numbers > !max then nth i numbers else !max;\n            result := !max :: !result;\n            i := i + 1;\n        done;\n        rev !result\nend"
         },
         {
             "description": "Using recursion and pattern matching to implement rolling maximum.",

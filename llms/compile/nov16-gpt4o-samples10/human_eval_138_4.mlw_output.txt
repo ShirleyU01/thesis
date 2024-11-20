@@ -1,0 +1,12 @@
+=======================human_eval_138_4.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_138_4.mlw", line 38, characters 9-17:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_138_4.mlw", line 37, characters 57-71:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_138_4.mlw", line 37, characters 10-53:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_138_4.mlw", line 41, characters 4-29:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_138_4.mlw", line 51, characters 12-32:
+unbound function or predicate symbol 'is_equal_to_sum_even'

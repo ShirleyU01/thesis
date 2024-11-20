@@ -2,43 +2,43 @@
     "ideas": [
         {
             "description": "Using a for-loop to iterate through the list and add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add_for (lst: list int) : int =\n    let ref sum = 0 in\n    let n = length lst in\n    for i = 1 to n - 1 do\n      if i mod 2 = 1 && nth i lst mod 2 = 0 then\n        sum <- sum + nth i lst\n    done;\n    sum\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add (lst: list int) : int =\n    let ref sum = 0 in\n    let n = length lst in\n    for i = 1 to n - 1 do\n      if i mod 2 = 1 && nth i lst mod 2 = 0 then\n        sum <- sum + nth i lst\n    done;\n    sum\n\nend"
         },
         {
             "description": "Using a while-loop to iterate through the list and add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add_while (lst: list int) : int =\n    let ref sum = 0 in\n    let ref i = 1 in\n    let n = length lst in\n    while i < n do\n      if nth i lst mod 2 = 0 then\n        sum <- sum + nth i lst;\n      i <- i + 2\n    done;\n    sum\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add (lst: list int) : int =\n    let ref sum = 0 in\n    let ref i = 1 in\n    let n = length lst in\n    while i < n do\n      if nth i lst mod 2 = 0 then\n        sum <- sum + nth i lst;\n      i <- i + 2\n    done;\n    sum\n\nend"
         },
         {
             "description": "Using recursion to iterate through the list and add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n\n  let rec add_rec (lst: list int) (index: int) : int =\n    match lst with\n    | Nil -> 0\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        x + add_rec xs (index + 1)\n      else\n        add_rec xs (index + 1)\n    end\n\n  let add (lst: list int) : int =\n    add_rec lst 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add (lst: list int) (index: int) : int =\n    match lst with\n    | Nil -> 0\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        x + add xs (index + 1)\n      else\n        add xs (index + 1)\n    end\n\n  let add (lst: list int) : int =\n    add_rec lst 0\n\nend"
         },
         {
             "description": "Using an accumulator within recursion to add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n\n  let rec add_rec_acc (lst: list int) (index: int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        add_rec_acc xs (index + 1) (acc + x)\n      else\n        add_rec_acc xs (index + 1) acc\n    end\n\n  let add (lst: list int) : int =\n    add_rec_acc lst 0 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add (lst: list int) (index: int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        add xs (index + 1) (acc + x)\n      else\n        add xs (index + 1) acc\n    end\n\n  let add (lst: list int) : int =\n    add_rec_acc lst 0 0\n\nend"
         },
         {
             "description": "Using pattern matching to add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n\n  let rec add_pattern (lst: list int) (index: int) : int =\n    match lst with\n    | Nil -> 0\n    | Cons x xs ->\n      begin match index mod 2 = 1, x mod 2 = 0 with\n      | True, True -> x + add_pattern xs (index + 1)\n      | _, _ -> add_pattern xs (index + 1)\n      end\n    end\n\n  let add (lst: list int) : int =\n    add_pattern lst 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add (lst: list int) (index: int) : int =\n    match lst with\n    | Nil -> 0\n    | Cons x xs ->\n      begin match index mod 2 = 1, x mod 2 = 0 with\n      | True, True -> x + add xs (index + 1)\n      | _, _ -> add xs (index + 1)\n      end\n    end\n\n  let add (lst: list int) : int =\n    add_pattern lst 0\n\nend"
         },
         {
             "description": "Using a list filter to select even elements at odd indices, then summing them",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n  use list.Filter\n\n  let is_odd_index_even_elem (index_elem: (int, int)) : bool =\n    let (index, elem) = index_elem in\n    index mod 2 = 1 && elem mod 2 = 0\n\n  let add_filter (lst: list int) : int =\n    let indexed_lst = mapi (fun i x -> (i, x)) lst in\n    let filtered_lst = filter is_odd_index_even_elem indexed_lst in\n    fold (fun (i, x) acc -> acc + x) filtered_lst 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Filter\n\n  let is_odd_index_even_elem (index_elem: (int, int)) : bool =\n    let (index, elem) = index_elem in\n    index mod 2 = 1 && elem mod 2 = 0\n\n  let add (lst: list int) : int =\n    let indexed_lst = mapi (fun i x -> (i, x)) lst in\n    let filtered_lst = filter is_odd_index_even_elem indexed_lst in\n    fold (fun (i, x) acc -> acc + x) filtered_lst 0\n\nend"
         },
         {
             "description": "Using a fold to accumulate the sum of even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n  use list.Fold\n\n  let add_fold (lst: list int) : int =\n    fold (fun (elem, index) acc ->\n      if index mod 2 = 1 && elem mod 2 = 0 then acc + elem else acc\n    ) (mapi (fun i x -> (x, i)) lst) 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Fold\n\n  let add (lst: list int) : int =\n    fold (fun (elem, index) acc ->\n      if index mod 2 = 1 && elem mod 2 = 0 then acc + elem else acc\n    ) (mapi (fun i x -> (x, i)) lst) 0\n\nend"
         },
         {
             "description": "Using a recursive helper function to maintain index and sum even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n\n  let rec helper (lst: list int) (index: int) (sum: int) : int =\n    match lst with\n    | Nil -> sum\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        helper xs (index + 1) (sum + x)\n      else\n        helper xs (index + 1) sum\n    end\n\n  let add (lst: list int) : int =\n    helper lst 0 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add (lst: list int) (index: int) (sum: int) : int =\n    match lst with\n    | Nil -> sum\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        add xs (index + 1) (sum + x)\n      else\n        add xs (index + 1) sum\n    end\n\n  let add (lst: list int) : int =\n    helper lst 0 0\n\nend"
         },
         {
             "description": "Using a combination of tail recursion and branching to add even elements at odd indices",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n\n  let rec add_tail_rec (lst: list int) (index: int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        add_tail_rec xs (index + 1) (acc + x)\n      else\n        add_tail_rec xs (index + 1) acc\n    end\n\n  let add (lst: list int) : int =\n    add_tail_rec lst 0 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add (lst: list int) (index: int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then\n        add xs (index + 1) (acc + x)\n      else\n        add xs (index + 1) acc\n    end\n\n  let add (lst: list int) : int =\n    add_tail_rec lst 0 0\n\nend"
         },
         {
             "description": "Using a list map to transform elements with indices, then filtering and summing",
-            "implementation": "module AddList\n\n  use int.Int\n  use list.List\n  use list.Map\n  use list.Filter\n\n  let add_map_filter (lst: list int) : int =\n    let indexed_lst = mapi (fun i x -> (i, x)) lst in\n    let even_at_odd_indices = filter (fun (i, x) -> i mod 2 = 1 && x mod 2 = 0) indexed_lst in\n    fold (fun (i, x) acc -> acc + x) even_at_odd_indices 0\n\nend"
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Map\n  use list.Filter\n\n  let add (lst: list int) : int =\n    let indexed_lst = mapi (fun i x -> (i, x)) lst in\n    let even_at_odd_indices = filter (fun (i, x) -> i mod 2 = 1 && x mod 2 = 0) indexed_lst in\n    fold (fun (i, x) acc -> acc + x) even_at_odd_indices 0\n\nend"
         }
     ]
 }

@@ -1,0 +1,4 @@
+=======================human_eval_052_2.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_052_2.mlw", line 41, characters 13-16:
+Logical symbol nth is used in a non-ghost context

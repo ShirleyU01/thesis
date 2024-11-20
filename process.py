@@ -1,9 +1,32 @@
 import json
 import re
 import os
+import pandas as pd
+
+
+def replace_function_name(code, module_name, function_name):
+    # Find the last function name after the last "let" definition
+    function_name_match = re.findall(r"let\s+(?:rec\s+)?(\w+)\s*\(", code, re.MULTILINE)
+    if not function_name_match:
+        function_name_match = re.findall(r"let rec\s+(\w+)\s*\(", code)
+        if not function_name_match:
+            return code  # Return the original code if no function is found
+    old_function_name = function_name_match[-1]
+    new_function_name = function_name
+    
+    # Replace all occurrences of old_function_name with new_function_name
+    updated_code = code.replace(old_function_name, new_function_name)
+    
+    # Replace the original module content with the updated one
+    updated_code = code.replace(code, updated_code)
+    return updated_code
+
 
 # Filename of the JSON file
-json_foldername = "llms/output/nov16-gpt4o-mini"
+json_foldername = "thesis/llms/output/nov16-gpt4o-mini"
+info_filepath = "thesis/prompt/description.csv"
+df = pd.read_csv(info_filepath)
+
 
 for filename in os.listdir(json_foldername):
     if filename.endswith(".json"):
@@ -14,7 +37,7 @@ for filename in os.listdir(json_foldername):
         json_filepath = os.path.join(json_foldername, filename)
         module_number = match.group(1)
         new_module_name = f"HumanEval{module_number}"
-        # new_function_name = "add"
+        
 
         with open(json_filepath, 'r') as json_file:
             data = json.load(json_file)
@@ -24,10 +47,10 @@ for filename in os.listdir(json_foldername):
             idea["implementation"] = re.sub(
                 r"module\s+\w+", f"module {new_module_name}", idea["implementation"]
             )
-            # # Replace the result function name
-            # idea["implementation"] = re.sub(
-            #     r"let\s+\w+\s*\(", f"let {new_function_name}(", idea["implementation"], count=1
-            # )
+            # Replace the result function name
+            function_name = df[df['filename'].str.contains(f"{module_number}", na=False)]['Function name'].tolist()[0]
+            updated_implementation = replace_function_name(idea["implementation"], module_number, function_name)
+            idea["implementation"] = updated_implementation
 
         # Write the updated JSON back to the file
         with open(json_filepath, 'w') as json_file:

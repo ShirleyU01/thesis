@@ -8,7 +8,7 @@ def max_element(l: list):
     """ 
  *)
 
-module HumanEval035
+module HumanEval035Goal
 
     use int.Int
     use list.List

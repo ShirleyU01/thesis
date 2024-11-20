@@ -2,43 +2,43 @@
     "ideas": [
         {
             "description": "Using a for-loop to check divisibility up to n-1",
-            "implementation": "module IsPrimeForLoop\n\n  use int.Int\n\n  let is_prime_for (n : int) : bool =\n    requires { n > 0 }\n    let ref is_prime = true in\n    for i = 2 to n - 1 do\n      if n mod i = 0 then is_prime <- false\n    done;\n    is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n : int) : bool =\n    requires { n > 0 }\n    let ref is_prime = true in\n    for i = 2 to n - 1 do\n      if n mod i = 0 then is_prime <- false\n    done;\n    is_prime\n\nend"
         },
         {
             "description": "Using a while-loop to check divisibility up to n-1",
-            "implementation": "module IsPrimeWhileLoop\n\n  use int.Int\n\n  let is_prime_while (n : int) : bool =\n    requires { n > 0 }\n    let ref i = 2 in\n    let ref is_prime = true in\n    while i < n do\n      if n mod i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n : int) : bool =\n    requires { n > 0 }\n    let ref i = 2 in\n    let ref is_prime = true in\n    while i < n do\n      if n mod i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\n\nend"
         },
         {
             "description": "Using recursion to check divisibility up to n-1",
-            "implementation": "module IsPrimeRecursion\n\n  use int.Int\n\n  let rec is_prime_recur (n : int) (i : int) : bool =\n    requires { n > 0 }\n    if i >= n then true\n    else if n mod i = 0 then false\n    else is_prime_recur n (i + 1)\n\n  let is_prime (n : int) : bool =\n    is_prime_recur n 2\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let rec is_prime_recur (n : int) (i : int) : bool =\n    requires { n > 0 }\n    if i >= n then true\n    else if n mod i = 0 then false\n    else is_prime_recur n (i + 1)\n\n  let is_prime (n : int) : bool =\n    is_prime_recur n 2\n\nend"
         },
         {
             "description": "Using recursion with an accumulator to track divisibility",
-            "implementation": "module IsPrimeRecursionAccumulator\n\n  use int.Int\n\n  let rec is_prime_recur_acc (n : int) (i : int) (is_prime : bool) : bool =\n    requires { n > 0 }\n    if i >= n then is_prime\n    else if n mod i = 0 then false\n    else is_prime_recur_acc n (i + 1) true\n\n  let is_prime (n : int) : bool =\n    is_prime_recur_acc n 2 true\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let rec is_prime_recur_acc (n : int) (i : int) (is_prime : bool) : bool =\n    requires { n > 0 }\n    if i >= n then is_prime\n    else if n mod i = 0 then false\n    else is_prime_recur_acc n (i + 1) true\n\n  let is_prime (n : int) : bool =\n    is_prime_recur_acc n 2 true\n\nend"
         },
         {
             "description": "Using recursion with pattern matching for base and recursive cases",
-            "implementation": "module IsPrimePatternMatching\n\n  use int.Int\n\n  let rec is_prime_pattern (n : int) (i : int) : bool =\n    requires { n > 0 }\n    match i >= n with\n    | True -> true\n    | False -> match n mod i = 0 with\n               | True -> false\n               | False -> is_prime_pattern n (i + 1)\n               end\n    end\n\n  let is_prime (n : int) : bool =\n    is_prime_pattern n 2\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let rec is_prime (n : int) (i : int) : bool =\n    requires { n > 0 }\n    match i >= n with\n    | True -> true\n    | False -> match n mod i = 0 with\n               | True -> false\n               | False -> is_prime n (i + 1)\n               end\n    end\n\n  let is_prime (n : int) : bool =\n    is_prime_pattern n 2\n\nend"
         },
         {
             "description": "Using a for-loop to check divisibility only up to sqrt(n)",
-            "implementation": "module IsPrimeForLoopSqrt\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let is_prime_for_sqrt (n : int) : bool =\n    requires { n > 0 }\n    let ref is_prime = true in\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    for i = 2 to limit do\n      if n mod i = 0 then is_prime <- false\n    done;\n    is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let is_prime (n : int) : bool =\n    requires { n > 0 }\n    let ref is_prime = true in\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    for i = 2 to limit do\n      if n mod i = 0 then is_prime <- false\n    done;\n    is_prime\n\nend"
         },
         {
             "description": "Using a while-loop to check divisibility only up to sqrt(n)",
-            "implementation": "module IsPrimeWhileLoopSqrt\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let is_prime_while_sqrt (n : int) : bool =\n    requires { n > 0 }\n    let ref i = 2 in\n    let ref is_prime = true in\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    while i <= limit do\n      if n mod i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let is_prime (n : int) : bool =\n    requires { n > 0 }\n    let ref i = 2 in\n    let ref is_prime = true in\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    while i <= limit do\n      if n mod i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\n\nend"
         },
         {
             "description": "Using recursion to check divisibility only up to sqrt(n)",
-            "implementation": "module IsPrimeRecursionSqrt\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let rec is_prime_recur_sqrt (n : int) (i : int) (limit : int) : bool =\n    requires { n > 0 }\n    if i > limit then true\n    else if n mod i = 0 then false\n    else is_prime_recur_sqrt n (i + 1) limit\n\n  let is_prime (n : int) : bool =\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    is_prime_recur_sqrt n 2 limit\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let rec is_prime_recur_sqrt (n : int) (i : int) (limit : int) : bool =\n    requires { n > 0 }\n    if i > limit then true\n    else if n mod i = 0 then false\n    else is_prime_recur_sqrt n (i + 1) limit\n\n  let is_prime (n : int) : bool =\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    is_prime_recur_sqrt n 2 limit\n\nend"
         },
         {
             "description": "Using recursion with pattern matching and sqrt(n) limit",
-            "implementation": "module IsPrimePatternMatchingSqrt\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let rec is_prime_pattern_sqrt (n : int) (i : int) (limit : int) : bool =\n    requires { n > 0 }\n    match i > limit with\n    | True -> true\n    | False -> match n mod i = 0 with\n               | True -> false\n               | False -> is_prime_pattern_sqrt n (i + 1) limit\n               end\n    end\n\n  let is_prime (n : int) : bool =\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    is_prime_pattern_sqrt n 2 limit\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use real.Real\n  use real.Sqrt\n\n  let rec is_prime (n : int) (i : int) (limit : int) : bool =\n    requires { n > 0 }\n    match i > limit with\n    | True -> true\n    | False -> match n mod i = 0 with\n               | True -> false\n               | False -> is_prime n (i + 1) limit\n               end\n    end\n\n  let is_prime (n : int) : bool =\n    let limit = int_of_float (sqrt (float_of_int n)) in\n    is_prime_pattern_sqrt n 2 limit\n\nend"
         },
         {
             "description": "Using a sieve-like approach to mark non-prime numbers",
-            "implementation": "module IsPrimeSieveLike\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let is_prime_sieve (n : int) : bool =\n    requires { n > 0 }\n    if n <= 1 then false\n    else\n      let rec mark_non_primes (l : list int) (i : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if x mod i = 0 && x <> i then mark_non_primes xs i else Cons x (mark_non_primes xs i)\n        end\n      in\n      let rec sieve (l : list int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> Cons x (sieve (mark_non_primes xs x))\n        end\n      in\n      let primes = sieve (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil))))))))) in\n      let rec is_prime_in_list (l : list int) : bool =\n        match l with\n        | Nil -> false\n        | Cons x xs -> if x = n then true else is_prime_in_list xs\n        end\n      in\n      is_prime_in_list primes\n\nend"
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let is_prime (n : int) : bool =\n    requires { n > 0 }\n    if n <= 1 then false\n    else\n      let rec mark_non_primes (l : list int) (i : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if x mod i = 0 && x <> i then mark_non_primes xs i else Cons x (mark_non_primes xs i)\n        end\n      in\n      let rec sieve (l : list int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> Cons x (sieve (mark_non_primes xs x))\n        end\n      in\n      let primes = sieve (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil))))))))) in\n      let rec is_prime (l : list int) : bool =\n        match l with\n        | Nil -> false\n        | Cons x xs -> if x = n then true else is_prime xs\n        end\n      in\n      is_prime primes\n\nend"
         }
     ]
 }

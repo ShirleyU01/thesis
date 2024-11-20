@@ -2,15 +2,15 @@
     "ideas": [
         {
             "description": "Using simple conditional checks to implement the eat function.",
-            "implementation": "let eat_simple (number: int) (need: int) (remaining: int) : list int = \n    let total_eaten = number + min(need, remaining) in \n    let left = max(0, remaining - need) in \n    [total_eaten; left]"
+            "implementation": "let eat (number: int) (need: int) (remaining: int) : list int = \n    let total_eaten = number + min(need, remaining) in \n    let left = max(0, remaining - need) in \n    [total_eaten; left]"
         },
         {
             "description": "Using a while loop to incrementally eat carrots until the need is satisfied or no carrots are left.",
-            "implementation": "let eat_while (number: int) (need: int) (remaining: int) : list int = \n    let ref total_eaten = number in \n    let ref left = remaining in \n    while need > 0 && left > 0 do \n        total_eaten <- total_eaten + 1; \n        left <- left - 1; \n        need <- need - 1; \n    done; \n    [total_eaten; left]"
+            "implementation": "let eat (number: int) (need: int) (remaining: int) : list int = \n    let ref total_eaten = number in \n    let ref left = remaining in \n    while need > 0 && left > 0 do \n        total_eaten <- total_eaten + 1; \n        left <- left - 1; \n        need <- need - 1; \n    done; \n    [total_eaten; left]"
         },
         {
             "description": "Using recursion to simulate the eating process until the need is satisfied or no carrots are left.",
-            "implementation": "let rec eat_recursive (number: int) (need: int) (remaining: int) : list int = \n    if need <= 0 then [number; remaining] \n    else if remaining > 0 then eat_recursive (number + 1) (need - 1) (remaining - 1) \n    else [number + remaining; 0]"
+            "implementation": "let rec eat (number: int) (need: int) (remaining: int) : list int = \n    if need <= 0 then [number; remaining] \n    else if remaining > 0 then eat (number + 1) (need - 1) (remaining - 1) \n    else [number + remaining; 0]"
         },
         {
             "description": "Using a helper function to handle the recursion and accumulatively track eaten carrots and remaining carrots.",
@@ -18,7 +18,7 @@
         },
         {
             "description": "Using pattern matching to simplify the function into clearer cases of eating carrots.",
-            "implementation": "let eat_pattern (number: int) (need: int) (remaining: int) : list int = \n    match (need, remaining) with \n    | (n, r) when n <= 0 -> [number; remaining] \n    | (n, 0) -> [number; 0] \n    | (n, r) -> let total_eaten = number + min(n, r) in \n                let left = max(0, r - n) in \n                [total_eaten; left]"
+            "implementation": "let eat (number: int) (need: int) (remaining: int) : list int = \n    match (need, remaining) with \n    | (n, r) when n <= 0 -> [number; remaining] \n    | (n, 0) -> [number; 0] \n    | (n, r) -> let total_eaten = number + min(n, r) in \n                let left = max(0, r - n) in \n                [total_eaten; left]"
         }
     ]
 }

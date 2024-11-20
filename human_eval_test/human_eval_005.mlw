@@ -23,6 +23,8 @@ module HumanEval005Goal
 
 end *)
 
+(* INSERT_CHATGPT_CODE *)
+
 module TestHumanEval005
 
     use int.Int

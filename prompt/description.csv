@@ -5,7 +5,7 @@ human_eval_005.mlw,"def intersperse(numbers: List[int], delimiter: int) -> List[
     []
     >>> intersperse([1, 2, 3], 4)
     [1, 4, 2, 4, 3]
-    """"""",interperse,HumanEval005
+    """"""",intersperse,HumanEval005
 human_eval_008.mlw,"def sum_product(numbers: List[int]) -> list [int]:
     """""" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
     Empty sum should be equal to 0 and empty product should be equal to 1.

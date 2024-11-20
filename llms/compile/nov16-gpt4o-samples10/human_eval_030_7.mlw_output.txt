@@ -1,0 +1,10 @@
+=======================human_eval_030_7.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_030_7.mlw", line 19, characters 44-61:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_030_7.mlw", line 19, characters 67-82:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_030_7.mlw", line 34, characters 19-46:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples10/human_eval_030_7.mlw", line 38, characters 9-10:
+unbound function or predicate symbol '(>)'

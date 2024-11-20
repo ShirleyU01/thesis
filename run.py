@@ -1,14 +1,13 @@
 import subprocess
 import re
 from parse_script import parse_result
+import os
+import pandas as pd
 
-result = subprocess.run(
-    ['./script.sh', '-L', 'human_eval_test', 'execute', 'human_eval_test/human_eval_031.mlw', '--use=TestHumanEval031', 'test()'],
-    capture_output=True,
-    text=True
-)
-print(result.stderr)
-r = parse_result(result.stdout)
+def parse_string(s):
+    parts = s.split('_')[:-1]
+    result = ''.join(part.capitalize() for part in parts)
+    return result
 
 def test(output : str) :
     if output == "Passed!":
@@ -20,4 +19,77 @@ def test(output : str) :
     """
     return prompt_revise
 
-print(test(r))
+def is_compile_success(text):
+    lines = text.strip().split("\n")[1:]  
+    invalid_lines = [line for line in lines if not (line.startswith("File") or line.startswith("WARNING") or line.startswith("warning"))]
+    return invalid_lines
+
+import re
+
+def replace_function_name(code, module_name, function_name):
+    # Extract the module HumanEval005
+    module_match = re.search(rf"{module_name}(.*?)end", code, re.DOTALL)
+    if not module_match:
+        return code  
+    
+    module_content = module_match.group(1)
+    
+    # Find the last function name after the last "let" definition
+    function_name_match = re.findall(r"let\s+(\w+)\s*\(", module_content)
+    if not function_name_match:
+        return code  # Return the original code if no function is found
+    
+    old_function_name = function_name_match[-1]
+    new_function_name = function_name
+    
+    # Replace all occurrences of old_function_name with new_function_name
+    updated_module_content = module_content.replace(old_function_name, new_function_name)
+    
+    # Replace the original module content with the updated one
+    updated_code = code.replace(module_content, updated_module_content)
+    return updated_code
+
+
+
+folder_path = "thesis/llms/implementation/nov16-gpt4o-mini"
+compile_folder_path = "thesis/llms/compile/nov16-gpt4o-mini"
+excel_output_path = 'thesis/llms/compile/nov16-gpt4o-mini/info.csv'
+data = []
+os.makedirs(compile_folder_path, exist_ok=True)
+
+# iterate every file in the folder
+for filename in os.listdir(folder_path): 
+    output_text = ""
+    file_path = os.path.join(folder_path, filename)
+    output_file_path = os.path.join(compile_folder_path, f"{filename}_output.txt") 
+    module_name = parse_string(filename)
+    result = subprocess.run(
+        ['./thesis/script.sh', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
+        capture_output=True,
+        text=True
+    )
+    output_text += f"======================={filename}=====================\n" + result.stderr
+    if not result.stderr:
+        continue
+    else:
+        r = parse_result(result.stdout)
+        failed_test = test(r)
+        if failed_test:
+            output_text += "=======================TestCases=====================\n" + failed_test
+
+    
+    with open(output_file_path, 'w') as output_file:
+        output_file.write(output_text)
+
+    error_msg = ''
+    for line in is_compile_success(output_text):
+        error_msg += line + '\n'
+    data.append({
+        'Implementation': filename,
+        'Complie': is_compile_success(output_text),
+        'Error': error_msg  
+    }) 
+    print(f"Output from {filename} added to {file_path}.")
+
+df = pd.DataFrame(data)
+df.to_csv(excel_output_path, index=False)

@@ -1,0 +1,122 @@
+=======================human_eval_035_3.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 24, characters 4-118:
+warning: Non-exhaustive pattern matching, asserting `absurd'
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 42, characters 38-52:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 55, characters 8-50:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 58, characters 39-81:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 61, characters 8-134:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 65, characters 9-135:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 69, characters 8-83:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 73, characters 9-84:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 77, characters 8-34:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 80, characters 23-49:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 83, characters 8-59:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 86, characters 48-99:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 89, characters 8-73:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 92, characters 62-127:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 95, characters 8-77:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 98, characters 66-135:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 101, characters 8-104:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 105, characters 9-105:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 109, characters 8-92:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 113, characters 9-93:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 117, characters 8-82:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 121, characters 9-83:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 107-115:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 96-103:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 85-92:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 74-81:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 63-70:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 52-59:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 41-48:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 30-37:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 19-26:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 125, characters 8-15:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 138, characters 15-23:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 137, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 136, characters 11-18:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 135, characters 11-18:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 134, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 133, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 132, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 131, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 130, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 129, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 152, characters 30-45:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 151, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 150, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 149, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 148, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 147, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 146, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 145, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 144, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 143, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 158, characters 28-39:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 158, characters 40-55:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 163, characters 8-20:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/nov16-gpt4o-samples5/human_eval_035_3.mlw", line 162, characters 16-27:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons 7 (Cons 7 (Cons 3 (Cons 5 (Cons 7 (Cons 2 (Cons 7 (Cons 1 (Cons 7 (Nil)))))))))); the output we obtained with current implementation is 7; but the expected output is 7)
+for input Cons ((Cons 0 (Cons (-10) (Cons 10 (Cons (-10) (Cons 0 (Nil)))))); the output we obtained with current implementation is 10; but the expected output is 10)
+ 
+    Please revise the current implementation to fix the problem.
+    

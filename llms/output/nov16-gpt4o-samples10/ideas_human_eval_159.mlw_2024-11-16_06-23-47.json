@@ -2,43 +2,43 @@
     "ideas": [
         {
             "description": "Using basic if-else statements to determine the number of carrots eaten and remaining",
-            "implementation": "module EatCarrots_IfElse\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    if need <= remaining then (number + need, remaining - need)\n    else (number + remaining, 0)\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    if need <= remaining then (number + need, remaining - need)\n    else (number + remaining, 0)\n\nend"
         },
         {
             "description": "Using pattern matching to handle different cases based on the comparison between need and remaining",
-            "implementation": "module EatCarrots_PatternMatching\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    match need <= remaining with\n    | True -> (number + need, remaining - need)\n    | False -> (number + remaining, 0)\n    end\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    match need <= remaining with\n    | True -> (number + need, remaining - need)\n    | False -> (number + remaining, 0)\n    end\n\nend"
         },
         {
             "description": "Using a recursive approach to simulate the eating process, decrementing need and remaining until satisfied or exhausted",
-            "implementation": "module EatCarrots_Recursion\n\n  use int.Int\n\n  let rec eat_rec (number: int) (need: int) (remaining: int) : (int, int) =\n    if need = 0 || remaining = 0 then (number, remaining)\n    else eat_rec (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_rec number need remaining\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let rec eat_rec (number: int) (need: int) (remaining: int) : (int, int) =\n    if need = 0 || remaining = 0 then (number, remaining)\n    else eat_rec (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_rec number need remaining\n\nend"
         },
         {
             "description": "Using a while-loop to iteratively consume carrots until the need is satisfied or stock is depleted",
-            "implementation": "module EatCarrots_WhileLoop\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref n = number in\n    let ref rem = remaining in\n    let ref needed = need in\n    while needed > 0 && rem > 0 do\n      n <- n + 1;\n      rem <- rem - 1;\n      needed <- needed - 1\n    done;\n    (n, rem)\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref n = number in\n    let ref rem = remaining in\n    let ref needed = need in\n    while needed > 0 && rem > 0 do\n      n <- n + 1;\n      rem <- rem - 1;\n      needed <- needed - 1\n    done;\n    (n, rem)\n\nend"
         },
         {
             "description": "Using a for-loop to consume carrots, iterating over the number of needed carrots or remaining carrots, whichever is smaller",
-            "implementation": "module EatCarrots_ForLoop\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref n = number in\n    let ref rem = remaining in\n    let min_need_rem = if need < remaining then need else remaining in\n    for i = 1 to min_need_rem do\n      n <- n + 1;\n      rem <- rem - 1\n    done;\n    (n, rem)\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref n = number in\n    let ref rem = remaining in\n    let min_need_rem = if need < remaining then need else remaining in\n    for i = 1 to min_need_rem do\n      n <- n + 1;\n      rem <- rem - 1\n    done;\n    (n, rem)\n\nend"
         },
         {
             "description": "Using an accumulator pattern in recursion to accumulate the number of carrots eaten and remaining",
-            "implementation": "module EatCarrots_Accumulator\n\n  use int.Int\n\n  let rec eat_acc (number: int) (need: int) (remaining: int) (acc: int) (rem_acc: int) : (int, int) =\n    if need = 0 || remaining = 0 then (acc, rem_acc)\n    else eat_acc (number + 1) (need - 1) (remaining - 1) (acc + 1) (rem_acc - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_acc number need remaining number remaining\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let rec eat_acc (number: int) (need: int) (remaining: int) (acc: int) (rem_acc: int) : (int, int) =\n    if need = 0 || remaining = 0 then (acc, rem_acc)\n    else eat_acc (number + 1) (need - 1) (remaining - 1) (acc + 1) (rem_acc - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_acc number need remaining number remaining\n\nend"
         },
         {
             "description": "Using a tuple to store intermediate results and update it in a loop",
-            "implementation": "module EatCarrots_Tuple\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref result = (number, remaining) in\n    while need > 0 && snd result > 0 do\n      result <- (fst result + 1, snd result - 1);\n      need <- need - 1\n    done;\n    result\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let ref result = (number, remaining) in\n    while need > 0 && snd result > 0 do\n      result <- (fst result + 1, snd result - 1);\n      need <- need - 1\n    done;\n    result\n\nend"
         },
         {
             "description": "Using an immutable recursive function that returns a new tuple with updated values",
-            "implementation": "module EatCarrots_ImmutableRecursion\n\n  use int.Int\n\n  let rec eat_immutable (number: int) (need: int) (remaining: int) : (int, int) =\n    if need = 0 || remaining = 0 then (number, remaining)\n    else eat_immutable (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_immutable number need remaining\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let rec eat_immutable (number: int) (need: int) (remaining: int) : (int, int) =\n    if need = 0 || remaining = 0 then (number, remaining)\n    else eat_immutable (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    eat_immutable number need remaining\n\nend"
         },
         {
             "description": "Using higher-order functions to encapsulate the logic of eating carrots",
-            "implementation": "module EatCarrots_HigherOrder\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let consume (n: int) (r: int) (needed: int) : (int, int) =\n      if needed <= r then (n + needed, r - needed)\n      else (n + r, 0)\n    in consume number remaining need\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    let eat (n: int) (r: int) (needed: int) : (int, int) =\n      if needed <= r then (n + needed, r - needed)\n      else (n + r, 0)\n    in eat number remaining need\n\nend"
         },
         {
             "description": "Using branching and guards to handle edge cases explicitly",
-            "implementation": "module EatCarrots_Guards\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    if need <= 0 then (number, remaining)\n    else if remaining <= 0 then (number, 0)\n    else if need <= remaining then (number + need, remaining - need)\n    else (number + remaining, 0)\n\nend"
+            "implementation": "module HumanEval159\n\n  use int.Int\n\n  let eat (number: int) (need: int) (remaining: int) : (int, int) =\n    if need <= 0 then (number, remaining)\n    else if remaining <= 0 then (number, 0)\n    else if need <= remaining then (number + need, remaining - need)\n    else (number + remaining, 0)\n\nend"
         }
     ]
 }

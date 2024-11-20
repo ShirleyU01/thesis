@@ -1,0 +1,4 @@
+=======================human_eval_052_1.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/nov16-gpt4o-mini/human_eval_052_1.mlw", line 39, characters 15-18:
+unbound function or predicate symbol 'nth'

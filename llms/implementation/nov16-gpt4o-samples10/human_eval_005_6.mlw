@@ -1,0 +1,134 @@
+(*
+def intersperse(numbers: List[int], delimiter: int) -> List[int]:
+    """ Insert a number 'delimiter' between every two consecutive elements of input list `numbers'
+    >>> intersperse([], 4)
+    []
+    >>> intersperse([1, 2, 3], 4)
+    [1, 4, 2, 4, 3]
+    """
+*)
+
+(* 
+module HumanEval005Goal
+
+    use int.Int
+    use list.List
+
+    let rec intersperse (l : list int) (n : int) =
+        match l with
+        | Nil -> Nil
+        | Cons x Nil -> Cons x Nil
+        | Cons x xs -> Cons x (Cons n (intersperse xs n))
+        end
+
+end *)
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval005
+
+  use list.List
+
+  let rec interperse (t : list int) (delimiter : int) (acc : list int) : list int =
+    match t with
+    | Nil -> rev acc
+    | Cons x Nil -> rev (Cons x acc)
+    | Cons x xs -> interperse xs delimiter (Cons delimiter (Cons x acc))
+    end
+
+  let intersperse (t : list int) (delimiter : int) : list int =
+    intersperse_tail_recur t delimiter Nil
+
+end
+
+module TestHumanEval005
+
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval005  
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+    let test1() : bool =
+        list_eq (intersperse Nil 5) Nil
+
+    let test1_output() : (list int, int, list int, list int) =
+        (Nil, 5, intersperse Nil 5, Nil)
+
+    let test2() : bool =
+        list_eq (intersperse (Cons 1 Nil) 5) (Cons 1 Nil)
+
+    let test2_output() : (list int, int, list int, list int) =
+        (Cons 1 Nil, 5, intersperse (Cons 1 Nil) 5, Cons 1 Nil)
+
+    let test3() : bool =
+        list_eq (intersperse (Cons 1 (Cons 2 Nil)) 5) (Cons 1 (Cons 5 (Cons 2 Nil)))
+
+    let test3_output() : (list int, int, list int, list int) =
+        (Cons 1 (Cons 2 Nil), 5, intersperse (Cons 1 (Cons 2 Nil)) 5, Cons 1 (Cons 5 (Cons 2 Nil)))
+
+    let test4() : bool = 
+        list_eq (intersperse (Cons 1 (Cons 2 (Cons 3 Nil))) 5) (Cons 1 (Cons 5 (Cons 2 (Cons 5 (Cons 3 Nil)))))
+
+    let test4_output() : (list int, int, list int, list int) =
+        (Cons 1 (Cons 2 (Cons 3 Nil)), 5, intersperse (Cons 1 (Cons 2 (Cons 3 Nil))) 5, Cons 1 (Cons 5 (Cons 2 (Cons 5 (Cons 3 Nil)))))
+
+    let test5() : bool =
+        list_eq (intersperse (Cons 1 (Cons 1 (Cons 1 Nil))) 9) (Cons 1 (Cons 9 (Cons 1 (Cons 9 (Cons 1 Nil)))))
+
+    let test5_output() : (list int, int, list int, list int) =
+        (Cons 1 (Cons 1 (Cons 1 Nil)), 9, intersperse (Cons 1 (Cons 1 (Cons 1 Nil))) 9, Cons 1 (Cons 9 (Cons 1 (Cons 9 (Cons 1 Nil)))))
+
+    let testall() : bool =
+        test1() && test2() && test3() && test4() && test5()
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
+
+    let runtest (x : int) : (list int, int, list int, list int) =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else (Nil, -1, Nil, Nil)
+    
+    let rec failoutput (l : list int) : list (list int, int, list int, list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, int, list int, list int) =
+        let l = testfail () in
+        failoutput l
+    
+end
+

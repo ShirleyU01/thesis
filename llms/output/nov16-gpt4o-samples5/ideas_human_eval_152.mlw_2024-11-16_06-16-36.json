@@ -2,23 +2,23 @@
     "ideas": [
         {
             "description": "Using a simple for-loop to iterate through the arrays and compute the absolute difference or zero if they match.",
-            "implementation": "module CompareUsingFor\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let compare_for (game : list int) (guess : list int) : list int =\n    let n = length game in\n    let ref result = Nil in\n    for i = 0 to n-1 do\n      let diff = nth i game - nth i guess in\n      if diff = 0 then result <- Cons 0 result\n      else result <- Cons (abs diff) result\n    done;\n    result\n\nend"
+            "implementation": "module HumanEval152\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let compare (game : list int) (guess : list int) : list int =\n    let n = length game in\n    let ref result = Nil in\n    for i = 0 to n-1 do\n      let diff = nth i game - nth i guess in\n      if diff = 0 then result <- Cons 0 result\n      else result <- Cons (abs diff) result\n    done;\n    result\n\nend"
         },
         {
             "description": "Using a while-loop to traverse the arrays and calculate the difference for each match.",
-            "implementation": "module CompareUsingWhile\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let compare_while (game : list int) (guess : list int) : list int =\n    let n = length game in\n    let ref i = 0 in\n    let ref result = Nil in\n    while i < n do\n      let diff = nth i game - nth i guess in\n      if diff = 0 then result <- Cons 0 result\n      else result <- Cons (abs diff) result;\n      i <- i + 1\n    done;\n    result\n\nend"
+            "implementation": "module HumanEval152\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let compare (game : list int) (guess : list int) : list int =\n    let n = length game in\n    let ref i = 0 in\n    let ref result = Nil in\n    while i < n do\n      let diff = nth i game - nth i guess in\n      if diff = 0 then result <- Cons 0 result\n      else result <- Cons (abs diff) result;\n      i <- i + 1\n    done;\n    result\n\nend"
         },
         {
             "description": "Using recursion and pattern matching to compare elements of the arrays one by one.",
-            "implementation": "module CompareUsingRecursionPattern\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare_recur_pattern (game : list int) (guess : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> Nil\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then Cons 0 (compare_recur_pattern gs hs)\n      else Cons (abs diff) (compare_recur_pattern gs hs)\n    end\n\nend"
+            "implementation": "module HumanEval152\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare (game : list int) (guess : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> Nil\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then Cons 0 (compare gs hs)\n      else Cons (abs diff) (compare gs hs)\n    end\n\nend"
         },
         {
             "description": "Using an accumulator in recursion to build the result list.",
-            "implementation": "module CompareUsingRecursionAccumulator\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare_recur_accumulator (game : list int) (guess : list int) (acc : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> acc\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then compare_recur_accumulator gs hs (Cons 0 acc)\n      else compare_recur_accumulator gs hs (Cons (abs diff) acc)\n    end\n\n  let compare_recur (game : list int) (guess : list int) : list int =\n    compare_recur_accumulator game guess Nil\n\nend"
+            "implementation": "module HumanEval152\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare_accumulator (game : list int) (guess : list int) (acc : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> acc\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then compare_accumulator gs hs (Cons 0 acc)\n      else compare_accumulator gs hs (Cons (abs diff) acc)\n    end\n\n  let compare (game : list int) (guess : list int) : list int =\n    compare_accumulator game guess Nil\n\nend"
         },
         {
             "description": "Using recursion and conditional branching (if-then-else) to handle the comparison logic.",
-            "implementation": "module CompareUsingRecursionBranching\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare_recur_branch (game : list int) (guess : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> Nil\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then Cons 0 (compare_recur_branch gs hs)\n      else Cons (abs diff) (compare_recur_branch gs hs)\n    end\n\nend"
+            "implementation": "module HumanEval152\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare (game : list int) (guess : list int) : list int =\n    match (game, guess) with\n    | (Nil, Nil) -> Nil\n    | (Cons g gs, Cons h hs) ->\n      let diff = g - h in\n      if diff = 0 then Cons 0 (compare gs hs)\n      else Cons (abs diff) (compare gs hs)\n    end\n\nend"
         }
     ]
 }
