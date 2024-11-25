@@ -30,13 +30,13 @@ module HumanEval139
     use int.Int
     use list.List
 
-    let rec special_factorial (n: int) (acc: int) : int =
+    let rec factorial_tail (n: int) (acc: int) : int =
     requires { n >= 0 }
     ensures { result >= acc }
     variant { n }
     match n with
     | 0 -> acc
-    | _ -> special_factorial (n - 1) (n * acc)
+    | _ -> factorial_tail (n - 1) (n * acc)
     end
 
     let rec special_factorial (n: int) : int =

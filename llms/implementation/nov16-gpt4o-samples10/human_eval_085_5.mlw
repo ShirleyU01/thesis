@@ -43,13 +43,13 @@ module HumanEval085
   use int.Int
   use list.List
 
-  let rec add (lst: list int) (index: int) : int =
+  let rec add_pattern (lst: list int) (index: int) : int =
     match lst with
     | Nil -> 0
     | Cons x xs ->
       begin match index mod 2 = 1, x mod 2 = 0 with
-      | True, True -> x + add xs (index + 1)
-      | _, _ -> add xs (index + 1)
+      | True, True -> x + add_pattern xs (index + 1)
+      | _, _ -> add_pattern xs (index + 1)
       end
     end
 

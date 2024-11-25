@@ -1,0 +1,27 @@
+(1) If you want to use pattern matching, keep in mind that you need to write in a correct syntax. Here is an example:
+        match l with 
+            | Nil -> true
+            | Cons x xs -> if x < acc then false else helper xs x
+        end
+    Notice that there is an "end" statement when the pattern matching ends
+
+(2) If you want to generate a list, keep in mind that list is defined as follows:
+        type list 'a = Nil | Cons 'a (list 'a)
+    Notice that it is ILLEGAL to define a list using []
+
+(3) If you want to use `nth` function to iterate through a list, keep in mind that `nth` function given in why3 list.NthNoOpt
+    library cannot be used in a non-ghost context. I recommand you to instead define your own `nth_my` function as follows:
+        let rec nth_my (n : int) (l : list int) : int =
+            requires { length l > 0 }
+            requires { 0 <= n /\ n < length l }
+            variant { n }
+            ensures { nth n l = result }
+            match l with 
+            | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+            end 
+    and then replace all 'nth' usage with 'nth_my'.
+    Notice that to define `nth_my`, you will need to include corresponding why3 library as follows:
+        use list.List
+        use list.Length
+        use list.NthNoOpt
+
