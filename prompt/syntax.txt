@@ -3,13 +3,21 @@
             | Nil -> true
             | Cons x xs -> if x < acc then false else helper xs x
         end
-    Notice that there is an "end" statement when the pattern matching ends
+    Notice that there must be an "end" statement when the pattern matching ends
 
-(2) If you want to generate a list, keep in mind that list is defined as follows:
+(2) If you want to use `begin` statement, keep in mind that you need to write in a correct syntax. Here is an example:
+        begin
+            if n < 8 
+            then false
+            else true
+        end
+    Notice that there must be an "end" statement 
+
+(3) If you want to generate a list, keep in mind that list is defined as follows:
         type list 'a = Nil | Cons 'a (list 'a)
     Notice that it is ILLEGAL to define a list using []
 
-(3) If you want to use `nth` function to iterate through a list, keep in mind that `nth` function given in why3 list.NthNoOpt
+(4) If you want to use `nth` function to iterate through a list, keep in mind that `nth` function given in why3 list.NthNoOpt
     library cannot be used in a non-ghost context. I recommand you to instead define your own `nth_my` function as follows:
         let rec nth_my (n : int) (l : list int) : int =
             requires { length l > 0 }
@@ -24,4 +32,10 @@
         use list.List
         use list.Length
         use list.NthNoOpt
+
+(5) For reference, here are the boolean operations that you should use inside function definition:
+    && --> and 
+    not --> not
+    || --> or
+
 
