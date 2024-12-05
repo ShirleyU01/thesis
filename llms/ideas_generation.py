@@ -1,5 +1,6 @@
 import json
 import time
+import csv
 from datetime import datetime
 from dataclasses import dataclass
 from loguru import logger
@@ -35,6 +36,10 @@ class IdeasGeneration():
     llm: LLM # LLM object
     description: str # description of the problem
     filename: str # filename
+    function_name: str
+    module_name: str
+    signature: str
+    level: int
 
     def _create_system_prompt(self):
         return """
@@ -61,25 +66,105 @@ class IdeasGeneration():
         }
         """
 
-    def _create_user_prompt(self, description : str, example : str, nb_ideas: int) -> str:
-        prompt_functionality_brainstorming = f"""
-        Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions, 
+    def idea_diversity(self, description : str, example : str, nb_ideas: int) -> str:
+        prompt_functionality_brainstorming = f"""<instructions-diversity>
+        Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions,
         pattern matching, and different branching conditions. Here is an example of {nb_ideas} different algorithms for one example description:
         `{example}`
-        According to the following description `{description}`, please generate {nb_ideas} different ways that a developer might implement 
-        using why3. Try to make sure that the ways of implementation is as diverse as possible. Describe the high-level behavior 
-        and expected outcomes and how you would like to implement them. 
-        <instructions>
+        </instructions-diversity>"""
+        #print(prompt_functionality_brainstorming)
+        return prompt_functionality_brainstorming
+
+    def implement(self) -> str:
+        prompt_implementation = f"""
+        Implement the functionality described above using why3. Ensure that the implementation
+        is syntax-error free, clear, and easy to test. The implementation should focus on
+        achieving the high-level behavior described, while not implementating specification."""
+        print(prompt_implementation)
+        return prompt_implementation
+
+    def implement(self, int_lib : str, list_lib : str) -> str:
+        prompt_implementation = f"""
+        When implementing code in Why3 ensure that the implementation
+        is syntax-error free, clear, and easy to test. Pay attention to correct library usage. For instance,
+        if the implementation uses function length from list module, please include it correctly as `use list.Length`.
+        To provide a boarder sense of available libraries, functions, and correct way of using them, here are two tables
+        for why3 library List and Int, which summarizes function name, function description, function type, and correct
+        way of import:
+        `{list_lib}`
+        `{int_lib}`
+        Remove unnecessary comments and don't implement specification. The implementation should focus on
+        achieving the high-level behavior described."""
+        return prompt_implementation
+
+    def _create_user_prompt(self, description : str, example : str, function_name: str, module_name: str, signature: str, nb_ideas: int) -> str:
+        prompt_implementation_diversity = self.idea_diversity(description, example, nb_ideas)
+        
+        prompt_implementation = f"""
+        <instructions-implementation>
+        According to the following description `{description}`, please generate {nb_ideas} different ways that a developer might implement
+        using why3. Try to make sure that the ways of implementation is as diverse as possible. Describe the high-level behavior
+        and expected outcomes and how you would like to implement them.
+        The function to be implemented must be called `{function_name}` and must be inside of a module called `{module_name}`.
+        Note that the signature of the function `{function_name}` is `{signature}`.
+        You must use either this signature of their recursive version.
+        </instructions-implementation>"""
+        
+        prompt_json_instructions = f"""
+        <instructions-json>
         Create a JSON object with your ideas for implementation.
         The parent object is called "ideas" that corresponds to Why3 implementation ideas.
         Each child object has the implementation idea with the following properties:
         - A property named "description" with the description of your implementation idea
         - A property named "implementation" with an implementation of your idea
         There must be {nb_ideas} children, each corresponding to one implementation idea.
-        </instructions>
+        </instructions-json>
         """
-        print(prompt_functionality_brainstorming)
-        return prompt_functionality_brainstorming
+
+        int_lib_file = open('../prompt/lib_summary_int.csv', 'r')
+        int_lib = csv.reader(int_lib_file)
+        int_lib_str = ''
+        for row in int_lib:
+            int_lib_str += ', '.join(row) + '\n'
+
+        list_lib_file = open('../prompt/lib_summary_list.csv', 'r')
+        list_lib = csv.reader(list_lib_file)
+        list_lib_str = ''
+        for row in list_lib:
+            list_lib_str += ', '.join(row) + '\n'
+
+        prompt_library = self.implement(int_lib_str, list_lib_str)
+        
+        syntax_example_file = open('../prompt/syntax.txt', 'r')
+        syntax_example = syntax_example_file.read()
+
+        prompt_syntax = f"""
+        <instructions-syntax>
+        When implementing code in Why3 please take into consideration the following syntax:
+        {syntax_example}
+        </instructions-syntax>
+        """
+        
+
+        #print(prompt_functionality_brainstorming)
+        prompt_all = prompt_implementation + prompt_json_instructions
+        if self.level == 1:
+            prompt_all = prompt_implementation + prompt_json_instructions + prompt_syntax
+            print("Prompt options: Basic + Syntax")
+        elif self.level == 2:
+            prompt_all = prompt_implementation + prompt_json_instructions + prompt_library
+            print("Prompt options: Basic + Library")
+        elif self.level == 3:
+            prompt_all = prompt_implementation + prompt_json_instructions + prompt_implementation_diversity
+            print("Prompt options: Basic + Diversity")
+        elif self.level == 4:
+            prompt_all = prompt_implementation + prompt_json_instructions + prompt_syntax + prompt_library + prompt_implementation_diversity
+            print("Prompt options: Basic + Syntax + Library + Diversity")
+        else:
+            prompt_all = prompt_implementation + prompt_json_instructions
+            print("Prompt options: Basic")
+        print(prompt_all)
+        return prompt_all
 
     def _query_llm(self, messages: MessagesIterable) -> Ideas | None:
 
@@ -143,7 +228,7 @@ class IdeasGeneration():
 
     def _get_ideas(self, description, example) -> Ideas | None:
         system_prompt = self._create_system_prompt()
-        user_prompt = self._create_user_prompt(description, example, self.nb_ideas)
+        user_prompt = self._create_user_prompt(description, example, self.function_name, self.module_name, self.signature, self.nb_ideas)
 
         logger.debug(f"user prompt tokens: {Util.count_tokens(user_prompt, self.llm.model)}")
         logger.debug(f"system prompt tokens: {Util.count_tokens(system_prompt, self.llm.model)}")
@@ -158,7 +243,7 @@ class IdeasGeneration():
 
         
     def run(self):
-        example_file = open('data/example.txt', 'r')
+        example_file = open('../prompt/example.txt', 'r')
         example = example_file.read()
         
         ideas = self._get_ideas(self.description, example)

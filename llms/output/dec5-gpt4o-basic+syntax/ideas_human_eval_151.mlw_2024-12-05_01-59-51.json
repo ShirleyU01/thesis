@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate through the list using pattern matching and filter out non-positive and even numbers, summing the squares of the remaining numbers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if x > 0 && x mod 2 <> 0 then x * x + double_the_difference xs\n      else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Use a helper function to accumulate the result through recursion, filtering non-positive and even numbers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    let rec aux (l : list int) (acc : int) : int =\n      match l with\n      | Nil -> acc\n      | Cons x xs ->\n        if x > 0 && x mod 2 <> 0 then aux xs (acc + x * x)\n        else aux xs acc\n      end\n    in aux l 0\nend"
+        },
+        {
+            "description": "Filter out the invalid numbers first, then map the list to their squares and sum the results.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let filter_positive_odd (x : int) : bool =\n    x > 0 && x mod 2 <> 0\n\n  let double_the_difference (l : list int) : int =\n    let filtered = filter filter_positive_odd l in\n    fold (fun x acc -> x * x + acc) 0 filtered\nend"
+        },
+        {
+            "description": "Use a fold function to accumulate the sum of squares of positive odd numbers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    fold (fun x acc -> if x > 0 && x mod 2 <> 0 then x * x + acc else acc) 0 l\nend"
+        },
+        {
+            "description": "Utilize a higher-order map function to replace elements with their squares if they are positive and odd, then sum the list.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let square_if_positive_odd (x : int) : int =\n    if x > 0 && x mod 2 <> 0 then x * x else 0\n\n  let double_the_difference (l : list int) : int =\n    fold (fun x acc -> x + acc) 0 (map square_if_positive_odd l)\nend"
+        },
+        {
+            "description": "Recursively process the list, using a separate function to check if a number should be included in the sum of squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let is_positive_odd (x : int) : bool =\n    x > 0 && x mod 2 <> 0\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if is_positive_odd x then x * x + double_the_difference xs\n      else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Implement a tail-recursive version of the function, using an accumulator to store the sum of squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let rec aux (l : list int) (acc : int) : int =\n      match l with\n      | Nil -> acc\n      | Cons x xs ->\n        if x > 0 && x mod 2 <> 0 then aux xs (acc + x * x)\n        else aux xs acc\n      end\n    in aux l 0\nend"
+        },
+        {
+            "description": "Use a nested helper function to separate concerns of filtering and summing squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec sum_squares (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x * x + sum_squares xs\n    end\n\n  let double_the_difference (l : list int) : int =\n    let rec filter_positive_odd (l : list int) : list int =\n      match l with\n      | Nil -> Nil\n      | Cons x xs ->\n        if x > 0 && x mod 2 <> 0 then Cons x (filter_positive_odd xs)\n        else filter_positive_odd xs\n      end\n    in sum_squares (filter_positive_odd l)\nend"
+        },
+        {
+            "description": "First transform the list into squares of odd positive numbers using a map, then sum the resulting list.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let square_if_positive_odd (x : int) : int =\n    if x > 0 && x mod 2 <> 0 then x * x else 0\n\n  let double_the_difference (l : list int) : int =\n    fold (fun x acc -> x + acc) 0 (map square_if_positive_odd l)\nend"
+        },
+        {
+            "description": "Divide the problem by creating a list of squares of valid numbers and then fold over this list to compute the sum.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let square_if_valid (x : int) : list int =\n    if x > 0 && x mod 2 <> 0 then Cons (x * x) Nil else Nil\n\n  let rec build_square_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> append (square_if_valid x) (build_square_list xs)\n    end\n\n  let double_the_difference (l : list int) : int =\n    fold (fun x acc -> x + acc) 0 (build_square_list l)\nend"
+        }
+    ]
+}

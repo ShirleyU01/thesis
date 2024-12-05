@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion and pattern matching to accumulate the sum of squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l : list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs ->\n      if x > 0 and x mod 2 <> 0\n      then x * x + double_the_difference xs\n      else double_the_difference xs\n  end\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the sum of squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet double_the_difference (l : list int) : int =\n  fold_left (fun acc x -> if x > 0 and x mod 2 <> 0 then acc + x * x else acc) 0 l\nend"
+        },
+        {
+            "description": "Using a while-loop and iterating through the list.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet double_the_difference (l : list int) : int =\n  let n = length l in\n  let ref i = 0 in\n  let ref sum = 0 in\n  while i < n do\n    let x = nth_my i l in\n    if x > 0 and x mod 2 <> 0 then sum <- sum + x * x;\n    i <- i + 1\n  done;\n  sum\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with \n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate through the list and sum the squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet double_the_difference (l : list int) : int =\n  let n = length l in\n  let ref sum = 0 in\n  for i = 0 to n - 1 do\n    let x = nth_my i l in\n    if x > 0 and x mod 2 <> 0 then sum <- sum + x * x\n  done;\n  sum\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with \n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\nend"
+        },
+        {
+            "description": "Using map to transform the list and sum the results, filtering for positive odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Map\n\nlet double_the_difference (l : list int) : int =\n  let squares = map (fun x -> if x > 0 and x mod 2 <> 0 then x * x else 0) l in\n  fold_left (fun acc x -> acc + x) 0 squares\nend"
+        },
+        {
+            "description": "Using filter to retain only positive odd integers and then summing their squares.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Filter\n\nlet double_the_difference (l : list int) : int =\n  let filtered = filter (fun x -> x > 0 and x mod 2 <> 0) l in\n  fold_left (fun acc x -> acc + x * x) 0 filtered\nend"
+        },
+        {
+            "description": "Using a recursive helper function with an accumulator to sum the squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference_acc (l : list int) (acc : int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n      if x > 0 and x mod 2 <> 0\n      then double_the_difference_acc xs (acc + x * x)\n      else double_the_difference_acc xs acc\n  end\n\nlet double_the_difference (l : list int) : int =\n  double_the_difference_acc l 0\nend"
+        },
+        {
+            "description": "Using fold_right to accumulate the sum of squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.FoldRight\n\nlet double_the_difference (l : list int) : int =\n  fold_right (fun x acc -> if x > 0 and x mod 2 <> 0 then x * x + acc else acc) l 0\nend"
+        },
+        {
+            "description": "Using reverse and fold_left to iterate in reverse and sum squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Reverse\nuse list.FoldLeft\n\nlet double_the_difference (l : list int) : int =\n  let reversed = reverse l in\n  fold_left (fun acc x -> if x > 0 and x mod 2 <> 0 then acc + x * x else acc) 0 reversed\nend"
+        },
+        {
+            "description": "Using an iterative approach with a reference variable to accumulate the sum.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet double_the_difference (l : list int) : int =\n  let ref sum = 0 in\n  let rec iterate (lst : list int) =\n    match lst with\n    | Nil -> ()\n    | Cons x xs ->\n        if x > 0 and x mod 2 <> 0 then sum <- sum + x * x;\n        iterate xs\n    end\n  in\n  iterate l;\n  sum\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using trial division up to the square root of n",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      let rec check_divisor (d: int) : bool =\n        if d * d > n then true\n        else if n mod d = 0 then false\n        else check_divisor (d + 1)\n      in check_divisor 2\n\nend"
+        },
+        {
+            "description": "Using trial division with a loop construct",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      let ref is_prime = true in\n      let ref d = 2 in\n      while d * d <= n do\n        if n mod d = 0 then is_prime <- false;\n        d <- d + 1\n      done;\n      is_prime\n\nend"
+        },
+        {
+            "description": "Using recursive approach with decrementing divisors",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    let rec is_prime_rec (d: int) : bool =\n      if d = 1 then true\n      else if n mod d = 0 then false\n      else is_prime_rec (d - 1)\n    in if n < 2 then false else is_prime_rec (n - 1)\n\nend"
+        },
+        {
+            "description": "Using pattern matching with recursive divisor check",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    let rec check_divisor (n: int) (d: int) =\n      match d with\n      | 1 -> true\n      | _ -> if n mod d = 0 then false else check_divisor n (d - 1)\n    in\n    if n < 2 then false else check_divisor n (n - 1)\n\nend"
+        },
+        {
+            "description": "Using a list of known small primes for initial checks",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    let small_primes = [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47] in\n    if List.mem n small_primes then true\n    else\n      if n < 2 || List.exists (fun p -> n mod p = 0) small_primes then false\n      else\n        let rec check_divisor (d: int) : bool =\n          if d * d > n then true\n          else if n mod d = 0 then false\n          else check_divisor (d + 1)\n        in check_divisor 2\n\nend"
+        },
+        {
+            "description": "Using a sieve-like approach up to sqrt(n) with an array",
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use array.Array\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      let limit = int_sqrt n in\n      let sieve = Array.make (limit + 1) true in\n      let rec mark_multiples p =\n        if p * p <= limit then\n          let rec mark k =\n            if k <= limit then\n              (sieve[k] <- false; mark (k + p))\n            else ()\n          in\n          mark (p * p);\n          let rec find_next q =\n            if q <= limit then\n              if sieve[q] then mark_multiples q else find_next (q + 1)\n            else ()\n          in\n          find_next (p + 1)\n        else ()\n      in\n      mark_multiples 2;\n      not (Array.exists (fun p -> n mod p = 0) (Array.indices sieve))\n\nend"
+        },
+        {
+            "description": "Using Fermat's little theorem for probabilistic check",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else if n = 2 then true\n    else\n      let rec powmod (base: int) (exp: int) (modu: int) : int =\n        if exp = 0 then 1\n        else\n          let half = powmod base (exp / 2) modu in\n          let full = (half * half) mod modu in\n          if exp mod 2 = 0 then full else (full * base) mod modu\n      in\n      let a = 2 in\n      powmod a (n - 1) n = 1\n\nend"
+        },
+        {
+            "description": "Using a segmented sieve for large n handling",
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use array.Array\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      let limit = int_sqrt n in\n      let sieve = Array.make (limit + 1) true in\n      let rec mark_multiples p =\n        if p * p <= limit then\n          let rec mark k =\n            if k <= limit then\n              (sieve[k] <- false; mark (k + p))\n            else ()\n          in\n          mark (p * p);\n          let rec find_next q =\n            if q <= limit then\n              if sieve[q] then mark_multiples q else find_next (q + 1)\n            else ()\n          in\n          find_next (p + 1)\n        else ()\n      in\n      mark_multiples 2;\n      let rec check_segment (low: int) (high: int) : bool =\n        if high >= n then\n          let segment = Array.make (high - low + 1) true in\n          for i = 2 to limit do\n            if sieve[i] then\n              let start = max i ((low + i - 1) / i) * i in\n              for j = start to high do\n                segment[j - low] <- false\n              done\n          done;\n          segment[n - low]\n        else true\n      in\n      check_segment (limit + 1) (2 * limit)\n\nend"
+        },
+        {
+            "description": "Using Miller-Rabin primality test for probabilistic check",
+            "implementation": "module HumanEval031\n\n  use int.Int\n\n  let is_prime (n: int) : bool =\n    let rec power_mod (a: int) (d: int) (n: int) : int =\n      if d = 0 then 1\n      else\n        let x = power_mod a (d / 2) n in\n        let x2 = (x * x) mod n in\n        if d mod 2 = 0 then x2 else (x2 * a) mod n\n\n    let rec witness (a: int) (n: int) (d: int) (s: int) : bool =\n      let x = power_mod a d n in\n      if x = 1 || x = n - 1 then false\n      else\n        let rec test_round i x =\n          if i = s then true\n          else if x = n - 1 then false\n          else test_round (i + 1) ((x * x) mod n)\n        in\n        test_round 0 x\n\n    let miller_rabin_test (n: int) (a: int) : bool =\n      let rec decompose (d: int) (s: int) : int * int =\n        if d mod 2 = 0 then decompose (d / 2) (s + 1) else (d, s)\n      in\n      let (d, s) = decompose (n - 1) 0 in\n      witness a n d s\n\n    if n < 2 then false\n    else if n = 2 || n = 3 then true\n    else if n mod 2 = 0 then false\n    else\n      let a = 2 in\n      not (miller_rabin_test n a)\n\nend"
+        },
+        {
+            "description": "Using Lehmann's primality test for probabilistic check",
+            "implementation": "module HumanEval031\n\n  use int.Int\n  use int.Extraction\n\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else if n = 2 then true\n    else\n      let rec lehmann (a: int) (n: int) : bool =\n        let x = power_mod a ((n - 1) / 2) n in\n        x = 1 || x = n - 1\n\n      let rec power_mod (base: int) (exp: int) (modu: int) : int =\n        if exp = 0 then 1\n        else\n          let half = power_mod base (exp / 2) modu in\n          let full = (half * half) mod modu in\n          if exp mod 2 = 0 then full else (full * base) mod modu\n\n      let a = random_int (2, n - 1) in\n      lehmann a n\n\nend"
+        }
+    ]
+}

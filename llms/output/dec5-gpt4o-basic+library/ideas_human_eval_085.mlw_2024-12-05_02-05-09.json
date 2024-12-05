@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate over the list using a loop and accumulate the sum of even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet add (l : list int) : int =\n  let n = length l in\n  let rec loop i acc =\n    if i >= n then acc\n    else\n      let x = nth i l in\n      if i mod 2 = 1 && x mod 2 = 0 then loop (i + 1) (acc + x)\n      else loop (i + 1) acc\n  in\n  loop 0 0\nend"
+        },
+        {
+            "description": "Use a recursive function to traverse the list and sum even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec add_rec (l : list int) (i : int) : int =\n  match l with\n  | Nil -> 0\n  | Cons(x, xs) ->\n      let sum_tail = add_rec xs (i + 1) in\n      if i mod 2 = 1 && x mod 2 = 0 then x + sum_tail\n      else sum_tail\n\nlet add (l : list int) : int = add_rec l 0\nend"
+        },
+        {
+            "description": "Evaluate only odd indices and check for even elements using a for loop.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet add (l : list int) : int =\n  let n = length l in\n  let rec loop i acc =\n    if i >= n then acc\n    else\n      let x = nth i l in\n      let new_acc = if x mod 2 = 0 then acc + x else acc in\n      loop (i + 2) new_acc\n  in\n  loop 1 0\nend"
+        },
+        {
+            "description": "Use fold_left to accumulate the sum of even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet add (l : list int) : int =\n  let f (acc, i) x =\n    if i mod 2 = 1 && x mod 2 = 0 then (acc + x, i + 1)\n    else (acc, i + 1)\n  in\n  fst (fold_left f (0, 0) l)\nend"
+        },
+        {
+            "description": "Use a list comprehension to filter even elements at odd indices and then sum the result.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet add (l : list int) : int =\n  let filtered = filter (fun (i, x) -> i mod 2 = 1 && x mod 2 = 0) (mapi (fun i x -> (i, x)) l) in\n  fold_left (fun acc (_, x) -> acc + x) 0 filtered\nend"
+        },
+        {
+            "description": "Use a map function to tag each element with its index and then fold the list to sum the desired elements.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.FoldLeft\nuse list.Map\n\nlet add (l : list int) : int =\n  let indexed = mapi (fun i x -> (i, x)) l in\n  let f acc (i, x) =\n    if i mod 2 = 1 && x mod 2 = 0 then acc + x\n    else acc\n  in\n  fold_left f 0 indexed\nend"
+        },
+        {
+            "description": "Iterate using tail-recursion, optimizing for space.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet add (l : list int) : int =\n  let n = length l in\n  let rec loop i acc =\n    if i >= n then acc\n    else\n      let x = nth i l in\n      loop (i + 1) (if i mod 2 = 1 && x mod 2 = 0 then acc + x else acc)\n  in\n  loop 0 0\nend"
+        },
+        {
+            "description": "Utilize a filter and sum approach to achieve the result.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Map\nuse list.FoldLeft\n\nlet add (l : list int) : int =\n  let even_at_odd_indices = filter (fun (i, x) -> i mod 2 = 1 && x mod 2 = 0) (mapi (fun i x -> (i, x)) l) in\n  fold_left (fun acc (_, x) -> acc + x) 0 even_at_odd_indices\nend"
+        },
+        {
+            "description": "Use pattern matching to process the list, skipping every alternate index for checking.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet rec add (l : list int) : int =\n  match l with\n  | Nil | Cons(_, Nil) -> 0\n  | Cons(_, Cons(x, xs)) ->\n      if x mod 2 = 0 then x + add xs\n      else add xs\nend"
+        },
+        {
+            "description": "Combine map and filter to create a new list with only the even elements at odd indices, then sum the list.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Map\nuse list.FoldLeft\n\nlet add (l : list int) : int =\n  let indexed = mapi (fun i x -> (i, x)) l in\n  let even_odds = filter (fun (i, x) -> i mod 2 = 1 && x mod 2 = 0) indexed in\n  fold_left (fun acc (_, x) -> acc + x) 0 even_odds\nend"
+        }
+    ]
+}

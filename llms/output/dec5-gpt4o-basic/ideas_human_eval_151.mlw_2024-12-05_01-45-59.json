@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Filter the list to include only positive odd integers, then sum their squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let is_odd_positive x = x >= 0 && x mod 2 = 1 in\n    let squared_sum acc x = if is_odd_positive x then acc + x * x else acc in\n    fold_left squared_sum 0 l\nend"
+        },
+        {
+            "description": "Use recursion to process each element, adding the square to a sum if it is a positive odd integer.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons (x, xs) ->\n      if x >= 0 && x mod 2 = 1 then x * x + double_the_difference xs\n      else double_the_difference xs\nend"
+        },
+        {
+            "description": "Transform the list into a list of squares of positive odd integers, then sum them.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let is_odd_positive x = x >= 0 && x mod 2 = 1 in\n    let square x = x * x in\n    let squares = map square (filter is_odd_positive l) in\n    fold_left (+) 0 squares\nend"
+        },
+        {
+            "description": "Use a helper function to compute the square of odd integers and ignore others.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let square_odd x = if x >= 0 && x mod 2 = 1 then x * x else 0 in\n    fold_left (fun acc x -> acc + square_odd x) 0 l\nend"
+        },
+        {
+            "description": "Explicitly iterate through the list using a tail-recursive helper function.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec aux acc l =\n    match l with\n    | Nil -> acc\n    | Cons (x, xs) ->\n      if x >= 0 && x mod 2 = 1 then aux (acc + x * x) xs\n      else aux acc xs\n\n  let double_the_difference (l : list int) : int = aux 0 l\nend"
+        },
+        {
+            "description": "Combine mapping and filtering in a single recursive function to compute the result.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec compute l acc =\n    match l with\n    | Nil -> acc\n    | Cons (x, xs) ->\n      let acc' = if x >= 0 && x mod 2 = 1 then acc + x * x else acc in\n      compute xs acc'\n\n  let double_the_difference (l : list int) : int = compute l 0\nend"
+        },
+        {
+            "description": "Iteratively build a list of squares before summing them.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let squares = fold_right (fun x acc -> if x >= 0 && x mod 2 = 1 then x * x :: acc else acc) l Nil in\n    fold_left (+) 0 squares\nend"
+        },
+        {
+            "description": "Accumulate the sum directly in a fold, ignoring non-positive or even integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    fold_left (fun acc x -> if x >= 0 && x mod 2 = 1 then acc + x * x else acc) 0 l\nend"
+        },
+        {
+            "description": "Use a while loop to iterate through the list and accumulate the sum of squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let rec loop l acc =\n      match l with\n      | Nil -> acc\n      | Cons (x, xs) ->\n        let acc' = if x >= 0 && x mod 2 = 1 then acc + x * x else acc in\n        loop xs acc'\n    in\n    loop l 0\nend"
+        },
+        {
+            "description": "Filter and map in separate steps, then reduce the list to compute the sum.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let is_odd_positive x = x >= 0 && x mod 2 = 1 in\n    let odd_positives = filter is_odd_positive l in\n    let squares = map (fun x -> x * x) odd_positives in\n    fold_left (+) 0 squares\nend"
+        }
+    ]
+}

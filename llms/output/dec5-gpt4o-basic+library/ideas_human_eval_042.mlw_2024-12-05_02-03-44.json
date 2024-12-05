@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iteratively increment each element by 1 using a loop.",
+            "implementation": "module HumanEval042\nuse list.List\nuse list.Append\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  let rec loop (acc: list int) (lst: list int) =\n    match lst with\n    | Nil -> acc\n    | Cons(hd, tl) -> loop (acc ++ Cons(hd + 1, Nil)) tl\n  in\n  loop Nil l\nend"
+        },
+        {
+            "description": "Use map to apply an increment function to each element.",
+            "implementation": "module HumanEval042\nuse list.Map\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  map (fun x -> x + 1) l\nend"
+        },
+        {
+            "description": "Use recursion to increment each element by 1.",
+            "implementation": "module HumanEval042\nuse list.List\nuse int.Int\n\nlet rec incr_list (l: list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons(hd, tl) -> Cons(hd + 1, incr_list tl)\nend"
+        },
+        {
+            "description": "Increment elements by 1 using fold_left to accumulate results.",
+            "implementation": "module HumanEval042\nuse list.FoldLeft\nuse list.Append\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  fold_left (fun acc x -> acc ++ Cons(x + 1, Nil)) Nil l\nend"
+        },
+        {
+            "description": "Use fold_right to increment each element by 1.",
+            "implementation": "module HumanEval042\nuse list.FoldRight\nuse list.Append\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  fold_right (fun x acc -> Cons(x + 1, acc)) l Nil\nend"
+        },
+        {
+            "description": "Increment each element using a tail-recursive helper function.",
+            "implementation": "module HumanEval042\nuse list.List\nuse list.Append\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  let rec aux (acc: list int) (lst: list int) =\n    match lst with\n    | Nil -> acc\n    | Cons(hd, tl) -> aux (acc ++ Cons(hd + 1, Nil)) tl\n  in\n  aux Nil l\nend"
+        },
+        {
+            "description": "Apply a manual recursive process to increment elements.",
+            "implementation": "module HumanEval042\nuse list.List\nuse int.Int\n\nlet rec incr_list (l: list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons(hd, tl) -> Cons(hd + 1, incr_list tl)\nend"
+        },
+        {
+            "description": "Use rev_append to efficiently increment and reverse the list.",
+            "implementation": "module HumanEval042\nuse list.RevAppend\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  let rec aux (lst: list int) (acc: list int) =\n    match lst with\n    | Nil -> acc\n    | Cons(hd, tl) -> aux tl (Cons(hd + 1, acc))\n  in\n  aux l Nil\nend"
+        },
+        {
+            "description": "Increment elements by 1 in place using a mutable list.",
+            "implementation": "module HumanEval042\nuse list.List\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  let rec modify lst =\n    match lst with\n    | Nil -> Nil\n    | Cons(hd, tl) -> Cons(hd + 1, modify tl)\n  in\n  modify l\nend"
+        },
+        {
+            "description": "Use List.map with an inline increment function.",
+            "implementation": "module HumanEval042\nuse list.Map\nuse int.Int\n\nlet incr_list (l: list int) : list int =\n  map (fun x -> x + 1) l\nend"
+        }
+    ]
+}

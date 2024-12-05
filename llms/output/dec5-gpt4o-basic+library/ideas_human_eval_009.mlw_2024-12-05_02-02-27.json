@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate through the list while keeping track of the current maximum value in a variable.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Append\n  use int.Int\n\n  let rec rolling_max (l : list int) : list int =\n    let rec aux (l : list int) (current_max : int) : list int =\n      match l with\n      | Nil -> Nil\n      | Cons x xs ->\n        let new_max = if x > current_max then x else current_max in\n        Cons new_max (aux xs new_max)\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> aux xs x\nend"
+        },
+        {
+            "description": "Use fold_left to accumulate the rolling maximums, starting with an empty list.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.FoldLeft\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let f (acc : list int, current_max : int) (x : int) : (list int, int) =\n      let new_max = if x > current_max then x else current_max in\n      (acc ++ [new_max], new_max)\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> fst (fold_left f (Cons x Nil, x) xs)\nend"
+        },
+        {
+            "description": "Recursively build the output list by comparing each value with the maximum obtained so far.",
+            "implementation": "module HumanEval009\n  use list.List\n  use int.Int\n\n  let rec rolling_max (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      let rec aux (current_max : int) (l : list int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons y ys ->\n          let new_max = if y > current_max then y else current_max in\n          Cons new_max (aux new_max ys)\n      in\n      Cons x (aux x xs)\nend"
+        },
+        {
+            "description": "Use map to transform the list into rolling maximums by keeping a reference to the current maximum as state.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Map\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let rec f (current_max : int) (x : int) : (int, int) =\n      let new_max = if x > current_max then x else current_max in\n      (new_max, new_max)\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> fst (map (f x) xs)\nend"
+        },
+        {
+            "description": "Manually iterate over the list using a while loop to maintain the maximum value.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Append\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let rec aux (acc : list int) (current_max : int) (lst : list int) : list int =\n      match lst with\n      | Nil -> acc\n      | Cons x xs ->\n        let new_max = if x > current_max then x else current_max in\n        aux (acc ++ [new_max]) new_max xs\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> aux [x] x xs\nend"
+        },
+        {
+            "description": "Apply a fold_right approach, aggregating elements from right to left.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.FoldRight\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let f (x : int) ((acc : list int), current_max : int) : (list int, int) =\n      let new_max = if x > current_max then x else current_max in\n      (Cons new_max acc, new_max)\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> fst (fold_right f xs ([x], x))\nend"
+        },
+        {
+            "description": "Use reverse on the list, compute the rolling maxima backwards, and reverse the result.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Map\n  use list.Reverse\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let reversed = reverse l in\n    let rec aux (acc : list int) (current_max : int) (lst : list int) : list int =\n      match lst with\n      | Nil -> acc\n      | Cons x xs ->\n        let new_max = if x > current_max then x else current_max in\n        aux (Cons new_max acc) new_max xs\n    in\n    reverse (match reversed with\n    | Nil -> Nil\n    | Cons x xs -> aux (Cons x Nil) x xs)\nend"
+        },
+        {
+            "description": "Use a combination of list prefixes and map to generate the rolling maximum list.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Prefix\n  use list.Map\n  use int.Int\n\n  let rec max_of_list (lst : list int) : int =\n    match lst with\n    | Nil -> -1000\n    | Cons x xs -> max x (max_of_list xs)\n\n  let rolling_max (l : list int) : list int =\n    let rec map_prefix (lst : list int) (n : int) : list int =\n      match n with\n      | 0 -> Nil\n      | _ ->\n        let prefix = prefix n lst in\n        Cons (max_of_list prefix) (map_prefix lst (n - 1))\n    in\n    map_prefix l (length l)\nend"
+        },
+        {
+            "description": "Calculate the rolling maximum by utilizing the sum and map functions to determine the max up to each index.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.Map\n  use list.Sum\n  use int.Int\n\n  let rec max_of_list (lst : list int) : int =\n    match lst with\n    | Nil -> -1000\n    | Cons x xs -> max x (max_of_list xs)\n\n  let rolling_max (l : list int) : list int =\n    let rec map_sum (lst : list int) (n : int) : list int =\n      match n with\n      | 0 -> Nil\n      | _ ->\n        let sublist = prefix n lst in\n        Cons (max_of_list sublist) (map_sum lst (n - 1))\n    in\n    map_sum l (length l)\nend"
+        },
+        {
+            "description": "Utilize the fold_left function while maintaining both a current maximum and the resulting list.",
+            "implementation": "module HumanEval009\n  use list.List\n  use list.FoldLeft\n  use int.Int\n\n  let rolling_max (l : list int) : list int =\n    let f (acc : list int, current_max : int) (x : int) : (list int, int) =\n      let new_max = if x > current_max then x else current_max in\n      (acc ++ [new_max], new_max)\n    in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> fst (fold_left f (Cons x Nil, x) xs)\nend"
+        }
+    ]
+}

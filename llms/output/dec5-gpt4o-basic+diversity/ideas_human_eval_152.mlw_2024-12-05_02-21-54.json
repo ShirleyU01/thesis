@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to calculate absolute differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  let n = length l1 in\n  let rec loop i acc =\n    if i >= n then\n      acc\n    else\n      let diff = abs (nth i l1 - nth i l2) in\n      loop (i + 1) (acc @ [diff])\n  in\n  loop 0 Nil\nend"
+        },
+        {
+            "description": "Using a while-loop to compute differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  let n = length l1 in\n  let ref i = 0 in\n  let ref result = Nil in\n  while i < n do\n    let diff = abs (nth i l1 - nth i l2) in\n    result <- result @ [diff];\n    i <- i + 1\n  done;\n  result\nend"
+        },
+        {
+            "description": "Recursively calculating differences using pattern matching",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match (l1, l2) with\n  | (Nil, Nil) -> Nil\n  | (Cons x xs, Cons y ys) -> let diff = abs (x - y) in Cons diff (compare xs ys)\n  end\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator for differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec compare_aux (l1 : list int) (l2 : list int) (acc : list int) : list int =\n  match (l1, l2) with\n  | (Nil, Nil) -> acc\n  | (Cons x xs, Cons y ys) -> let diff = abs (x - y) in compare_aux xs ys (acc @ [diff])\n  end\n\nlet compare (l1 : list int) (l2 : list int) : list int = compare_aux l1 l2 Nil\nend"
+        },
+        {
+            "description": "Using map to generate the list of differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec map2 (f: int -> int -> int) (l1: list int) (l2: list int) : list int =\n  match (l1, l2) with\n  | (Nil, Nil) -> Nil\n  | (Cons x xs, Cons y ys) -> Cons (f x y) (map2 f xs ys)\n  end\n\nlet compare (l1: list int) (l2: list int) : list int =\n  map2 (fun a b -> abs (a - b)) l1 l2\nend"
+        },
+        {
+            "description": "Using zip and fold to compute the differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec zip (l1: list int) (l2: list int) : list (int, int) =\n  match (l1, l2) with\n  | (Nil, Nil) -> Nil\n  | (Cons x xs, Cons y ys) -> Cons (x, y) (zip xs ys)\n  end\n\nlet compare (l1: list int) (l2: list int) : list int =\n  let paired = zip l1 l2 in\n  fold (fun acc (x, y) -> acc @ [abs (x - y)]) Nil paired\nend"
+        },
+        {
+            "description": "Using a custom recursive function to handle list processing",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec process_lists (l1 : list int) (l2 : list int) (acc : list int) : list int =\n  match (l1, l2) with\n  | (Nil, Nil) -> acc\n  | (Cons x xs, Cons y ys) ->\n      let diff = abs (x - y) in\n      process_lists xs ys (acc @ [diff])\n  end\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  process_lists l1 l2 Nil\nend"
+        },
+        {
+            "description": "Using a helper function to compute differences iteratively",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet rec iter_lists (l1 : list int) (l2 : list int) (n : int) (result : list int) : list int =\n  if n <= 0 then result\n  else\n    let diff = abs (nth (n - 1) l1 - nth (n - 1) l2) in\n    iter_lists l1 l2 (n - 1) (Cons diff result)\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  iter_lists l1 l2 (length l1) Nil\nend"
+        },
+        {
+            "description": "Using a higher-order function to abstract difference computation",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet compute_diff (x: int) (y: int) : int = abs (x - y)\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match (l1, l2) with\n  | (Nil, Nil) -> Nil\n  | (Cons x xs, Cons y ys) -> Cons (compute_diff x y) (compare xs ys)\n  end\nend"
+        },
+        {
+            "description": "Using a fold_right function to aggregate differences",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Int\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  fold_right (fun x acc -> match x with (a, b) -> Cons (abs (a - b)) acc) (zip l1 l2) Nil\nend"
+        }
+    ]
+}

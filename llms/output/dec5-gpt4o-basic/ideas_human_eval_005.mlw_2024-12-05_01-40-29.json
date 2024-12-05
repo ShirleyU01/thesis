@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive approach where we append the delimiter between elements.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec intersperse (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y _ as tl) -> Cons x (Cons d (intersperse tl d))\n  end"
+        },
+        {
+            "description": "Iterative approach using a fold to accumulate the result.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let intersperse (l: list int) (d: int) : list int =\n    let f (acc: list int) (x: int) =\n      match acc with\n      | Nil -> Cons x Nil\n      | _ -> append acc (Cons d (Cons x Nil))\n    in fold_left f Nil l\n  end"
+        },
+        {
+            "description": "Separate function to handle the case of two lists, interspersing one into the other.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec intersperse_two (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> Nil\n    | Cons x Nil, _ -> Cons x Nil\n    | Cons x xs, _ -> Cons x (append l2 (intersperse_two xs l2))\n  let intersperse (l: list int) (d: int) : list int =\n    intersperse_two l (Cons d Nil)\n  end"
+        },
+        {
+            "description": "Use of auxiliary function to prepend delimiter.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec prepend_delim (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons d (Cons x (prepend_delim xs d))\n  let intersperse (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (prepend_delim xs d)\n  end"
+        },
+        {
+            "description": "Tail-recursive approach using an accumulator to build the result.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec intersperse_acc (acc: list int) (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> rev acc\n    | Cons x Nil -> rev (Cons x acc)\n    | Cons x (Cons y _ as xs) -> intersperse_acc (Cons d (Cons x acc)) xs d\n  let intersperse (l: list int) (d: int) : list int =\n    intersperse_acc Nil l d\n  end"
+        },
+        {
+            "description": "Using map with index to determine where to place delimiters.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let intersperse (l: list int) (d: int) : list int =\n    let rec map_idx (f: int -> int -> 'a) (l: list int) (i: int) : list 'a =\n      match l with\n      | Nil -> Nil\n      | Cons x xs -> Cons (f i x) (map_idx f xs (i + 1))\n    in\n    let add_delim i x = if i > 0 then Cons d (Cons x Nil) else Cons x Nil\n    in flatten (map_idx add_delim l 0)\n  end"
+        },
+        {
+            "description": "Using zip to combine original list and delimiters.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec zip_with_delim (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y _ as xs) -> Cons x (Cons d (zip_with_delim xs d))\n  let intersperse (l: list int) (d: int) : list int =\n    zip_with_delim l d\n  end"
+        },
+        {
+            "description": "Use pattern matching to handle special cases.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec intersperse (l: list int) (d: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> match xs with\n                   | Nil -> Cons x Nil\n                   | _ -> Cons x (Cons d (intersperse xs d))\n  end"
+        },
+        {
+            "description": "Using a buffer to collect elements and delimiters.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let intersperse (l: list int) (d: int) : list int =\n    let buffer = ref [] in\n    let rec aux l =\n      match l with\n      | Nil -> !buffer\n      | Cons x Nil -> buffer := x :: !buffer; rev !buffer\n      | Cons x (Cons y _ as xs) -> buffer := d :: x :: !buffer; aux xs\n    in aux l\n  end"
+        },
+        {
+            "description": "Using higher-order function to perform the insertion.",
+            "implementation": "module HumanEval005\n  use import list.List\n  let rec intersperse (l: list int) (d: int) : list int =\n    let insert_delimiter x acc =\n      match acc with\n      | Nil -> Cons x Nil\n      | _ -> append acc (Cons d (Cons x Nil))\n    in fold_right insert_delimiter l Nil\n  end"
+        }
+    ]
+}

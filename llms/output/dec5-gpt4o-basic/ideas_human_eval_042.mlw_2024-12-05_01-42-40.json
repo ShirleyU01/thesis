@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use a recursive function to increment elements in the list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n  end"
+        },
+        {
+            "description": "Implement using a loop to traverse and increment elements of the list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let incr_list (l: list int) : list int =\n    let rec loop acc = function\n    | Nil -> rev acc\n    | Cons x xs -> loop (Cons (x + 1) acc) xs\n    in\n    loop Nil l\n  end"
+        },
+        {
+            "description": "Use higher-order functions with `map` to increment each element.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let incr_list (l: list int) : list int =\n    map (fun x -> x + 1) l\n  end"
+        },
+        {
+            "description": "Implement with fold_left to construct a new list with incremented values.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let incr_list (l: list int) : list int =\n    fold_left (fun acc x -> Cons (x + 1) acc) Nil l\n  end"
+        },
+        {
+            "description": "Use a pattern-matching approach within a recursive function to increment elements.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n  end"
+        },
+        {
+            "description": "Use an accumulator in a recursive function to build the result list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list_aux (acc: list int) (l: list int) : list int =\n    match l with\n    | Nil -> rev acc\n    | Cons x xs -> incr_list_aux (Cons (x + 1) acc) xs\n  let incr_list (l: list int) : list int = incr_list_aux Nil l\n  end"
+        },
+        {
+            "description": "Directly implement a list comprehension style approach using `map`.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let incr_list (l: list int) : list int =\n    map (fun x -> x + 1) l\n  end"
+        },
+        {
+            "description": "Use a helper function `increment` to increment a single element and apply it using `map`.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let increment (x: int) : int = x + 1\n  let incr_list (l: list int) : list int =\n    map increment l\n  end"
+        },
+        {
+            "description": "Leverage a custom iterator to apply the increment operation.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec iterate (f: int -> int) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x) (iterate f xs)\n  let incr_list (l: list int) : list int =\n    iterate (fun x -> x + 1) l\n  end"
+        },
+        {
+            "description": "Implement increment with tail recursion optimization.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let incr_list (l: list int) : list int =\n    let rec aux acc = function\n    | Nil -> rev acc\n    | Cons x xs -> aux (Cons (x + 1) acc) xs\n    in aux Nil l\n  end"
+        }
+    ]
+}

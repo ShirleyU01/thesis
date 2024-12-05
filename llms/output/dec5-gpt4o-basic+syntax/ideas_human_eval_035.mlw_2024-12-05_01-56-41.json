@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation that checks each element against the current maximum.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x xs -> begin match xs with\n                   | Nil -> x\n                   | Cons _ _ -> max x (max_element xs)\n                   end\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using a helper function to traverse the list.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let rec max_helper (lst: list int) (current_max: int) : int =\n      variant { length lst }\n      match lst with\n      | Nil -> current_max\n      | Cons x xs -> max_helper xs (max x current_max)\n      end\n    in\n    match t with\n    | Cons x xs -> max_helper xs x\n    end\nend"
+        },
+        {
+            "description": "Use a fold function to accumulate the maximum value.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let rec fold_max (f: int -> int -> int) (acc: int) (lst: list int) : int =\n      variant { length lst }\n      match lst with\n      | Nil -> acc\n      | Cons x xs -> fold_max f (f acc x) xs\n      end\n    in\n    match t with\n    | Cons x xs -> fold_max max x xs\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that uses pattern matching to find the maximum element.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs -> let m = max_element xs in max x m\n    end\nend"
+        },
+        {
+            "description": "Use a while loop to find the maximum element.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let rec while_max (lst: list int) (current_max: int) : int =\n      variant { length lst }\n      match lst with\n      | Nil -> current_max\n      | Cons x xs ->\n        let new_max = max current_max x in\n        while_max xs new_max\n      end\n    in\n    match t with\n    | Cons x xs -> while_max xs x\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation skipping first element as initial max.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x xs -> begin match xs with\n                   | Nil -> x\n                   | Cons y ys -> let rest_max = max_element xs in max x rest_max\n                   end\n    end\nend"
+        },
+        {
+            "description": "Divide and conquer strategy to find maximum.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x (Cons y ys) ->\n      let rest_max = max_element (Cons y ys) in\n      max x rest_max\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with explicit base case for single element list.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x (Cons y ys) ->\n      let rest_max = max_element (Cons y ys) in\n      max x rest_max\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using an accumulator list.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let rec max_acc (lst: list int) (acc: int) : int =\n      variant { length lst }\n      match lst with\n      | Nil -> acc\n      | Cons x xs -> max_acc xs (max x acc)\n      end\n    in\n    match t with\n    | Cons x xs -> max_acc xs x\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using helper function for clarity.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let rec max_helper (lst: list int) : int =\n      variant { length lst }\n      match lst with\n      | Cons x Nil -> x\n      | Cons x xs -> max x (max_helper xs)\n      end\n    in\n    max_helper t\nend"
+        }
+    ]
+}

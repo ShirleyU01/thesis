@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract the last digit of each number using modulo operation and multiply them directly.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let u1 = a mod 10 in\n    let u2 = b mod 10 in\n    u1 * u2\nend"
+        },
+        {
+            "description": "Use pattern matching to determine the last digit and perform multiplication.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let u1 = a mod 10 in\n    let u2 = b mod 10 in\n    match (u1, u2) with\n    | (_, _) -> u1 * u2\n    end\nend"
+        },
+        {
+            "description": "Implement multiplication using a recursive helper function to find last digits.",
+            "implementation": "module HumanEval097\n  let rec last_digit (n: int) : int =\n    if n < 10 then n else last_digit (n mod 10)\n  let multiply (a: int) (b: int) : int =\n    (last_digit a) * (last_digit b)\nend"
+        },
+        {
+            "description": "Use integer arithmetic to isolate the last digit by subtracting higher place values.",
+            "implementation": "module HumanEval097\n  let last_digit (n: int) : int = n mod 10\n  let multiply (a: int) (b: int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Calculate the last digit by converting to string and taking the last character.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let u1 = int_of_string (String.sub (string_of_int a) (String.length (string_of_int a) - 1) 1) in\n    let u2 = int_of_string (String.sub (string_of_int b) (String.length (string_of_int b) - 1) 1) in\n    u1 * u2\nend"
+        },
+        {
+            "description": "Divide by 10 until the number is a single digit, then multiply the results.",
+            "implementation": "module HumanEval097\n  let rec last_digit (n: int) : int =\n    if n < 10 then n else last_digit (n / 10)\n  let multiply (a: int) (b: int) : int =\n    (last_digit a) * (last_digit b)\nend"
+        },
+        {
+            "description": "Implement a loop to reduce each number to its last digit and multiply.",
+            "implementation": "module HumanEval097\n  let last_digit_iter (n: int) : int =\n    let rec loop n = if n < 10 then n else loop (n / 10) in\n    loop n\n  let multiply (a: int) (b: int) : int =\n    last_digit_iter a * last_digit_iter b\nend"
+        },
+        {
+            "description": "Use an absolute value to handle negative numbers before finding last digits.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let u1 = abs a mod 10 in\n    let u2 = abs b mod 10 in\n    u1 * u2\nend"
+        },
+        {
+            "description": "Implement the multiplication using a helper function that computes last digit using modulus.",
+            "implementation": "module HumanEval097\n  let last_digit_mod (n: int) : int = n mod 10\n  let multiply (a: int) (b: int) : int =\n    last_digit_mod a * last_digit_mod b\nend"
+        },
+        {
+            "description": "Use a functional style to map operations to extract and multiply last digits.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let last_digit n = n mod 10 in\n    (last_digit a) * (last_digit b)\nend"
+        }
+    ]
+}

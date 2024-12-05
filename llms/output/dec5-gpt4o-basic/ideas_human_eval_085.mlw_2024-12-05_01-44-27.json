@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate over the list and add even elements present at odd indices using a for loop.",
+            "implementation": "module HumanEval085\n  use int.Int\n\n  let add (l: list int) : int =\n    let rec aux (lst: list int) (idx: int) (acc: int) =\n      match lst with\n      | Nil -> acc\n      | Cons (h, t) ->\n          if idx mod 2 = 1 && h mod 2 = 0 then\n            aux t (idx + 1) (acc + h)\n          else\n            aux t (idx + 1) acc\n    in\n    aux l 0 0\nend"
+        },
+        {
+            "description": "Use a recursive approach to traverse the list and accumulate the even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n\n  let rec add (l: list int) (idx: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons (h, t) ->\n        if idx mod 2 = 1 && h mod 2 = 0 then\n          add t (idx + 1) (acc + h)\n        else\n          add t (idx + 1) acc\n\n  let add_main (l: list int) : int =\n    add l 0 0\nend"
+        },
+        {
+            "description": "Iterate using a while loop, maintaining an index to check odd positions and accumulate even numbers.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let add (l: list int) : int =\n    let rec loop (lst: list int) (idx: int) (acc: int) =\n      match lst with\n      | Nil -> acc\n      | Cons (h, t) ->\n          let new_acc = if idx mod 2 = 1 && h mod 2 = 0 then acc + h else acc in\n          loop t (idx + 1) new_acc\n    in\n    loop l 0 0\nend"
+        },
+        {
+            "description": "Using list.fold_left to traverse the list and accumulate the sum for even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let add (l: list int) : int =\n    let fold_fun (idx_acc: (int, int)) (current: int) : (int, int) =\n      let (idx, acc) = idx_acc in\n      let new_acc = if idx mod 2 = 1 && current mod 2 = 0 then acc + current else acc in\n      (idx + 1, new_acc)\n    in\n    let (_, result) = fold_left fold_fun (0, 0) l in\n    result\nend"
+        },
+        {
+            "description": "Implement a tail-recursive function to traverse the list and accumulate even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n\n  let rec add_tail (l: list int) (idx: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons (h, t) ->\n        if idx mod 2 = 1 && h mod 2 = 0 then\n          add_tail t (idx + 1) (acc + h)\n        else\n          add_tail t (idx + 1) acc\n\n  let add (l: list int) : int =\n    add_tail l 0 0\nend"
+        },
+        {
+            "description": "Use a higher-order function that maps over indexed elements to filter and sum even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let add (l: list int) : int =\n    let rec map_index (lst: list int) (idx: int) : list (int, int) =\n      match lst with\n      | Nil -> Nil\n      | Cons (h, t) -> Cons ((idx, h), map_index t (idx + 1))\n    in\n    let indexed_lst = map_index l 0 in\n    let even_odd_idx (pair: (int, int)) : bool =\n      let (idx, value) = pair in\n      idx mod 2 = 1 && value mod 2 = 0\n    in\n    let evens = filter even_odd_idx indexed_lst in\n    fold_left (fun acc (_, v) -> acc + v) 0 evens\nend"
+        },
+        {
+            "description": "Use pattern matching to extract and sum even elements at odd indices leveraging list comprehensions.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let add (l: list int) : int =\n    let rec sum_even_odd_idx (lst: list int) (idx: int) : int =\n      match lst with\n      | Nil -> 0\n      | Cons (h, t) ->\n          let rest_sum = sum_even_odd_idx t (idx + 1) in\n          if idx mod 2 = 1 && h mod 2 = 0 then h + rest_sum else rest_sum\n    in\n    sum_even_odd_idx l 0\nend"
+        },
+        {
+            "description": "Utilize a match expression with guards to selectively sum even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons (h, t) ->\n        let sum_rest = add t (idx + 1) in\n        (if idx mod 2 = 1 && h mod 2 = 0 then h else 0) + sum_rest\n\n  let add_main (l: list int) : int =\n    add l 0\nend"
+        },
+        {
+            "description": "Implement using a fold function by folding over pairs of index and value to accumulate the result.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let add (l: list int) : int =\n    let rec fold_with_index (lst: list int) (f: int -> int -> int -> int) (acc: int) (idx: int) : int =\n      match lst with\n      | Nil -> acc\n      | Cons (h, t) ->\n          let new_acc = f idx h acc in\n          fold_with_index t f new_acc (idx + 1)\n    in\n    let add_if_even_odd idx value acc =\n      if idx mod 2 = 1 && value mod 2 = 0 then acc + value else acc\n    in\n    fold_with_index l add_if_even_odd 0 0\nend"
+        },
+        {
+            "description": "Using a nested function to encapsulate the recursive logic for summing even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n\n  let add (l: list int) : int =\n    let rec sum_even_odd_idx (lst: list int) (idx: int) (acc: int) : int =\n      match lst with\n      | Nil -> acc\n      | Cons (h, t) ->\n          let new_acc = if idx mod 2 = 1 && h mod 2 = 0 then acc + h else acc in\n          sum_even_odd_idx t (idx + 1) new_acc\n    in\n    sum_even_odd_idx l 0 0\nend"
+        }
+    ]
+}

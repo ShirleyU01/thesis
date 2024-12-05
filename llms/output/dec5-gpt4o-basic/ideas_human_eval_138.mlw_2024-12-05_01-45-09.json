@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple check using arithmetic to verify if the number can be expressed as a sum of four positive even numbers",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  n >= 8 && n mod 2 = 0\n"
+        },
+        {
+            "description": "Use recursion to deconstruct the number iteratively by subtracting even numbers",
+            "implementation": "module HumanEval138\n\nlet rec is_equal_to_sum_even_rec (n: int) (count: int) : bool =\n  if count = 0 then n = 0\n  else if n <= 0 then false\n  else is_equal_to_sum_even_rec (n - 2) (count - 1)\n\nlet is_equal_to_sum_even (n: int) : bool =\n  is_equal_to_sum_even_rec n 4\n"
+        },
+        {
+            "description": "Use a loop to check if a sequence of four even numbers can sum to the given number",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let rec loop (sum: int) (count: int) : bool =\n    if count = 4 then sum = n\n    else if sum > n then false\n    else loop (sum + 2) (count + 1)\n  in\n  loop 0 0\n"
+        },
+        {
+            "description": "Check for specific pattern or condition that allows the number to be expressed as a sum of four even numbers",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  n > 6 && n mod 2 = 0\n"
+        },
+        {
+            "description": "Use a set of predefined even number combinations to match the given number",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let combinations = [(2, 2, 2, 2); (2, 2, 4, 0); (2, 4, 2, 0); (4, 2, 2, 0)] in\n  List.exists (fun (a, b, c, d) -> a + b + c + d = n) combinations\n"
+        },
+        {
+            "description": "Evaluate the number using a mathematical expression derived from the properties of even numbers",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let k = n / 2 in\n  k >= 4\n"
+        },
+        {
+            "description": "Utilize a direct calculation method using integer division and modulo to determine possibility",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let q = n / 4 in\n  q >= 2 && n mod 4 = 0\n"
+        },
+        {
+            "description": "Use a counter to aggregate sums of even numbers until the target number is reached",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let rec sum_even (current_sum: int) (count: int) : bool =\n    if count = 4 then current_sum = n\n    else if current_sum > n then false\n    else sum_even (current_sum + 2) (count + 1)\n  in\n  sum_even 0 0\n"
+        },
+        {
+            "description": "Implement a condition-based approach to handle small and large numbers separately",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  match n with\n  | n when n >= 8 && n mod 2 = 0 -> true\n  | _ -> false\n"
+        },
+        {
+            "description": "Verify the property using a mathematical induction approach to ensure correctness for all cases",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  n >= 8 && n mod 2 = 0\n"
+        }
+    ]
+}

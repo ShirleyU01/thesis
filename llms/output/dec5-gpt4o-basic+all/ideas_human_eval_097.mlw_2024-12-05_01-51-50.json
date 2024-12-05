@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using basic arithmetic operations to calculate the product of unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Using pattern matching to extract unit digits and compute their product.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    match (a mod 10, b mod 10) with\n    | (unit_a, unit_b) -> unit_a * unit_b\n    end\nend"
+        },
+        {
+            "description": "Using if-then-else branching to handle unit digit extraction and multiplication.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    if unit_a * unit_b >= 0 then unit_a * unit_b else 0\nend"
+        },
+        {
+            "description": "Using a helper function to extract the unit digit and another function to multiply them.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let get_unit_digit (n: int) : int = n mod 10\n  let multiply (a: int) (b: int) : int =\n    let unit_a = get_unit_digit a in\n    let unit_b = get_unit_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Using let-in expressions to encapsulate unit digit extraction and multiplication.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    let product = unit_a * unit_b in\n    product\nend"
+        },
+        {
+            "description": "Using recursive function calls to extract and multiply unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let rec get_unit_digit (n: int) : int = n mod 10\n  let rec multiply (a: int) (b: int) : int =\n    let unit_a = get_unit_digit a in\n    let unit_b = get_unit_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Using a separate module to define utility functions for unit digit extraction and multiplication.",
+            "implementation": "module HumanEval097_Utils\n  use int.Int\n  use int.EuclideanDivision\n  let get_unit_digit (n: int) : int = n mod 10\nend\n\nmodule HumanEval097\n  use HumanEval097_Utils\n  let multiply (a: int) (b: int) : int =\n    let unit_a = get_unit_digit a in\n    let unit_b = get_unit_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Using match with tuple to handle unit digit extraction and multiplication in a concise manner.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    match (a mod 10, b mod 10) with\n    | (unit_a, unit_b) -> unit_a * unit_b\n    end\nend"
+        },
+        {
+            "description": "Using a separate function to multiply unit digits and encapsulate logic.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply_unit_digits (unit_a: int) (unit_b: int) : int = unit_a * unit_b\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    multiply_unit_digits unit_a unit_b\nend"
+        },
+        {
+            "description": "Using nested let-in expressions for unit digit extraction and multiplication.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = let u = a mod 10 in u in\n    let unit_b = let u = b mod 10 in u in\n    unit_a * unit_b\nend"
+        }
+    ]
+}

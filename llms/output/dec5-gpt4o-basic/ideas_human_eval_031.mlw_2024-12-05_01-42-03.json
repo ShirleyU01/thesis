@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple iterative method, checking divisibility from 2 to sqrt(n).",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false else\n    let rec check_divisor d =\n      if d * d > n then true else\n      if n mod d = 0 then false else check_divisor (d + 1)\n    in check_divisor 2\nend"
+        },
+        {
+            "description": "Optimized method by skipping even numbers greater than 2.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else if n = 2 then true\n    else if n mod 2 = 0 then false\n    else let rec check_odd d =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else check_odd (d + 2)\n    in check_odd 3\nend"
+        },
+        {
+            "description": "Recursive approach that checks divisibility by all numbers up to n-1.",
+            "implementation": "module HumanEval031\n  let rec is_prime (n: int) : bool =\n    if n < 2 then false\n    else let rec check (i: int) : bool =\n      if i = n then true\n      else if n mod i = 0 then false\n      else check (i + 1)\n    in check 2\nend"
+        },
+        {
+            "description": "Use a helper function to handle the recursive divisor check.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    let rec helper (i: int) : bool =\n      if i * i > n then true\n      else if n mod i = 0 then false\n      else helper (i + 1)\n    in if n < 2 then false else helper 2\nend"
+        },
+        {
+            "description": "Iterative method using a for loop to check divisibility.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      let result = ref true in\n      for i = 2 to int_of_float (sqrt (float_of_int n)) do\n        if n mod i = 0 then result := false\n      done;\n      !result\nend"
+        },
+        {
+            "description": "Check for small known primes first, then use division check.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    let known_primes = [2; 3; 5; 7; 11; 13; 17; 19] in\n    if List.mem n known_primes then true\n    else\n      let rec check d =\n        if d * d > n then true\n        else if n mod d = 0 then false\n        else check (d + 2)\n      in if n < 2 || n mod 2 = 0 then false else check 3\nend"
+        },
+        {
+            "description": "Use a sieve-like approach to eliminate non-prime numbers up to n.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false else\n    let sieve = Array.make (n + 1) true in\n    sieve.(0) <- false;\n    sieve.(1) <- false;\n    for i = 2 to int_of_float (sqrt (float_of_int n)) do\n      if sieve.(i) then\n        let rec mark_multiples j =\n          if j <= n then (sieve.(j) <- false; mark_multiples (j + i))\n        in mark_multiples (i * i)\n    done;\n    sieve.(n)\nend"
+        },
+        {
+            "description": "Recursive method with tail recursion optimization.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    let rec check d acc =\n      if d * d > n then acc\n      else if n mod d = 0 then false\n      else check (d + 1) acc\n    in if n < 2 then false else check 2 true\nend"
+        },
+        {
+            "description": "Use a functional style with a filter to determine primality.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else\n      List.for_all (fun x -> n mod x <> 0) (List.init (n - 2) (fun i -> i + 2))\nend"
+        },
+        {
+            "description": "Check divisibility by 2 and 3 first, then use a 6k \u00b1 1 optimization.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else if n < 4 then true\n    else if n mod 2 = 0 || n mod 3 = 0 then false\n    else let rec check k =\n      let w = k * 6 in\n      if w * w - 2 * w + 1 > n then true\n      else if n mod (w - 1) = 0 || n mod (w + 1) = 0 then false\n      else check (k + 1)\n    in check 1\nend"
+        }
+    ]
+}

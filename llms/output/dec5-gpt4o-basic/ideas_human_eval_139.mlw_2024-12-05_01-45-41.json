@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation using helper function to compute factorials.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use ref.Ref\n\n  let rec factorial (n:int) : int =\n    if n <= 1 then 1 else n * factorial (n - 1)\n\n  let rec special_factorial (n:int) : int =\n    if n <= 1 then 1\n    else factorial n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Iterative approach using a loop to accumulate the product of factorials.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (n:int) : int =\n    if n <= 1 then 1 else n * factorial (n - 1)\n\n  let special_factorial (n:int) : int =\n    let result = ref 1 in\n    for i = 1 to n do\n      result := !result * factorial i\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Precompute all factorials in an array and then calculate the special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use array.Array\n\n  let special_factorial (n:int) : int =\n    let factorials = Array.make (n+1) 1 in\n    for i = 2 to n do\n      factorials[i] <- factorials[i-1] * i\n    done;\n    let result = ref 1 in\n    for i = 1 to n do\n      result := !result * factorials[i]\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Memoization technique to store intermediate factorial results and avoid redundant calculations.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use map.Map\n\n  let special_factorial (n:int) : int =\n    let cache = ref Map.empty in\n    let rec factorial (n:int) : int =\n      match Map.get n !cache with\n      | Some res -> res\n      | None ->\n        let res = if n <= 1 then 1 else n * factorial (n - 1) in\n        cache := Map.set n res !cache;\n        res\n    in\n    let result = ref 1 in\n    for i = 1 to n do\n      result := !result * factorial i\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Tail-recursive implementation to calculate special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (n:int) (acc:int) : int =\n    if n <= 1 then acc else factorial (n - 1) (n * acc)\n\n  let rec special_factorial_aux (n:int) (acc:int) : int =\n    if n <= 1 then acc\n    else special_factorial_aux (n - 1) (factorial n 1 * acc)\n\n  let special_factorial (n:int) : int =\n    special_factorial_aux n 1\nend"
+        },
+        {
+            "description": "Using a fold function to compute the product of factorials.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n\n  let rec factorial (n:int) : int =\n    if n <= 1 then 1 else n * factorial (n - 1)\n\n  let special_factorial (n:int) : int =\n    List.fold_left (fun acc x -> acc * factorial x) 1 (List.init n (fun i -> i + 1))\nend"
+        },
+        {
+            "description": "Combination of direct factorial computation and accumulator for the product.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n:int) : int =\n    let rec compute (i:int) (acc:int) : int =\n      if i > n then acc\n      else\n        let rec fact (j:int) (f:int) : int =\n          if j <= 1 then f else fact (j - 1) (j * f)\n        in\n        compute (i + 1) (acc * fact i 1)\n    in\n    compute 1 1\nend"
+        },
+        {
+            "description": "Using a nested recursive function to calculate each factorial inside the main function.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n:int) : int =\n    let rec inner_factorial (k:int) : int =\n      if k <= 1 then 1 else k * inner_factorial (k - 1)\n    in\n    let rec compute (m:int) : int =\n      if m <= 1 then 1\n      else inner_factorial m * compute (m - 1)\n    in\n    compute n\nend"
+        },
+        {
+            "description": "Inline factorial calculation within the main loop to minimize function calls.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n:int) : int =\n    let result = ref 1 in\n    for i = 1 to n do\n      let fact = ref 1 in\n      for j = 1 to i do\n        fact := !fact * j\n      done;\n      result := !result * !fact\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Recursive implementation with a tuple to carry intermediate factorial results.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec special_factorial (n:int) : int =\n    let rec aux (n:int) (acc:int) (fact:int) : int =\n      if n <= 1 then acc\n      else aux (n - 1) (acc * fact * n) (fact * n)\n    in\n    aux n 1 1\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to accumulate even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet add (l: list int) : int =\n  let n = length l in\n  let ref sum = 0 in\n  for i = 0 to n - 1 do\n    if i mod 2 = 1 && nth i l mod 2 = 0 then sum <- sum + nth i l\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using a while-loop to accumulate even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet add (l: list int) : int =\n  let n = length l in\n  let ref i = 0 in\n  let ref sum = 0 in\n  while i < n do\n    if i mod 2 = 1 && nth i l mod 2 = 0 then sum <- sum + nth i l;\n    i <- i + 1\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to accumulate even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add_aux (l: list int) (i: int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if i mod 2 = 1 && x mod 2 = 0\n                  then x + add_aux xs (i + 1)\n                  else add_aux xs (i + 1)\n  end\n\nlet add (l: list int) : int =\n  add_aux l 0\nend"
+        },
+        {
+            "description": "Using pattern matching with a nested function to handle index and sum computation",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet add (l: list int) : int =\n  let rec aux (lst: list int) (idx: int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs -> if idx mod 2 = 1 && x mod 2 = 0\n                    then aux xs (idx + 1) (acc + x)\n                    else aux xs (idx + 1) acc\n    end\n  in\n  aux l 0 0\nend"
+        },
+        {
+            "description": "Using a fold function to accumulate even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet add (l: list int) : int =\n  let rec fold (f: int -> int -> int) (acc: int) (lst: list int) (idx: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs -> fold f (f acc x idx) xs (idx + 1)\n    end\n  in\n  let f acc x idx = if idx mod 2 = 1 && x mod 2 = 0 then acc + x else acc in\n  fold f 0 l 0\nend"
+        },
+        {
+            "description": "Using a filter and map approach to first filter the valid elements and then sum them",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Filter\nuse list.Map\n\nlet add (l: list int) : int =\n  let idx_list = mapi (fun i _ -> i) l in\n  let valid_indices = filter (fun i -> i mod 2 = 1 && nth i l mod 2 = 0) idx_list in\n  fold (fun acc i -> acc + nth i l) 0 valid_indices\nend"
+        },
+        {
+            "description": "Using an accumulator within recursion to store even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add_acc (l: list int) (idx: int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> if idx mod 2 = 1 && x mod 2 = 0\n                  then add_acc xs (idx + 1) (acc + x)\n                  else add_acc xs (idx + 1) acc\n  end\n\nlet add (l: list int) : int =\n  add_acc l 0 0\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) within a helper function",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add_helper (l: list int) (i: int) (sum: int) : int =\n  match l with\n  | Nil -> sum\n  | Cons x xs -> if i mod 2 = 1 && x mod 2 = 0\n                  then add_helper xs (i + 1) (sum + x)\n                  else add_helper xs (i + 1) sum\n  end\n\nlet add (l: list int) : int =\n  add_helper l 0 0\nend"
+        },
+        {
+            "description": "Using list comprehension-like logic to sum even numbers at odd indices",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.NthNoOpt\n\nlet add (l: list int) : int =\n  let n = length l in\n  let rec sum_even_odd_indices (i: int) (acc: int) : int =\n    if i >= n then acc\n    else if i mod 2 = 1 && nth i l mod 2 = 0\n    then sum_even_odd_indices (i + 1) (acc + nth i l)\n    else sum_even_odd_indices (i + 1) acc\n  in\n  sum_even_odd_indices 0 0\nend"
+        },
+        {
+            "description": "Using direct index checking and summing within a helper function",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.NthNoOpt\n\nlet add (l: list int) : int =\n  let n = length l in\n  let rec helper (i: int) (sum: int) : int =\n    if i >= n then sum\n    else if i mod 2 = 1 && nth i l mod 2 = 0\n    then helper (i + 1) (sum + nth i l)\n    else helper (i + 1) sum\n  in\n  helper 0 0\nend"
+        }
+    ]
+}

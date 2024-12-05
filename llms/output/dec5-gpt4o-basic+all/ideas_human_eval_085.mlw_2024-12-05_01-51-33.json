@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion with pattern matching to sum even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add (l : list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x Nil -> 0\n  | Cons x (Cons y ys) -> y + add ys\n  end\nend"
+        },
+        {
+            "description": "Using accumulator in recursion to collect sum of even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add_aux (l : list int) (acc : int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x Nil -> acc\n  | Cons x (Cons y ys) -> add_aux ys (acc + y)\n  end\n\nlet add (l : list int) : int =\n  add_aux l 0\nend"
+        },
+        {
+            "description": "Using a while-loop simulation with recursion to sum even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet rec add_aux (l : list int) (i : int) (acc : int) : int =\n  let n = length l in\n  if i >= n then acc\n  else if i mod 2 = 1 then add_aux l (i + 1) (acc + nth_my i l)\n  else add_aux l (i + 1) acc\n\nlet add (l : list int) : int =\n  add_aux l 0 0\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the sum of even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet add (l : list int) : int =\n  let f (idx_val : (int, int)) (acc : int) : int =\n    let (idx, val) = idx_val in\n    if idx mod 2 = 1 then acc + val else acc\n  in\n  fold_left f 0 (combine (0, length l - 1) l)\nend"
+        },
+        {
+            "description": "Using fold_right to accumulate the sum of even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.FoldRight\n\nlet add (l : list int) : int =\n  let f (val : int) (idx_acc : (int, int)) : (int, int) =\n    let (idx, acc) = idx_acc in\n    if idx mod 2 = 1 then (idx + 1, acc + val) else (idx + 1, acc)\n  in\n  let (_, result) = fold_right f l (0, 0) in\n  result\nend"
+        },
+        {
+            "description": "Using a map function to create a list of elements to sum and then use sum function.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Map\nuse list.Sum\n\nlet add (l : list int) : int =\n  let idx_val_list = combine (0, length l - 1) l in\n  let even_index_values = map (fun (idx_val : (int, int)) ->\n    let (idx, val) = idx_val in\n    if idx mod 2 = 1 then val else 0) idx_val_list\n  in\n  sum even_index_values\nend"
+        },
+        {
+            "description": "Using a recursive function with an index counter to sum even indexed elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\n\nlet rec add_index (l : list int) (index : int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if index mod 2 = 1 then x + add_index xs (index + 1)\n                  else add_index xs (index + 1)\n  end\n\nlet add (l : list int) : int =\n  add_index l 0\nend"
+        },
+        {
+            "description": "Using a function to generate a list of indices and summing elements at those indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\nuse list.Sum\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet rec indices (n : int) : list int =\n  if n < 0 then Nil\n  else Cons n (indices (n - 2))\n\nlet add (l : list int) : int =\n  let n = length l - 1 in\n  let idxs = indices n in\n  sum (map (fun idx -> nth_my idx l) idxs)\nend"
+        },
+        {
+            "description": "Using a helper function to filter out elements at even indices and then summing them.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Filter\nuse list.Sum\n\nlet is_odd_index (idx_val : (int, int)) : bool =\n  let (idx, val) = idx_val in\n  idx mod 2 = 1\n\nlet add (l : list int) : int =\n  let idx_val_list = combine (0, length l - 1) l in\n  let odd_index_values = map snd (filter is_odd_index idx_val_list) in\n  sum odd_index_values\nend"
+        },
+        {
+            "description": "Using a pair-list to map indices with values and summing values at odd indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse list.List\nuse list.Combine\nuse list.Map\nuse list.Sum\n\nlet add (l : list int) : int =\n  let idx_val_list = combine (0, length l - 1) l in\n  let even_index_values = map (fun (idx, val) -> if idx mod 2 = 1 then val else 0) idx_val_list in\n  sum even_index_values\nend"
+        }
+    ]
+}

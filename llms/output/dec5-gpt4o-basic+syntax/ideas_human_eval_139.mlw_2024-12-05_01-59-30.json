@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive approach to compute the Brazilian factorial using nested recursive calls for each factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let rec special_factorial (n: int) : int =\n    if n <= 1 then 1 else factorial n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Iterative approach with a loop to calculate the Brazilian factorial by iterating from 1 to n.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n: int) : int =\n    let rec loop (acc: int) (i: int) : int =\n      if i > n then acc\n      else loop (acc * factorial i) (i + 1)\n    in loop 1 1\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\nend"
+        },
+        {
+            "description": "Using a list to store factorials and iterating over it to compute the Brazilian factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let special_factorial (n: int) : int =\n    let rec build_factorials (x: int) (l: list int) : list int =\n      if x <= 0 then l\n      else build_factorials (x - 1) (Cons (factorial x) l)\n    in\n    let rec product (l: list int) : int =\n      match l with\n      | Nil -> 1\n      | Cons x xs -> x * product xs\n      end\n    in\n    product (build_factorials n Nil)\nend"
+        },
+        {
+            "description": "Tail-recursive factorial calculation to optimize stack usage in the recursive approach.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial_tail (x: int) (acc: int) : int =\n    if x <= 1 then acc\n    else factorial_tail (x - 1) (x * acc)\n\n  let factorial (x: int) : int = factorial_tail x 1\n\n  let rec special_factorial (n: int) : int =\n    if n <= 1 then 1 else factorial n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Memoization approach to store computed factorials in an array to avoid redundant calculations.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use array.Array\n\n  let factorial_memo : array int = make 100 0\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1\n    else if get factorial_memo x <> 0 then get factorial_memo x\n    else let res = x * factorial (x - 1) in\n         set factorial_memo x res;\n         res\n\n  let rec special_factorial (n: int) : int =\n    if n <= 1 then 1 else factorial n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Using higher-order function to map factorial calculation over a range and reduce to compute product.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let rec range (a: int) (b: int) : list int =\n    if a > b then Nil else Cons a (range (a + 1) b)\n\n  let rec map (f: int -> int) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x) (map f xs)\n    end\n\n  let rec product (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n    end\n\n  let special_factorial (n: int) : int =\n    product (map factorial (range 1 n))\nend"
+        },
+        {
+            "description": "Divide and conquer strategy to compute Brazilian factorial by splitting the problem into halves.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let rec special_factorial_helper (l: int) (h: int) : int =\n    if l > h then 1\n    else if l = h then factorial l\n    else let mid = (l + h) / 2 in\n         special_factorial_helper l mid * special_factorial_helper (mid + 1) h\n\n  let special_factorial (n: int) : int =\n    special_factorial_helper 1 n\nend"
+        },
+        {
+            "description": "Factorial calculation using explicit stack simulation to avoid recursion.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let factorial (x: int) : int =\n    let rec loop (acc: int) (i: int) : int =\n      if i <= 1 then acc\n      else loop (acc * i) (i - 1)\n    in loop 1 x\n\n  let special_factorial (n: int) : int =\n    let rec loop (acc: int) (i: int) : int =\n      if i <= 0 then acc\n      else loop (acc * factorial i) (i - 1)\n    in loop 1 n\nend"
+        },
+        {
+            "description": "Using a custom accumulator for factorials to compute Brazilian factorial iteratively.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let special_factorial (n: int) : int =\n    let rec accumulate (acc: int) (i: int) : int =\n      if i > n then acc\n      else accumulate (acc * factorial i) (i + 1)\n    in accumulate 1 1\nend"
+        },
+        {
+            "description": "Using a direct mathematical formula for small n to optimize calculations without iteration.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec factorial (x: int) : int =\n    if x <= 1 then 1 else x * factorial (x - 1)\n\n  let special_factorial (n: int) : int =\n    if n = 1 then 1\n    else if n = 2 then 2\n    else if n = 3 then 12\n    else if n = 4 then 288\n    else factorial n * special_factorial (n - 1)\nend"
+        }
+    ]
+}

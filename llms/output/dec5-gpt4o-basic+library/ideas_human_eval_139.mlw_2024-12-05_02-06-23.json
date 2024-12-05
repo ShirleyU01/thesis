@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive factorial function to calculate the factorial of a number and multiply results iteratively for special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec special_factorial (n : int) : int =\n    if n <= 1 then 1\n    else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Using a loop to calculate each factorial from 1 to n and accumulate the result for special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n : int) : int =\n    let rec loop (i : int) (acc : int) : int =\n      if i = 0 then acc\n      else loop (i - 1) (acc * fact i)\n    in loop n 1\nend"
+        },
+        {
+            "description": "Using fold_right to accumulate the product of factorials from 1 to n for special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use list.List\n  use list.FoldRight\n  let special_factorial (n : int) : int =\n    let rec range (a : int) (b : int) : list int =\n      if a > b then Nil else Cons (a, range (a + 1) b)\n    in fold_right (fun x acc -> (fact x) * acc) (range 1 n) 1\nend"
+        },
+        {
+            "description": "Using the sum of logarithms to calculate the product of factorials, then exponentiating the result.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use real.Real\n  use real.Log\n  use real.Exp\n  let special_factorial (n : int) : int =\n    let rec loop (i : int) (logsum : real) : real =\n      if i = 0 then logsum\n      else loop (i - 1) (logsum + log (of_int (fact i)))\n    in to_int (exp (loop n 0.0))\nend"
+        },
+        {
+            "description": "Using a nested recursive function to handle the calculations of factorials and their products.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec helper (n : int) (prod : int) : int =\n    if n = 0 then prod\n    else helper (n - 1) (prod * fact n)\n  let special_factorial (n : int) : int = helper n 1\nend"
+        },
+        {
+            "description": "Using a while loop to iteratively compute the special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n : int) : int =\n    let ref res = 1 in\n    let ref i = n in\n    while i > 0 do\n      res := !res * fact !i;\n      i := !i - 1\n    done;\n    !res\nend"
+        },
+        {
+            "description": "Utilizing a helper function to calculate the factorial of a number and another function to accumulate the product for special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec factorial (n : int) : int =\n    if n = 0 then 1 else n * factorial (n - 1)\n  let rec accumulate (n : int) (acc : int) : int =\n    if n = 0 then acc\n    else accumulate (n - 1) (acc * factorial n)\n  let special_factorial (n : int) : int = accumulate n 1\nend"
+        },
+        {
+            "description": "Using an array to store intermediate factorials and compute the special factorial by multiplying them.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Array\n  use int.Fact\n  let special_factorial (n : int) : int =\n    let arr = make n 1 in\n    for i = 0 to n - 1 do\n      set arr i (fact (i + 1))\n    done;\n    let rec multiply (i : int) (acc : int) : int =\n      if i = 0 then acc\n      else multiply (i - 1) (acc * get arr (i - 1))\n    in multiply n 1\nend"
+        },
+        {
+            "description": "Using a stack to store factorials and then pop them to compute the special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use list.List\n  let special_factorial (n : int) : int =\n    let rec push_factorials (i : int) (s : list int) : list int =\n      if i = 0 then s else push_factorials (i - 1) (Cons (fact i, s))\n    in\n    let rec pop_and_multiply (s : list int) (acc : int) : int =\n      match s with\n      | Nil -> acc\n      | Cons (hd, tl) -> pop_and_multiply tl (acc * hd)\n    in pop_and_multiply (push_factorials n Nil) 1\nend"
+        },
+        {
+            "description": "Using a combination of recursion and iteration to calculate the special factorial.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec compute_product (n : int) (acc : int) : int =\n    if n = 0 then acc\n    else\n      let rec iter_factorial (i : int) (fact_acc : int) : int =\n        if i = 0 then fact_acc else iter_factorial (i - 1) (i * fact_acc)\n      in compute_product (n - 1) (acc * iter_factorial n 1)\n  let special_factorial (n : int) : int = compute_product n 1\nend"
+        }
+    ]
+}

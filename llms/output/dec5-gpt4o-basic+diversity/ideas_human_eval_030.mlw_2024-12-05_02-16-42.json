@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to filter positive numbers from the list",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Append\n\n  let get_positive (l: list int): list int =\n    let n = length l in\n    let ref positives = Nil in\n    for i = 0 to n - 1 do\n      let x = nth i l in\n      if x > 0 then\n        positives <- append positives (Cons x Nil)\n    done;\n    positives\nend"
+        },
+        {
+            "description": "Using a while-loop to filter positive numbers from the list",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Append\n\n  let get_positive (l: list int): list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref positives = Nil in\n    while i < n do\n      let x = nth i l in\n      if x > 0 then\n        positives <- append positives (Cons x Nil);\n      i <- i + 1\n    done;\n    positives\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to filter positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec get_positive (l: list int): list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Using accumulator within recursion to filter positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec filter_pos (l: list int) (acc: list int): list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> if x > 0 then filter_pos xs (Cons x acc) else filter_pos xs acc\n    end\n\n  let get_positive (l: list int): list int =\n    filter_pos l Nil\nend"
+        },
+        {
+            "description": "Using recursion and if-then-else branching to filter positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec get_positive (l: list int): list int =\n    if l = Nil then Nil\n    else let Cons x xs = l in\n      if x > 0 then Cons x (get_positive xs) else get_positive xs\nend"
+        },
+        {
+            "description": "Using higher-order functions to filter positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec filter (f: int -> bool) (l: list int): list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if f x then Cons x (filter f xs) else filter f xs\n    end\n\n  let is_positive (x: int): bool = x > 0\n\n  let get_positive (l: list int): list int =\n    filter is_positive l\nend"
+        },
+        {
+            "description": "Using map and filter to identify positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec map_filter (f: int -> option int) (l: list int): list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> match f x with\n                   | None -> map_filter f xs\n                   | Some y -> Cons y (map_filter f xs)\n                   end\n    end\n\n  let positive_option (x: int): option int =\n    if x > 0 then Some x else None\n\n  let get_positive (l: list int): list int =\n    map_filter positive_option l\nend"
+        },
+        {
+            "description": "Using a fold function to accumulate positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec fold (f: 'a -> int -> 'a) (acc: 'a) (l: list int): 'a =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> fold f (f acc x) xs\n    end\n\n  let accumulate_positive (acc: list int) (x: int): list int =\n    if x > 0 then Cons x acc else acc\n\n  let get_positive (l: list int): list int =\n    fold accumulate_positive Nil l\nend"
+        },
+        {
+            "description": "Using list comprehensions to filter positive numbers",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let get_positive (l: list int): list int =\n    let rec comprehension (l: list int): list int =\n      match l with\n      | Nil -> Nil\n      | Cons x xs -> if x > 0 then Cons x (comprehension xs) else comprehension xs\n      end\n    in\n    comprehension l\nend"
+        },
+        {
+            "description": "Using a combination of map and filter using explicit recursion",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec map_filter_explicit (f: int -> bool) (l: list int): list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if f x then Cons x (map_filter_explicit f xs) else map_filter_explicit f xs\n    end\n\n  let is_positive (x: int): bool = x > 0\n\n  let get_positive (l: list int): list int =\n    map_filter_explicit is_positive l\nend"
+        }
+    ]
+}

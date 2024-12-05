@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a loop to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    let rec loop (i: int) (acc: int) : int =\n      invariant { i <= n }\n      variant { n - i }\n      if i > n then acc else loop (i + 1) (acc + i)\n    in loop 1 0\nend"
+        },
+        {
+            "description": "Recursive approach to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  let rec sum_to_n (n: int) : int =\n    if n <= 0 then 0 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using a mathematical formula for the sum of an arithmetic series.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    (n * (n + 1)) / 2\nend"
+        },
+        {
+            "description": "Using pattern matching to handle base and recursive cases.",
+            "implementation": "module HumanEval060\n  let rec sum_to_n (n: int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    let acc = ref 0 in\n    let i = ref 1 in\n    while !i <= n do\n      invariant { !i <= n + 1 }\n      acc := !acc + !i;\n      i := !i + 1\n    done;\n    !acc\nend"
+        },
+        {
+            "description": "Tail-recursive approach to avoid stack overflow.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    let rec aux (n: int) (acc: int) : int =\n      if n <= 0 then acc else aux (n - 1) (acc + n)\n    in aux n 0\nend"
+        },
+        {
+            "description": "Using a fold operation with a list of numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use list.List\n  let sum_to_n (n: int) : int =\n    let rec make_list (i: int) (acc: list int) : list int =\n      if i > n then acc else make_list (i + 1) (Cons i acc)\n    in\n    let nums = make_list 1 Nil in\n    list.fold_left (fun acc x -> acc + x) 0 nums\nend"
+        },
+        {
+            "description": "Using a helper function to accumulate the sum within a loop.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    let rec helper (i: int) (acc: int) : int =\n      if i = 0 then acc else helper (i - 1) (acc + i)\n    in helper n 0\nend"
+        },
+        {
+            "description": "Using an array to store incremental sums and return the last value.",
+            "implementation": "module HumanEval060\n  use array.Array\n  let sum_to_n (n: int) : int =\n    let a = make n 0 in\n    let rec fill (i: int) : unit =\n      if i < n then (\n        a[i] <- (if i = 0 then 1 else a[i-1] + i + 1);\n        fill (i + 1)\n      )\n    in fill 0; a[n-1]\nend"
+        },
+        {
+            "description": "Using nested functions to organize the calculation steps.",
+            "implementation": "module HumanEval060\n  let sum_to_n (n: int) : int =\n    let rec add (x: int) (y: int) : int = x + y in\n    let rec sum (m: int) (acc: int) : int =\n      if m = 0 then acc else sum (m - 1) (add acc m)\n    in sum n 0\nend"
+        }
+    ]
+}

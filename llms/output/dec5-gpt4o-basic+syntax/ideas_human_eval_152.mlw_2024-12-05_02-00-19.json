@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursive approach with pattern matching to compare elements of two lists.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons h1 t1, Cons h2 t2 ->\n        let diff = abs (h1 - h2) in\n        Cons diff (compare t1 t2)\n    end\nend"
+        },
+        {
+            "description": "Iterate over list indices using a loop and calculate differences.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Int\n  use ref.Ref\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    let r = ref Nil in\n    let rec loop i =\n      if i < length l1 then\n        let diff = abs (nth_my i l1 - nth_my i l2) in\n        r := Cons diff !r;\n        loop (i + 1)\n      else\n        rev !r\n    in\n    loop 0\nend"
+        },
+        {
+            "description": "Use a helper function to compute differences in a tail-recursive manner.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec compare_aux (l1 l2 acc : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> rev acc\n    | Cons h1 t1, Cons h2 t2 ->\n        compare_aux t1 t2 (Cons (abs (h1 - h2)) acc)\n    end\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    compare_aux l1 l2 Nil\nend"
+        },
+        {
+            "description": "Use higher-order map function to transform a pair of lists into a list of differences.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec map2 (f: int -> int -> int) (l1 l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons h1 t1, Cons h2 t2 -> Cons (f h1 h2) (map2 f t1 t2)\n    end\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    map2 (fun x y -> abs (x - y)) l1 l2\nend"
+        },
+        {
+            "description": "Implement a version using a while loop for iteration control.",
+            "implementation": "module HumanEval152\n  use list.List\n  use ref.Ref\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    let r = ref Nil in\n    let i = ref 0 in\n    while !i < length l1 do\n      invariant { !i <= length l1 }\n      let diff = abs (nth_my !i l1 - nth_my !i l2) in\n      r := Cons diff !r;\n      i := !i + 1\n    done;\n    rev !r\nend"
+        },
+        {
+            "description": "Use an accumulator for collecting results in a single pass through the lists.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec compare (l1 l2 acc : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> rev acc\n    | Cons h1 t1, Cons h2 t2 ->\n        compare t1 t2 (Cons (abs (h1 - h2)) acc)\n    end\n\n  let compare_main (l1 : list int) (l2 : list int) : list int =\n    compare l1 l2 Nil\nend"
+        },
+        {
+            "description": "Use a combination of fold_left to accumulate differences.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    let folder (acc: list int) (x: (int, int)) =\n      match x with\n      | (a, b) -> Cons (abs (a - b)) acc\n      end\n    in\n    rev (fold_left folder Nil (zip l1 l2))\nend"
+        },
+        {
+            "description": "Implement comparison by zipping lists and using a loop to handle zipped pairs.",
+            "implementation": "module HumanEval152\n  use list.List\n  use ref.Ref\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    let zipped = zip l1 l2 in\n    let r = ref Nil in\n    let rec iter l =\n      match l with\n      | Nil -> !r\n      | Cons (a, b) t ->\n          r := Cons (abs (a - b)) !r;\n          iter t\n      end\n    in\n    rev (iter zipped)\nend"
+        },
+        {
+            "description": "Use list comprehension style with a recursive helper function.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    let rec helper l1 l2 acc =\n      match l1, l2 with\n      | Nil, Nil -> rev acc\n      | Cons h1 t1, Cons h2 t2 ->\n          helper t1 t2 (Cons (abs (h1 - h2)) acc)\n      end\n    in\n    helper l1 l2 Nil\nend"
+        },
+        {
+            "description": "Create a function that processes list elements pairwise using recursion.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons h1 t1, Cons h2 t2 ->\n        let diff = abs (h1 - h2) in\n        Cons diff (compare t1 t2)\n    end\nend"
+        }
+    ]
+}

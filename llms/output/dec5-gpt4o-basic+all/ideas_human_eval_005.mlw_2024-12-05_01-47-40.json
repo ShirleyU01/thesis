@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion and pattern matching to intersperse the delimiter between elements.",
+            "implementation": "module HumanEval005\n\nuse list.List\n\nlet rec intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n  end\nend"
+        },
+        {
+            "description": "Using a helper function with accumulator to intersperse elements.",
+            "implementation": "module HumanEval005\n\nuse list.List\n\nlet rec intersperse_acc (l : list int) (n : int) (acc : list int) : list int =\n  match l with\n  | Nil -> reverse acc\n  | Cons x Nil -> reverse (Cons x acc)\n  | Cons x (Cons y ys) -> intersperse_acc (Cons y ys) n (Cons n (Cons x acc))\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  intersperse_acc l n Nil\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate through the list and intersperse the delimiter.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.Length\n\nlet intersperse (l : list int) (n : int) : list int =\n  let len = length l in\n  let ref result = Nil in\n  let ref i = 0 in\n  while i < len do\n    match l with\n    | Nil -> ()\n    | Cons x xs ->\n      result <- Cons x result;\n      if i < len - 1 then result <- Cons n result;\n      l <- xs;\n      i <- i + 1\n    end\n  done;\n  reverse result\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the interspersed list.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.FoldLeft\n\nlet intersperse (l : list int) (n : int) : list int =\n  let f acc x = match acc with\n    | Nil -> Cons x Nil\n    | _ -> Cons x (Cons n acc)\n  end in\n  reverse (fold_left f Nil l)\nend"
+        },
+        {
+            "description": "Using fold_right to accumulate the interspersed list.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.FoldRight\n\nlet intersperse (l : list int) (n : int) : list int =\n  let f x acc = match acc with\n    | Nil -> Cons x Nil\n    | _ -> Cons n (Cons x acc)\n  end in\n  fold_right f l Nil\nend"
+        },
+        {
+            "description": "Using a manual index iteration with nth_my to intersperse the delimiter.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.Length\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  let len = length l in\n  let ref result = Nil in\n  for i = 0 to len - 1 do\n    result <- Cons (nth_my i l) result;\n    if i < len - 1 then result <- Cons n result\n  done;\n  reverse result\nend"
+        },
+        {
+            "description": "Using a recursive function with alternating calls to handle pairs of elements.",
+            "implementation": "module HumanEval005\n\nuse list.List\n\nlet rec intersperse_pairs (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x (Cons y ys) -> Cons x (Cons n (intersperse_pairs (Cons y ys) n))\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  intersperse_pairs l n\nend"
+        },
+        {
+            "description": "Using a reverse approach: reverse the list, intersperse, and reverse back.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.Reverse\n\nlet rec intersperse_reverse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x (Cons y ys) -> Cons x (Cons n (intersperse_reverse (Cons y ys) n))\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  reverse (intersperse_reverse (reverse l) n)\nend"
+        },
+        {
+            "description": "Using a combination of map and fold to achieve the interspersing.",
+            "implementation": "module HumanEval005\n\nuse list.List\nuse list.Map\nuse list.FoldRight\n\nlet intersperse (l : list int) (n : int) : list int =\n  let add_delim x acc = Cons x (Cons n acc) in\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> Cons x (fold_right add_delim xs Nil)\n  end\nend"
+        },
+        {
+            "description": "Using a recursive helper function with a flag to control delimiter insertion.",
+            "implementation": "module HumanEval005\n\nuse list.List\n\nlet rec intersperse_flag (l : list int) (n : int) (flag : bool) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    if flag then Cons n (Cons x (intersperse_flag xs n true))\n    else Cons x (intersperse_flag xs n true)\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  intersperse_flag l n false\nend"
+        }
+    ]
+}

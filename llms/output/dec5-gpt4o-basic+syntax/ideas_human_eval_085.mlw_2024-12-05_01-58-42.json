@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate through the list using a recursive function to sum even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet rec add (l : list int) : int =\n  let rec helper (l : list int) (index : int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then x + helper xs (index + 1)\n      else helper xs (index + 1)\n    end\n  in\n  helper l 0\nend"
+        },
+        {
+            "description": "Use a while loop to iterate over the list, summing even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let ref sum = 0 in\n  let ref index = 0 in\n  let ref current = l in\n  while current <> Nil do\n    match current with\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then sum <- sum + x;\n      current <- xs;\n      index <- index + 1\n    end\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Use pattern matching and a helper function to directly sum even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet rec add (l : list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs ->\n    match xs with\n    | Nil -> 0\n    | Cons y ys ->\n      if y mod 2 = 0 then y + add ys\n      else add ys\n    end\n  end\nend"
+        },
+        {
+            "description": "Define a helper function to iterate through the list and accumulate the sum of even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec helper (acc : int) (index : int) (l : list int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then helper (acc + x) (index + 1) xs\n      else helper acc (index + 1) xs\n    end\n  in\n  helper 0 0 l\nend"
+        },
+        {
+            "description": "Use a fold function to accumulate the sum of even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec fold (f : int -> int -> int) (acc : int) (l : list int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> fold f (f acc x) xs\n    end\n  in\n  let f (acc : int) (x : int) (index : int) : int =\n    if index mod 2 = 1 && x mod 2 = 0 then acc + x else acc\n  in\n  let rec helper (acc : int) (index : int) (l : list int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> helper (f acc x index) (index + 1) xs\n    end\n  in\n  helper 0 0 l\nend"
+        },
+        {
+            "description": "Use list comprehension to filter and sum even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec helper (l : list int) (index : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then Cons x (helper xs (index + 1))\n      else helper xs (index + 1)\n    end\n  in\n  let filtered_list = helper l 0 in\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n  in\n  sum_list filtered_list\nend"
+        },
+        {
+            "description": "Use indices to directly access list elements and sum even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\nuse list.Length\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet add (l : list int) : int =\n  let rec sum_indices (index : int) (sum : int) : int =\n    if index >= length l then sum\n    else if nth_my index l mod 2 = 0 && index mod 2 = 1 then\n      sum_indices (index + 1) (sum + nth_my index l)\n    else\n      sum_indices (index + 1) sum\n  in\n  sum_indices 0 0\nend"
+        },
+        {
+            "description": "Use a combination of a counter and pattern matching to accumulate even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec helper (l : list int) (index : int) (sum : int) : int =\n    match l with\n    | Nil -> sum\n    | Cons x xs ->\n      if index mod 2 = 1 && x mod 2 = 0 then helper xs (index + 1) (sum + x)\n      else helper xs (index + 1) sum\n    end\n  in\n  helper l 0 0\nend"
+        },
+        {
+            "description": "Use a tuple to keep track of index and sum to accumulate even elements at odd indices.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec helper (l : list int) (state : (int, int)) : int =\n    match l with\n    | Nil -> snd state\n    | Cons x xs ->\n      let (index, sum) = state in\n      if index mod 2 = 1 && x mod 2 = 0 then\n        helper xs (index + 1, sum + x)\n      else\n        helper xs (index + 1, sum)\n    end\n  in\n  helper l (0, 0)\nend"
+        },
+        {
+            "description": "Use a list map function to transform the list to even elements at odd indices and then sum them.",
+            "implementation": "module HumanEval085\nuse int.Int\nuse list.List\n\nlet add (l : list int) : int =\n  let rec map (f : int -> int -> int) (l : list int) (index : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x index) (map f xs (index + 1))\n    end\n  in\n  let f (x : int) (index : int) : int =\n    if index mod 2 = 1 && x mod 2 = 0 then x else 0\n  in\n  let transformed_list = map f l 0 in\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n  in\n  sum_list transformed_list\nend"
+        }
+    ]
+}

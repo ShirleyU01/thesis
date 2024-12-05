@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for loop to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    let sum = ref 0 in\n    for i = 1 to n do\n      sum := !sum + i\n    done;\n    !sum\nend"
+        },
+        {
+            "description": "Recursive approach to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    if n <= 1 then n\n    else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using the arithmetic series formula to calculate the sum directly.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    (n * (n + 1)) / 2\nend"
+        },
+        {
+            "description": "Tail-recursive function to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n_aux (n: int) (acc: int) : int =\n    if n <= 0 then acc\n    else sum_to_n_aux (n - 1) (acc + n)\n\n  let sum_to_n (n: int) : int =\n    sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Using an array to store numbers from 1 to n and summing them.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use array.Array\n\n  let sum_to_n (n: int) : int =\n    let arr = Array.make n 0 in\n    for i = 1 to n do\n      arr[i - 1] <- i\n    done;\n    Array.fold_left (fun acc x -> acc + x) 0 arr\nend"
+        },
+        {
+            "description": "Using a while loop to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    let sum = ref 0 in\n    let i = ref 1 in\n    while !i <= n do\n      sum := !sum + !i;\n      i := !i + 1\n    done;\n    !sum\nend"
+        },
+        {
+            "description": "Using list folding to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  let sum_to_n (n: int) : int =\n    List.fold_left (fun acc x -> acc + x) 0 (List.init n (fun i -> i + 1))\nend"
+        },
+        {
+            "description": "Using a mathematical induction principle to prove correctness.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int\n    ensures { result = (n * (n + 1)) / 2 }\n  =\n    if n <= 1 then n\n    else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using a higher-order function to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    let rec iter (f: int -> int -> int) (a: int) (b: int) : int =\n      if a > b then 0\n      else f a (iter f (a + 1) b)\n    in\n    iter (fun x acc -> x + acc) 1 n\nend"
+        },
+        {
+            "description": "Using a fold function with a range to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  let sum_to_n (n: int) : int =\n    List.fold_left (fun acc x -> acc + x) 0 (List.range 1 n)\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursion to filter positive numbers by checking the head of the list and concatenating to the result if positive.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Append\n  use int.Int\n\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons(hd, tl) -> if hd > 0 then Cons(hd, get_positive tl) else get_positive tl\nend"
+        },
+        {
+            "description": "Use the fold_left function to accumulate positive numbers into a list.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.FoldLeft\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    fold_left (fun acc x -> if x > 0 then Cons(x, acc) else acc) Nil l\nend"
+        },
+        {
+            "description": "Use a helper function to iterate through the list and collect positive numbers into a new list.",
+            "implementation": "module HumanEval030\n  use list.List\n  use int.Int\n\n  let rec collect_positive (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons(hd, tl) -> if hd > 0 then collect_positive tl (Cons(hd, acc)) else collect_positive tl acc\n\n  let get_positive (l : list int) : list int =\n    reverse (collect_positive l Nil)\nend"
+        },
+        {
+            "description": "Use the map function to transform the list into options and filter out the None values.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Map\n  use list.Filter\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    let options = map (fun x -> if x > 0 then Some x else None) l in\n    filter (fun x -> match x with Some _ -> true | None -> false) options\nend"
+        },
+        {
+            "description": "Use the for_all predicate to verify that all positive numbers are maintained when filtered.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Quant\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    let pos = filter (fun x -> x > 0) l in\n    assert { for_all (fun x -> x > 0) pos };\n    pos\nend"
+        },
+        {
+            "description": "Use a while loop to iterate through the list and append positive numbers to a new list.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Append\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    let rec loop acc lst =\n      match lst with\n      | Nil -> acc\n      | Cons(hd, tl) -> if hd > 0 then loop (acc ++ Cons(hd, Nil)) tl else loop acc tl\n    in\n    loop Nil l\nend"
+        },
+        {
+            "description": "Use the elements function to convert the list to a set, then filter positive numbers.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Elements\n  use int.Int\n  use set.FSet\n\n  let get_positive (l : list int) : list int =\n    let s = elements l in\n    let filtered_set = set_filter (fun x -> x > 0) s in\n    set_to_list filtered_set\nend"
+        },
+        {
+            "description": "Use fold_right to traverse the list and build a list of positive numbers.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.FoldRight\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    fold_right (fun x acc -> if x > 0 then Cons(x, acc) else acc) l Nil\nend"
+        },
+        {
+            "description": "Use a recursive helper function to reverse the list first, then filter positive numbers.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec filter_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons(hd, tl) -> if hd > 0 then Cons(hd, filter_positive tl) else filter_positive tl\n\n  let get_positive (l : list int) : list int =\n    let reversed = reverse l in\n    filter_positive reversed\nend"
+        },
+        {
+            "description": "Use the prefix function to take a subset of the list and filter positive numbers from it.",
+            "implementation": "module HumanEval030\n  use list.List\n  use list.Prefix\n  use int.Int\n\n  let get_positive (l : list int) : list int =\n    let sub_list = prefix (length l) l in\n    filter (fun x -> x > 0) sub_list\nend"
+        }
+    ]
+}

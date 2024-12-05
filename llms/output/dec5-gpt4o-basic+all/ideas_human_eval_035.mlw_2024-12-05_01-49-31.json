@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a recursive approach with pattern matching to find the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\n\nlet rec max_element (t : list int) : int =\n  match t with\n  | Cons x Nil -> x\n  | Cons x xs ->\n    let max_tail = max_element xs in\n    if x > max_tail then x else max_tail\n  end\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate through the list and find the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet max_element (t : list int) : int =\n  let n = length t in\n  let ref max = nth_my 0 t in\n  for i = 1 to n - 1 do\n    let current = nth_my i t in\n    if current > max then max <- current\n  done;\n  max\nend"
+        },
+        {
+            "description": "Using a while-loop to traverse the list and determine the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet max_element (t : list int) : int =\n  let n = length t in\n  let ref i = 0 in\n  let ref max = nth_my 0 t in\n  while i < n do\n    let current = nth_my i t in\n    if current > max then max <- current;\n    i <- i + 1\n  done;\n  max\nend"
+        },
+        {
+            "description": "Using an accumulator in a recursive function to keep track of the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\n\nlet rec max_element_accum (t : list int) (accum : int) : int =\n  match t with\n  | Cons x Nil -> if x > accum then x else accum\n  | Cons x xs -> if x > accum then max_element_accum xs x else max_element_accum xs accum\n  end\n\nlet max_element (t : list int) : int =\n  match t with\n  | Cons x xs -> max_element_accum xs x\n  end\nend"
+        },
+        {
+            "description": "Using fold_left to aggregate the maximum element from the list.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet max_element (t : list int) : int =\n  match t with\n  | Cons x xs -> fold_left (fun acc elt -> if elt > acc then elt else acc) x xs\n  end\nend"
+        },
+        {
+            "description": "Using a helper function to find the maximum element recursively with initial setup for the first element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\n\nlet rec find_max (t : list int) (current_max : int) : int =\n  match t with\n  | Nil -> current_max\n  | Cons x xs -> find_max xs (if x > current_max then x else current_max)\n  end\n\nlet max_element (t : list int) : int =\n  match t with\n  | Cons x xs -> find_max xs x\n  end\nend"
+        },
+        {
+            "description": "Using a reverse traversal with pattern matching to find the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet rec max_element (t : list int) : int =\n  let reversed = reverse t in\n  match reversed with\n  | Cons x xs ->\n    let rec find_max_rev (lst : list int) (current_max : int) : int =\n      match lst with\n      | Nil -> current_max\n      | Cons y ys -> find_max_rev ys (if y > current_max then y else current_max)\n      end\n    in\n    find_max_rev xs x\n  end\nend"
+        },
+        {
+            "description": "Using a combination of map and fold_left to find the maximum element in the list.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.Map\nuse list.FoldLeft\n\nlet max_element (t : list int) : int =\n  let mapped = map (fun x -> x) t in\n  match mapped with\n  | Cons x xs -> fold_left (fun acc elt -> if elt > acc then elt else acc) x xs\n  end\nend"
+        },
+        {
+            "description": "Using a for-loop with a reference variable to track the maximum element.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  ensures { nth n l = result }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet max_element (t : list int) : int =\n  let n = length t in\n  let ref max = nth_my 0 t in\n  for i = 1 to n - 1 do\n    let current = nth_my i t in\n    if current > max then max <- current\n  done;\n  max\nend"
+        },
+        {
+            "description": "Using recursion with an assumption of a non-empty list and direct comparison.",
+            "implementation": "module HumanEval035\n\nuse int.Int\nuse list.List\n\nlet rec max_element (t : list int) : int =\n  requires { length t > 0 }\n  match t with\n  | Cons x Nil -> x\n  | Cons x xs -> let max_tail = max_element xs in if x > max_tail then x else max_tail\n  end\nend"
+        }
+    ]
+}

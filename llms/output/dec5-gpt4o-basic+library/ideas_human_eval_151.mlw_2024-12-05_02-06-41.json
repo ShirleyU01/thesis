@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use list.FoldLeft to accumulate the sum of squares of odd numbers in the list while ignoring negatives and non-integers.",
+            "implementation": "module HumanEval151\nuse list.FoldLeft\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  fold_left (fun acc x -> if x mod 2 <> 0 && x >= 0 then acc + (x * x) else acc) 0 l"
+        },
+        {
+            "description": "Use a recursive approach to traverse the list and accumulate the sum of squares of odd numbers, filtering out negatives and non-integers.",
+            "implementation": "module HumanEval151\nuse int.Int\nuse int.Power\n\nlet rec double_the_difference_rec (l : list int) (acc : int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n      if x mod 2 <> 0 && x >= 0 then\n        double_the_difference_rec xs (acc + (x * x))\n      else\n        double_the_difference_rec xs acc\n\nlet double_the_difference (l : list int) : int =\n  double_the_difference_rec l 0"
+        },
+        {
+            "description": "Use list.Map to transform the list into squares of odd numbers, setting irrelevant values to zero, then sum the result using list.Sum.",
+            "implementation": "module HumanEval151\nuse list.Map\nuse list.Sum\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let transformed = map (fun x -> if x mod 2 <> 0 && x >= 0 then x * x else 0) l in\n  sum transformed"
+        },
+        {
+            "description": "Use list.ForAll to filter the list for odd, non-negative numbers, then compute the sum of their squares.",
+            "implementation": "module HumanEval151\nuse list.Quant\nuse list.FoldLeft\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let filter_func = (fun x -> x mod 2 <> 0 && x >= 0) in\n  fold_left (fun acc x -> if filter_func x then acc + (x * x) else acc) 0 l"
+        },
+        {
+            "description": "Use list.Filter to directly filter out non-odd or negative numbers, then sum the squares of the remaining elements.",
+            "implementation": "module HumanEval151\nuse list.Filter\nuse list.Sum\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let filtered = filter (fun x -> x mod 2 <> 0 && x >= 0) l in\n  sum (map (fun x -> x * x) filtered)"
+        },
+        {
+            "description": "Use list.Reverse to reverse the list and process it from end to start, summing squares of odd numbers and ignoring others.",
+            "implementation": "module HumanEval151\nuse list.Reverse\nuse list.FoldLeft\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let rev_list = reverse l in\n  fold_left (fun acc x -> if x mod 2 <> 0 && x >= 0 then acc + (x * x) else acc) 0 rev_list"
+        },
+        {
+            "description": "Use list.Nth to iterate over each element by index, checking and summing the squares of odd numbers.",
+            "implementation": "module HumanEval151\nuse list.Length\nuse list.NthNoOpt\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let rec iter i acc =\n    if i >= length l then acc\n    else\n      let x = nth i l in\n      iter (i + 1) (if x mod 2 <> 0 && x >= 0 then acc + (x * x) else acc)\n  in\n  iter 0 0"
+        },
+        {
+            "description": "Use a combination of list.Elements and a manual set-based approach to compute the sum of squares of odd numbers.",
+            "implementation": "module HumanEval151\nuse list.Elements\nuse int.Int\nuse int.Power\nuse set.Fset\n\nlet double_the_difference (l : list int) : int =\n  let elts = elements l in\n  fset_fold (fun acc x -> if x mod 2 <> 0 && x >= 0 then acc + (x * x) else acc) 0 elts"
+        },
+        {
+            "description": "Use list.Mem to check presence of each element and conditionally add squares of odd numbers to the total.",
+            "implementation": "module HumanEval151\nuse list.Mem\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let rec helper lst acc =\n    match lst with\n    | Nil -> acc\n    | Cons x xs ->\n        if x mod 2 <> 0 && x >= 0 then\n          helper xs (acc + (x * x))\n        else\n          helper xs acc\n  in\n  helper l 0"
+        },
+        {
+            "description": "Utilize list.Distinct to ensure unique processing of elements, even though duplicates aren't an issue, to sum squares.",
+            "implementation": "module HumanEval151\nuse list.Distinct\nuse list.FoldLeft\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l : list int) : int =\n  let unique_l = if distinct l then l else l in\n  fold_left (fun acc x -> if x mod 2 <> 0 && x >= 0 then acc + (x * x) else acc) 0 unique_l"
+        }
+    ]
+}

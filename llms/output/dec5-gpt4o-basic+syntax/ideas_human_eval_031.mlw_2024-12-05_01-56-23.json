@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check divisibility using a loop, starting from 2 up to n-1.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec check_divisor (d: int) : bool =\n      if d >= n then true\n      else if n mod d = 0 then false\n      else check_divisor (d + 1)\n    in check_divisor 2\n\nend"
+        },
+        {
+            "description": "Check divisibility using a loop, starting from 2 up to the square root of n.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec check_divisor (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else check_divisor (d + 1)\n    in check_divisor 2\n\nend"
+        },
+        {
+            "description": "Use pattern matching to handle base cases and then check divisibility using a loop.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    match n with\n    | n when n <= 1 -> false\n    | 2 -> true\n    | _ ->\n      let rec check_divisor (d: int) : bool =\n        if d * d > n then true\n        else if n mod d = 0 then false\n        else check_divisor (d + 1)\n      in check_divisor 2\n    end\n\nend"
+        },
+        {
+            "description": "Use a boolean flag to control the loop and break if a divisor is found.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let found_divisor = ref false in\n    let rec check_divisor (d: int) : bool =\n      if !found_divisor then false\n      else if d * d > n then true\n      else if n mod d = 0 then (found_divisor := true; false)\n      else check_divisor (d + 1)\n    in check_divisor 2\n\nend"
+        },
+        {
+            "description": "Iterate over odd numbers only after checking for even divisibility.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else if n = 2 then true else if n mod 2 = 0 then false else\n    let rec check_divisor (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else check_divisor (d + 2)\n    in check_divisor 3\n\nend"
+        },
+        {
+            "description": "Use a helper function to encapsulate the recursive divisor check.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    let rec is_prime_helper (n: int) (d: int) : bool =\n      if n <= 1 then false\n      else if d * d > n then true\n      else if n mod d = 0 then false\n      else is_prime_helper n (d + 1)\n    in is_prime_helper n 2\n\nend"
+        },
+        {
+            "description": "Check for known small primes first, then proceed with divisor check for larger numbers.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else if n = 2 || n = 3 then true else if n mod 2 = 0 || n mod 3 = 0 then false else\n    let rec check_divisor (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else check_divisor (d + 6)\n    in check_divisor 5\n\nend"
+        },
+        {
+            "description": "Use a combination of recursion and modulo checks to determine primality.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec aux (d: int) : bool =\n      if d > n / 2 then true\n      else if n mod d = 0 then false\n      else aux (d + 1)\n    in aux 2\n\nend"
+        },
+        {
+            "description": "Check for divisibility only with prime numbers up to the square root of n.",
+            "implementation": "module HumanEval031\n\n  let is_prime (n: int) : bool =\n    let rec is_prime_helper (n: int) (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else is_prime_helper n (d + 2)\n    in if n <= 1 then false else if n = 2 then true else is_prime_helper n 3\n\nend"
+        },
+        {
+            "description": "Use a list of small primes to eliminate obvious non-primes before a deeper check.",
+            "implementation": "module HumanEval031\n\n  let small_primes = Cons 2 (Cons 3 (Cons 5 (Cons 7 Nil)))\n\n  let rec is_prime (n: int) : bool =\n    let rec check_small_primes (lst: list int) : bool =\n      match lst with\n      | Nil -> true\n      | Cons p ps -> if n = p then true else if n mod p = 0 then false else check_small_primes ps\n      end\n    in if n <= 1 then false else check_small_primes small_primes\n\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iteratively add elements and delimiters to the new list using list concatenation.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Use a helper function to recursively build the interspersed list from the end to the start.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse_aux (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x xs -> intersperse_aux xs n (Cons n (Cons x acc))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    let rec_list = intersperse_aux l n Nil in\n    rec_list\nend"
+        },
+        {
+            "description": "Use a tail-recursive function with an accumulator to efficiently concatenate elements and delimiters.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse_tail (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> List.rev (Cons x acc)\n    | Cons x xs -> intersperse_tail xs n (Cons n (Cons x acc))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    intersperse_tail l n Nil\nend"
+        },
+        {
+            "description": "Implement an iterative version using loops to append elements and delimiters.",
+            "implementation": "module HumanEval005\n  use list.List\n  let intersperse (l : list int) (n : int) : list int =\n    let rec loop (l : list int) (acc : list int) : list int =\n      match l with\n      | Nil -> acc\n      | Cons x Nil -> List.rev (Cons x acc)\n      | Cons x xs -> loop xs (Cons n (Cons x acc))\n      end\n    in loop l Nil\nend"
+        },
+        {
+            "description": "Construct the interspersed list by converting the original list to a sequence and inserting delimiters.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Seq\n  let intersperse (l : list int) (n : int) : list int =\n    let rec seq_to_list (s : seq int) (acc : list int) : list int =\n      match s with\n      | Seq.Nil -> acc\n      | Seq.Cons h t -> seq_to_list t (Cons h acc)\n      end\n    in\n    let rec add_delimiters (s : seq int) (acc : seq int) : seq int =\n      match s with\n      | Seq.Nil -> acc\n      | Seq.Cons x Seq.Nil -> Seq.app (Seq.singleton x) acc\n      | Seq.Cons x xs -> add_delimiters xs (Seq.cons n (Seq.cons x acc))\n      end\n    in\n    let seq_l = list_to_seq l in\n    seq_to_list (add_delimiters seq_l Seq.Nil) Nil\nend"
+        },
+        {
+            "description": "Use a functional approach to map over the list and insert delimiters between elements.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Leverage a fold function to accumulate elements and delimiters into the result list.",
+            "implementation": "module HumanEval005\n  use list.List\n  let intersperse (l : list int) (n : int) : list int =\n    let fold_fn = fun (x : int) (acc : list int) ->\n      match acc with\n      | Nil -> Cons x Nil\n      | _ -> Cons n (Cons x acc)\n      end\n    in\n    List.rev (List.fold_right fold_fn l Nil)\nend"
+        },
+        {
+            "description": "Utilize a state machine concept where state transitions occur to insert elements or delimiters.",
+            "implementation": "module HumanEval005\n  use list.List\n  type state = Elem | Delim\n  let rec intersperse (l : list int) (n : int) : list int =\n    let rec aux (s : state) (l : list int) : list int =\n      match s, l with\n      | Elem, Cons x xs -> Cons x (aux Delim xs)\n      | Delim, Cons x xs -> Cons n (aux Elem (Cons x xs))\n      | _, Nil -> Nil\n      end\n    in aux Elem l\nend"
+        },
+        {
+            "description": "Using a purely recursive approach without helper functions or accumulators.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n    end\nend"
+        },
+        {
+            "description": "Use a direct recursive approach with pattern matching to handle different cases in the list.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        }
+    ]
+}

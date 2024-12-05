@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using basic arithmetic operations to extract and multiply the unit digits.",
+            "implementation": "module HumanEval097\n\n  let multiply (a : int) (b : int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using pattern matching to deconstruct the numbers and multiply the unit digits.",
+            "implementation": "module HumanEval097\n\n  let rec multiply (a : int) (b : int) : int =\n    match (a mod 10, b mod 10) with\n    | (unit_a, unit_b) -> unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using a helper function to extract unit digits and another function to multiply them.",
+            "implementation": "module HumanEval097\n\n  let unit_digit (n : int) : int = n mod 10\n\n  let multiply (a : int) (b : int) : int =\n    unit_digit a * unit_digit b\n\nend"
+        },
+        {
+            "description": "Using conditional expressions to handle unit digit extraction and multiplication.",
+            "implementation": "module HumanEval097\n\n  let multiply (a : int) (b : int) : int =\n    let unit_a = if a < 0 then -a mod 10 else a mod 10 in\n    let unit_b = if b < 0 then -b mod 10 else b mod 10 in\n    unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using a recursive function to calculate product of unit digits.",
+            "implementation": "module HumanEval097\n\n  let rec multiply (a : int) (b : int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    if a = 0 || b = 0 then 0 else unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using a tuple to hold unit digits and then compute their product.",
+            "implementation": "module HumanEval097\n\n  let multiply (a : int) (b : int) : int =\n    let (unit_a, unit_b) = (a mod 10, b mod 10) in\n    unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using a loop to manually iterate over digits and find the unit digit.",
+            "implementation": "module HumanEval097\n\n  let rec find_unit_digit (n : int) : int =\n    if n < 10 then n else find_unit_digit (n mod 10)\n\n  let multiply (a : int) (b : int) : int =\n    let unit_a = find_unit_digit a in\n    let unit_b = find_unit_digit b in\n    unit_a * unit_b\n\nend"
+        },
+        {
+            "description": "Using a higher-order function to apply mod 10 operation on both numbers and multiply results.",
+            "implementation": "module HumanEval097\n\n  let apply_mod10 (f : int -> int) (x : int) : int = f (x mod 10)\n\n  let multiply (a : int) (b : int) : int =\n    apply_mod10 (fun x -> x) a * apply_mod10 (fun x -> x) b\n\nend"
+        },
+        {
+            "description": "Using an inline anonymous function to calculate the product of the unit digits.",
+            "implementation": "module HumanEval097\n\n  let multiply (a : int) (b : int) : int =\n    let unit_product = (fun x y -> (x mod 10) * (y mod 10)) in\n    unit_product a b\n\nend"
+        },
+        {
+            "description": "Using division and remainder properties to directly calculate the unit digit product.",
+            "implementation": "module HumanEval097\n\n  let multiply (a : int) (b : int) : int =\n    let unit_a = a - (a / 10) * 10 in\n    let unit_b = b - (b / 10) * 10 in\n    unit_a * unit_b\n\nend"
+        }
+    ]
+}

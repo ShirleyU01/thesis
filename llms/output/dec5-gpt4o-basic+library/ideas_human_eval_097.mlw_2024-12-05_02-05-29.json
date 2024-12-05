@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract the unit digits using the Euclidean modulus and multiply them.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Extract the unit digits by converting integers to strings and taking the last character.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use string.String\n  let multiply (a: int) (b: int) : int =\n    let str_a = int_to_string a in\n    let str_b = int_to_string b in\n    let unit_a = int_of_string (string_sub str_a (string_length str_a - 1) 1) in\n    let unit_b = int_of_string (string_sub str_b (string_length str_b - 1) 1) in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use a recursive approach to extract unit digits and multiply them.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let rec multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use pattern matching to directly extract the unit digits and multiply them.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    match (a mod 10, b mod 10) with\n    | (unit_a, unit_b) -> unit_a * unit_b\nend"
+        },
+        {
+            "description": "Compute the product of unit digits using a helper function.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let get_unit_digit (x: int) : int = x mod 10\n  let multiply (a: int) (b: int) : int =\n    let unit_a = get_unit_digit a in\n    let unit_b = get_unit_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use integer division and modulus to isolate the unit digits and multiply them.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a - (a / 10) * 10 in\n    let unit_b = b - (b / 10) * 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Implement using a loop to simulate the modulus operation for extracting unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec last_digit (x: int) : int = if x < 10 then x else last_digit (x - 10)\n  let multiply (a: int) (b: int) : int =\n    let unit_a = last_digit a in\n    let unit_b = last_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Utilize bitwise operations to optimize modulus calculation for positive numbers.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a land 9 in\n    let unit_b = b land 9 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Create a table lookup for unit digits and use it to compute the product.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let unit_digits = [|0; 1; 2; 3; 4; 5; 6; 7; 8; 9|] in\n    let unit_a = unit_digits.(a mod 10) in\n    let unit_b = unit_digits.(b mod 10) in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use a higher-order function to apply modulus operation and multiply the results.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let apply_mod f x y = f (x mod 10) (y mod 10)\n  let multiply (a: int) (b: int) : int =\n    apply_mod (fun x y -> x * y) a b\nend"
+        }
+    ]
+}

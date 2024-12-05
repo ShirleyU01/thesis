@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implementation using simple trial division up to the square root of the number.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else\n      let rec check_divisor (d: int) : bool =\n        if d * d > n then true\n        else if n mod d = 0 then false\n        else check_divisor (d + 1)\n      in check_divisor 2\nend"
+        },
+        {
+            "description": "Implementation using a list to represent potential divisors and checking divisibility.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Mem\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else\n      let divisors = list.init (fun i -> i + 2) (n - 2) in\n      for_all (fun d -> n mod d <> 0) divisors\nend"
+        },
+        {
+            "description": "Implementation using a sieve-like approach for small numbers.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n < 2 then false\n    else if n = 2 then true\n    else if n mod 2 = 0 then false\n    else\n      let rec is_prime_odd (i: int) : bool =\n        if i * i > n then true\n        else if n mod i = 0 then false\n        else is_prime_odd (i + 2)\n      in is_prime_odd 3\nend"
+        },
+        {
+            "description": "Implementation using Fermat's little theorem as a primality test.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.Power\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else\n      let rec fermat_test (a: int) : bool =\n        if a >= n then true\n        else if (power a (n - 1)) mod n <> 1 then false\n        else fermat_test (a + 1)\n      in fermat_test 2\nend"
+        },
+        {
+            "description": "Implementation using 6k \u00b1 1 optimization for checking primality.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n <= 3 then true\n    else if n mod 2 = 0 || n mod 3 = 0 then false\n    else\n      let rec check_6k (i: int) : bool =\n        if i * i > n then true\n        else if n mod i = 0 || n mod (i + 2) = 0 then false\n        else check_6k (i + 6)\n      in check_6k 5\nend"
+        },
+        {
+            "description": "Implementation using a recursive function that reduces the problem size.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else\n      let rec check (i: int) : bool =\n        if i >= n then true\n        else if n mod i = 0 then false\n        else check (i + 1)\n      in check 2\nend"
+        },
+        {
+            "description": "Implementation using a custom list of small primes for initial checks.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Mem\n  let is_prime (n: int) : bool =\n    let small_primes = [2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71; 73; 79; 83; 89; 97] in\n    if n <= 1 then false\n    else if mem n small_primes then true\n    else\n      let rec check_divisors (i: int) : bool =\n        if i * i > n then true\n        else if n mod i = 0 then false\n        else check_divisors (i + 1)\n      in check_divisors 2\nend"
+        },
+        {
+            "description": "Implementation using an accumulator to keep track of potential divisors.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    let rec check (d: int) (acc: bool) : bool =\n      if not acc || d * d > n then acc\n      else check (d + 1) (acc && (n mod d <> 0))\n    in check 2 (n > 1)\nend"
+        },
+        {
+            "description": "Implementation using two separate functions to split the logic.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec check_divisors (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if n mod d = 0 then false\n    else check_divisors n (d + 1)\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_divisors n 2\nend"
+        },
+        {
+            "description": "Implementation relying on a boolean flag that toggles primality status.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else\n      let is_prime_flag = ref true in\n      let rec check (d: int) : unit =\n        if d * d > n then ()\n        else if n mod d = 0 then is_prime_flag := false\n        else check (d + 1)\n      in check 2; !is_prime_flag\nend"
+        }
+    ]
+}

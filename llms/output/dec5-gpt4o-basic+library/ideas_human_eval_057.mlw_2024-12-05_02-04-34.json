@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if the list is sorted in either ascending or descending order using built-in sorted functions.",
+            "implementation": "module HumanEval057\n  use list.SortedInt\n  use list.RevSorted\n  let monotonic (l: list int) : bool = \n    sorted l || rev_sorted l\nend"
+        },
+        {
+            "description": "Iterate through the list and check if each element is greater than or equal to the previous one, or less than or equal to the previous one.",
+            "implementation": "module HumanEval057\n  use list.HdTlNoOpt\n  use list.TlHdNoOpt\n  use int.Int\n  let rec is_increasing (l: list int) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> x <= y && is_increasing (y :: tl)\n    end\n  let rec is_decreasing (l: list int) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> x >= y && is_decreasing (y :: tl)\n    end\n  let monotonic (l: list int) : bool =\n    is_increasing l || is_decreasing l\nend"
+        },
+        {
+            "description": "Use fold_left to accumulate results checking both increasing and decreasing conditions.",
+            "implementation": "module HumanEval057\n  use list.FoldLeft\n  use int.Int\n  let monotonic (l: list int) : bool =\n    let (inc, dec) = fold_left (fun (inc, dec) x y -> (inc && x <= y, dec && x >= y)) (true, true) l in\n    inc || dec\nend"
+        },
+        {
+            "description": "Reverse the list and check if either the original or the reversed list is sorted using SortedInt.",
+            "implementation": "module HumanEval057\n  use list.SortedInt\n  use list.Reverse\n  let monotonic (l: list int) : bool =\n    let rev_l = reverse l in\n    sorted l || sorted rev_l\nend"
+        },
+        {
+            "description": "Use for_all to check if all consecutive pairs are either non-decreasing or non-increasing.",
+            "implementation": "module HumanEval057\n  use list.Quant\n  use int.Int\n  let rec check_pairs (l: list int) (f: int -> int -> bool) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> f x y && check_pairs (y :: tl) f\n    end\n  let monotonic (l: list int) : bool =\n    for_all (check_pairs l (<=)) l || for_all (check_pairs l (>=)) l\nend"
+        },
+        {
+            "description": "Using recursion, check if the list is monotonically increasing or decreasing by comparing each pair of elements.",
+            "implementation": "module HumanEval057\n  use int.Int\n  let rec is_monotonic (l: list int) (f: int -> int -> bool) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> f x y && is_monotonic (y :: tl) f\n    end\n  let monotonic (l: list int) : bool =\n    is_monotonic l (<=) || is_monotonic l (>=)\nend"
+        },
+        {
+            "description": "Use the concept of prefix to check if the list is monotonically increasing or decreasing.",
+            "implementation": "module HumanEval057\n  use list.Prefix\n  use int.Int\n  let is_monotonic_with_prefix (l: list int) (f: int -> int -> bool) : bool =\n    let rec aux n =\n      let prefix = prefix n l in\n      match prefix with\n      | [] | [_] -> true\n      | x :: y :: tl -> f x y && aux (n + 1)\n      end\n    in\n    aux 2\n  let monotonic (l: list int) : bool =\n    is_monotonic_with_prefix l (<=) || is_monotonic_with_prefix l (>=)\nend"
+        },
+        {
+            "description": "Utilize the map function to create two boolean lists indicating increasing and decreasing sequences, then check any of them is all true.",
+            "implementation": "module HumanEval057\n  use list.Map\n  use list.Quant\n  use int.Int\n  let monotonic (l: list int) : bool =\n    let inc = map (fun (x, y) -> x <= y) (combine l (tl l)) in\n    let dec = map (fun (x, y) -> x >= y) (combine l (tl l)) in\n    for_all (fun b -> b) inc || for_all (fun b -> b) dec\nend"
+        },
+        {
+            "description": "Implement a two-pass solution where the list is first verified for increasing property, and then for decreasing.",
+            "implementation": "module HumanEval057\n  use list.HdTlNoOpt\n  use int.Int\n  let rec is_increasing_two_pass (l: list int) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> x <= y && is_increasing_two_pass (y :: tl)\n    end\n  let rec is_decreasing_two_pass (l: list int) : bool =\n    match l with\n    | [] | [_] -> true\n    | x :: y :: tl -> x >= y && is_decreasing_two_pass (y :: tl)\n    end\n  let monotonic (l: list int) : bool =\n    is_increasing_two_pass l || is_decreasing_two_pass l\nend"
+        },
+        {
+            "description": "Check for monotonicity by counting the number of increases and decreases, and verify that only one is non-zero.",
+            "implementation": "module HumanEval057\n  use list.FoldLeft\n  use int.Int\n  let monotonic (l: list int) : bool =\n    let (inc, dec) = fold_left (fun (inc, dec) x y -> (inc + if x < y then 1 else 0, dec + if x > y then 1 else 0)) (0, 0) l in\n    inc = 0 || dec = 0\nend"
+        }
+    ]
+}

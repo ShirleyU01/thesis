@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate and sum numbers from 1 to n",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    (* Initialize a reference to accumulate the sum *)\n    let ref sum = 0 in\n    (* Loop from 1 to n, adding each number to sum *)\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop to add numbers from 1 to n",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref i = 1 in\n    let ref sum = 0 in\n    while i <= n do\n      sum <- sum + i;\n      i <- i + 1\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Recursive implementation without using an accumulator",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 1 then n\n    else n + sum_to_n (n - 1)\n\nend"
+        },
+        {
+            "description": "Recursive implementation using an accumulator",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n_acc (n : int) (acc : int) : int =\n    if n <= 0 then acc\n    else sum_to_n_acc (n - 1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    sum_to_n_acc n 0\n\nend"
+        },
+        {
+            "description": "Using Gauss's formula for the sum of the first n integers",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    n * (n + 1) / 2\n\nend"
+        },
+        {
+            "description": "Using pattern matching to achieve recursion",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using a mutable array to accumulate the sum",
+            "implementation": "module HumanEval060\n\n  use int.Int\n  use array.Array\n\n  let sum_to_n (n : int) : int =\n    let arr = make n 0 in\n    let ref sum = 0 in\n    for i = 0 to n - 1 do\n      arr[i] <- i + 1;\n      sum <- sum + arr[i]\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using a list and a fold function to compute the sum",
+            "implementation": "module HumanEval060\n\n  use int.Int\n  use list.List\n\n  let sum_to_n (n : int) : int =\n    let lst = List.init (fun i -> i + 1) n in\n    List.fold_left (fun acc x -> acc + x) 0 lst\n\nend"
+        },
+        {
+            "description": "Using a sequence and a fold function to compute the sum",
+            "implementation": "module HumanEval060\n\n  use int.Int\n  use seq.Seq\n  use seq.SeqFold\n\n  let sum_to_n (n : int) : int =\n    let seq = Seq.init (fun i -> i + 1) n in\n    Seq.fold_left (fun acc x -> acc + x) 0 seq\n\nend"
+        },
+        {
+            "description": "Using a tail-recursive function to compute the sum",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let rec aux (i : int) (acc : int) : int =\n      if i > n then acc\n      else aux (i + 1) (acc + i)\n    in\n    aux 1 0\n\nend"
+        }
+    ]
+}

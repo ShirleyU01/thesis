@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract unit digits and multiply directly",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use pattern matching for unit digit extraction and multiplication",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    match (a mod 10, b mod 10) with\n    | (unit_a, unit_b) -> unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use recursive function to calculate multiplication of unit digits",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let rec multiply (a: int) (b: int) : int =\n    let unit_a = a mod 10 in\n    let unit_b = b mod 10 in\n    if a < 10 && b < 10 then unit_a * unit_b\n    else multiply (a / 10) (b / 10)\nend"
+        },
+        {
+            "description": "Calculate unit digits using a helper function",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let unit_digit (n: int) : int = n mod 10\n\n  let multiply (a: int) (b: int) : int =\n    let unit_a = unit_digit a in\n    let unit_b = unit_digit b in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use a loop to simulate multiplication of unit digits",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let ua = ref (a mod 10) in\n    let ub = ref (b mod 10) in\n    let result = ref 0 in\n    result := !ua * !ub;\n    !result\nend"
+        },
+        {
+            "description": "Perform multiplication by converting integers to strings",
+            "implementation": "module HumanEval097\n  use int.Int\n  use string.String\n\n  let multiply (a: int) (b: int) : int =\n    let s_a = string_of_int a in\n    let s_b = string_of_int b in\n    let len_a = length s_a in\n    let len_b = length s_b in\n    let unit_a = int_of_char (get s_a (len_a - 1)) - 48 in\n    let unit_b = int_of_char (get s_b (len_b - 1)) - 48 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use bitwise operations to calculate the unit digit and product",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a land 0b1111 in\n    let unit_b = b land 0b1111 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Handle negative numbers by taking absolute values first",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let abs_a = abs a in\n    let abs_b = abs b in\n    let unit_a = abs_a mod 10 in\n    let unit_b = abs_b mod 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Use division and subtraction to find unit digits and multiply",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let multiply (a: int) (b: int) : int =\n    let unit_a = a - (a / 10) * 10 in\n    let unit_b = b - (b / 10) * 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Implement a custom modulus function to get unit digits and multiply",
+            "implementation": "module HumanEval097\n  use int.Int\n\n  let custom_mod (x: int) : int =\n    if x < 0 then x + 10 else x mod 10\n\n  let multiply (a: int) (b: int) : int =\n    let unit_a = custom_mod a in\n    let unit_b = custom_mod b in\n    unit_a * unit_b\nend"
+        }
+    ]
+}

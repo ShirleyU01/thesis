@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursion to calculate the sum and product of the list.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons (0, Cons (1, Nil))\n    | Cons (hd, tl) ->\n        let (s, p) = match sum_product tl with Cons (s, Cons (p, _)) -> (s, p) in\n        Cons ((hd + s), (hd * p)::[])\n    end\nend"
+        },
+        {
+            "description": "Use fold_left to accumulate the sum and product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.FoldLeft\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let (sum, product) = fold_left (fun (s, p) x -> (s + x, p * x)) (0, 1) l in\n    Cons (sum, Cons (product, Nil))\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop to compute sum and product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use ref.Ref\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let sum = ref 0 in\n    let product = ref 1 in\n    let current = ref l in\n    while not (is_nil !current) do\n      let Cons (hd, tl) = !current in\n      sum := !sum + hd;\n      product := !product * hd;\n      current := tl\n    done;\n    Cons (!sum, Cons (!product, Nil))\nend"
+        },
+        {
+            "description": "Use map to transform each element into a pair and then reduce.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Map\n  use list.FoldLeft\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let pairs = map (fun x -> (x, x)) l in\n    let (sum, product) = fold_left (fun (s, p) (x, y) -> (s + x, p * y)) (0, 1) pairs in\n    Cons (sum, Cons (product, Nil))\nend"
+        },
+        {
+            "description": "Compute sum and product separately using built-in functions.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Sum\n  use list.FoldLeft\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let sum_value = sum l in\n    let product_value = fold_left (fun acc x -> acc * x) 1 l in\n    Cons (sum_value, Cons (product_value, Nil))\nend"
+        },
+        {
+            "description": "Use a tail-recursive helper function to compute sum and product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec helper (l: list int) (acc_sum: int) (acc_prod: int) : (int, int) =\n    match l with\n    | Nil -> (acc_sum, acc_prod)\n    | Cons (hd, tl) -> helper tl (acc_sum + hd) (acc_prod * hd)\n    end\n\n  let sum_product (l: list int) : list int =\n    let (sum, product) = helper l 0 1 in\n    Cons (sum, Cons (product, Nil))\nend"
+        },
+        {
+            "description": "Use the reverse function and compute sum and product on the reversed list.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Reverse\n  use list.FoldLeft\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let rev_l = reverse l in\n    let (sum, product) = fold_left (fun (s, p) x -> (s + x, p * x)) (0, 1) rev_l in\n    Cons (sum, Cons (product, Nil))\nend"
+        },
+        {
+            "description": "Use an auxiliary function to handle empty lists separately.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec compute (l: list int) (sum: int) (product: int) : list int =\n    match l with\n    | Nil -> Cons (sum, Cons (product, Nil))\n    | Cons (hd, tl) -> compute tl (sum + hd) (product * hd)\n    end\n\n  let sum_product (l: list int) : list int =\n    compute l 0 1\nend"
+        },
+        {
+            "description": "Calculate the sum using fold_right and the product using fold_left.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.FoldRight\n  use list.FoldLeft\n  use int.Int\n\n  let sum_product (l: list int) : list int =\n    let sum_value = fold_right (fun x acc -> x + acc) l 0 in\n    let product_value = fold_left (fun acc x -> acc * x) 1 l in\n    Cons (sum_value, Cons (product_value, Nil))\nend"
+        },
+        {
+            "description": "Use pattern matching on the list to process elements one by one.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons (0, Cons (1, Nil))\n    | Cons (hd, tl) ->\n        let Cons (sum, Cons (product, _)) = sum_product tl in\n        Cons (hd + sum, Cons (hd * product, Nil))\n    end\nend"
+        }
+    ]
+}

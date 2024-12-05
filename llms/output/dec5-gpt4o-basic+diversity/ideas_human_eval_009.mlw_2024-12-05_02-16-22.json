@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop with an accumulator to keep track of the current maximum.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref max = nth 0 l in\n  let ref result = Cons max Nil in\n  for i = 1 to n - 1 do\n    let x = nth i l in\n    if x > max then max <- x;\n    result <- concat result (Cons max Nil)\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate over the list and update the maximum.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref i = 1 in\n  let ref max = nth 0 l in\n  let ref result = Cons max Nil in\n  while i < n do\n    let x = nth i l in\n    if x > max then max <- x;\n    result <- concat result (Cons max Nil);\n    i <- i + 1\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to build the rolling maximum list.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet rec rolling_max_rec (l : list int) (current_max : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n      let new_max = if x > current_max then x else current_max in\n      Cons new_max (rolling_max_rec xs new_max)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> rolling_max_rec xs x\n  end\nend"
+        },
+        {
+            "description": "Using a recursive helper function with an accumulator to construct the result list.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet rec rolling_max_acc (l : list int) (current_max : int) (acc : list int) : list int =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n      let new_max = if x > current_max then x else current_max in\n      rolling_max_acc xs new_max (concat acc (Cons new_max Nil))\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> rolling_max_acc xs x (Cons x Nil)\n  end\nend"
+        },
+        {
+            "description": "Using a fold function to iterate through the list and maintain the maximum.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet fold_rolling_max (l : list int) (init_max : int) : list int =\n  let rec fold (l : list int) (current_max : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let new_max = if x > current_max then x else current_max in\n        fold xs new_max (concat acc (Cons new_max Nil))\n    end\n  in\n  fold l init_max Nil\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> fold_rolling_max xs x\n  end\nend"
+        },
+        {
+            "description": "Using a tail-recursive function to efficiently compute the rolling maximum.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet rec rolling_max_tailrec (l : list int) (current_max : int) (acc : list int) : list int =\n  match l with\n  | Nil -> rev acc\n  | Cons x xs ->\n      let new_max = if x > current_max then x else current_max in\n      rolling_max_tailrec xs new_max (Cons new_max acc)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> rolling_max_tailrec xs x (Cons x Nil)\n  end\nend"
+        },
+        {
+            "description": "Using a recursive approach with branching logic to determine the maximum.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet rec rolling_max_recursive (l : list int) (current_max : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n      let new_max = if x > current_max then x else current_max in\n      Cons new_max (rolling_max_recursive xs new_max)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> rolling_max_recursive xs x\n  end\nend"
+        },
+        {
+            "description": "Using a direct iterative approach to construct the rolling maximum list.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref max = nth 0 l in\n  let ref result = Cons max Nil in\n  for i = 1 to n - 1 do\n    let x = nth i l in\n    if x > max then max <- x;\n    result <- concat result (Cons max Nil)\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using a functional approach with higher-order functions to compute the result.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet map_rolling_max (f : int -> int -> int) (l : list int) (init_max : int) : list int =\n  let rec map (l : list int) (current_max : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let new_max = f x current_max in\n        map xs new_max (concat acc (Cons new_max Nil))\n    end\n  in\n  map l init_max Nil\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> map_rolling_max (fun x max -> if x > max then x else max) xs x\n  end\nend"
+        },
+        {
+            "description": "Using a combination of recursion and helper functions to modularize the logic.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\n\nlet rec helper (l : list int) (current_max : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n      let new_max = if x > current_max then x else current_max in\n      Cons new_max (helper xs new_max)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> helper xs x\n  end\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implement using a recursive function to compare head elements and process the tail.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.HdTlNoOpt\n  use list.Append\n  \n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons(h1, t1), Cons(h2, t2) -> \n        let diff = abs (h1 - h2) in\n        Cons(diff, compare t1 t2)\n    | _, _ -> assert false\nend"
+        },
+        {
+            "description": "Use List.map to apply a function calculating absolute differences over zipped lists.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Map\n  use list.Combine\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    map (fun (x,y) -> abs (x - y)) (combine l1 l2)\nend"
+        },
+        {
+            "description": "Iteratively process the lists using a loop, appending results to an accumulating result list.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Append\n  use list.HdTlNoOpt\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    let rec loop (acc : list int) l1 l2 =\n      match l1, l2 with\n      | Nil, Nil -> acc\n      | Cons(h1, t1), Cons(h2, t2) ->\n          let diff = abs (h1 - h2) in\n          loop (acc ++ Cons(diff, Nil)) t1 t2\n      | _, _ -> assert false\n    in\n    loop Nil l1 l2\nend"
+        },
+        {
+            "description": "Use fold_left to accumulate the differences into a list, updating the state by appending new differences.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Append\n  use list.FoldLeft\n  use list.Combine\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    fold_left (fun acc (x, y) -> acc ++ Cons(abs (x - y), Nil)) Nil (combine l1 l2)\nend"
+        },
+        {
+            "description": "Directly use recursion to accumulate results in a result list.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.HdTlNoOpt\n  \n  let rec compare_aux (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> acc\n    | Cons(h1, t1), Cons(h2, t2) ->\n        let diff = abs (h1 - h2) in\n        compare_aux t1 t2 (acc ++ Cons(diff, Nil))\n    | _, _ -> assert false\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    compare_aux l1 l2 Nil\nend"
+        },
+        {
+            "description": "Use a helper function to simplify the difference calculation and then map over the lists.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Map\n  use list.Combine\n  \n  let diff (x : int) (y : int) : int = abs (x - y)\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    map (fun (x,y) -> diff x y) (combine l1 l2)\nend"
+        },
+        {
+            "description": "Use a fold_right approach to process the list from right to left, building the result list.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.FoldRight\n  use list.Combine\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    fold_right (fun (x, y) acc -> Cons(abs (x - y), acc)) (combine l1 l2) Nil\nend"
+        },
+        {
+            "description": "Implement using a tail-recursive helper function to prevent stack overflow on large inputs.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.HdTlNoOpt\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    let rec aux l1 l2 acc =\n      match l1, l2 with\n      | Nil, Nil -> acc\n      | Cons(h1, t1), Cons(h2, t2) -> \n          aux t1 t2 (Cons(abs (h1 - h2), acc))\n      | _, _ -> assert false\n    in\n    reverse (aux l1 l2 Nil)\nend"
+        },
+        {
+            "description": "Utilize pattern matching with guards to ensure proper list lengths and process elements.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.HdTlNoOpt\n  use list.Length\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    let rec loop l1 l2 =\n      match l1, l2 with\n      | Cons(h1, t1), Cons(h2, t2) -> Cons(abs (h1 - h2), loop t1 t2)\n      | Nil, Nil -> Nil\n      | _ -> assert false\n    in\n    if length l1 = length l2 then loop l1 l2 else assert false\nend"
+        },
+        {
+            "description": "Implement using an imperative style with mutable state, updating a result array.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  \n  let compare (l1 : list int) (l2 : list int) : list int =\n    let len = length l1 in\n    let rec build_result i acc =\n      if i < len then\n        let Cons(h1, t1) = nth i l1 in\n        let Cons(h2, t2) = nth i l2 in\n        build_result (i + 1) (acc ++ Cons(abs (h1 - h2), Nil))\n      else acc\n    in\n    build_result 0 Nil\nend"
+        }
+    ]
+}

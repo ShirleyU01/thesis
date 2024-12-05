@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if the number is less than 8, which cannot be expressed as the sum of four positive even numbers.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\nbegin\n  if n < 8 then false else true\nend\nend"
+        },
+        {
+            "description": "Determine if the number is even and greater than or equal to 8.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\nbegin\n  if n mod 2 <> 0 then false\n  else if n >= 8 then true\n  else false\nend\nend"
+        },
+        {
+            "description": "Use a recursive function to check if the number can be represented as the sum of four positive even numbers.",
+            "implementation": "module HumanEval138\nlet rec is_equal_to_sum_even (n: int) : bool =\n  if n < 8 then false\n  else if n mod 2 = 0 then true\n  else false\nend"
+        },
+        {
+            "description": "Use pattern matching to return false for numbers less than 8 and true otherwise.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\nmatch n with\n| n when n < 8 -> false\n| _ -> true\nend\nend"
+        },
+        {
+            "description": "Implement a function that checks if n can be divided by 2 and n is greater than 6.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\n  if n mod 2 = 0 && n > 6 then true else false\nend"
+        },
+        {
+            "description": "Use a boolean expression to directly evaluate the condition for n being expressible as a sum of four even numbers.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\n  n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Implement a check to see if the number is a multiple of 4 and greater than or equal to 8.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\n  if n >= 8 && n mod 4 = 0 then true else false\nend"
+        },
+        {
+            "description": "Define a helper function to recursively solve the problem by checking if n can be reduced by 4 and still be even.",
+            "implementation": "module HumanEval138\nlet rec is_equal_to_sum_even (n: int) : bool =\n  if n = 8 then true\n  else if n > 8 && n mod 2 = 0 then is_equal_to_sum_even (n - 4)\n  else false\nend"
+        },
+        {
+            "description": "Utilize a sequence of conditional checks to evaluate the divisibility and size of n.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\nbegin\n  if n < 8 then false\n  else if n mod 2 = 1 then false\n  else true\nend\nend"
+        },
+        {
+            "description": "Check if n is even and use logical operators to ensure it fits the criteria.",
+            "implementation": "module HumanEval138\nlet is_equal_to_sum_even (n: int) : bool =\n  n mod 2 = 0 && n >= 8\nend"
+        }
+    ]
+}

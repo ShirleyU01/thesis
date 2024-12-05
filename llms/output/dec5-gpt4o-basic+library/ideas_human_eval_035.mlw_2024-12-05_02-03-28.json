@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursion to navigate through the list and find the maximum element.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.HdTlNoOpt\n\n  let rec max_element (t: list int) : int =\n    match t with\n    | Nil -> assert false\n    | Cons h Nil -> h\n    | Cons h t -> max h (max_element t)\nend"
+        },
+        {
+            "description": "Use fold_left to iterate through the list to find the maximum element.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.FoldLeft\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    fold_left max (hd t) t\nend"
+        },
+        {
+            "description": "Utilize fold_right to aggregate list elements from right to left to find the maximum.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.FoldRight\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    fold_right max t (hd t)\nend"
+        },
+        {
+            "description": "Use a while loop to iterate through the list and find the maximum element.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.HdTlNoOpt\n  use list.TlNoOpt\n\n  let max_element (t: list int) : int =\n    let m = ref (hd t) in\n    let tmp = ref (tl t) in\n    while !tmp <> Nil do\n      invariant { !m >= hd t }\n      m := max !m (hd !tmp);\n      tmp := tl !tmp\n    done;\n    !m\nend"
+        },
+        {
+            "description": "Implement using List.map to transform each element to a pair with its value and use List.fold_left.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Map\n  use list.FoldLeft\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    let paired_list = map (fun x -> x) t in\n    fold_left max (hd t) paired_list\nend"
+        },
+        {
+            "description": "Use list reverse to start checking from the end of the list.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Reverse\n  use list.HdTlNoOpt\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    let reversed = reverse t in\n    let m = ref (hd reversed) in\n    let tmp = ref (tl reversed) in\n    while !tmp <> Nil do\n      invariant { !m >= hd reversed }\n      m := max !m (hd !tmp);\n      tmp := tl !tmp\n    done;\n    !m\nend"
+        },
+        {
+            "description": "Use List.nth to find elements at specific positions and compare.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.NthNoOpt\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    let rec find_max i max_val =\n      if i < length t then\n        let current = nth i t in\n        find_max (i + 1) (max max_val current)\n      else\n        max_val\n    in\n    find_max 0 (hd t)\nend"
+        },
+        {
+            "description": "Use a for loop to iterate over the list indices to find the maximum.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    let m = ref (hd t) in\n    for i = 0 to length t - 1 do\n      invariant { !m >= hd t }\n      m := max !m (nth i t)\n    done;\n    !m\nend"
+        },
+        {
+            "description": "Use List.prefix to examine smaller sections of the list to find the maximum.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Prefix\n  use list.HdTlNoOpt\n  use int.MinMax\n\n  let max_element (t: list int) : int =\n    let rec max_in_prefix n max_val =\n      if n > 0 then\n        let prefix_list = prefix n t in\n        let current_max = max_element prefix_list in\n        max_in_prefix (n - 1) (max max_val current_max)\n      else\n        max_val\n    in\n    max_in_prefix (length t) (hd t)\nend"
+        },
+        {
+            "description": "Use List.sorted to sort the list first and then take the last element.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.SortedInt\n  use list.HdTlNoOpt\n  use list.Reverse\n\n  let max_element (t: list int) : int =\n    if sorted t then\n      let rev_list = reverse t in\n      hd rev_list\n    else\n      let sorted_list = List.sort t in\n      let rev_sorted = reverse sorted_list in\n      hd rev_sorted\nend"
+        }
+    ]
+}

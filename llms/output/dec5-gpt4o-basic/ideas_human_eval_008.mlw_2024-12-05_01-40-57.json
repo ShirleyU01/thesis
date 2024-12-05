@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a loop to calculate sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    let rec loop (l : list int) (s : int) (p : int) : (int, int) =\n      match l with\n      | Nil -> (s, p)\n      | Cons x xs -> loop xs (s + x) (p * x)\n    in\n    let (sum, prod) = loop l 0 1 in\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Recursive approach directly calculating sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let Cons sum (Cons prod Nil) = sum_product xs in\n      Cons (sum + x) (Cons (prod * x) Nil)\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    let (sum, prod) = fold_left (fun (s, p) x -> (s + x, p * x)) l (0, 1) in\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Using pattern matching to handle sum and product with base case separately.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let sum = ref x in\n      let prod = ref x in\n      let rec loop = function\n        | Nil -> ()\n        | Cons y ys ->\n          sum := !sum + y;\n          prod := !prod * y;\n          loop ys\n      in\n      loop xs;\n      Cons !sum (Cons !prod Nil)\nend"
+        },
+        {
+            "description": "Using auxiliary functions to calculate sum and product separately.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum xs\n\n  let rec product (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n\n  let sum_product (l : list int) : list int =\n    Cons (sum l) (Cons (product l) Nil)\nend"
+        },
+        {
+            "description": "Iterative approach with while loop.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    let sum = ref 0 in\n    let prod = ref 1 in\n    let current = ref l in\n    while !current <> Nil do\n      match !current with\n      | Nil -> ()\n      | Cons x xs ->\n        sum := !sum + x;\n        prod := !prod * x;\n        current := xs\n    done;\n    Cons !sum (Cons !prod Nil)\nend"
+        },
+        {
+            "description": "Using map to transform and then reduce to accumulate sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Reduce\n\n  let sum_product (l : list int) : list int =\n    let (sum, prod) =\n      reduce (fun (s, p) x -> (s + x, p * x)) (0, 1) (map (fun x -> x) l)\n    in\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Separate recursive functions for sum and product, combined in main function.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum xs\n\n  let rec product (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n\n  let sum_product (l : list int) : list int =\n    Cons (sum l) (Cons (product l) Nil)\nend"
+        },
+        {
+            "description": "Using a mutable record to store sum and product, and update in loop.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  type acc = {\n    mutable sum: int;\n    mutable prod: int\n  }\n\n  let sum_product (l : list int) : list int =\n    let acc = { sum = 0; prod = 1 } in\n    let rec loop = function\n      | Nil -> ()\n      | Cons x xs ->\n        acc.sum <- acc.sum + x;\n        acc.prod <- acc.prod * x;\n        loop xs\n    in\n    loop l;\n    Cons acc.sum (Cons acc.prod Nil)\nend"
+        },
+        {
+            "description": "Using a single fold operation with combinator to accumulate results.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    let (sum, prod) =\n      fold_left (fun (s, p) x -> (s + x, p * x)) l (0, 1)\n    in\n    Cons sum (Cons prod Nil)\nend"
+        }
+    ]
+}

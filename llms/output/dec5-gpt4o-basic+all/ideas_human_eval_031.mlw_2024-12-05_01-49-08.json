@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using trial division up to the square root of n",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  if n <= 1 then false\n  else if n <= 3 then true\n  else if n mod 2 = 0 || n mod 3 = 0 then false\n  else\n    let rec check_divisor (i: int) : bool =\n      if i * i > n then true\n      else if n mod i = 0 || n mod (i + 2) = 0 then false\n      else check_divisor (i + 6)\n    in\n    check_divisor 5\n\nend"
+        },
+        {
+            "description": "Using a recursive approach with early termination on finding a divisor",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet rec is_prime (n: int) : bool =\n  let rec is_prime_inner (n: int) (i: int) : bool =\n    if i * i > n then true\n    else if n mod i = 0 then false\n    else is_prime_inner n (i + 1)\n  in\n  if n <= 1 then false\n  else is_prime_inner n 2\n\nend"
+        },
+        {
+            "description": "Using a sieve approach to prime checking, simplified for a single number",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  if n < 2 then false\n  else\n    let rec sieve (i: int) (limit: int) =\n      if i > limit then true\n      else if n mod i = 0 then false\n      else sieve (i + 1) limit\n    in\n    sieve 2 (n / 2)\n\nend"
+        },
+        {
+            "description": "Using pattern matching with ranges for early return on small numbers",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  match n with\n  | _ when n <= 1 -> false\n  | _ when n <= 3 -> true\n  | _ when n mod 2 = 0 || n mod 3 = 0 -> false\n  | _ ->\n    let rec check (i: int) : bool =\n      if i * i > n then true\n      else if n mod i = 0 || n mod (i + 2) = 0 then false\n      else check (i + 6)\n    in\n    check 5\nend"
+        },
+        {
+            "description": "Dividing the problem into helper functions for modularity",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_divisible (n: int) (d: int) : bool = (n mod d = 0)\n\nlet rec check_prime (n: int) (i: int) : bool =\n  if i * i > n then true\n  else if is_divisible n i then false\n  else check_prime n (i + 1)\n\nlet is_prime (n: int) : bool =\n  if n <= 1 then false\n  else check_prime n 2\n\nend"
+        },
+        {
+            "description": "Prime checking using a fold over a list of potential divisors",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.List\nuse list.FoldLeft\n\nlet is_prime (n: int) : bool =\n  if n <= 1 then false\n  else\n    let check_divisor (found: bool) (i: int) : bool =\n      found && (n mod i <> 0)\n    in\n    fold_left check_divisor true (2 -- (n / 2))\n\nend"
+        },
+        {
+            "description": "Using a while-loop to check divisibility",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  if n <= 1 then false\n  else\n    let ref i = 2 in\n    let ref prime = true in\n    while i * i <= n && prime do\n      if n mod i = 0 then prime <- false;\n      i <- i + 1\n    done;\n    prime\n\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate over possible divisors",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  if n <= 1 then false\n  else\n    let ref prime = true in\n    for i = 2 to n / 2 do\n      if n mod i = 0 then prime <- false\n    done;\n    prime\n\nend"
+        },
+        {
+            "description": "Recursive helper that checks divisibility in steps of 2 and 3 after initial checks",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  let rec check (i: int) : bool =\n    if i * i > n then true\n    else if n mod i = 0 || n mod (i + 2) = 0 then false\n    else check (i + 6)\n  in\n  if n <= 1 then false\n  else if n <= 3 then true\n  else if n mod 2 = 0 || n mod 3 = 0 then false\n  else check 5\n\nend"
+        },
+        {
+            "description": "Using a combination of iterative and recursive strategies with inner helper",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.Division\n\nlet is_prime (n: int) : bool =\n  let rec helper (i: int) : bool =\n    if i * i > n then true\n    else if n mod i = 0 then false\n    else helper (i + 1)\n  in\n  if n <= 1 then false\n  else helper 2\n\nend"
+        }
+    ]
+}

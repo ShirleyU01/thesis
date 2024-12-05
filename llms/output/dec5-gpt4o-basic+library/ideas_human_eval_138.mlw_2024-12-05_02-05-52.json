@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if the number is greater than or equal to 8 and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Use a recursive function to check if subtracting even numbers results in zero.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let rec is_sum_of_four_evens (n : int) (count : int) : bool =\n    if count = 0 then n = 0 else\n    if n < 2 then false else\n    is_sum_of_four_evens (n - 2) (count - 1)\n\n  let is_equal_to_sum_even (n : int) : bool =\n    is_sum_of_four_evens n 4\nend"
+        },
+        {
+            "description": "Check if number is divisible by 4 and greater than or equal to 8.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8 && n mod 4 = 0\nend"
+        },
+        {
+            "description": "Use an iterative approach to subtract even numbers from n.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let rec loop n count =\n      if count = 0 then n = 0 else\n      if n < 2 then false else\n      loop (n - 2) (count - 1)\n    in\n    loop n 4\nend"
+        },
+        {
+            "description": "Directly check if n is 8 or greater and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Check using a pre-computed list of sums of four even numbers.",
+            "implementation": "module HumanEval138\n  use list.List\n  use list.Mem\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let sums = [8; 10; 12; 14; 16; 18; 20; 22; 24; 26; 28; 30; 32; 34; 36; 38; 40] in\n    mem n sums\nend"
+        },
+        {
+            "description": "Use list operations to verify the sum of four even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let evens = [2; 4; 6; 8; 10] in\n    let rec check lst =\n      match lst with\n      | [] -> false\n      | x :: xs ->\n          if sum [x; x; x; x] = n then true\n          else check xs\n    in\n    check evens\nend"
+        },
+        {
+            "description": "Verify by constructing possible sums of four distinct even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let rec check_sum acc count =\n      if count = 4 && acc = n then true\n      else if count = 4 then false\n      else check_sum (acc + 2) (count + 1)\n    in\n    check_sum 0 0\nend"
+        },
+        {
+            "description": "Ensure n is greater than 8 and check if it's a multiple of 4.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n > 8 && n mod 4 = 0\nend"
+        },
+        {
+            "description": "Subtract multiples of 2 iteratively to check if n can be decomposed.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let rec decompose n count =\n      if count = 4 then n = 0\n      else if n < 2 then false\n      else decompose (n - 2) (count + 1)\n    in\n    decompose n 0\nend"
+        }
+    ]
+}

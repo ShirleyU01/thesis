@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using direct arithmetic checks",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  n >= 8 \n  && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Using a recursive function to check if a number can be broken down into four even numbers",
+            "implementation": "module HumanEval138\n\nlet rec can_be_sum_of_four (n: int) : bool =\n  n = 0 || (n > 0 && can_be_sum_of_four (n - 2))\n\nlet is_equal_to_sum_even (n: int) : bool =\n  n >= 8 && n mod 2 = 0 && can_be_sum_of_four (n)\nend"
+        },
+        {
+            "description": "Using a while loop to decrement and check divisibility",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let ref m = n in\n  while m >= 8 do\n    if m mod 2 = 0 then return true;\n    m <- m - 2\n  done;\n  false\nend"
+        },
+        {
+            "description": "Using pattern matching to check even and sum conditions",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  match n with\n  | n when n < 8 -> false\n  | n when n mod 2 <> 0 -> false\n  | _ -> true\nend"
+        },
+        {
+            "description": "Using list construction to simulate the sum",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n : int) : bool =\n  let evens = [2; 2; 2; 2] in\n  n >= 8 && List.fold_left (fun acc x -> acc + x) 0 evens <= n\nend"
+        },
+        {
+            "description": "Using nested if-then-else for stepwise checking",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  if n < 8 then false\n  else if n mod 2 <> 0 then false\n  else true\nend"
+        },
+        {
+            "description": "Using a for-loop to check accumulation of even numbers",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let ref sum = 0 in\n  for i = 1 to 4 do\n    sum <- sum + 2\n  done;\n  sum <= n\nend"
+        },
+        {
+            "description": "Using a higher-order function to facilitate checking",
+            "implementation": "module HumanEval138\n\nlet is_even x = x mod 2 = 0\n\nlet is_equal_to_sum_even (n: int) : bool =\n  is_even n && n >= 8\nend"
+        },
+        {
+            "description": "Using a mathematical formula representation",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let m = n / 2 in\n  m >= 4 && m * 2 = n\nend"
+        },
+        {
+            "description": "Using boolean operators to combine conditions",
+            "implementation": "module HumanEval138\n\nlet is_equal_to_sum_even (n: int) : bool =\n  (n >= 8) && ((n mod 2) = 0)\nend"
+        }
+    ]
+}

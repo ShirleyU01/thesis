@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implement sum_to_n using a simple loop.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref sum = 0 in\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a recursive function.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n: int) : int =\n    if n <= 0 then 0\n    else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Implement sum_to_n using the arithmetic series formula.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    (n * (n + 1)) / 2\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a tail-recursive helper function.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let rec aux (acc: int) (n: int) : int =\n      if n <= 0 then acc\n      else aux (acc + n) (n - 1)\n    in aux 0 n\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a fold_left over a generated list of numbers.",
+            "implementation": "module HumanEval060\n  use list.FoldLeft\n  use list.Range\n  use int.Int\n  let sum_to_n (n: int) : int =\n    fold_left (+) 0 (range 1 (n + 1))\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a while loop.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref i = 1 in\n    let ref sum = 0 in\n    while i <= n do\n      sum <- sum + i;\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Implement sum_to_n using the List module to generate a list and sum its elements.",
+            "implementation": "module HumanEval060\n  use list.List\n  use list.Sum\n  use list.Range\n  use int.Int\n  let sum_to_n (n: int) : int =\n    sum (range 1 (n + 1))\nend"
+        },
+        {
+            "description": "Implement sum_to_n using the int.Sum function for range summation.",
+            "implementation": "module HumanEval060\n  use int.Sum\n  let sum_to_n (n: int) : int =\n    sum (fun x -> x) 1 n\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a decrementing for loop.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref sum = 0 in\n    for i = n downto 1 do\n      sum <- sum + i\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Implement sum_to_n by defining a helper function using simple induction.",
+            "implementation": "module HumanEval060\n  use int.SimpleInduction\n  use int.Int\n  let rec sum_aux (n: int) (acc: int) : int =\n    if n <= 0 then acc\n    else sum_aux (n - 1) (acc + n)\n  let sum_to_n (n: int) : int =\n    sum_aux n 0\nend"
+        }
+    ]
+}

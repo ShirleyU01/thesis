@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a recursive approach to calculate the special factorial by decrementing n and multiplying the factorials.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> fact 1\n    | _ -> (fact n) * (special_factorial (n - 1))\n    end\n\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate from 1 to n, calculating each factorial and multiplying them together.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    requires { n > 0 }\n    let ref result = 1 in\n    for i = 1 to n do\n      result <- result * (fact i)\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using a while-loop to compute the special factorial, iterating from 1 to n and multiplying each factorial.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    requires { n > 0 }\n    let ref i = 1 in\n    let ref result = 1 in\n    while i <= n do\n      result <- result * (fact i);\n      i <- i + 1\n    done;\n    result\n\nend"
+        },
+        {
+            "description": "Using pattern matching and recursion to break down the problem into calculating factorials and multiplying them.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    requires { n > 0 }\n    match n with\n    | 1 -> fact 1\n    | _ -> (fact n) * (special_factorial (n - 1))\n    end\n\nend"
+        },
+        {
+            "description": "Using an accumulator in a recursive function to calculate the special factorial, accumulating the product as we recurse.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial_acc (n : int) (acc : int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> acc * (fact 1)\n    | _ -> special_factorial_acc (n - 1) (acc * (fact n))\n    end\n\n  let special_factorial (n : int) : int =\n    special_factorial_acc n 1\n\nend"
+        },
+        {
+            "description": "Using a higher-order function in Why3 to iterate and accumulate the result of multiplying factorials.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    requires { n > 0 }\n    let rec loop (i : int) (acc : int) : int =\n      if i > n then acc\n      else loop (i + 1) (acc * (fact i))\n    in\n    loop 1 1\n\nend"
+        },
+        {
+            "description": "Using a nested function approach to handle the accumulation of the special factorial calculation.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    requires { n > 0 }\n    let rec accumulate (i : int) (acc : int) : int =\n      if i > n then acc\n      else accumulate (i + 1) (acc * (fact i))\n    in\n    accumulate 1 1\n\nend"
+        },
+        {
+            "description": "Using a combination of recursion and a helper function to calculate the special factorial.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec helper (n : int) (acc : int) : int =\n    requires { n > 0 }\n    variant { n }\n    match n with\n    | 1 -> acc * (fact 1)\n    | _ -> helper (n - 1) (acc * (fact n))\n    end\n\n  let special_factorial (n : int) : int =\n    helper n 1\n\nend"
+        },
+        {
+            "description": "Employing a tail-recursive approach to efficiently calculate the special factorial.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial_tail (n : int) (acc : int) : int =\n    requires { n > 0 }\n    variant { n }\n    if n = 0 then acc\n    else special_factorial_tail (n - 1) (acc * (fact n))\n\n  let special_factorial (n : int) : int =\n    special_factorial_tail n 1\n\nend"
+        },
+        {
+            "description": "Using a combination of pattern matching and a for-loop to iteratively compute the special factorial.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    requires { n > 0 }\n    match n with\n    | 1 -> fact 1\n    | _ ->\n      let ref result = 1 in\n      for i = 1 to n do\n        result <- result * (fact i)\n      done;\n      result\n    end\n\nend"
+        }
+    ]
+}

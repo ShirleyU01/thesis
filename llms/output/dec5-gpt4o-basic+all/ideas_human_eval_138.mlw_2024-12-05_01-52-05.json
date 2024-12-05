@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check that the input number is at least 8, then compute if it equals the sum of four even numbers using a simple arithmetic check.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet is_equal_to_sum_even (n: int) : bool =\n  if n < 8 then false else n mod 2 = 0\nend"
+        },
+        {
+            "description": "Recursively subtract 2 from the number until it is less than 8, then determine if the remaining number is even.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet rec is_equal_to_sum_even (n: int) : bool =\n  if n < 8 then false\n  else if n = 8 then true\n  else is_equal_to_sum_even (n - 2)\nend"
+        },
+        {
+            "description": "Use pattern matching to check if the number is less than 8 or if it's even and greater than or equal to 8.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet is_equal_to_sum_even (n: int) : bool =\n  match n with\n  | n when n < 8 -> false\n  | n when n mod 2 = 0 -> true\n  | _ -> false\n  end\nend"
+        },
+        {
+            "description": "Iteratively check if the number can be broken down into four even numbers using a while loop.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let ref num = n in\n  while num >= 8 do\n    if num mod 2 = 0 then return true;\n    num <- num - 2\n  done;\n  false\nend"
+        },
+        {
+            "description": "Use a for loop to decrement the number by 2 and check if it becomes equal to 8.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet is_equal_to_sum_even (n: int) : bool =\n  for i = 0 to n / 2 do\n    if n - (2 * i) = 8 then return true\n  done;\n  false\nend"
+        },
+        {
+            "description": "Define a helper function with an accumulator to track the number of subtractions and determine if the number can be decomposed into four even numbers.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet rec helper (n: int) (acc: int) : bool =\n  if n < 8 then false\n  else if n = 8 then true\n  else helper (n - 2) (acc + 1)\n\nlet is_equal_to_sum_even (n: int) : bool =\n  helper n 0\nend"
+        },
+        {
+            "description": "Use list operations to simulate the decomposition of the number into four even numbers and check if it equals 8 using a hypothetical list.",
+            "implementation": "module HumanEval138\n\nuse list.List\nuse list.Sum\n\nlet is_equal_to_sum_even (n: int) : bool =\n  let even_list = Cons 2 (Cons 2 (Cons 2 (Cons 2 Nil))) in\n  sum even_list = n\nend"
+        },
+        {
+            "description": "Employ a recursive approach with a base case for n=8 and a recursive case subtracting 2 each time.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet rec is_equal_to_sum_even (n: int) : bool =\n  match n with\n  | n when n = 8 -> true\n  | n when n < 8 -> false\n  | _ -> is_equal_to_sum_even (n - 2)\n  end\nend"
+        },
+        {
+            "description": "Utilize integer division to check if the number can be divided into four even components.",
+            "implementation": "module HumanEval138\n\nuse int.EuclideanDivision\n\nlet is_equal_to_sum_even (n: int) : bool =\n  if n < 8 then false\n  else n / 2 >= 4\nend"
+        },
+        {
+            "description": "Implement a recursive solution that checks if subtracting 8 from the number results in zero, using a recursive decrement.",
+            "implementation": "module HumanEval138\n\nuse int.Int\n\nlet rec is_equal_to_sum_even (n: int) : bool =\n  if n = 8 then true\n  else if n < 8 then false\n  else is_equal_to_sum_even (n - 8)\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate through all factorials and multiply them.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use ref.Ref\n    use int.Fact\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let ref result = 1 in\n        for i = 1 to n do\n            result <- result * fact i\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using recursion with a helper function to compute the product of factorials.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use int.Fact\n\n    let rec factorial_product (n : int) : int =\n        requires { n > 0 }\n        if n = 1 then 1 else fact n * factorial_product (n - 1)\n\n    let special_factorial (n : int) : int =\n        factorial_product n\nend"
+        },
+        {
+            "description": "Using a while-loop with a reference to accumulate the product of factorials.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use ref.Ref\n    use int.Fact\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let ref result = 1 in\n        let ref i = 1 in\n        while i <= n do\n            result <- result * fact i;\n            i <- i + 1\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using pattern matching with recursion and an accumulator to compute the product.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use int.Fact\n\n    let rec factorial_product_acc (n : int) (acc : int) : int =\n        if n = 0 then acc else factorial_product_acc (n - 1) (acc * fact n)\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        factorial_product_acc n 1\nend"
+        },
+        {
+            "description": "Using tail recursion to compute the product of factorials.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use int.Fact\n\n    let rec factorial_product_tail (n : int) (acc : int) : int =\n        if n = 0 then acc else factorial_product_tail (n - 1) (acc * fact n)\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        factorial_product_tail n 1\nend"
+        },
+        {
+            "description": "Using a list to store factorials and then fold to compute the product.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use list.List\n    use list.Fold\n    use int.Fact\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let rec generate_list (i : int) : list int =\n            if i = 0 then Nil else Cons (fact i) (generate_list (i - 1))\n        in\n        fold_left ( * ) 1 (generate_list n)\nend"
+        },
+        {
+            "description": "Using a combination of recursion and a for-loop to accumulate the product.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use ref.Ref\n    use int.Fact\n\n    let rec accumulate_factorials (n : int) (result : ref int) : unit =\n        if n > 0 then\n            result := !result * fact n;\n            accumulate_factorials (n - 1) result\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let ref result = 1 in\n        accumulate_factorials n result;\n        !result\nend"
+        },
+        {
+            "description": "Using nested loops to simulate the recursive behavior of factorial computation.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use ref.Ref\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let ref result = 1 in\n        for i = 1 to n do\n            let ref factorial = 1 in\n            for j = 1 to i do\n                factorial <- factorial * j\n            done;\n            result <- result * factorial\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using a direct mathematical formula by precomputing factorial values.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use map.Map\n\n    let special_factorial (n : int) : int =\n        requires { n > 0 }\n        let rec precompute_factorials (i : int) (m : map int int) : map int int =\n            if i = 0 then m else precompute_factorials (i - 1) (Map.set m i (fact i))\n        in\n        let m = precompute_factorials n (Map.empty int int) in\n        Map.fold ( * ) 1 m\nend"
+        },
+        {
+            "description": "Using a recursive function with a decreasing invariant to ensure correctness.",
+            "implementation": "module HumanEval139\n\n    use int.Int\n    use int.Fact\n\n    let rec special_factorial (n : int) : int =\n        requires { n > 0 }\n        variant { n }\n        if n = 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        }
+    ]
+}
