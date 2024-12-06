@@ -1,0 +1,143 @@
+(*
+def is_equal_to_sum_even(n):
+    """Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+    Example
+    is_equal_to_sum_even(4) == False
+    is_equal_to_sum_even(6) == False
+    is_equal_to_sum_even(8) == True
+    """
+*)
+
+module HumanEval138Goal
+
+    use int.Int
+    use int.EuclideanDivision
+    
+    let is_equal_to_sum_even (n : int) : bool =
+        if mod n 2 = 1 then false
+        else
+            begin
+                if n < 8 
+                then false
+                else true
+            end
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval138
+let rec is_equal_to_sum_even (n: int) : bool =
+  if n < 8 then false
+  else if n mod 2 = 0 then true
+  else false
+end
+
+module TestHumanEval138
+
+    use int.Int
+    use list.List
+    use HumanEval138
+
+    let test1 () : bool =
+        not is_equal_to_sum_even 4
+
+    let test1_output () : (int, bool, bool) =
+        (4, is_equal_to_sum_even 4, false)
+
+    let test2 () : bool =
+        not is_equal_to_sum_even 6
+
+    let test2_output () : (int, bool, bool) =
+        (6, is_equal_to_sum_even 6, false)
+
+    let test3 () : bool =
+        is_equal_to_sum_even 8
+
+    let test3_output () : (int, bool, bool) =
+        (8, is_equal_to_sum_even 8, true)
+
+    let test4 () : bool =
+        is_equal_to_sum_even 10
+
+    let test4_output () : (int, bool, bool) =
+        (10, is_equal_to_sum_even 10, true)
+
+    let test5 () : bool =
+        is_equal_to_sum_even 12
+
+    let test5_output () : (int, bool, bool) =
+        (12, is_equal_to_sum_even 12, true)
+
+    let test6 () : bool =
+        is_equal_to_sum_even 20
+
+    let test6_output () : (int, bool, bool) =
+        (20, is_equal_to_sum_even 20, true)
+
+    let test7 () : bool =
+        not is_equal_to_sum_even 7
+
+    let test7_output () : (int, bool, bool) =
+        (7, is_equal_to_sum_even 7, false)
+
+    let test8 () : bool =
+        not is_equal_to_sum_even (-8)
+
+    let test8_output () : (int, bool, bool) =
+        ((-8), is_equal_to_sum_even (-8), false)
+
+    let test9 () : bool =
+        not is_equal_to_sum_even 0
+
+    let test9_output () : (int, bool, bool) =
+        (0, is_equal_to_sum_even 0, false)
+
+    let test10 () : bool =
+        is_equal_to_sum_even 100
+
+    let test10_output () : (int, bool, bool) =
+        (100, is_equal_to_sum_even 100, true)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let runtest (x : int) : (int, bool, bool) =
+        let ref res = ((-1), false, false) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (int, bool, bool) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (int, bool, bool) =
+        let l = testfail () in
+        failoutput l
+
+end
+

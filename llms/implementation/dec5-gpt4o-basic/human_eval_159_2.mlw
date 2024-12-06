@@ -1,0 +1,186 @@
+(*
+def eat(number, need, remaining):
+    """
+    You're a hungry rabbit, and you already have eaten a certain number of carrots,
+    but now you need to eat more carrots to complete the day's meals.
+    you should return an array of [ total number of eaten carrots after your meals,
+                                    the number of carrots left after your meals ]
+    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
+
+    Example:
+    * eat(5, 6, 10) -> [11, 4]
+    * eat(4, 8, 9) -> [12, 1]
+    * eat(1, 10, 10) -> [11, 0]
+    * eat(2, 11, 5) -> [7, 0]
+
+    Variables:
+    @number : integer
+        the number of carrots that you have eaten.
+    @need : integer
+        the number of carrots that you need to eat.
+    @remaining : integer
+        the number of remaining carrots thet exist in stock
+
+    Constrain:
+    * 0 <= number <= 1000
+    * 0 <= need <= 1000
+    * 0 <= remaining <= 1000
+
+    Have fun :)
+    """
+
+ *)
+
+module HumanEval159Goal
+
+    use int.Int
+    use list.List
+
+    let eat (number : int) (need : int) (remaining : int) : list int =
+        if need <= remaining 
+        then Cons (need + number) (Cons (remaining - need) Nil)
+        else Cons (number + remaining) (Cons 0 Nil)
+        
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval159
+  let eat (number : int) (need : int) (remaining : int) : list int =
+    match remaining >= need with
+    | true -> [number + need; remaining - need]
+    | false -> [number + remaining; 0]
+end
+
+module TestHumanEval159
+
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval159
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+
+    let test1 () : bool =
+        list_eq (eat 5 6 10) (Cons 11 (Cons 4 Nil))
+
+    let test1_output () : (int, int, int, list int, list int) =
+        (5, 6, 10, eat 5 6 10, Cons 11 (Cons 4 Nil))
+
+    let test2 () : bool =
+        list_eq (eat 4 8 9) (Cons 12 (Cons 1 Nil))
+
+    let test2_output () : (int, int, int, list int, list int) =
+        (4, 8, 9, eat 4 8 9, Cons 12 (Cons 1 Nil))
+
+    let test3 () : bool =
+        list_eq (eat 1 10 10) (Cons 11 (Cons 0 Nil))
+
+    let test3_output () : (int, int, int, list int, list int) =
+        (1, 10, 10, eat 1 10 10, Cons 11 (Cons 0 Nil))
+
+    let test4 () : bool =
+        list_eq (eat 2 11 5) (Cons 7 (Cons 0 Nil))
+
+    let test4_output () : (int, int, int, list int, list int) =
+        (2, 11, 5, eat 2 11 5, Cons 7 (Cons 0 Nil))
+
+    let test5 () : bool =
+        list_eq (eat 0 5 5) (Cons 5 (Cons 0 Nil))
+
+    let test5_output () : (int, int, int, list int, list int) =
+        (0, 5, 5, eat 0 5 5, Cons 5 (Cons 0 Nil))
+
+    let test6 () : bool =
+        list_eq (eat 100 200 150) (Cons 250 (Cons 0 Nil))
+
+    let test6_output () : (int, int, int, list int, list int) =
+        (100, 200, 150, eat 100 200 150, Cons 250 (Cons 0 Nil))
+
+    let test7 () : bool =
+        list_eq (eat 500 500 0) (Cons 500 (Cons 0 Nil))
+
+    let test7_output () : (int, int, int, list int, list int) =
+        (500, 500, 0, eat 500 500 0, Cons 500 (Cons 0 Nil))
+
+    let test8 () : bool =
+        list_eq (eat 0 0 1000) (Cons 0 (Cons 1000 Nil))
+
+    let test8_output () : (int, int, int, list int, list int) =
+        (0, 0, 1000, eat 0 0 1000, Cons 0 (Cons 1000 Nil))
+
+    let test9 () : bool =
+        list_eq (eat 1000 1000 1000) (Cons 2000 (Cons 0 Nil))
+
+    let test9_output () : (int, int, int, list int, list int) =
+        (1000, 1000, 1000, eat 1000 1000 1000, Cons 2000 (Cons 0 Nil))
+
+    let test10 () : bool =
+        list_eq (eat 10 1 0) (Cons 10 (Cons 0 Nil))
+
+    let test10_output () : (int, int, int, list int, list int) =
+        (10, 1, 0, eat 10 1 0, Cons 10 (Cons 0 Nil))
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : (int, int, int, list int, list int) =
+        let ref res = (-1, -1, -1, Nil, Nil) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (int, int, int, list int, list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (int, int, int, list int, list int) =
+        let l = testfail () in
+        failoutput l
+
+end

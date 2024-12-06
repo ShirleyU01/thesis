@@ -1,11 +1,15 @@
+#################################################################################
+# replace the placeholder with ChatGPT generation
+# create new mlw in `implementation` folder
+
 import os
 import json
 import re
 
 # Define the base directory containing JSON files
-json_folder = "llms/output/nov16-gpt4o-mini"
+json_folder = "llms/output/dec5-gpt4o-basic+all"
 mlw_folder = "human_eval_test"  
-result_folder = "llms/implementation/nov16-gpt4o-mini"
+result_folder = "llms/implementation/dec5-gpt4o-basic+all"
 os.makedirs(result_folder, exist_ok=True)
 
 # Iterate through JSON files in the folder

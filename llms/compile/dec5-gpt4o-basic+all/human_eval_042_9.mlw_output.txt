@@ -1,0 +1,73 @@
+=======================human_eval_042_9.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 41, characters 19-54:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 45, characters 4-23:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 80, characters 16-31:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 83, characters 14-27:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 86, characters 16-58:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 89, characters 39-79:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 92, characters 16-40:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 95, characters 21-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 98, characters 16-61:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 101, characters 42-85:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 104, characters 16-114:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 109, characters 9-105:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 113, characters 52-59:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 113, characters 41-48:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 113, characters 30-37:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 113, characters 19-26:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 113, characters 8-15:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 121, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 120, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 119, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 118, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 117, characters 15-22:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 130, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 129, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 128, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 127, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 126, characters 29-43:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 136, characters 28-39:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 136, characters 40-55:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 141, characters 8-20:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_042_9.mlw", line 140, characters 16-27:
+warning: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Nil)))))))))); the output we obtained with current implementation is (Cons 124 (Cons 1 (Cons 10 (Cons 4 (Cons 4 (Cons 3 (Cons 6 (Cons 4 (Cons 6 (Nil)))))))))); but the expected output is (Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 (Nil)))))))))))
+for input Cons ((Cons (-1) (Cons 0 (Cons 1 (Nil)))); the output we obtained with current implementation is (Cons 2 (Cons 1 (Cons 0 (Nil)))); but the expected output is (Cons 0 (Cons 1 (Cons 2 (Nil)))))
+for input Cons ((Cons 1 (Cons 2 (Cons 3 (Nil)))); the output we obtained with current implementation is (Cons 4 (Cons 3 (Cons 2 (Nil)))); but the expected output is (Cons 2 (Cons 3 (Cons 4 (Nil)))))
+ 
+    Please revise the current implementation to fix the problem.
+    

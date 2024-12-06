@@ -4,6 +4,7 @@ import os
 import pandas as pd
 
 
+# no need for fixed prompt
 def replace_function_name(code, module_name, function_name):
     # Find the last function name after the last "let" definition
     function_name_match = re.findall(r"let\s+(?:rec\s+)?(\w+)\s*\(", code, re.MULTILINE)

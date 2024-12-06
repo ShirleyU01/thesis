@@ -1,0 +1,4 @@
+=======================human_eval_053_8.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/dec5-gpt4o-basic+syntax/human_eval_053_8.mlw", line 25, characters 51-52:
+unbound function or predicate symbol '(-)'

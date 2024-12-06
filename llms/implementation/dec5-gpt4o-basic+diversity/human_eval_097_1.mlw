@@ -1,0 +1,145 @@
+(*
+def multiply(a, b):
+    """Complete the function that takes two integers and returns
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
+    """
+
+ *)
+
+module HumanEval097Goal
+
+    use int.Int
+    use int.Abs
+    use int.EuclideanDivision
+
+    let multiply (a : int) (b : int) = 
+        let d1 = mod (abs a) 10 in
+        let d2 = mod (abs b) 10 in
+        d1 * d2
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval097
+
+  let multiply (a : int) (b : int) : int =
+    let unit_a = a mod 10 in
+    let unit_b = b mod 10 in
+    unit_a * unit_b
+
+end
+
+module TestHumanEval097
+
+    use int.Int
+    use list.List
+    use HumanEval097
+
+    let test1 () : bool =
+        multiply 148 412 = 16
+
+    let test1_output () : (int, int, int, int) =
+        (148, 412, multiply 148 412, 16)
+
+    let test2 () : bool =
+        multiply 19 (-8) = 72
+
+    let test2_output () : (int, int, int, int) =
+        (19, (-8), multiply 19 (-8), 72)
+
+    let test3 () : bool =
+        multiply 2020 1851 = 0
+
+    let test3_output () : (int, int, int, int) =
+        (2020, 1851, multiply 2020 1851, 0)
+
+    let test4 () : bool =
+        multiply 14 (-15) = 20
+
+    let test4_output () : (int, int, int, int) =
+        (14, (-15), multiply 14 (-15), 20)
+
+    let test5 () : bool =
+        multiply 123 456 = 18
+
+    let test5_output () : (int, int, int, int) =
+        (123, 456, multiply 123 456, 18)
+
+    let test6 () : bool =
+        multiply (-7) 8 = 56
+
+    let test6_output () : (int, int, int, int) =
+        ((-7), 8, multiply (-7) 8, 56)
+
+    let test7 () : bool =
+        multiply 0 999 = 0
+
+    let test7_output () : (int, int, int, int) =
+        (0, 999, multiply 0 999, 0)
+
+    let test8 () : bool =
+        multiply 1234 (-9876) = 24
+
+    let test8_output () : (int, int, int, int) =
+        (1234, (-9876), multiply 1234 (-9876), 24)
+
+    let test9 () : bool =
+        multiply (-55) (-35) = 25
+
+    let test9_output () : (int, int, int, int) =
+        ((-55), (-35), multiply (-55) (-35), 25)
+
+    let test10 () : bool =
+        multiply 1 1 = 1
+
+    let test10_output () : (int, int, int, int) =
+        (1, 1, multiply 1 1, 1)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let runtest (x : int) : (int, int, int, int) =
+        let ref res = ((-1), (-1), (-1), (-1)) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (int, int, int, int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (int, int, int, int) =
+        let l = testfail () in
+        failoutput l
+
+end

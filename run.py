@@ -1,3 +1,6 @@
+#################################################################################
+# compile generated implementation with testcases
+
 import subprocess
 import re
 from parse_script import parse_result
@@ -51,9 +54,9 @@ def replace_function_name(code, module_name, function_name):
 
 
 
-folder_path = "thesis/llms/implementation/nov16-gpt4o-mini"
-compile_folder_path = "thesis/llms/compile/nov16-gpt4o-mini"
-excel_output_path = 'thesis/llms/compile/nov16-gpt4o-mini/info.csv'
+folder_path = "thesis/llms/implementation/dec5-gpt4o-basic+syntax"
+compile_folder_path = "thesis/llms/compile/dec5-gpt4o-basic+syntax"
+excel_output_path = 'thesis/llms/compile/dec5-gpt4o-basic+syntax/info.csv'
 data = []
 os.makedirs(compile_folder_path, exist_ok=True)
 

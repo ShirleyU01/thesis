@@ -1,0 +1,197 @@
+(*
+def get_positive(l: list):
+    """Return only positive numbers in the list.
+    >>> get_positive([-1, 2, -4, 5, 6])
+    [2, 5, 6]
+    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    [5, 3, 2, 3, 9, 123, 1]
+    """
+*)
+
+module HumanEval030Goal
+    
+    use int.Int
+    use list.List
+
+    let rec get_positive (l : list int) : list int =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs
+        end
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval030
+  use int.Int
+  use list.List
+
+  let rec map_filter (f: int -> option int) (l: list int): list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> match f x with
+                   | None -> map_filter f xs
+                   | Some y -> Cons y (map_filter f xs)
+                   end
+    end
+
+  let positive_option (x: int): option int =
+    if x > 0 then Some x else None
+
+  let get_positive (l: list int): list int =
+    map_filter positive_option l
+end
+
+module TestHumanEval030
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval030
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+    let test1 () : bool =
+        list_eq (get_positive (Nil : list int)) Nil
+
+    let test1_output () : (list int, list int, list int) =
+        (Nil, get_positive (Nil : list int), Nil)
+
+    let test2 () : bool =
+        list_eq (get_positive (Cons 1 Nil)) (Cons 1 Nil)
+
+    let test2_output () : (list int, list int, list int) =
+        (Cons 1 Nil, get_positive (Cons 1 Nil), Cons 1 Nil)
+
+    let test3 () : bool =
+        list_eq (get_positive (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil)))))) 
+                (Cons 2 (Cons 5 (Cons 6 Nil)))
+
+    let test3_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil)))),
+         get_positive (Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 Nil))))),
+         Cons 2 (Cons 5 (Cons 6 Nil)))
+
+    let test4 () : bool =
+        list_eq (get_positive (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil)))))))))))) 
+                (Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 Nil))))))) 
+
+    let test4_output () : (list int, list int, list int) =
+        (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil)))))))))),
+         get_positive (Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) Nil))))))))))),
+         Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 Nil)))))))
+
+    let test5 () : bool =
+        list_eq (get_positive (Cons (-1) (Cons (-2) (Cons (-3) Nil)))) Nil
+
+    let test5_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons (-2) (Cons (-3) Nil)),
+         get_positive (Cons (-1) (Cons (-2) (Cons (-3) Nil))),
+         Nil)
+
+    let test6 () : bool =
+        list_eq (get_positive (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil)))))))
+                (Cons 2 (Cons 4 Nil))
+
+    let test6_output () : (list int, list int, list int) =
+        (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil))))),
+         get_positive (Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) Nil)))))),
+         Cons 2 (Cons 4 Nil))
+
+    let test7 () : bool =
+        list_eq (get_positive (Cons 0 (Cons 0 (Cons 0 Nil)))) Nil
+
+    let test7_output () : (list int, list int, list int) =
+        (Cons 0 (Cons 0 (Cons 0 Nil)),
+         get_positive (Cons 0 (Cons 0 (Cons 0 Nil))),
+         Nil)
+
+    let test8 () : bool =
+        list_eq (get_positive (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil)))))) 
+                (Cons 1 (Cons 1 (Cons 1 Nil)))
+
+    let test8_output () : (list int, list int, list int) =
+        (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil)))),
+         get_positive (Cons 1 (Cons 1 (Cons (-1) (Cons 1 (Cons (-1) Nil))))),
+         Cons 1 (Cons 1 (Cons 1 Nil)))
+
+    let test9 () : bool =
+        list_eq (get_positive (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil))))) 
+                (Cons 20 (Cons 40 Nil))
+
+    let test9_output () : (list int, list int, list int) =
+        (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil))),
+         get_positive (Cons (-10) (Cons 20 (Cons (-30) (Cons 40 Nil)))),
+         Cons 20 (Cons 40 Nil))
+
+    let test10 () : bool =
+        list_eq (get_positive (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil))))) 
+                (Cons 100 (Cons 50 Nil))
+
+    let test10_output () : (list int, list int, list int) =
+        (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil))),
+         get_positive (Cons 100 (Cons (-50) (Cons 50 (Cons (-25) Nil)))),
+         Cons 100 (Cons 50 Nil))
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : (list int, list int, list int) =
+        let ref res = (Nil, Nil, Nil) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, list int, list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, list int, list int) =
+        let l = testfail () in
+        failoutput l
+
+end

@@ -1,0 +1,166 @@
+(*
+def add(lst):
+    """Given a non-empty list of integers lst. add the even elements that are at odd indices..
+
+
+    Examples:
+        add([4, 2, 6, 7]) ==> 2
+    """
+*)
+
+module HumanEval085Goal
+    
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use int.EuclideanDivision
+    use list.Length
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let add (l : list int) : int =
+        let n = length l in 
+        let ref res = 0 in 
+        for i = 0 to n - 1 do 
+            let elem = nth_1 i l in 
+            if mod i 2 = 1 && mod elem 2 = 0 
+            then res <- res + elem
+        done ;
+        res
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval085
+
+use int.Int
+use list.List
+
+let rec add_helper (l: list int) (i: int) (sum: int) : int =
+  match l with
+  | Nil -> sum
+  | Cons x xs -> if i mod 2 = 1 && x mod 2 = 0
+                  then add_helper xs (i + 1) (sum + x)
+                  else add_helper xs (i + 1) sum
+  end
+
+let add (l: list int) : int =
+  add_helper l 0 0
+end
+
+module TestHumanEval085
+
+    use int.Int
+    use list.List
+    use HumanEval085
+
+    let test1 () : bool =
+        add (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil)))) = 2
+
+    let test1_output () : (list int, int, int) =
+        (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil))), add (Cons 4 (Cons 2 (Cons 6 (Cons 7 Nil)))), 2)
+
+    let test2 () : bool =
+        add (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil))))) = 0
+
+    let test2_output () : (list int, int, int) =
+        (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil)))), add (Cons 1 (Cons 3 (Cons 5 (Cons 7 (Cons 9 Nil))))), 0)
+
+    let test3 () : bool =
+        add (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil))))) = 12
+
+    let test3_output () : (list int, int, int) =
+        (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil)))), add (Cons 2 (Cons 4 (Cons 6 (Cons 8 (Cons 10 Nil))))), 12)
+
+    let test4 () : bool =
+        add (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil)))) = 6
+
+    let test4_output () : (list int, int, int) =
+        (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil))), add (Cons (-2) (Cons 3 (Cons (-4) (Cons 6 Nil)))), 6)
+
+    let test5 () : bool =
+        add (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil)))))))))) = 30
+
+    let test5_output () : (list int, int, int) =
+        (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil))))))))),
+         add (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil)))))))))), 30)
+
+    let test6 () : bool =
+        add (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil)))))) = 0
+
+    let test6_output () : (list int, int, int) =
+        (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil))))), add (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 (Cons 15 Nil)))))), 0)
+
+    let test7 () : bool =
+        add (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil)))))) = 12
+
+    let test7_output () : (list int, int, int) =
+        (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil))))), add (Cons 0 (Cons 2 (Cons 0 (Cons 4 (Cons 0 (Cons 6 Nil)))))), 12)
+
+    let test8 () : bool =
+        add (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil)))))) = (-6)
+
+    let test8_output () : (list int, int, int) =
+        (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil))))), add (Cons 7 (Cons (-2) (Cons 5 (Cons (-4) (Cons 8 (Cons 9 Nil)))))), (-6))
+
+    let test9 () : bool =
+        add (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil))))) = 0
+
+    let test9_output () : (list int, int, int) =
+        (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil)))), add (Cons 100 (Cons 101 (Cons 102 (Cons 103 (Cons 104 Nil))))), 0)
+
+    let test10 () : bool =
+        add (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil)))))) = 56
+
+    let test10_output () : (list int, int, int) =
+        (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil))))), add (Cons 1 (Cons 8 (Cons 2 (Cons 16 (Cons 3 (Cons 32 Nil)))))), 56)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let runtest (x : int) : (list int, int, int) =
+        let ref res = (Nil, (-1), (-1)) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, int, int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, int, int) =
+        let l = testfail () in
+        failoutput l
+
+end

@@ -1,0 +1,6 @@
+=======================human_eval_035_5.mlw=====================
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_035_5.mlw", line 24, characters 4-118:
+warning: Non-exhaustive pattern matching, asserting `absurd'
+File "thesis/llms/implementation/dec5-gpt4o-basic+all/human_eval_035_5.mlw", line 41, characters 17-26:
+Logical symbol fold_left is used in a non-ghost context

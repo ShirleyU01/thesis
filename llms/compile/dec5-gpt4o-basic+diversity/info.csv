@@ -1,0 +1,382 @@
+Implementation,Complie,Error
+human_eval_052_7.mlw,['syntax error'],"syntax error
+"
+human_eval_031_4.mlw,['syntax error'],"syntax error
+"
+human_eval_085_9.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_152_2.mlw,['syntax error'],"syntax error
+"
+human_eval_139_8.mlw,[],
+human_eval_035_1.mlw,['Logical symbol nth is used in a non-ghost context'],"Logical symbol nth is used in a non-ghost context
+"
+human_eval_159_10.mlw,['syntax error'],"syntax error
+"
+human_eval_139_9.mlw,"[""unbound function or predicate symbol 'fact'""]","unbound function or predicate symbol 'fact'
+"
+human_eval_152_3.mlw,"[""unbound function or predicate symbol 'abs'""]","unbound function or predicate symbol 'abs'
+"
+human_eval_085_8.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_008_1.mlw,"[""unbound function or predicate symbol 'fold'""]","unbound function or predicate symbol 'fold'
+"
+human_eval_031_5.mlw,['syntax error'],"syntax error
+"
+human_eval_052_6.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_031_7.mlw,"[""unbound function or predicate symbol '(/)'""]","unbound function or predicate symbol '(/)'
+"
+human_eval_052_4.mlw,"[""unbound function or predicate symbol '(>=)'""]","unbound function or predicate symbol '(>=)'
+"
+human_eval_008_3.mlw,[],
+human_eval_152_1.mlw,['syntax error'],"syntax error
+"
+human_eval_035_3.mlw,['trying to open a module inside another module'],"trying to open a module inside another module
+"
+human_eval_035_2.mlw,['Logical symbol nth is used in a non-ghost context'],"Logical symbol nth is used in a non-ghost context
+"
+human_eval_008_2.mlw,[],
+human_eval_052_5.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_031_6.mlw,['syntax error'],"syntax error
+"
+human_eval_031_2.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_052_1.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_008_6.mlw,[],
+human_eval_152_4.mlw,['syntax error'],"syntax error
+"
+human_eval_035_6.mlw,['syntax error'],"syntax error
+"
+human_eval_035_7.mlw,"[""unbound function or predicate symbol 'nth'""]","unbound function or predicate symbol 'nth'
+"
+human_eval_152_5.mlw,"[""unbound function or predicate symbol 'abs'""]","unbound function or predicate symbol 'abs'
+"
+human_eval_008_7.mlw,[],
+human_eval_031_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_052_2.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_031_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_008_5.mlw,"[""unbound function or predicate symbol 'to_array'""]","unbound function or predicate symbol 'to_array'
+"
+human_eval_152_7.mlw,['syntax error'],"syntax error
+"
+human_eval_035_5.mlw,['trying to open a module inside another module'],"trying to open a module inside another module
+"
+human_eval_057_10.mlw,"[""unbound type symbol 'incr'""]","unbound type symbol 'incr'
+"
+human_eval_035_4.mlw,['syntax error'],"syntax error
+"
+human_eval_152_6.mlw,['syntax error'],"syntax error
+"
+human_eval_008_4.mlw,"['This expression has type list.List.list int, but is expected to have type int']","This expression has type list.List.list int, but is expected to have type int
+"
+human_eval_052_3.mlw,"[""unbound function or predicate symbol '(>=)'""]","unbound function or predicate symbol '(>=)'
+"
+human_eval_138_10.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_009_3.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))', 'for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))', 'for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))', 'for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))
+for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))
+for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))
+for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_151_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_030_7.mlw,"[""unbound type symbol 'option'""]","unbound type symbol 'option'
+"
+human_eval_053_4.mlw,"[""unbound function or predicate symbol '(>)'""]","unbound function or predicate symbol '(>)'
+"
+human_eval_053_5.mlw,"[""unbound function or predicate symbol '(+)'""]","unbound function or predicate symbol '(+)'
+"
+human_eval_151_2.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_030_6.mlw,"['anomaly: Invalid_argument(""List.fold_left2"")']","anomaly: Invalid_argument(""List.fold_left2"")
+"
+human_eval_097_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_009_2.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_057_1.mlw,[],
+human_eval_159_9.mlw,['syntax error'],"syntax error
+"
+human_eval_060_8.mlw,"[""unbound function or predicate symbol 'List.init'""]","unbound function or predicate symbol 'List.init'
+"
+human_eval_138_8.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_057_3.mlw,[],
+human_eval_030_10.mlw,"['anomaly: Invalid_argument(""List.fold_left2"")']","anomaly: Invalid_argument(""List.fold_left2"")
+"
+human_eval_097_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_053_7.mlw,"[""unbound function or predicate symbol 'add2'""]","unbound function or predicate symbol 'add2'
+"
+human_eval_053_10.mlw,['syntax error'],"syntax error
+"
+human_eval_030_4.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input Cons ((Cons 100 (Cons (-50) (Cons 50 (Cons (-25) (Nil))))); the output we obtained with current implementation is (Cons 50 (Cons 100 (Nil))); but the expected output is (Cons 100 (Cons 50 (Nil))))', 'for input Cons ((Cons (-10) (Cons 20 (Cons (-30) (Cons 40 (Nil))))); the output we obtained with current implementation is (Cons 40 (Cons 20 (Nil))); but the expected output is (Cons 20 (Cons 40 (Nil))))', 'for input Cons ((Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) (Nil))))))); the output we obtained with current implementation is (Cons 4 (Cons 2 (Nil))); but the expected output is (Cons 2 (Cons 4 (Nil))))', 'for input Cons ((Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) (Nil)))))))))))); the output we obtained with current implementation is (Cons 1 (Cons 123 (Cons 9 (Cons 3 (Cons 2 (Cons 3 (Cons 5 (Nil)))))))); but the expected output is (Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 (Nil)))))))))', 'for input Cons ((Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 (Nil)))))); the output we obtained with current implementation is (Cons 6 (Cons 5 (Cons 2 (Nil)))); but the expected output is (Cons 2 (Cons 5 (Cons 6 (Nil)))))', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons 100 (Cons (-50) (Cons 50 (Cons (-25) (Nil))))); the output we obtained with current implementation is (Cons 50 (Cons 100 (Nil))); but the expected output is (Cons 100 (Cons 50 (Nil))))
+for input Cons ((Cons (-10) (Cons 20 (Cons (-30) (Cons 40 (Nil))))); the output we obtained with current implementation is (Cons 40 (Cons 20 (Nil))); but the expected output is (Cons 20 (Cons 40 (Nil))))
+for input Cons ((Cons 0 (Cons (-1) (Cons 2 (Cons (-3) (Cons 4 (Cons (-5) (Nil))))))); the output we obtained with current implementation is (Cons 4 (Cons 2 (Nil))); but the expected output is (Cons 2 (Cons 4 (Nil))))
+for input Cons ((Cons 5 (Cons 3 (Cons (-5) (Cons 2 (Cons (-3) (Cons 3 (Cons 9 (Cons 0 (Cons 123 (Cons 1 (Cons (-10) (Nil)))))))))))); the output we obtained with current implementation is (Cons 1 (Cons 123 (Cons 9 (Cons 3 (Cons 2 (Cons 3 (Cons 5 (Nil)))))))); but the expected output is (Cons 5 (Cons 3 (Cons 2 (Cons 3 (Cons 9 (Cons 123 (Cons 1 (Nil)))))))))
+for input Cons ((Cons (-1) (Cons 2 (Cons (-4) (Cons 5 (Cons 6 (Nil)))))); the output we obtained with current implementation is (Cons 6 (Cons 5 (Cons 2 (Nil)))); but the expected output is (Cons 2 (Cons 5 (Cons 6 (Nil)))))
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_030_5.mlw,"['This expression has type list.List.list int, but is expected to have type int']","This expression has type list.List.list int, but is expected to have type int
+"
+human_eval_151_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_053_6.mlw,"[""unbound function or predicate symbol '(+)'""]","unbound function or predicate symbol '(+)'
+"
+human_eval_097_2.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_009_1.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_057_2.mlw,[],
+human_eval_138_9.mlw,"[""unbound function or predicate symbol '(/)'""]","unbound function or predicate symbol '(/)'
+"
+human_eval_060_9.mlw,['Module SeqFold not found in library seq'],"Module SeqFold not found in library seq
+"
+human_eval_159_8.mlw,['syntax error'],"syntax error
+"
+human_eval_151_10.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_057_6.mlw,[],
+human_eval_009_5.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_097_6.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_053_2.mlw,"[""unbound function or predicate symbol '(+)'""]","unbound function or predicate symbol '(+)'
+"
+human_eval_151_5.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_030_1.mlw,"[""unbound function or predicate symbol 'nth'""]","unbound function or predicate symbol 'nth'
+"
+human_eval_005_8.mlw,"[""unbound function or predicate symbol 'map'""]","unbound function or predicate symbol 'map'
+"
+human_eval_151_4.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_005_9.mlw,"[""unbound function or predicate symbol 'rev'""]","unbound function or predicate symbol 'rev'
+"
+human_eval_008_10.mlw,"[""unbound function or predicate symbol 'fold_left'""]","unbound function or predicate symbol 'fold_left'
+"
+human_eval_053_3.mlw,"[""unbound function or predicate symbol '(-)'""]","unbound function or predicate symbol '(-)'
+"
+human_eval_097_7.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_009_4.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_057_7.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input the output we obtained with current implementation is Cons ((Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 (Nil)))))), true, false); but the expected output is Cons ((Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 (Nil)))))), true, false)', 'for input Cons ((Cons 1 (Cons 3 (Cons 2 (Nil)))); the output we obtained with current implementation is true; but the expected output is false)', 'for input Cons ((Cons 1 (Cons 20 (Cons 4 (Cons 10 (Nil))))); the output we obtained with current implementation is true; but the expected output is false)', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input the output we obtained with current implementation is Cons ((Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 (Nil)))))), true, false); but the expected output is Cons ((Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 (Nil)))))), true, false)
+for input Cons ((Cons 1 (Cons 3 (Cons 2 (Nil)))); the output we obtained with current implementation is true; but the expected output is false)
+for input Cons ((Cons 1 (Cons 20 (Cons 4 (Cons 10 (Nil))))); the output we obtained with current implementation is true; but the expected output is false)
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_057_5.mlw,"[""unbound type symbol 'option'""]","unbound type symbol 'option'
+"
+human_eval_009_6.mlw,"[""unbound function or predicate symbol 'rev'""]","unbound function or predicate symbol 'rev'
+"
+human_eval_042_9.mlw,"['This expression has type list.List.list int, but is expected to have type int']","This expression has type list.List.list int, but is expected to have type int
+"
+human_eval_097_5.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_030_2.mlw,"[""unbound function or predicate symbol 'nth'""]","unbound function or predicate symbol 'nth'
+"
+human_eval_151_6.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_053_1.mlw,"[""unbound function or predicate symbol '(+)'""]","unbound function or predicate symbol '(+)'
+"
+human_eval_030_3.mlw,[],
+human_eval_151_7.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_097_4.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_042_8.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_009_7.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))', 'for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))', 'for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))', 'for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))
+for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))
+for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))
+for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_057_4.mlw,[],
+human_eval_159_3.mlw,['syntax error'],"syntax error
+"
+human_eval_060_2.mlw,[],
+human_eval_138_2.mlw,"[""unbound function or predicate symbol '(-)'""]","unbound function or predicate symbol '(-)'
+"
+human_eval_057_9.mlw,[],
+human_eval_042_5.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_097_9.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_005_7.mlw,['syntax error'],"syntax error
+"
+human_eval_005_6.mlw,"[""unbound function or predicate symbol 'tail'""]","unbound function or predicate symbol 'tail'
+"
+human_eval_097_8.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_042_4.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_057_8.mlw,"['This expression has type list.List.list int, but is expected to have type int']","This expression has type list.List.list int, but is expected to have type int
+"
+human_eval_138_3.mlw,"[""unbound function or predicate symbol '(>=)'""]","unbound function or predicate symbol '(>=)'
+"
+human_eval_060_3.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input the output we obtained with current implementation is Cons ((-10), (-10), 0); but the expected output is Cons ((-10), (-10), 0)', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input the output we obtained with current implementation is Cons ((-10), (-10), 0); but the expected output is Cons ((-10), (-10), 0)
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_159_2.mlw,['syntax error'],"syntax error
+"
+human_eval_060_1.mlw,[],
+human_eval_138_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_009_9.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_042_6.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_151_9.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_005_4.mlw,"[""unbound function or predicate symbol '(-)'""]","unbound function or predicate symbol '(-)'
+"
+human_eval_151_8.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_005_5.mlw,['syntax error'],"syntax error
+"
+human_eval_042_7.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_009_8.mlw,"[""unbound function or predicate symbol 'concat'""]","unbound function or predicate symbol 'concat'
+"
+human_eval_159_1.mlw,['syntax error'],"syntax error
+"
+human_eval_159_5.mlw,['syntax error'],"syntax error
+"
+human_eval_060_4.mlw,[],
+human_eval_035_10.mlw,['Logical symbol nth is used in a non-ghost context'],"Logical symbol nth is used in a non-ghost context
+"
+human_eval_138_4.mlw,['syntax error'],"syntax error
+"
+human_eval_139_10.mlw,['anomaly: Stack overflow'],"anomaly: Stack overflow
+"
+human_eval_042_3.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_005_1.mlw,[],
+human_eval_030_8.mlw,"['anomaly: Invalid_argument(""List.fold_left2"")']","anomaly: Invalid_argument(""List.fold_left2"")
+"
+human_eval_030_9.mlw,[],
+human_eval_042_2.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_138_5.mlw,['syntax error'],"syntax error
+"
+human_eval_060_10.mlw,[],
+human_eval_060_5.mlw,"[""unbound function or predicate symbol '(/)'""]","unbound function or predicate symbol '(/)'
+"
+human_eval_159_4.mlw,['syntax error'],"syntax error
+"
+human_eval_159_6.mlw,['syntax error'],"syntax error
+"
+human_eval_060_7.mlw,"['Execution terminated because array could not be made: anomaly: Invalid_argument(""Array.make"")']","Execution terminated because array could not be made: anomaly: Invalid_argument(""Array.make"")
+"
+human_eval_138_7.mlw,"[""unbound function or predicate symbol '(+)'""]","unbound function or predicate symbol '(+)'
+"
+human_eval_053_8.mlw,['syntax error'],"syntax error
+"
+human_eval_005_2.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_005_3.mlw,"[""unbound function or predicate symbol 'rev'""]","unbound function or predicate symbol 'rev'
+"
+human_eval_053_9.mlw,"[""unbound function or predicate symbol '(-)'""]","unbound function or predicate symbol '(-)'
+"
+human_eval_042_1.mlw,[],
+human_eval_138_6.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_060_6.mlw,['syntax error'],"syntax error
+"
+human_eval_159_7.mlw,['syntax error'],"syntax error
+"
+human_eval_008_9.mlw,[],
+human_eval_139_1.mlw,[],
+human_eval_035_9.mlw,['syntax error'],"syntax error
+"
+human_eval_035_8.mlw,['trying to open a module inside another module'],"trying to open a module inside another module
+"
+human_eval_085_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_152_10.mlw,['syntax error'],"syntax error
+"
+human_eval_052_10.mlw,"[""unbound function or predicate symbol '(<)'""]","unbound function or predicate symbol '(<)'
+"
+human_eval_008_8.mlw,"[""unbound function or predicate symbol 'fold'""]","unbound function or predicate symbol 'fold'
+"
+human_eval_031_10.mlw,['Module Extraction not found in library int'],"Module Extraction not found in library int
+"
+human_eval_152_8.mlw,"[""unbound function or predicate symbol 'nth'""]","unbound function or predicate symbol 'nth'
+"
+human_eval_085_10.mlw,"[""unbound function or predicate symbol 'length'""]","unbound function or predicate symbol 'length'
+"
+human_eval_085_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_139_2.mlw,['anomaly: Stack overflow'],"anomaly: Stack overflow
+"
+human_eval_097_10.mlw,"[""unbound function or predicate symbol '(/)'""]","unbound function or predicate symbol '(/)'
+"
+human_eval_139_3.mlw,[],
+human_eval_085_2.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_152_9.mlw,"[""unbound function or predicate symbol 'abs'""]","unbound function or predicate symbol 'abs'
+"
+human_eval_052_8.mlw,['syntax error'],"syntax error
+"
+human_eval_085_6.mlw,['Module Filter not found in library list'],"Module Filter not found in library list
+"
+human_eval_139_7.mlw,"[""Formal parameters of program functions cannot be named 'result'""]","Formal parameters of program functions cannot be named 'result'
+"
+human_eval_139_6.mlw,['Module Fold not found in library list'],"Module Fold not found in library list
+"
+human_eval_085_7.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_052_9.mlw,['syntax error'],"syntax error
+"
+human_eval_031_8.mlw,"[""unbound function or predicate symbol 'int_sqrt'""]","unbound function or predicate symbol 'int_sqrt'
+"
+human_eval_085_5.mlw,"['This expression has type int -> int -> int, but is applied to 3 arguments']","This expression has type int -> int -> int, but is applied to 3 arguments
+"
+human_eval_009_10.mlw,"['=======================TestCases=====================', '', '    For the given implementation, some of testcases failed. Here are the list of failed testcases:', '    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))', 'for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))', 'for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))', 'for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))', ' ', '    Please revise the current implementation to fix the problem.']","=======================TestCases=====================
+
+    For the given implementation, some of testcases failed. Here are the list of failed testcases:
+    for input Cons ((Cons (-5) (Cons 0 (Cons (-10) (Cons 5 (Nil))))); the output we obtained with current implementation is (Cons 0 (Cons 0 (Cons 5 (Nil)))); but the expected output is (Cons (-5) (Cons 0 (Cons 0 (Cons 5 (Nil))))))
+for input Cons ((Cons 10 (Cons 5 (Cons 20 (Cons 15 (Nil))))); the output we obtained with current implementation is (Cons 10 (Cons 20 (Cons 20 (Nil)))); but the expected output is (Cons 10 (Cons 10 (Cons 20 (Cons 20 (Nil))))))
+for input Cons ((Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 (Nil))))))); the output we obtained with current implementation is (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil)))))); but the expected output is (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 (Nil))))))))
+for input Cons ((Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 (Nil)))))))); the output we obtained with current implementation is (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil))))))); but the expected output is (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 (Nil)))))))))
+ 
+    Please revise the current implementation to fix the problem.
+"
+human_eval_139_4.mlw,[],
+human_eval_005_10.mlw,"[""unbound function or predicate symbol 'rev'""]","unbound function or predicate symbol 'rev'
+"
+human_eval_139_5.mlw,[],
+human_eval_085_4.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
+"
+human_eval_042_10.mlw,"[""unbound function or predicate symbol 'list'""]","unbound function or predicate symbol 'list'
+"
+human_eval_031_9.mlw,['syntax error'],"syntax error
+"
