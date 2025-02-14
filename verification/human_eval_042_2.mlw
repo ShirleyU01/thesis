@@ -47,7 +47,6 @@ module HumanEval042
 
   let incr_list (l : list int) : list int =
     ensures { forall i. 0 <= i < length l -> nth i result = nth i l + 1 }
-    variant { l }
     let n = length l in
     let ref new_list = Nil in
     for i = n - 1 downto 0 do

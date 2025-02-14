@@ -33,6 +33,8 @@ module HumanEval042
 
   use int.Int
   use list.List
+  use list.Length
+  use list.NthNoOpt
 
   let rec incr_list (l : list int) : list int =
     ensures { forall i. 0 <= i < length l -> nth i result = nth i l + 1 }

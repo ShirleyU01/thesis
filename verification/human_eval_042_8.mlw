@@ -31,19 +31,21 @@ end
 
 module HumanEval042
 
-  use int.Int
-  use list.List
+    use int.Int
+    use list.List
+        use list.Length
+    use list.NthNoOpt
 
-  let rec incr_list (l : list int) : list int =
-    ensures { forall i. 0 <= i < length l -> nth i result = nth i l + 1 }
-    variant { l }
-    match l with
-    | Nil -> Nil
-    | Cons x xs ->
-      let incremented_x = x + 1 in
-      let incremented_rest = incr_list xs in
-      Cons incremented_x incremented_rest
-    end
+    let rec incr_list (l : list int) : list int =
+        ensures { forall i. 0 <= i < length l -> nth i result = nth i l + 1 }
+        variant { l }
+        match l with
+        | Nil -> Nil
+        | Cons x xs ->
+        let incremented_x = x + 1 in
+        let incremented_rest = incr_list xs in
+        Cons incremented_x incremented_rest
+        end
 
 end
 

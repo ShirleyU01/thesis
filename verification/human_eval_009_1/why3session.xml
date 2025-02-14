@@ -27,39 +27,48 @@
  <goal name="rolling_max&#39;vc" expl="VC for rolling_max">
  <proof prover="0"><result status="unknown" time="0.05"/></proof>
  <proof prover="1"><result status="unknown" time="0.26" steps="6565"/></proof>
- <proof prover="2"><result status="timeout" time="1.00" steps="9752459"/></proof>
+ <proof prover="2"><result status="timeout" time="1.00" steps="8988254"/></proof>
  <transf name="split_vc" >
   <goal name="rolling_max&#39;vc.0" expl="postcondition" proved="true">
   <proof prover="2"><result status="valid" time="0.10" steps="3833"/></proof>
   </goal>
   <goal name="rolling_max&#39;vc.1" expl="termination">
   <proof prover="0"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1"><result status="unknown" time="0.24" steps="6916"/></proof>
-  <proof prover="2"><result status="timeout" time="1.00" steps="10273870"/></proof>
+  <proof prover="1"><result status="unknown" time="0.26" steps="6916"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="8645188"/></proof>
   <transf name="split_vc" >
    <goal name="rolling_max&#39;vc.1.0" expl="termination">
-   <proof prover="0"><result status="timeout" time="1.00"/></proof>
-   <proof prover="1"><result status="unknown" time="0.26" steps="8010"/></proof>
-   <proof prover="2" timelimit="10" memlimit="4000"><undone/></proof>
+   <proof prover="0" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000"><result status="unknown" time="0.25" steps="8010"/></proof>
+   <proof prover="2" timelimit="30" memlimit="4000"><undone/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="rolling_max&#39;vc.2" expl="termination">
   <proof prover="0"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1"><result status="unknown" time="0.25" steps="6878"/></proof>
-  <proof prover="2"><result status="timeout" time="1.00" steps="10019898"/></proof>
+  <proof prover="1"><result status="unknown" time="0.26" steps="6878"/></proof>
+  <proof prover="2"><result status="timeout" time="1.00" steps="8260521"/></proof>
   <transf name="split_vc" >
    <goal name="rolling_max&#39;vc.2.0" expl="termination">
-   <proof prover="0"><result status="timeout" time="1.00"/></proof>
-   <proof prover="1"><result status="unknown" time="0.25" steps="7987"/></proof>
-   <proof prover="2" timelimit="10" memlimit="4000"><undone/></proof>
+   <proof prover="0" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" timelimit="5" memlimit="2000"><result status="unknown" time="0.39" steps="7987"/></proof>
+   <proof prover="2" timelimit="30" memlimit="4000"><undone/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="rolling_max&#39;vc.3" expl="postcondition">
-  <proof prover="0"><result status="timeout" time="1.00"/></proof>
-  <proof prover="1"><result status="timeout" time="1.00" steps="68857"/></proof>
-  <proof prover="2" timelimit="10" memlimit="4000"><undone/></proof>
+  <proof prover="0" timelimit="5" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="5" memlimit="2000"><result status="timeout" time="5.00" steps="195193"/></proof>
+  <proof prover="2" timelimit="5" memlimit="2000"><result status="timeout" time="5.00" steps="50126094"/></proof>
+  <transf name="inline_goal" >
+   <goal name="rolling_max&#39;vc.3.0" expl="postcondition">
+   <transf name="split_all_full" >
+    <goal name="rolling_max&#39;vc.3.0.0" expl="postcondition">
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
   </goal>
  </transf>
  </goal>

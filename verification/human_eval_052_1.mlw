@@ -30,6 +30,7 @@ module HumanEval052
 
     use list.List
     use int.Int
+    use list.Mem
 
     let rec below_threshold (l: list int) (t: int) : bool =
         variant { l }

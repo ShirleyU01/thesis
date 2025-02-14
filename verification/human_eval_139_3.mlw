@@ -34,7 +34,7 @@ module HumanEval139
     axiom spec_fact_base :
         forall a. spec_fact 1 a <-> a = 1
     axiom spec_fact_ind :
-        forall a n . spec_fact n a <-> exists b. spec_fact n-1 b /\ a = b * fact n
+        forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\ a = b * fact n
 
     let special_factorial (n : int) : int =
         requires { n > 0 }
