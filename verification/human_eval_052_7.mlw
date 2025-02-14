@@ -1,0 +1,150 @@
+(*
+def below_threshold(l: list, t: int):
+    """Return True if all numbers in the list l are below threshold t.
+    >>> below_threshold([1, 2, 4, 10], 100)
+    True
+    >>> below_threshold([1, 20, 4, 10], 5)
+    False
+    """
+*)
+
+(* verified *)
+module HumanEval052Goal
+
+    use int.Int
+    use list.List
+    use list.Mem
+
+    let rec below_threshold(l : list int) (t: int) : bool =
+        variant { l }
+        ensures { result <-> (forall x. mem x l -> x < t) }
+        match l with 
+        | Nil -> true
+        | Cons x r -> x < t && below_threshold r t
+        end
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval052
+
+    use list.List
+    use int.Int
+
+    let rec below_threshold (l: list int) (t: int) : bool =
+        variant { l }
+        ensures { result <-> (forall x. mem x l -> x < t) }
+        match l with
+        | Nil -> true
+        | Cons x xs -> if x >= t then false else below_threshold xs t
+        end
+end
+
+module TestHumanEval052
+
+    use int.Int
+    use list.List
+    use HumanEval052
+
+        let test1 () : bool =
+        below_threshold (Nil : list int) 10
+
+    let test1_output () : (list int, int, bool, bool) =
+        (Nil, 10, below_threshold (Nil : list int) 10, true)
+
+    let test2 () : bool =
+        below_threshold (Cons 1 (Cons 2 (Cons 4 (Cons 10 Nil)))) 100
+
+    let test2_output () : (list int, int, bool, bool) =
+        (Cons 1 (Cons 2 (Cons 4 (Cons 10 Nil))), 100, below_threshold (Cons 1 (Cons 2 (Cons 4 (Cons 10 Nil)))) 100, true)
+
+    let test3 () : bool =
+        not below_threshold (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil)))) 5
+
+    let test3_output () : (list int, int, bool, bool) =
+        (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil))), 5, below_threshold (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil)))) 5, false)
+
+    let test4 () : bool =
+        below_threshold (Cons (-10) (Cons (-20) (Cons (-30) Nil))) 0
+
+    let test4_output () : (list int, int, bool, bool) =
+        (Cons (-10) (Cons (-20) (Cons (-30) Nil)), 0, below_threshold (Cons (-10) (Cons (-20) (Cons (-30) Nil))) 0, true)
+
+    let test5 () : bool =
+        below_threshold (Cons (-1) (Cons (-2) (Cons 3 (Cons 4 Nil)))) 5
+
+    let test5_output () : (list int, int, bool, bool) =
+        (Cons (-1) (Cons (-2) (Cons 3 (Cons 4 Nil))), 5, below_threshold (Cons (-1) (Cons (-2) (Cons 3 (Cons 4 Nil)))) 5, true)
+
+    let test6 () : bool =
+        below_threshold (Cons 0 (Cons 1 (Cons 2 Nil))) 3
+
+    let test6_output () : (list int, int, bool, bool) =
+        (Cons 0 (Cons 1 (Cons 2 Nil)), 3, below_threshold (Cons 0 (Cons 1 (Cons 2 Nil))) 3, true)
+
+    let test7 () : bool =
+        not below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 25
+
+    let test7_output () : (list int, int, bool, bool) =
+        (Cons 10 (Cons 20 (Cons 30 Nil)), 25, below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 25, false)
+
+    let test8 () : bool =
+        below_threshold (Cons 5 (Cons 3 (Cons 8 (Cons 2 Nil)))) 10
+
+    let test8_output () : (list int, int, bool, bool) =
+        (Cons 5 (Cons 3 (Cons 8 (Cons 2 Nil))), 10, below_threshold (Cons 5 (Cons 3 (Cons 8 (Cons 2 Nil)))) 10, true)
+
+    let test9 () : bool =
+        not below_threshold (Cons (-5) (Cons 5 (Cons (-3) (Cons 3 Nil)))) 5
+
+    let test9_output () : (list int, int, bool, bool) =
+        (Cons (-5) (Cons 5 (Cons (-3) (Cons 3 Nil))), 5, below_threshold (Cons (-5) (Cons 5 (Cons (-3) (Cons 3 Nil)))) 5, false)
+
+    let test10 () : bool =
+        not below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 10
+
+    let test10_output () : (list int, int, bool, bool) =
+        (Cons 10 (Cons 20 (Cons 30 Nil)), 10, below_threshold (Cons 10 (Cons 20 (Cons 30 Nil))) 10, false)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let runtest (x : int) : (list int, int, bool, bool) =
+        let ref res = (Nil, -1, false, false) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, int, bool, bool) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, int, bool, bool) =
+        let l = testfail () in
+        failoutput l
+
+end

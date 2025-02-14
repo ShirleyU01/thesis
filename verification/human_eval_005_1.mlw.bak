@@ -8,7 +8,7 @@ def intersperse(numbers: List[int], delimiter: int) -> List[int]:
     """
 *)
 
-
+(* 
 module HumanEval005Goal
 
     use int.Int
@@ -21,9 +21,26 @@ module HumanEval005Goal
         | Cons x xs -> Cons x (Cons n (intersperse xs n))
         end
 
-end 
+end *)
 
 (* INSERT_CHATGPT_CODE *)
+
+module HumanEval005
+
+use list.List
+use list.Length
+u
+
+let rec intersperse (l : list int) (n : int) : list int =
+    ensures { length result = length l * 2 - 1 }
+    ensures { forall i. 0 <= i < length l -> ((nth i l = nth (2*i) result) /\ (nth (2*i+1) result = n)) }
+    variant { l }
+    match l with
+    | Nil -> Nil
+    | Cons x Nil -> Cons x Nil
+    | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))
+    end
+end
 
 module TestHumanEval005
 
@@ -31,7 +48,7 @@ module TestHumanEval005
     use list.List
     use list.NthNoOpt
     use list.Length
-    use HumanEval005Goal  
+    use HumanEval005  
 
     let rec nth_1 (n : int) (l : list int) : int =
         requires { length l > 0 }

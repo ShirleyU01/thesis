@@ -1,0 +1,134 @@
+(*
+def truncate_number(number: float) -> float:
+    """ Given a positive floating point number, it can be decomposed into
+    and integer part (largest integer smaller than given number) and decimals
+    (leftover part always smaller than 1).
+
+    Return the decimal part of the number.
+    >>> truncate_number(3.5)
+    0.5
+    """
+*)
+
+module HumanEval002Goal
+    use real.Real
+
+    let truncate_number (n : real) : real =
+        let ref res = n in
+        while res > 1.0 do
+            res <- res - 1.0
+        done ;
+        res
+end
+
+
+module TestHumanEval002
+    use HumanEval002Goal
+    use real.Real
+    use list.List 
+    use int.Int
+
+    let test1() : bool =
+        (truncate_number 3.5) = 0.5
+
+    let test1_output() : real = 
+        truncate_number 3.5
+
+    let test2() : bool =
+        (truncate_number 10.75) = 0.75
+
+    let test2_output() : real = 
+        truncate_number 10.75
+
+    let test3() : bool =
+        (truncate_number 0.99) = 0.99
+
+    let test3_output() : real = 
+        truncate_number 0.99
+
+    let test4() : bool =
+        (truncate_number 7.0) = 0.0
+
+    let test4_output() : real = 
+        truncate_number 7.0
+
+    let test5() : bool =
+        (truncate_number 15.123) = 0.123
+
+    let test5_output() : real = 
+        truncate_number 15.123
+
+    let test6() : bool =
+        (truncate_number 42.999) = 0.999
+
+    let test6_output() : real = 
+        truncate_number 42.999
+
+    let test7() : bool =
+        (truncate_number 1.001) = 0.001
+
+    let test7_output() : real = 
+        truncate_number 1.001
+
+    let test8() : bool =
+        (truncate_number 100.5) = 0.5
+
+    let test8_output() : real = 
+        truncate_number 100.5
+
+    let test9() : bool =
+        (truncate_number 0.0001) = 0.0001
+
+    let test9_output() : real = 
+        truncate_number 0.0001
+
+    let test10() : bool =
+        (truncate_number 999.9999) = 0.9999
+
+    let test10_output() : real = 
+        truncate_number 999.9999
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : real =
+        let ref res = 1.0 in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let rec failoutput (l : list int) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+        
+    let test () : i =
+        let l = testfail () in 
+        failoutput l
+
+
+end
+
