@@ -44,8 +44,6 @@ module MaxList
     done ;
     max
 
-    let loop (t: list int) (max : int) (i : int) (n : int) : int =
-        
 
     (* ** able to verify ** *)
     let rec max_list_recur_1 (t : list int) : int =
