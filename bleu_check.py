@@ -1,8 +1,9 @@
 import pandas as pd
 from blue import calculate_bleu
 from refinement_prompt import extract_code
+import os
 
-output_folder = "dec5-gpt4o-basic+all/"
+output_folder = "dec5-gpt4o-basic+all/" # the GPT generation that we want to look at
 output_table_path = "llms/compile/"+ output_folder + "info.csv"
 
 df = pd.read_csv(output_table_path)
@@ -47,34 +48,46 @@ def calculate_all(df) :
 # input: 
 # df: the csv (info.csv generated after compile GPT implementations) that aims to analysis
 # threshold: threshold for similar implementation (0 - 1)
-# it will print average, range, and bad (similar) implementations for each benchmark
-def bleu_analysis(df, threshold):
+# output_file: stored those information into a csv file
+import csv
+
+def bleu_analysis(df, threshold, output_file):
     result = calculate_all(df)
-    for row in result:
-        sum = 0
-        min = 1
-        max = 0
-        benchmark = row[0]
-        bad = []
-        for pair in row[1]:
-            score = pair[1]
-            sum += score
-            if score > threshold:
-                bad.append(pair)
-            if score < min:
-                min = score
-            if score > max:
-                max = score
-        avg = sum/len(row[1])
-        print("For Benchmark ", benchmark, ", We get the result: \n")
-        print("Average Score:", avg)
-        print("Score Range: (", min, ", ", max, ")")
-        if len(bad) > 0 :
-            print("Similar Implementation: ")
-            for row in bad:
-                print("Pair ", row[0], "with Score: ", row[1])
-        else:
-            print("No Similar Implementation!")
+
+    with open(output_file, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+
+        # Write the header row
+        writer.writerow(["Benchmark", "Average Score", "Min Score", "Max Score", "Bad Pairs"])
+
+        for row in result:
+            sum_scores = 0
+            min_score = 1
+            max_score = 0
+            benchmark = row[0]
+            bad_pairs = []
+
+            for pair in row[1]:
+                score = pair[1]
+                sum_scores += score
+                if score > threshold:
+                    bad_pairs.append(f"{pair[0]} ({score})")  # Store as "pair_name (score)"
+                if score < min_score:
+                    min_score = score
+                if score > max_score:
+                    max_score = score
+
+            avg_score = sum_scores / len(row[1])
+
+            # Convert bad pairs list to a string for CSV storage
+            bad_pairs_str = "; ".join(bad_pairs) if bad_pairs else "No Similar Implementation"
+
+            # Write the row
+            writer.writerow([benchmark, avg_score, min_score, max_score, bad_pairs_str])
+
+    print(f"Results saved to {output_file}")
 
 
-bleu_analysis(df, 0.4)
+os.makedirs("diversity/" + output_folder, exist_ok=True)  # Creates folder if it doesn't exist
+output_file_path = "diversity/" + output_folder + "analysis.csv"
+bleu_analysis(df, 0.4, output_file_path)
