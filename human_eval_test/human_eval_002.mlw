@@ -14,7 +14,6 @@ module HumanEval002Goal
     use real.Real
 
     let truncate_number (n : real) : real =
-
         let ref res = n in
         while res > 1.0 do
             res <- res - 1.0

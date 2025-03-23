@@ -5,6 +5,7 @@ import pandas as pd
 
 
 # no need for fixed prompt
+
 def replace_function_name(code, module_name, function_name):
     # Find the last function name after the last "let" definition
     function_name_match = re.findall(r"let\s+(?:rec\s+)?(\w+)\s*\(", code, re.MULTILINE)
@@ -24,8 +25,8 @@ def replace_function_name(code, module_name, function_name):
 
 
 # Filename of the JSON file
-json_foldername = "thesis/llms/output/nov16-gpt4o-mini"
-info_filepath = "thesis/prompt/description.csv"
+json_foldername = "llms/output/nov16-gpt4o-mini"
+info_filepath = "prompt/description.csv"
 df = pd.read_csv(info_filepath)
 
 

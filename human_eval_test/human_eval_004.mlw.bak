@@ -46,7 +46,9 @@ module HumanEval004Goal
 
     let mean_absolute_deviation (l: list real) : real =
         let m = mean l in
-        
+        if len_real l = 0.0
+        then 0.0 
+        else (sum (map (abs_diff_from_mean m) l) / (len_real l))
 
 
 (* INSERT_CHATGPT_CODE *)

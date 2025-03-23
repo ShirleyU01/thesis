@@ -45,7 +45,7 @@ def prompt_testcase_failed (df) :
 
         Please consider those situations and fix the code.
         """
-        # print(prompt)
+        print(prompt)
         prompt_list.append(prompt)
     return prompt_list
 
@@ -70,9 +70,11 @@ def prompt_compile_failed(df):
 
         Please consider those situations and fix the code.
         """
-        # print(prompt)
+        print(prompt)
         prompt_list.append(prompt)
     return prompt_list
 
-prompt_testcase_failed (df) 
-prompt_compile_failed(df)
+print("Failed testcases")
+# prompts_test = prompt_testcase_failed (df) 
+print("Failed to compile")
+# prompts_compile = prompt_compile_failed(df)
