@@ -1,0 +1,39 @@
+(*
+def string_xor(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary XOR on these inputs and return result also as a string.
+    >>> string_xor('010', '110')
+    '100'
+    """
+ *)
+
+
+module HumanEval011Goal
+    use list.List
+    use int.Int 
+    use string.String
+    use bool.Bool
+    use string.Char
+    use string.OCaml
+
+    let rec string_xor_aux (a: string) (b: string) (i: int) (n: int) : string = 
+        if i >= n then empty
+        else
+        let ca = get a i in
+        let cb = get b i in
+        let c0 = get "0" 0 in
+        let c1 = get "1" 0 in
+        let c  = if OCaml.(=) ca.contents cb.contents then c0 else c1 in
+        let bit = make 1 c in
+        concat bit (string_xor_aux a b (i + 1) n)
+
+    let string_xor (a: string) (b: string) : string
+        requires { length a = length b }
+        ensures { length result = length a }
+        = string_xor_aux a b 0 (length a)
+end
+
+
+end
+
+

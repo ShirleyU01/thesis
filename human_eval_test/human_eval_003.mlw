@@ -45,6 +45,7 @@ end
 module TestHumanEval003
     use list.List
     use int.Int
+    use HumanEval003
     
     let test1() : bool =
         not (below_zero (Cons 1 (Cons 2 (Cons 3 Nil)))) 

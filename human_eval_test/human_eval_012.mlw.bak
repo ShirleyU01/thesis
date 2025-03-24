@@ -1,0 +1,34 @@
+(* 
+def longest(strings: List[str]) -> Optional[str]:
+    """ Out of list of strings, return the longest one. Return the first one in case of multiple
+    strings of the same length. Return None in case the input list is empty.
+    >>> longest([])
+
+    >>> longest(['a', 'b', 'c'])
+    'a'
+    >>> longest(['a', 'bb', 'ccc'])
+    'ccc'
+    """
+ *)
+
+module HumanEval012Goal
+    use list.List
+    use option.Option
+    use int.Int
+    use string.String
+    use string.Char
+    use ocaml.Ocaml
+
+    let rec longest (l: list string) : option string =
+    match l with
+    | Nil -> None
+    | Cons x xs ->
+        let rec aux (best: string) (rest: list string) : string =
+            match rest with
+            | Nil -> best
+            | Cons y ys ->
+                if length y > length best then aux y ys else aux best ys
+            end
+        in Some (aux x xs)
+    end
+end

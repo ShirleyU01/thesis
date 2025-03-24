@@ -20,16 +20,28 @@ module HumanEval004Goal
     use real.FromInt
     use real.Abs
 
+
+    let abs_diff_from_mean (m: real) (x: real) : real =
+        if x >. m 
+        then x -. m
+        else m -. x
+        
     let rec sum (l : list real) : real =
         match l with
         | Nil -> 0.0
-        | Cons x xs -> x + sum xs
+        | Cons x xs -> x +. sum xs
+        end
+    
+    let rec map_real (l : list real) (m : real) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (abs_diff_from_mean x m) (map_real xs m)
         end
     
     let rec len_real (l : list real) : real =
         match l with
         | Nil -> 0.0
-        | Cons x xs -> 1.0 + len_real xs
+        | Cons x xs -> 1.0 +/ len_real xs
         end
 
     let mean (l: list real) : real =
@@ -39,28 +51,22 @@ module HumanEval004Goal
         then 0.0 
         else (s /. len)
 
-    let abs_diff_from_mean (m: real) (x: real) : real =
-        if x >. m 
-        then x -. m
-        else m -. x
-
     let mean_absolute_deviation (l: list real) : real =
-        let m = mean l in
-        if len_real l = 0.0
-        then 0.0 
-        else (sum (map (abs_diff_from_mean m) l) / (len_real l))
-
+        let m = mean l in ((sum (map_real l m)) /. (len_real l))
+        
+end
 
 (* INSERT_CHATGPT_CODE *)
 
 
-module TestHumanEval000
+module TestHumanEval004
 
     use real.Real
     use list.List
     use list.Length
     use list.Map
     use real.RealInfix
+    use HumanEval004Goal
 
     let test1 () : bool =
         abs (mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil)))) -. 1.0) < 1e-6

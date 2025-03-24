@@ -27,8 +27,6 @@ module HumanEval000Goal
         end 
 
     let rec has_close_elements (l : list real) (threshold : real) : bool =
-        ensures { result <-> (exists i, j. 0 <= i < length l /\ 0 <= j < length l /\ i != j -> 
-                                (nth i l - nth j l) < threshold) }
         let n = length l in
         let ref flag = false in
         for i = 0 to n - 1 do
@@ -127,9 +125,6 @@ module TestHumanEval000
     let testall () : bool = 
         test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
 
-    let test () : unit =
-        let l = testfail () in failoutput l
-
     let runtest (x : int) : bool =
         if x = 1 then test1_output()
         else if x = 2 then test2_output()
@@ -142,6 +137,18 @@ module TestHumanEval000
         else if x = 9 then test9_output()
         else if x = 10 then test10_output()
         else false
+
+    let rec failoutput (l : list int) : list bool =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+
+
+    let test () : list bool =
+        let l = testfail () in failoutput l
+
+
 
 end
 

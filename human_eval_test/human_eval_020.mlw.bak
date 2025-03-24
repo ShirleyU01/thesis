@@ -1,0 +1,136 @@
+(* 
+def find_closest_elements(numbers: List[int]) -> List int :
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    [2.0, 2.2]
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    [2.0, 2.0]
+    """
+ *)
+
+module HumanEval020Goal
+    use int.Int
+    use list.List
+    use list.Length
+    use bool.Bool
+    use list.NthNoOpt
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    (* Insertion sort for int list *)
+    let rec insert (x: int) (l: list int) : list int =
+        match l with
+        | Nil -> Cons x Nil
+        | Cons y ys -> if x <= y then Cons x l else Cons y (insert x ys)
+        end
+
+    let rec insertion_sort (l: list int) : list int =
+        match l with
+        | Nil -> Nil
+        | Cons h t -> insert h (insertion_sort t)
+        end
+
+    (* Find the pair of adjacent elements with the smallest absolute difference *)
+    let rec find_min_diff (l: list int) : list int
+        requires { length l >= 2 }
+        variant { l }
+    =
+        match l with
+        | Cons x (Cons y Nil) -> Cons x (Cons y Nil)
+        | Cons x (Cons y ((Cons _ _) as rest)) ->
+            let best = find_min_diff (Cons y rest) in
+            let a = nth_1 best 0 in
+            let b = nth_1 best 1 in
+            if abs (y - x) < abs (b - a) then Cons x (Cons y Nil)
+            else best
+        | _ -> Nil (* unreachable due to requires *)
+        end
+
+    (* Return [min, max] where min and max are the closest pair *)
+    let find_closest_elements (l: list int) : list int
+        requires { length l >= 2 }
+        ensures { length result = 2 }
+    =
+        let sorted = insertion_sort l in
+        let closest = find_min_diff sorted in
+        let x = nth_1 closest 0 in
+        let y = nth_1 closest 1 in
+        if x <= y then Cons x (Cons y Nil) else Cons y (Cons x Nil)
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module TestHumanEval020
+
+    use int.Int
+    use list.List
+    use list.Length
+    use bool.Bool
+
+    let test1() : bool =
+        find_closest_elements (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 2 Nil)))))) = Cons 2 (Cons 2 Nil)
+
+    let test1_output() : list int =
+        find_closest_elements (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 2 Nil))))))
+
+    let test2() : bool =
+        find_closest_elements (Cons 1 (Cons 3 (Cons 7 (Cons 8 (Cons 10 Nil))))) = Cons 7 (Cons 8 Nil)
+
+    let test2_output() : list int =
+        find_closest_elements (Cons 1 (Cons 3 (Cons 7 (Cons 8 (Cons 10 Nil)))))
+
+    let test3() : bool =
+        find_closest_elements (Cons 10 (Cons 20 (Cons 30 (Cons 31 Nil)))) = Cons 30 (Cons 31 Nil)
+
+    let test3_output() : list int =
+        find_closest_elements (Cons 10 (Cons 20 (Cons 30 (Cons 31 Nil))))
+
+    let test4() : bool =
+        find_closest_elements (Cons (-5) (Cons (-1) (Cons 0 (Cons 3 Nil)))) = Cons (-1) (Cons 0 Nil)
+
+    let test4_output() : list int =
+        find_closest_elements (Cons (-5) (Cons (-1) (Cons 0 (Cons 3 Nil))))
+
+    let test5() : bool =
+        find_closest_elements (Cons 100 (Cons 99 (Cons 101 (Cons 97 Nil)))) = Cons 99 (Cons 100 Nil)
+
+    let test5_output() : list int =
+        find_closest_elements (Cons 100 (Cons 99 (Cons 101 (Cons 97 Nil))))
+
+    let testfail() : list int =
+        let ref res = Nil in
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
+
+    let testall () : bool =
+        test1() && test2() && test3() && test4() && test5()
+
+    let test () : unit =
+        let l = testfail () in failoutput l
+
+    let runtest (x: int) : list int =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else Nil
+
+    let runall () : list (list int) =
+        Cons (test1_output())
+        (Cons (test2_output())
+        (Cons (test3_output())
+        (Cons (test4_output())
+        (Cons (test5_output()) Nil))))

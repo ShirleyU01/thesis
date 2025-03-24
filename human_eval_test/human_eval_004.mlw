@@ -20,10 +20,22 @@ module HumanEval004Goal
     use real.FromInt
     use real.Abs
 
+
+    let abs_diff_from_mean (m: real) (x: real) : real =
+        if x >. m 
+        then x -. m
+        else m -. x
+
     let rec sum (l : list real) : real =
         match l with
         | Nil -> 0.0
-        | Cons x xs -> x + sum xs
+        | Cons x xs -> x +. sum xs
+        end
+    
+    let rec map_real (l : list real) (m : real) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (abs_diff_from_mean x m) (map_real xs m)
         end
     
     let rec len_real (l : list real) : real =
@@ -39,44 +51,57 @@ module HumanEval004Goal
         then 0.0 
         else (s /. len)
 
-    let abs_diff_from_mean (m: real) (x: real) : real =
-        if x >. m 
-        then x -. m
-        else m -. x
-
     let mean_absolute_deviation (l: list real) : real =
-        let m = mean l in
+        let m = mean l in ((sum (map_real l m)) /. (len_real l))
         
+end
 
 
 (* INSERT_CHATGPT_CODE *)
 
 
-module TestHumanEval000
+module TestHumanEval004
 
     use real.Real
+    use int.Int
     use list.List
     use list.Length
     use list.Map
     use real.RealInfix
+    use HumanEval004Goal
 
-    let test1 () : bool =
-        abs (mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil)))) -. 1.0) < 1e-6
+    let test1() : bool =
+        (mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil))))) = 1.0
 
-    let test2 () : bool =
-        abs (mean_absolute_deviation (Cons 5.0 (Cons 5.0 (Cons 5.0 (Cons 5.0 Nil)))) -. 0.0) < 1e-6
+    let test1_output() : real =
+        mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil))))
 
-    let test3 () : bool =
-        abs (mean_absolute_deviation (Cons 2.0 (Cons 4.0 (Cons 6.0 Nil))) -. 2.0) < 1e-6
+    let test2() : bool =
+        (mean_absolute_deviation (Cons 5.0 (Cons 5.0 (Cons 5.0 (Cons 5.0 Nil))))) = 0.0
 
-    let test4 () : bool =
-        abs (mean_absolute_deviation (Cons 10.0 (Cons 0.0 Nil)) -. 5.0) < 1e-6
+    let test2_output() : real =
+        mean_absolute_deviation (Cons 5.0 (Cons 5.0 (Cons 5.0 (Cons 5.0 Nil))))
 
-    let test5 () : bool =
-        abs (mean_absolute_deviation Nil) < 1e-6
+    let test3() : bool =
+        (mean_absolute_deviation (Cons 1.0 (Cons 1.0 (Cons 2.0 (Cons 2.0 Nil))))) = 0.5
+
+    let test3_output() : real =
+        mean_absolute_deviation (Cons 1.0 (Cons 1.0 (Cons 2.0 (Cons 2.0 Nil))))
+
+    let test4() : bool =
+        (mean_absolute_deviation (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil)))) = 6.666666666666667
+
+    let test4_output() : real =
+        mean_absolute_deviation (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil)))
+
+    let test5() : bool =
+        (mean_absolute_deviation (Cons 0.0 (Cons 0.0 (Cons 0.0 Nil)))) = 0.0
+
+    let test5_output() : real =
+        mean_absolute_deviation (Cons 0.0 (Cons 0.0 (Cons 0.0 Nil)))
 
     let testfail() : list int =
-        let ref res = Nil in
+        let ref res = Nil in 
         if not test1() then res <- Cons 1 res;
         if not test2() then res <- Cons 2 res;
         if not test3() then res <- Cons 3 res;
@@ -84,9 +109,25 @@ module TestHumanEval000
         if not test5() then res <- Cons 5 res;
         res
 
-    let test () = let l = testfail () in failoutput l
-
     let testall () : bool =
         test1() && test2() && test3() && test4() && test5()
+
+    let runtest (x: int) : real =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else -1.0
+    
+    let rec failoutput (l : list int) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test () : list real =
+        let l = testfail () in failoutput l
+
 
 end
