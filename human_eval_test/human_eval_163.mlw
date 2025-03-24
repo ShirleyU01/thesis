@@ -42,7 +42,7 @@ module TestHumanEval163
     use list.Length
     use bool.Bool
     use list.NthNoOpt
-    use HumanEval163Goal
+    use HumanEval163
 
 
     let rec nth_1 (n : int) (l : list int) : int =

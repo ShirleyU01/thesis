@@ -24,7 +24,7 @@ module TestHumanEval013
     use int.Int
     use list.List
     use bool.Bool
-    use HumanEval013Goal
+    use HumanEval013
     (* Test cases *)
     let test1() : bool =
         greatest_common_divisor 3 5 = 1
