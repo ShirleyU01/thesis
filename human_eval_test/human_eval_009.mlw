@@ -10,6 +10,8 @@ def rolling_max(numbers: List[int]) -> List[int]:
 module HumanEval009Goal
     use int.Int
     use list.List
+    use list.Length
+    use list.NthNoOpt
     
     let rec helper (l : list int) (acc : int) : list int =
         match l with
@@ -20,6 +22,8 @@ module HumanEval009Goal
         end
     
     let rolling_max (l : list int) : list int =
+        ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+        ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
         helper l (-1000)
 
 end

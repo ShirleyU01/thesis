@@ -29,11 +29,11 @@ module HumanEval003Goal
     let below_zero (l : list int) : bool =
         let ref acc = 0 in
         let n = length l in 
-        let ref flag = true in 
+        let ref flag = false in 
         for i = 0 to n - 1 do
             acc <- acc + (nth_1 i l);
             if acc < 0 
-            then flag <- false
+            then flag <- true
         done;
         flag
     

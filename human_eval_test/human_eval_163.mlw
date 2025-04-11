@@ -17,6 +17,8 @@ module HumanEval163Goal
     use list.List
     use bool.Bool
     use list.Length
+    use int.MinMax
+    use list.NthNoOpt
 
     let rec generate_from_to (a: int) (b: int) : list int
         requires { a <= b }
@@ -28,7 +30,12 @@ module HumanEval163Goal
 
     let generate_integers (a: int) (b: int) : list int
         requires { a > 0 /\ b > 0 }
-        ensures { length result = (if a <= b then b - a else a - b) + 1 }
+        ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}
     =
         if a <= b then generate_from_to a b
         else generate_from_to b a

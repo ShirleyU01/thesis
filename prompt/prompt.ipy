@@ -99,10 +99,12 @@ implement(int_lib_str, list_lib_str)
 
 def specification(implementation : str) -> str:
     prompt_specification = f"""
-    Given the following Why3 code which is unable to verify. Can you give me some specifications such as loop invariant, 
-    variant, assertions, or lemmas to verify it:
+    The following Why3 code is implemented correctly with given precondition and postcondition, but currently it is unable to verify. 
+    Can you give me some specifications such as loop invariant, variant, assertions, or lemmas to verify it.
+    Here is the current Why3 code:
     `{implementation}`
-    Remove unnecessary comments. 
 """
+    
+    
 
     

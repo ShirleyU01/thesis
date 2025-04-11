@@ -35,6 +35,8 @@ module HumanEval057Goal
         end
 
     let monotonic (l : list int) : bool =
+        ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
         if length l <= 1 then true
         else helper l (nth_1 0 l) (nth_1 0 l < nth_1 1 l)
 end

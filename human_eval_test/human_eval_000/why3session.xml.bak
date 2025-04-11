@@ -4,10 +4,16 @@
 <why3session shape_version="6">
 <file format="whyml" proved="true">
 <path name=".."/><path name="human_eval_000.mlw"/>
-<theory name="HumanEval001Goal">
+<theory name="HumanEval000Goal">
  <goal name="nth_1&#39;vc" expl="VC for nth_1">
  </goal>
  <goal name="has_close_elements&#39;vc" expl="VC for has_close_elements">
+ </goal>
+</theory>
+<theory name="TestHumanEval000">
+ <goal name="failoutput&#39;vc" expl="VC for failoutput">
+ </goal>
+ <goal name="test&#39;vc" expl="VC for test">
  </goal>
 </theory>
 </file>

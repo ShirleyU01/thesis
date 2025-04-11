@@ -12,8 +12,12 @@ def truncate_number(number: float) -> float:
 
 module HumanEval002Goal
     use real.Real
+    use real.Truncate
+    use real.RealInfix
+    use real.FromInt
 
     let truncate_number (n : real) : real =
+        ensures { 0.0 <= result < 1.0 /\ (result = n -. (from_int (floor n))) }
         let ref res = n in
         while res > 1.0 do
             res <- res - 1.0

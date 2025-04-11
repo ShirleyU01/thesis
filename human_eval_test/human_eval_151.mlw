@@ -18,8 +18,11 @@ module HumanEval151Goal
     use int.Int
     use list.List
     use int.EuclideanDivision
+    use list.Sum
+    use list.Map
 
     let rec double_the_difference (l : list int) : int = 
+        ensures {result = sum (map (fun x -> if x >= 0 /\ mod x 2 = 1 then x * x else 0) l)}
         match l with
         | Nil -> 0
         | Cons x xs -> if mod x 2 = 1 && x > 0

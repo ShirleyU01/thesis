@@ -12,18 +12,23 @@ def truncate_number(number: float) -> float:
 
 module HumanEval002Goal
     use real.Real
+    use real.Truncate
+    use real.RealInfix
+    use real.FromInt
 
     let truncate_number (n : real) : real =
+        ensures { 0.0 <= result < 1.0 /\ (result = n -. (from_int (floor n))) }
         let ref res = n in
         while res > 1.0 do
             res <- res - 1.0
         done ;
         res
-end
+end 
 
+(* INSERT_CHATGPT_CODE *)
 
 module TestHumanEval002
-    use HumanEval002Goal
+    use HumanEval002
     use real.Real
     use list.List 
     use int.Int
@@ -125,7 +130,7 @@ module TestHumanEval002
         | Cons x xs -> Cons (runtest x) (failoutput xs)
         end
         
-    let test () : i =
+    let test () : list real =
         let l = testfail () in 
         failoutput l
 

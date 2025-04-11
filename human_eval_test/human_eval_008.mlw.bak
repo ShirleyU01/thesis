@@ -28,7 +28,7 @@ module HumanEval008Goal
 
     let sum_product (l : list int) : list int =
         ensures { nth 0 result = sum l }
-        ensures { product l (nth 1 result) }
+        ensures { product l result }
         helper l 0 1
 end
 
@@ -39,7 +39,7 @@ module TestHumanEval008
     use list.List
     use list.NthNoOpt
     use list.Length
-    use HumanEval008  
+    use HumanEval008Goal  
 
     let rec nth_1 (n : int) (l : list int) : int =
         requires { length l > 0 }

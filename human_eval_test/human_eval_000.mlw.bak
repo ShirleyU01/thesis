@@ -15,7 +15,9 @@ module HumanEval000Goal
     use list.List
     use list.NthNoOpt
     use list.Length
+    use list.Mem
     use int.Int
+    use real.RealInfix
 
     let rec nth_1 (n : int) (l : list real) : real =
         requires { length l > 0 }
@@ -27,6 +29,7 @@ module HumanEval000Goal
         end 
 
     let rec has_close_elements (l : list real) (threshold : real) : bool =
+        ensures { result <-> exists x. (mem x l) /\ (exists y. (mem y l) /\ ((x -. y) <. threshold)) }
         let n = length l in
         let ref flag = false in
         for i = 0 to n - 1 do
@@ -137,15 +140,15 @@ module TestHumanEval000
         else if x = 9 then test9_output()
         else if x = 10 then test10_output()
         else false
-        
-    let rec failoutput (l : list int) : list (list int, int, list int, list int) =
+
+    let rec failoutput (l : list int) : list bool =
         match l with
         | Nil -> Nil
         | Cons x xs -> Cons (runtest x) (failoutput xs)
         end
 
 
-    let test () : unit =
+    let test () : list bool =
         let l = testfail () in failoutput l
 
 

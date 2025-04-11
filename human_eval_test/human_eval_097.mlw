@@ -19,6 +19,7 @@ module HumanEval097Goal
     use int.EuclideanDivision
 
     let multiply (a : int) (b : int) = 
+        ensures { result = mod (abs a) 10 * mod (abs b) 10 }
         let d1 = mod (abs a) 10 in
         let d2 = mod (abs b) 10 in
         d1 * d2

@@ -26,10 +26,10 @@ module HumanEval004Goal
         then x -. m
         else m -. x
 
-    let rec sum (l : list real) : real =
+    let rec sum_real (l : list real) : real =
         match l with
         | Nil -> 0.0
-        | Cons x xs -> x +. sum xs
+        | Cons x xs -> x +. sum_real xs
         end
     
     let rec map_real (l : list real) (m : real) : list real =
@@ -45,14 +45,16 @@ module HumanEval004Goal
         end
 
     let mean (l: list real) : real =
-        let s = sum l in 
+        let s = sum_real l in 
         let len = len_real l in 
         if s = 0.0 
         then 0.0 
         else (s /. len)
 
     let mean_absolute_deviation (l: list real) : real =
-        let m = mean l in ((sum (map_real l m)) /. (len_real l))
+        (* requires { length l > 0 }
+        ensures { result = (sum_real (map_real (fun x -> abs ((x -. (sum_real l)) /. (len_real l))) l)) /. (len_real l)} *)
+        let m = mean l in ((sum_real (map_real l m)) /. (len_real l))
         
 end
 
@@ -68,7 +70,7 @@ module TestHumanEval004
     use list.Length
     use list.Map
     use real.RealInfix
-    use HumanEval004Goal
+    use HumanEval004
 
     let test1() : bool =
         (mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil))))) = 1.0
