@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using the classic Euclidean algorithm with recursion and modulo operation to find the GCD.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then abs a else greatest_common_divisor b (a mod b)\nend"
+        },
+        {
+            "description": "Using subtraction-based Euclidean algorithm recursively: repeatedly subtract the smaller from the larger until one is zero.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a = abs a in\n    let b = abs b in\n    if a = b then a\n    else if a > b then greatest_common_divisor (a - b) b\n    else greatest_common_divisor a (b - a)\nend"
+        },
+        {
+            "description": "Using pattern matching and recursion with base cases when one argument is zero, relying on absolute values.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match (a, b) with\n    | (a, 0) -> abs a\n    | (0, b) -> abs b\n    | (a, b) -> greatest_common_divisor b (a mod b)\n    end\nend"
+        },
+        {
+            "description": "Using an accumulator in a helper recursive function to keep track of GCD during Euclidean algorithm steps.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec gcd_acc (a: int) (b: int) (acc: int) : int =\n    if b = 0 then acc\n    else gcd_acc b (a mod b) b\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    gcd_acc (abs a) (abs b) 0\nend"
+        },
+        {
+            "description": "Using a tail-recursive version with explicit if-then-else branching and absolute values.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then abs a\n    else greatest_common_divisor b (a mod b)\nend"
+        },
+        {
+            "description": "Using subtraction-based Euclidean algorithm but ensuring arguments are always positive via abs and using pattern matching.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a = abs a in\n    let b = abs b in\n    match a, b with\n    | a, 0 -> a\n    | 0, b -> b\n    | a, b -> if a > b then greatest_common_divisor (a - b) b else greatest_common_divisor a (b - a)\n    end\nend"
+        },
+        {
+            "description": "Using iterative style with a local loop function implemented via recursion to simulate a while loop for Euclidean algorithm.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let rec loop (x: int) (y: int) : int =\n      if y = 0 then abs x else loop y (x mod y)\n    in\n    loop a b\nend"
+        },
+        {
+            "description": "Using recursive Euclidean algorithm but with explicit abs calls on both arguments at every recursive call to ensure non-negativity.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a = abs a in\n    let b = abs b in\n    if b = 0 then a else greatest_common_divisor b (a mod b)\nend"
+        },
+        {
+            "description": "Using pattern matching on pairs and modulo operation, with base cases for zero to return the absolute value of the other number.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match (abs a, abs b) with\n    | (a, 0) -> a\n    | (0, b) -> b\n    | (a, b) -> greatest_common_divisor b (a mod b)\n    end\nend"
+        },
+        {
+            "description": "Using subtraction method but with an inner helper function and pattern matching to reduce code duplication.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.Abs\n\n  let rec gcd_sub (a: int) (b: int) : int =\n    match (a, b) with\n    | (a, 0) -> a\n    | (0, b) -> b\n    | (a, b) -> if a > b then gcd_sub (a - b) b else gcd_sub a (b - a)\n    end\n\n  let greatest_common_divisor (a: int) (b: int) : int = gcd_sub (abs a) (abs b)\nend"
+        }
+    ]
+}

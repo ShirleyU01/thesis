@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract unit digits using modulo 10 and multiply directly",
+            "implementation": "module HumanEval097\n\nuse int.Int\n\nlet multiply (a : int) (b : int) : int =\n  let ua = a mod 10 in\n  let ub = b mod 10 in\n  ua * ub\nend"
+        },
+        {
+            "description": "Extract unit digits using absolute value and modulo to handle negative numbers explicitly, then multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet multiply (a : int) (b : int) : int =\n  let ua = abs a mod 10 in\n  let ub = abs b mod 10 in\n  ua * ub\nend"
+        },
+        {
+            "description": "Recursive function to get unit digit by stripping all but last digit using division and recursion, then multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\n\nlet rec unit_digit (x: int) : int =\n  if x >= 0 && x < 10 then x\n  else if x < 0 then unit_digit (-x)\n  else unit_digit (x mod 10)\n\nlet multiply (a : int) (b : int) : int =\n  unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching on integer sign to handle negative and positive separately before modulo and multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet multiply (a: int) (b: int) : int =\n  let ua = match a >= 0 with\n    | True -> a mod 10\n    | False -> (-a) mod 10\n  end in\n  let ub = match b >= 0 with\n    | True -> b mod 10\n    | False -> (-b) mod 10\n  end in\n  ua * ub\nend"
+        },
+        {
+            "description": "Convert integers to string, get last character, convert back to int and multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse string.String\n\nlet char_to_int (c: char) : int =\n  int_of_char c - int_of_char '0'\n\nlet last_char (s: string) : char =\n  String.get s (String.length s - 1)\n\nlet multiply (a : int) (b : int) : int =\n  let sa = string_of_int (abs a) in\n  let sb = string_of_int (abs b) in\n  let ua = char_to_int (last_char sa) in\n  let ub = char_to_int (last_char sb) in\n  ua * ub\nend"
+        },
+        {
+            "description": "Use subtraction to get unit digit: subtract 10 * (a / 10) from a, handle negative numbers with abs",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet unit_digit (x: int) : int =\n  let ax = abs x in\n  ax - (ax / 10) * 10\n\nlet multiply (a : int) (b : int) : int =\n  unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use recursion to strip digits until only unit digit remains (recursive division by 10 until less than 10), then multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet rec unit_digit (x: int) : int =\n  let ax = abs x in\n  if ax < 10 then ax else unit_digit (ax / 10)\n\nlet multiply (a : int) (b : int) : int =\n  unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use iterative loop to strip digits until unit digit remains, then multiply (simulate iteration with recursion)",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet rec strip_digits (x: int) : int =\n  let ax = abs x in\n  if ax < 10 then ax else strip_digits (ax / 10)\n\nlet multiply (a : int) (b : int) : int =\n  strip_digits a * strip_digits b\nend"
+        },
+        {
+            "description": "Use if-then-else to check sign of input, normalize to positive, then use modulo 10 and multiply",
+            "implementation": "module HumanEval097\n\nuse int.Int\n\nlet multiply (a : int) (b : int) : int =\n  let ua = if a < 0 then (-a) mod 10 else a mod 10 in\n  let ub = if b < 0 then (-b) mod 10 else b mod 10 in\n  ua * ub\nend"
+        },
+        {
+            "description": "Define a helper function to get unit digit via modulo, then multiply results of helper calls",
+            "implementation": "module HumanEval097\n\nuse int.Int\nuse int.Abs\n\nlet unit_digit (x: int) : int = abs x mod 10\n\nlet multiply (a : int) (b : int) : int =\n  unit_digit a * unit_digit b\nend"
+        }
+    ]
+}

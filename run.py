@@ -24,7 +24,7 @@ def test(output : str) :
 
 def is_compile_success(text):
     lines = text.strip().split("\n")[1:]  
-    invalid_lines = [line for line in lines if not (line.startswith("File") or line.startswith("WARNING") or line.startswith("warning"))]
+    invalid_lines = [line for line in lines if not (line.startswith("File") or line.startswith("WARNING") or line.startswith("warning") or line.startswith("Warning"))]
     return invalid_lines
 
 import re
@@ -54,9 +54,9 @@ def replace_function_name(code, module_name, function_name):
 
 
 
-folder_path = "thesis/llms/implementation/dec5-gpt4o-basic+syntax"
-compile_folder_path = "thesis/llms/compile/dec5-gpt4o-basic+syntax"
-excel_output_path = 'thesis/llms/compile/dec5-gpt4o-basic+syntax/info.csv'
+folder_path = "llms/implementation/apr17-gpt41-mini-all"
+compile_folder_path = "llms/compile/apr17-gpt41-mini-all"
+excel_output_path = 'llms/compile/apr17-gpt41-mini-all/info.csv'
 data = []
 os.makedirs(compile_folder_path, exist_ok=True)
 
@@ -67,7 +67,8 @@ for filename in os.listdir(folder_path):
     output_file_path = os.path.join(compile_folder_path, f"{filename}_output.txt") 
     module_name = parse_string(filename)
     result = subprocess.run(
-        ['./thesis/script.sh', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
+        ['why3', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
+        #['./thesis/script.sh', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
         capture_output=True,
         text=True
     )
@@ -89,7 +90,7 @@ for filename in os.listdir(folder_path):
         error_msg += line + '\n'
     data.append({
         'Implementation': filename,
-        'Complie': is_compile_success(output_text),
+        'Compile': is_compile_success(output_text),
         'Error': error_msg  
     }) 
     print(f"Output from {filename} added to {file_path}.")

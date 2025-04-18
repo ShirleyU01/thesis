@@ -1,0 +1,3 @@
+=======================human_eval_042_5.mlw=====================
+File "llms/implementation/apr17-gpt41-mini-all/human_eval_042_5.mlw", line 39, characters 14-23:
+Logical symbol fold_left is used in a non-ghost context

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using simple recursion with pattern matching to sum numbers from 1 to n by adding n to sum_to_n(n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    if n <= 0 then 0 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using tail recursion with an accumulator parameter to efficiently sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_aux (n : int) (acc : int) : int =\n    if n <= 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n  let sum_to_n (n : int) : int = sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Using the arithmetic formula n * (n + 1) / 2 to compute the sum directly without recursion.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    if n <= 0 then 0 else n * (n + 1) / 2\nend"
+        },
+        {
+            "description": "Using an imperative style with a while loop to accumulate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref i = 1 in\n    let ref acc = 0 in\n    while i <= n do\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using an imperative for loop to sum numbers from 1 to n by accumulating in a mutable reference.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    for i = 1 to n do\n      acc <- acc + i\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching on n, explicitly matching the base case and recursive case.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using a helper function to generate a list of integers from 1 to n, then folding left with addition.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Append\n  use list.FoldLeft\n\n  let rec range (start:int) (end_:int) : list int =\n    if start > end_ then Nil else Cons start (range (start + 1) end_)\n\n  let sum_to_n (n : int) : int =\n    if n <= 0 then 0 else fold_left (fun acc x -> acc + x) 0 (range 1 n)\nend"
+        },
+        {
+            "description": "Using iteration function 'int.Iter' to add numbers from 1 to n, accumulating the sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.Iter\n\n  let sum_to_n (n : int) : int =\n    let f acc i = acc + i in\n    let rec iter_sum i acc =\n      if i > n then acc else iter_sum (i + 1) (f acc i)\n    in iter_sum 1 0\nend"
+        },
+        {
+            "description": "Using a recursive function with a decrementing parameter and an if-then-else branching to accumulate the sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    begin\n      if n <= 0 then 0 else n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using a recursive function with an explicit variant and requires clause to ensure termination and correctness.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then 0 else n + sum_to_n (n - 1)\nend"
+        }
+    ]
+}

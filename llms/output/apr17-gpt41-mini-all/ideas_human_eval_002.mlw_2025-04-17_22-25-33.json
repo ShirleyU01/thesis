@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Compute decimal part by subtracting the floor (largest integer less or equal) of the number from the number.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let truncate_number (number: real) : real =\n    number -. floor number\nend"
+        },
+        {
+            "description": "Use the ceiling (smallest integer greater or equal) minus 1 as the integer part and subtract it from the number to get the decimal part.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let truncate_number (number: real) : real =\n    number -. (ceil number -. 1.)\nend"
+        },
+        {
+            "description": "Define a recursive function that subtracts 1 repeatedly from number until the remainder is less than 1, returning that remainder as the decimal part.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let rec truncate_number (number: real) : real =\n    if number < 1. then number else truncate_number (number -. 1.)\nend"
+        },
+        {
+            "description": "Use pattern matching on the integer part (converted from real to int) and subtract that integer from the number to get decimal part.",
+            "implementation": "module HumanEval002\n  use real.Real\n  use int.Int\n  let truncate_number (number: real) : real =\n    let int_part = float_of_int (int_of_float number) in\n    number -. int_part\nend"
+        },
+        {
+            "description": "Use the modulo operation with 1.0 (real modulo) to get the decimal part directly.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let truncate_number (number: real) : real =\n    fmod number 1.\nend"
+        },
+        {
+            "description": "Use a recursive function with an accumulator to subtract 1 until the number is less than 1, returning the accumulator as the decimal part.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let rec aux (n: real) (acc: real) : real =\n    if n < 1. then n else aux (n -. 1.) (acc +. 1.)\n  let truncate_number (number: real) : real = aux number 0.\nend"
+        },
+        {
+            "description": "Use an if-then-else branching: if number < 1 return number else return number minus floor of number.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let truncate_number (number: real) : real =\n    begin\n      if number < 1. then number else number -. floor number\n    end\nend"
+        },
+        {
+            "description": "Use the fractional part function if available (simulate by subtracting floor), focusing on positive numbers only.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let fractional_part (x: real) : real = x -. floor x\n  let truncate_number (number: real) : real = fractional_part number\nend"
+        },
+        {
+            "description": "Use a while loop simulation with mutable reference to subtract 1 repeatedly until the number is less than 1, returning the leftover.",
+            "implementation": "module HumanEval002\n  use real.Real\n  let truncate_number (number: real) : real =\n    let ref n = number in\n    while !n >= 1. do\n      n := !n -. 1.\n    done ;\n    !n\nend"
+        },
+        {
+            "description": "Use an integer division approach by converting number to int, then subtracting its integer part converted back to real from the number to get decimal part.",
+            "implementation": "module HumanEval002\n  use real.Real\n  use int.Int\n  let truncate_number (number: real) : real =\n    let int_part = float_of_int (int_of_float number) in\n    number -. int_part\nend"
+        }
+    ]
+}

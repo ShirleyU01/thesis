@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Basic trial division checking divisors from 2 up to n-1 with tail recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec check_divisor (n: int) (d: int) : bool =\n    if d >= n then true\n    else if (n mod d) = 0 then false\n    else check_divisor n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_divisor n 2\nend"
+        },
+        {
+            "description": "Trial division up to the square root of n using an integer approximation and tail recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.Abs\n  \n  let rec check_divisor_sqrt (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if (n mod d) = 0 then false\n    else check_divisor_sqrt n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_divisor_sqrt n 2\nend"
+        },
+        {
+            "description": "Check divisibility skipping even numbers after checking 2, optimizing by testing only odd divisors.",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec check_odd_divisor (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if (n mod d) = 0 then false\n    else check_odd_divisor n (d + 2)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if (n mod 2) = 0 then false\n    else check_odd_divisor n 3\nend"
+        },
+        {
+            "description": "Recursive function using an accumulator parameter to store the current divisor and check divisibility up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec is_prime_acc (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if (n mod d) = 0 then false\n    else is_prime_acc n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else is_prime_acc n 2\nend"
+        },
+        {
+            "description": "Iterative style using a while loop-like recursion to test divisibility from 2 to n-1.",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec loop (n: int) (d: int) : bool =\n    if d >= n then true\n    else if (n mod d) = 0 then false\n    else loop n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else loop n 2\nend"
+        },
+        {
+            "description": "Generate a list of candidate divisors and check divisibility using a helper function with pattern matching.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use list.List\n  \n  let rec from_to (start: int) (stop: int) : list int =\n    if start > stop then Nil\n    else Cons start (from_to (start + 1) stop)\n  \n  let rec check_list (n: int) (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x xs -> if (n mod x) = 0 then false else check_list n xs\n    end\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_list n (from_to 2 (n - 1))\nend"
+        },
+        {
+            "description": "Sieve-like approach: recursively check divisors removing multiples, simulating filtering of candidates.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use list.List\n  \n  let rec from_to (start: int) (stop: int) : list int =\n    if start > stop then Nil\n    else Cons start (from_to (start + 1) stop)\n  \n  let rec no_divisible (n: int) (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x xs -> if (n mod x) = 0 then false else no_divisible n xs\n    end\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else no_divisible n (from_to 2 (n - 1))\nend"
+        },
+        {
+            "description": "Check divisibility by testing only numbers 2 and then odds from 3 up to sqrt(n), using pattern matching and recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec check_odd (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if (n mod d) = 0 then false\n    else check_odd n (d + 2)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if (n mod 2) = 0 then false\n    else check_odd n 3\nend"
+        },
+        {
+            "description": "Recursive approach with explicit branching using if-then-else to check divisibility up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec is_prime_branch (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if (n mod d) = 0 then false\n    else is_prime_branch n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else is_prime_branch n 2\nend"
+        },
+        {
+            "description": "Using a helper function to check divisibility with an explicit pattern match on the divisor to handle base cases.",
+            "implementation": "module HumanEval031\n  use int.Int\n  \n  let rec check_divisor_pm (n: int) (d: int) : bool =\n    match d with\n    | 0 -> true\n    | 1 -> true\n    | _ -> if d * d > n then true\n           else if (n mod d) = 0 then false\n           else check_divisor_pm n (d + 1)\n    end\n  \n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_divisor_pm n 2\nend"
+        }
+    ]
+}

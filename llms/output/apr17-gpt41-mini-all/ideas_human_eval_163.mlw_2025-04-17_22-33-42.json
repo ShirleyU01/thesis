@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implementation using recursion with pattern matching, always recursing from the smaller of the two inputs up to the larger, building the list by prepending head.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\n\nlet rec generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  if low > high then Nil\n  else Cons low (generate_integers (low + 1) high)\nend"
+        },
+        {
+            "description": "Implementation using an auxiliary tail-recursive helper function with an accumulator to build the list in reverse, then reversing the result before returning.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet rec aux (curr : int) (high : int) (acc : list int) : list int =\n  if curr > high then acc\n  else aux (curr + 1) high (Cons curr acc)\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  Reverse.reverse (aux low high Nil)\nend"
+        },
+        {
+            "description": "Implementation using a for loop with mutable reference to accumulate elements in a mutable list (implemented as an OCaml-style ref to list), then returning the list reversed to preserve order.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Reverse\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  let ref acc = Nil in\n  for i = high downto low do\n    acc := Cons i !acc\n  done;\n  !acc\nend"
+        },
+        {
+            "description": "Implementation using recursion with an explicit if-then-else condition and building the list by Cons from low to high without pattern matching.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\n\nlet rec generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  if low > high then Nil\n  else Cons low (generate_integers (low + 1) high)\nend"
+        },
+        {
+            "description": "Implementation using a recursive helper with an explicit decreasing variant on the difference (high - curr) to ensure termination, building the list from low upwards.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\n\nlet rec gen (curr: int) (high: int) : list int =\n  requires { curr <= high }\n  variant { high - curr }\n  if curr = high then Cons curr Nil\n  else Cons curr (gen (curr + 1) high)\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  if low > high then Nil else gen low high\nend"
+        },
+        {
+            "description": "Implementation using iteration with a while loop and mutable references to build the list from high down to low, then reversing to get ascending order.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  let ref i = high in\n  let ref acc = Nil in\n  while !i >= low do\n    acc := Cons !i !acc;\n    i := !i - 1\n  done;\n  !acc\nend"
+        },
+        {
+            "description": "Implementation using recursion with pattern matching on the list constructed so far, and an inner recursive function that builds the list from low to high without mutable state.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\n\nlet rec build_list (curr: int) (high: int) : list int =\n  if curr > high then Nil\n  else Cons curr (build_list (curr + 1) high)\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  build_list low high\nend"
+        },
+        {
+            "description": "Implementation using a recursive function with an accumulator that prepends elements starting from high down to low, then reverses the accumulator before returning the result.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet rec aux (curr: int) (low: int) (acc: list int) : list int =\n  if curr < low then acc\n  else aux (curr - 1) low (Cons curr acc)\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  aux high low Nil\nend"
+        },
+        {
+            "description": "Implementation using a recursive function that concatenates the current element as a singleton list with the recursive call result, building the list from low to high.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  if low > high then Nil\n  else Cons low Nil ++ generate_integers (low + 1) high\nend"
+        },
+        {
+            "description": "Implementation using recursion with pattern matching on a custom defined range function that returns a list from low to high, then calling that function in generate_integers.",
+            "implementation": "module HumanEval163\n\nuse int.Int\nuse list.List\n\nlet rec range (low: int) (high: int) : list int =\n  if low > high then Nil\n  else Cons low (range (low + 1) high)\n\nlet generate_integers (a : int) (b : int) : list int =\n  let low = if a < b then a else b in\n  let high = if a > b then a else b in\n  range low high\nend"
+        }
+    ]
+}

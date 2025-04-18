@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive function with an explicit index parameter to track odd indices, summing even elements at those positions.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec add_aux (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if (i mod 2 = 1) && (x mod 2 = 0) then x + add_aux xs (i + 1) else add_aux xs (i + 1)\n    end\n\n  let add (l: list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop and a mutable reference to accumulate sum of even elements at odd indices.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let add (l: list int) : int =\n    let n = length l in\n    let ref sum = 0 in\n    let ref i = 0 in\n    while i < n do\n      if (i mod 2 = 1) && (nth_my i l mod 2 = 0) then sum <- sum + nth_my i l;\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive pattern matching without an explicit index, using a helper that skips elements to reach odd indices directly.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add_helper (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let rest = add_helper ys in\n        if y mod 2 = 0 then y + rest else rest\n    end\n\n  let add (l: list int) : int =\n    add_helper l\nend"
+        },
+        {
+            "description": "Using fold_left with an accumulator that tracks current index and accumulated sum, adding even elements at odd indices.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.FoldLeft\n\n  let add (l: list int) : int =\n    let f (acc: int * int) (x: int) : int * int =\n      let (idx, sum) = acc in\n      if (idx mod 2 = 1) && (x mod 2 = 0) then (idx + 1, sum + x) else (idx + 1, sum)\n    in\n    let (_, result) = fold_left f (0, 0) l in\n    result\nend"
+        },
+        {
+            "description": "Using map and filter: map elements with their indices, filter those at odd indices and even values, then sum them.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Map\n  use list.Filter\n  use list.FoldLeft\n\n  type pair = (int, int)\n\n  let rec index_map_aux (l: list int) (i: int) : list pair =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (i, x) (index_map_aux xs (i + 1))\n    end\n\n  let index_map (l: list int) : list pair =\n    index_map_aux l 0\n\n  let add (l: list int) : int =\n    let mapped = index_map l in\n    let filtered = filter (fun (idx, v) -> (idx mod 2 = 1) && (v mod 2 = 0)) mapped in\n    fold_left (fun acc (_, v) -> acc + v) 0 filtered\nend"
+        },
+        {
+            "description": "Recursive function with an accumulator that tracks the current index during traversal and sums accordingly.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add_acc (l: list int) (i: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if (i mod 2 = 1) && (x mod 2 = 0) then acc + x else acc in\n        add_acc xs (i + 1) acc'\n    end\n\n  let add (l: list int) : int =\n    add_acc l 0 0\nend"
+        },
+        {
+            "description": "Reverse the list, then recursively traverse it with index tracking to sum even elements at odd indices from the original list.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec add_rev_aux (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = add_rev_aux xs (i + 1) in\n        if (i mod 2 = 1) && (x mod 2 = 0) then x + rest else rest\n    end\n\n  let add (l: list int) : int =\n    let rl = reverse l in\n    add_rev_aux rl 0\nend"
+        },
+        {
+            "description": "Use a mutual recursive pair of functions: one to process odd indices and one to skip the even indices, summing even elements at odd positions.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  let rec add_odd (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> if x mod 2 = 0 then x + add_even xs else add_even xs\n    end\n  and add_even (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ xs -> add_odd xs\n    end\n\n  let add (l: list int) : int =\n    add_even l\nend"
+        },
+        {
+            "description": "Convert list to array-like structure with index (using a helper), then recursively sum even elements at odd indices.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n\n  type arr = array int\n\n  let rec list_to_array_aux (l: list int) (i: int) (acc: list (int, int)) : list (int, int) =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> list_to_array_aux xs (i + 1) (Cons (i, x) acc)\n    end\n\n  let list_to_array (l: list int) : list (int, int) =\n    list_to_array_aux l 0 Nil\n\n  let rec sum_filtered (a: list (int, int)) : int =\n    match a with\n    | Nil -> 0\n    | Cons (i, v) xs ->\n        let s = sum_filtered xs in\n        if (i mod 2 = 1) && (v mod 2 = 0) then v + s else s\n    end\n\n  let add (l: list int) : int =\n    let arr = list_to_array l in\n    sum_filtered arr\nend"
+        },
+        {
+            "description": "Use fold_right with a pair accumulator storing index and sum, summing even elements at odd indices from right to left.",
+            "implementation": "module HumanEval085\n\n  use int.Int\n  use list.List\n  use list.FoldRight\n\n  let add (l: list int) : int =\n    let f (x: int) (acc: int * int) : int * int =\n      let (idx, sum) = acc in\n      if (idx mod 2 = 1) && (x mod 2 = 0) then (idx + 1, sum + x) else (idx + 1, sum)\n    in\n    let (_, res) = fold_right f l (0, 0) in\n    res\nend"
+        }
+    ]
+}

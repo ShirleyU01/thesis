@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implementation by direct arithmetic property check: since each of the 4 positive even numbers is at least 2, the minimum sum is 8. We check if n >= 8 and n is even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n : int) : bool =\n    begin\n      n >= 8 && (n mod 2 = 0)\n    end\nend"
+        },
+        {
+            "description": "Implementation using recursive decomposition: recursively subtract 2 (the smallest positive even) 4 times from n and check if remainder is zero at the end.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec aux (n: int) (count: int) : bool =\n    if count = 0 then n = 0\n    else if n < 2 then false\n    else aux (n - 2) (count - 1)\n  let is_equal_to_sum_even (n : int) : bool = aux n 4\nend"
+        },
+        {
+            "description": "Implementation by checking if n-8 is non-negative and even: since 4 even numbers sum to n, and minimum sum is 8, then n-8 must be even and >= 0.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n : int) : bool =\n    begin\n      n >= 8 && ((n - 8) mod 2 = 0)\n    end\nend"
+        },
+        {
+            "description": "Implementation by brute force enumeration: try all combinations of four positive even numbers from 2 to n, checking if any sum to n. Uses nested loops simulated via recursion.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec loop1 (n:int) (a:int) : bool =\n    if a > n then false else\n    let rec loop2 (b:int) : bool =\n      if b > n then loop1 n (a + 2)\n      else let rec loop3 (c:int) : bool =\n        if c > n then loop2 (b + 2)\n        else let d = n - (a + b + c) in\n          if d > 0 && d mod 2 = 0 then true else loop3 (c + 2)\n      in loop3 2\n    in loop2 2\n  let is_equal_to_sum_even (n: int) : bool =\n    if n < 8 then false else loop1 n 2\nend"
+        },
+        {
+            "description": "Implementation using pattern matching and checking conditions on n: match on n to filter out less than 8 and odd numbers, else true.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    match n with\n    | _ when n < 8 -> false\n    | _ when n mod 2 <> 0 -> false\n    | _ -> true\n    end\nend"
+        },
+        {
+            "description": "Implementation using arithmetic property with remainder mod 8: sum of four even positive numbers >=8 and is always multiple of 2; check if n is >=8 and remainder mod 2 is zero.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    begin\n      n >= 8 && (n mod 2 = 0)\n    end\nend"
+        },
+        {
+            "description": "Implementation with explicit check of all four numbers being 2: since 4*2=8 minimum sum, if n=8 return true, else if n>8 and even return true, else false.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    if n = 8 then true\n    else if n > 8 && n mod 2 = 0 then true\n    else false\nend"
+        },
+        {
+            "description": "Implementation using logical conjunction of conditions: check that n is even, n >= 8, and n mod 4 is even (which is always true for sums of four even numbers), to ensure correctness.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    begin\n      n >= 8 && (n mod 2 = 0) && (n mod 4 = 0 || n mod 4 = 2)\n    end\nend"
+        },
+        {
+            "description": "Implementation using an auxiliary recursive function that tries to find four even positive numbers summing to n by decreasing n by 2 and decreasing count until zero, returning true if exact sum is reached.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec aux (n:int) (count:int) : bool =\n    if count = 0 then n = 0\n    else if n < 2 then false\n    else aux (n - 2) (count - 1)\n  let is_equal_to_sum_even (n: int) : bool = aux n 4\nend"
+        },
+        {
+            "description": "Implementation using pattern matching on n mod 2 and a guard on n >= 8: directly return true if n even and >=8 else false, using pattern matching for clarity.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    match n mod 2 with\n    | 0 -> if n >= 8 then true else false\n    | _ -> false\n    end\nend"
+        }
+    ]
+}

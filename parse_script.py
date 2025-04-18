@@ -8,6 +8,8 @@ def parse_nested_cons(cons_string):
             if char == '(':
                 stack.append(char)
             elif char == ')':
+                if len(stack) == 0:
+                    raise ValueError
                 stack.pop()
                 if not stack:  
                     return i
@@ -19,20 +21,25 @@ def parse_nested_cons(cons_string):
         return []
     
     if cons_string.startswith("(Cons"):
-        head_start = cons_string.find('(') + 1
-        head_end = head_start + find_balanced_parentheses(cons_string[head_start:])
+        try:
+            head_start = cons_string.find('(') + 1
+            head_end = head_start + find_balanced_parentheses(cons_string[head_start:])
 
-        head = cons_string[head_start:head_end + 1]
+            head = cons_string[head_start:head_end + 1]
 
-        rest_start = head_end + 2 
-        rest_end = rest_start + find_balanced_parentheses(cons_string[rest_start:])
+            rest_start = head_end + 2 
+            rest_end = rest_start + find_balanced_parentheses(cons_string[rest_start:])
 
-        rest = cons_string[rest_start:rest_end + 1]
+            rest = cons_string[rest_start:rest_end + 1]
 
-        parsed_head = parse_nested_cons(head)
-        parsed_rest = parse_nested_cons(rest)
+            parsed_head = parse_nested_cons(head)
+            parsed_rest = parse_nested_cons(rest)
 
-        return [parsed_head] + parsed_rest
+            return [parsed_head] + parsed_rest
+        except ValueError:
+            return cons_string
+        except TypeError:
+            return cons_string
     else:
         try:
             return int(cons_string)  

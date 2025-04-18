@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching to compute sum and product simultaneously by decomposing the list.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec sum_product (l : list int) : list int =\n  match l with\n  | Nil -> Cons 0 (Cons 1 Nil)\n  | Cons x xs ->\n    let sp = sum_product xs in\n    match sp with\n    | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n    | _ -> Nil\n  end\nend"
+        },
+        {
+            "description": "Use an auxiliary recursive function with accumulators for sum and product, traversing the list once.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec aux (l : list int) (sum_acc : int) (prod_acc : int) : list int =\n  match l with\n  | Nil -> Cons sum_acc (Cons prod_acc Nil)\n  | Cons x xs -> aux xs (sum_acc + x) (prod_acc * x)\n  end\n\nlet sum_product (l : list int) : list int =\n  aux l 0 1\nend"
+        },
+        {
+            "description": "Calculate sum and product separately using two recursive functions, then combine the results.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec sum_list (l : list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> x + sum_list xs\n  end\n\nlet rec product_list (l : list int) : int =\n  match l with\n  | Nil -> 1\n  | Cons x xs -> x * product_list xs\n  end\n\nlet sum_product (l : list int) : list int =\n  Cons (sum_list l) (Cons (product_list l) Nil)\nend"
+        },
+        {
+            "description": "Use fold_left style recursion with helper function to accumulate sum and product in a tuple, then convert to list.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec fold_left_sum_prod (l : list int) (acc : (int, int)) : (int, int) =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n    let (s, p) = acc in\n    fold_left_sum_prod xs (s + x, p * x)\n  end\n\nlet sum_product (l : list int) : list int =\n  let (s, p) = fold_left_sum_prod l (0,1) in\n  Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Convert list to an array-like structure using recursion and then iterate with index to calculate sum and product.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\nuse list.Length\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet sum_product (l : list int) : list int =\n  let n = length l in\n  let ref sum = 0 in\n  let ref prod = 1 in\n  let rec loop i =\n    if i < n then\n      begin\n        sum <- sum + nth_my i l;\n        prod <- prod * nth_my i l;\n        loop (i + 1)\n      end else ()\n  in\n  loop 0;\n  Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Use pattern matching with explicit branching on Nil and Cons and inline if-then-else to accumulate sum and product.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec sum_product (l : list int) : list int =\n  match l with\n  | Nil -> Cons 0 (Cons 1 Nil)\n  | Cons x xs ->\n    let sp = sum_product xs in\n    match sp with\n    | Cons s (Cons p Nil) ->\n      if true then Cons (x + s) (Cons (x * p) Nil) else Cons 0 (Cons 1 Nil)\n    | _ -> Cons 0 (Cons 1 Nil)\n  end\nend"
+        },
+        {
+            "description": "Use an inner recursive helper with tuple accumulators and tail recursion style to improve stack safety.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec helper (l : list int) (acc : (int, int)) : (int, int) =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n    let (s, p) = acc in\n    helper xs (s + x, p * x)\n  end\n\nlet sum_product (l : list int) : list int =\n  let (s, p) = helper l (0, 1) in\n  Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Use fold_right style recursion to process list from right to left, accumulating sum and product as tuple.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec fold_right_sum_prod (l : list int) (acc : (int, int)) : (int, int) =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n    let (s, p) = fold_right_sum_prod xs acc in\n    (x + s, x * p)\n  end\n\nlet sum_product (l : list int) : list int =\n  let (s, p) = fold_right_sum_prod l (0, 1) in\n  Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Use an imperative style with mutable references and while loop to iterate and accumulate sum and product.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\\ n < length l }\n  variant { n }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet sum_product (l : list int) : list int =\n  let n = length l in\n  let ref sum = 0 in\n  let ref prod = 1 in\n  let ref i = 0 in\n  while !i < n do\n    sum <- !sum + nth_my !i l;\n    prod <- !prod * nth_my !i l;\n    i <- !i + 1\n  done;\n  Cons !sum (Cons !prod Nil)\nend"
+        },
+        {
+            "description": "Use pattern matching and intermediate lists: map to sum and product lists and then fold them to get sums and products.",
+            "implementation": "module HumanEval008\n\nuse int.Int\nuse list.List\n\nlet rec map (f: int -> int) (l: list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> Cons (f x) (map f xs)\n  end\n\nlet rec fold_left_sum (l: list int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> fold_left_sum xs (acc + x)\n  end\n\nlet rec fold_left_prod (l: list int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> fold_left_prod xs (acc * x)\n  end\n\nlet sum_product (l : list int) : list int =\n  let sum = fold_left_sum l 0 in\n  let prod = fold_left_prod l 1 in\n  Cons sum (Cons prod Nil)\nend"
+        }
+    ]
+}

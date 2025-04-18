@@ -7,9 +7,9 @@ import json
 import re
 
 # Define the base directory containing JSON files
-json_folder = "llms/output/dec5-gpt4o-basic+all"
+json_folder = "llms/output/apr17-gpt41-mini-all"
 mlw_folder = "human_eval_test"  
-result_folder = "llms/implementation/dec5-gpt4o-basic+all"
+result_folder = "llms/implementation/apr17-gpt41-mini-all"
 os.makedirs(result_folder, exist_ok=True)
 
 # Iterate through JSON files in the folder
@@ -41,6 +41,7 @@ for filename in os.listdir(json_folder):
                             if placeholder in content:
                                 updated_content = content.replace(placeholder, placeholder + "\n\n" + implementation)
                             else:
+                                print(f"Filename: {filename}")
                                 raise ValueError("Placeholder not found in the file.")
                             with open(output_file_path, 'w') as mlw_file:
                                 mlw_file.write(updated_content)

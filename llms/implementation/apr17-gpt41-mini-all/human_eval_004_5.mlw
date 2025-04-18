@@ -1,0 +1,159 @@
+(*
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """ For a given list of input numbers, calculate Mean Absolute Deviation
+    around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each
+    element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+*)
+
+module HumanEval004Goal
+
+    use real.Real
+    use list.List
+    use list.Length
+    use list.Map
+    use real.RealInfix
+    use real.FromInt
+    use real.Abs
+
+
+    let abs_diff_from_mean (m: real) (x: real) : real =
+        if x >. m 
+        then x -. m
+        else m -. x
+
+    let rec sum_real (l : list real) : real =
+        match l with
+        | Nil -> 0.0
+        | Cons x xs -> x +. sum_real xs
+        end
+    
+    let rec map_real (l : list real) (m : real) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (abs_diff_from_mean x m) (map_real xs m)
+        end
+    
+    let rec len_real (l : list real) : real =
+        match l with
+        | Nil -> 0.0
+        | Cons x xs -> 1.0 + len_real xs
+        end
+
+    let mean (l: list real) : real =
+        let s = sum_real l in 
+        let len = len_real l in 
+        if s = 0.0 
+        then 0.0 
+        else (s /. len)
+
+    let mean_absolute_deviation (l: list real) : real =
+        (* requires { length l > 0 }
+        ensures { result = (sum_real (map_real (fun x -> abs ((x -. (sum_real l)) /. (len_real l))) l)) /. (len_real l)} *)
+        let m = mean l in ((sum_real (map_real l m)) /. (len_real l))
+        
+end
+
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval004
+  use real.Real
+  use list.List
+  use list.Length
+
+  let rec sum_list (l: list real) : real =
+    match l with
+    | Nil -> 0.0
+    | Cons x xs -> x +. sum_list xs
+    end
+
+  let rec sum_abs_diff (l: list real) (mean: real) : real =
+    match l with
+    | Nil -> 0.0
+    | Cons x xs -> abs (x -. mean) +. sum_abs_diff xs mean
+    end
+
+  let mean_absolute_deviation (numbers: list real) : real =
+    let n = length numbers in
+    if n = 0 then 0.0 else
+    let mean = sum_list numbers /. real_of_int n in
+    sum_abs_diff numbers mean /. real_of_int n
+end
+
+
+module TestHumanEval004
+
+    use real.Real
+    use int.Int
+    use list.List
+    use list.Length
+    use list.Map
+    use real.RealInfix
+    use HumanEval004
+
+    let test1() : bool =
+        (mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil))))) = 1.0
+
+    let test1_output() : real =
+        mean_absolute_deviation (Cons 1.0 (Cons 2.0 (Cons 3.0 (Cons 4.0 Nil))))
+
+    let test2() : bool =
+        (mean_absolute_deviation (Cons 5.0 (Cons 5.0 (Cons 5.0 (Cons 5.0 Nil))))) = 0.0
+
+    let test2_output() : real =
+        mean_absolute_deviation (Cons 5.0 (Cons 5.0 (Cons 5.0 (Cons 5.0 Nil))))
+
+    let test3() : bool =
+        (mean_absolute_deviation (Cons 1.0 (Cons 1.0 (Cons 2.0 (Cons 2.0 Nil))))) = 0.5
+
+    let test3_output() : real =
+        mean_absolute_deviation (Cons 1.0 (Cons 1.0 (Cons 2.0 (Cons 2.0 Nil))))
+
+    let test4() : bool =
+        (mean_absolute_deviation (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil)))) = 6.666666666666667
+
+    let test4_output() : real =
+        mean_absolute_deviation (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil)))
+
+    let test5() : bool =
+        (mean_absolute_deviation (Cons 0.0 (Cons 0.0 (Cons 0.0 Nil)))) = 0.0
+
+    let test5_output() : real =
+        mean_absolute_deviation (Cons 0.0 (Cons 0.0 (Cons 0.0 Nil)))
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
+
+    let testall () : bool =
+        test1() && test2() && test3() && test4() && test5()
+
+    let runtest (x: int) : real =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else -1.0
+    
+    let rec failoutput (l : list int) : list real =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test () : list real =
+        let l = testfail () in failoutput l
+
+
+end

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching with direct sum of squares of positive odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs ->\n      let rest = double_the_difference xs in\n      if x > 0 && (x mod 2 = 1) then x * x + rest else rest\n  end\nend"
+        },
+        {
+            "description": "Tail-recursive helper with accumulator to sum squares of positive odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec aux (l: list int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n      let acc' = if x > 0 && (x mod 2 = 1) then acc + x * x else acc in\n      aux xs acc'\n  end\n\nlet double_the_difference (l: list int) : int = aux l 0\nend"
+        },
+        {
+            "description": "Using fold_left from list.FoldLeft module to accumulate sum of squares of positive odd integers.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.FoldLeft\n\nlet double_the_difference (l: list int) : int =\n  fold_left (fun acc x -> if x > 0 && (x mod 2 = 1) then acc + x * x else acc) 0 l\nend"
+        },
+        {
+            "description": "Using map to transform list to squares or zero, then sum using fold_left.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Map\nuse list.FoldLeft\n\nlet square_if_pos_odd (x: int) : int =\n  if x > 0 && (x mod 2 = 1) then x * x else 0\n\nlet double_the_difference (l: list int) : int =\n  let squares = map square_if_pos_odd l in\n  fold_left (fun acc x -> acc + x) 0 squares\nend"
+        },
+        {
+            "description": "Manual recursion with explicit checks for positivity, oddness, and integer nature (integers only given, so no float check needed).",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs ->\n      if x > 0 && (x mod 2 = 1) then x * x + double_the_difference xs else double_the_difference xs\n  end\nend"
+        },
+        {
+            "description": "Using an inner local recursive function that filters valid elements first, then sums their squares.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet double_the_difference (l: list int) : int =\n  let rec filter_pos_odd (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x > 0 && (x mod 2 = 1) then Cons x (filter_pos_odd xs) else filter_pos_odd xs\n    end\n  in\n  let rec sum_squares (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x * x + sum_squares xs\n    end\n  in\n  sum_squares (filter_pos_odd l)\nend"
+        },
+        {
+            "description": "Using accumulator with pattern matching but with early check for empty list then iteration by recursion.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference_aux (l: list int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs ->\n      let acc' = if x > 0 && (x mod 2 = 1) then acc + x * x else acc in\n      double_the_difference_aux xs acc'\n  end\n\nlet double_the_difference (l: list int) : int = double_the_difference_aux l 0\nend"
+        },
+        {
+            "description": "Using conditional expressions in recursion rather than pattern matching with nested if-then-else.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l: list int) : int =\n  if l = Nil then 0 else\n    let Cons x xs = l in\n    if x > 0 then\n      if x mod 2 = 1 then x * x + double_the_difference xs else double_the_difference xs\n    else double_the_difference xs\nend"
+        },
+        {
+            "description": "Using pattern matching with nested matches for odd check and positivity check separately.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs ->\n      match x > 0 with\n      | False -> double_the_difference xs\n      | True ->\n          match x mod 2 = 1 with\n          | True -> x * x + double_the_difference xs\n          | False -> double_the_difference xs\n          end\n      end\n  end\nend"
+        },
+        {
+            "description": "Using an explicit helper with index and length to recursively iterate the list by position instead of head-tail pattern matching.",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\n\nlet rec nth_my (n: int) (l: list int) : int =\n  requires { length l > 0 }\n  requires { 0 <= n /\n             n < length l }\n  variant { n }\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  end\n\nlet rec helper (l: list int) (len: int) (idx: int) : int =\n  if idx >= len then 0 else\n    let x = nth_my idx l in\n    let rest = helper l len (idx + 1) in\n    if x > 0 && (x mod 2 = 1) then x * x + rest else rest\n\nlet double_the_difference (l: list int) : int =\n  let len = length l in\n  helper l len 0\nend"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+=======================human_eval_009_8.mlw=====================
+Warning, file "llms/implementation/apr17-gpt41-mini-all/human_eval_009_8.mlw", line 20, characters 35-48: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-mini-all/human_eval_009_8.mlw", line 21, characters 37-52: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-mini-all/human_eval_009_8.mlw", line 27, characters 8-24: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-mini-all/human_eval_009_8.mlw", line 47, characters 19-20: unused variable t
+File "llms/implementation/apr17-gpt41-mini-all/human_eval_009_8.mlw", line 52, characters 18-28:
+Logical symbol fold_right is used in a non-ghost context

@@ -16,7 +16,7 @@ def main():
         sys.exit(1)
 
     # Open the CSV file and read its contents
-    with open('../prompt/description_mini.csv', mode='r') as file:
+    with open('../prompt/description.csv', mode='r') as file:
         reader = csv.reader(file)
         
         # Skip the header row if your CSV file has one
@@ -24,11 +24,13 @@ def main():
         
         # Read rows and process them
         for row in reader:
-            if len(row) == 5:  # Ensure the row has exactly two columns
-                column1, column2, column3, column4, column5 = row
-                #print(row)
+            if len(row) == 7:  # Ensure the row has exactly two columns
+                column1, column2, column3, column4, column5, column6, column7 = row
+                print(row)
 
-                llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+                #llm = LLM(model="gpt41-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+                llm = LLM(model="gpt41", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+                #llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=1)
                 #llm = LLM(model="gpt4o", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
 
                 # Create an instance of IdeasGeneration

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive calculation of factorial then recursive product of factorials from n down to 1",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    if n = 1 then fact 1\n    else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Iterative approach using a loop accumulating product of factorials from 1 to n",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    let ref acc = 1 in\n    for i = 1 to n do\n      acc <- acc * fact i\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive factorial function defined manually, then recursive product of factorials",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (x : int) : int =\n    if x <= 1 then 1 else x * fact (x - 1)\n\n  let rec special_factorial (n : int) : int =\n    if n = 1 then fact 1\n    else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Use an auxiliary recursive function with accumulator to compute the product of factorials",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec aux (i : int) (acc : int) : int =\n    if i > 0 then aux (i - 1) (acc * fact i) else acc\n\n  let special_factorial (n : int) : int = aux n 1\nend"
+        },
+        {
+            "description": "Build a custom list of integers from n down to 1, then fold_left with factorial multiplication",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n  use list.List\n  use list.Length\n  use list.FoldLeft\n\n  let rec range_down (n : int) : list int =\n    if n = 0 then Nil else Cons n (range_down (n - 1))\n\n  let special_factorial (n : int) : int =\n    FoldLeft.fold_left (fun acc x -> acc * fact x) 1 (range_down n)\nend"
+        },
+        {
+            "description": "Iteratively compute factorials on the fly and multiply, avoiding repeated factorial calls by caching last factorial",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let special_factorial (n : int) : int =\n    let ref acc = 1 in\n    let ref fact_val = 1 in\n    for i = 1 to n do\n      fact_val <- fact_val * i;\n      acc <- acc * fact_val\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Use pattern matching on integer to recursively compute factorial and special factorial",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (x : int) : int =\n    match x with\n    | 0 -> 1\n    | _ -> x * fact (x - 1)\n    end\n\n  let rec special_factorial (n : int) : int =\n    match n with\n    | 1 -> fact 1\n    | _ -> fact n * special_factorial (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Use a tail-recursive helper to compute the product of factorials from n down to 1",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec helper (k : int) (acc : int) : int =\n    if k <= 0 then acc\n    else helper (k - 1) (acc * fact k)\n\n  let special_factorial (n : int) : int = helper n 1\nend"
+        },
+        {
+            "description": "Define factorial with an iterative loop, then compute special factorial with a for-loop multiplying factorials",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let fact (n : int) : int =\n    let ref acc = 1 in\n    for i = 1 to n do\n      acc <- acc * i\n    done;\n    acc\n\n  let special_factorial (n : int) : int =\n    let ref acc = 1 in\n    for i = n downto 1 do\n      acc <- acc * fact i\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Generate a list from 1 to n using recursion, map factorial over it, then fold product",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n  use list.List\n  use list.FoldLeft\n\n  let rec range_up (start : int) (stop : int) : list int =\n    if start > stop then Nil else Cons start (range_up (start + 1) stop)\n\n  let special_factorial (n : int) : int =\n    let nums = range_up 1 n in\n    FoldLeft.fold_left (fun acc x -> acc * fact x) 1 nums\nend"
+        }
+    ]
+}
