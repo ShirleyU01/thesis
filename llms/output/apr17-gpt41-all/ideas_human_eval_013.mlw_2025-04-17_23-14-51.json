@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Classic Euclidean algorithm using recursion: if b == 0, return abs(a); else return gcd(b, a mod b).",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then abs a else greatest_common_divisor b (a mod b)\nend"
+        },
+        {
+            "description": "Iterative Euclidean algorithm: repeatedly assign (a, b) := (b, a mod b) until b == 0.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = abs a in\n    let ref y = abs b in\n    while y <> 0 do\n      let temp = y in\n      y <- x mod y;\n      x <- temp\n    done;\n    x\nend"
+        },
+        {
+            "description": "Subtraction-based Euclidean algorithm using recursion: repeatedly subtract the smaller from the larger until one is zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    if x = 0 then y else if y = 0 then x\n    else if x > y then greatest_common_divisor (x - y) y\n    else greatest_common_divisor x (y - x)\nend"
+        },
+        {
+            "description": "Recursive algorithm using pattern matching on zero cases, calling abs(a) and abs(b) for negative inputs.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match (a, b) with\n    | (x, 0) -> abs x\n    | (0, y) -> abs y\n    | (x, y) -> greatest_common_divisor y (x mod y)\n    end\nend"
+        },
+        {
+            "description": "Iterative subtraction-based algorithm using a while loop: subtract the smaller from the larger until they are equal or one is zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = abs a in\n    let ref y = abs b in\n    while x <> 0 && y <> 0 do\n      if x > y then x <- x - y else y <- y - x\n    done;\n    if x = 0 then y else x\nend"
+        },
+        {
+            "description": "Compute all divisors of abs(a) and abs(b), then find the maximum common divisor by iterating down from min(abs(a), abs(b)).",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    let m = if x < y then x else y in\n    let ref d = m in\n    let ref found = false in\n    while not found && d > 0 do\n      if x mod d = 0 && y mod d = 0 then found <- true else d <- d - 1\n    done;\n    d\nend"
+        },
+        {
+            "description": "Recursive approach with accumulator argument for tracking the current divisor candidate.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  let rec gcd_acc (a: int) (b: int) (d: int) : int =\n    if d = 0 then 1\n    else if a mod d = 0 && b mod d = 0 then d\n    else gcd_acc a b (d - 1)\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    let m = if x < y then x else y in\n    gcd_acc x y m\nend"
+        },
+        {
+            "description": "Bitwise binary GCD (Stein's algorithm): uses shifts and subtraction, handles even/odd cases.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  let rec binary_gcd (a: int) (b: int) : int =\n    if a = b then a\n    else if a = 0 then b\n    else if b = 0 then a\n    else if a mod 2 = 0 && b mod 2 = 0 then 2 * binary_gcd (a div 2) (b div 2)\n    else if a mod 2 = 0 then binary_gcd (a div 2) b\n    else if b mod 2 = 0 then binary_gcd a (b div 2)\n    else if a > b then binary_gcd ((a - b) div 2) b\n    else binary_gcd ((b - a) div 2) a\n  let greatest_common_divisor (a: int) (b: int) : int =\n    binary_gcd (abs a) (abs b)\nend"
+        },
+        {
+            "description": "Tail-recursive Euclidean algorithm with explicit accumulator for b.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let rec gcd_tail (a: int) (b: int) : int =\n    if b = 0 then a else gcd_tail b (a mod b)\n  let greatest_common_divisor (a: int) (b: int) : int =\n    gcd_tail (abs a) (abs b)\nend"
+        },
+        {
+            "description": "Recursive solution using min and max to always pass (smaller, larger) as (a, b).",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n  use int.MinMax\n  use int.EuclideanDivision\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    if y = 0 then x else greatest_common_divisor (min x y) (max x y mod min x y)\nend"
+        }
+    ]
+}

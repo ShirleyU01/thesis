@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Trial division: Iterative check for divisors from 2 to n-1 using a for-loop.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    if n <= 1 then false else\n    let ref prime = true in\n    for d = 2 to n - 1 do\n      if n mod d = 0 then prime <- false\n    done ;\n    prime\nend"
+        },
+        {
+            "description": "Trial division with upper bound sqrt(n), using a while-loop.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let isqrt (n:int) : int =\n    let ref i = 0 in\n    while i * i <= n do i <- i + 1 done ;\n    i - 1\n  let is_prime (n : int) : bool =\n    if n <= 1 then false else\n    let ref d = 2 in\n    let bound = isqrt n in\n    let ref prime = true in\n    while d <= bound do\n      if n mod d = 0 then prime <- false;\n      d <- d + 1\n    done ;\n    prime\nend"
+        },
+        {
+            "description": "Recursive check for divisibility with accumulator (divisor candidate), terminating at sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec is_prime_helper (n:int) (d:int) : bool =\n    if d*d > n then true\n    else if n mod d = 0 then false\n    else is_prime_helper n (d+1)\n  let is_prime (n:int) : bool =\n    if n <= 1 then false else is_prime_helper n 2\nend"
+        },
+        {
+            "description": "Pattern matching and recursion: check for n \u2264 1, n = 2, n even, and recursively check odd divisors.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec check_odd (n:int) (d:int) : bool =\n    if d*d > n then true\n    else if n mod d = 0 then false\n    else check_odd n (d+2)\n  let is_prime (n:int) : bool =\n    match n with\n    | 2 -> true\n    | _ -> if n <= 1 || n mod 2 = 0 then false else check_odd n 3\n    end\nend"
+        },
+        {
+            "description": "Count divisors in a for-loop, prime if exactly two divisors (1 and n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n:int) : bool =\n    if n <= 1 then false else\n    let ref count = 0 in\n    for d = 1 to n do\n      if n mod d = 0 then count <- count + 1\n    done ;\n    count = 2\nend"
+        },
+        {
+            "description": "Using for-loop but skipping even divisors after checking n=2, improving efficiency.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n:int) : bool =\n    if n = 2 then true else if n <= 1 || n mod 2 = 0 then false else\n    let ref prime = true in\n    for d = 3 to n-1 do\n      if d mod 2 = 1 && n mod d = 0 then prime <- false\n    done ;\n    prime\nend"
+        },
+        {
+            "description": "Recursive approach: check all divisors from 2 to n-1, return false if any divides n.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec has_divisor (n:int) (d:int) : bool =\n    if d = n then false\n    else if n mod d = 0 then true\n    else has_divisor n (d+1)\n  let is_prime (n:int) : bool =\n    if n <= 1 then false else not (has_divisor n 2)\nend"
+        },
+        {
+            "description": "Recursive approach with early return using pattern matching, checking up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec check (n:int) (d:int) : bool =\n    match d*d > n with\n    | True -> true\n    | False -> if n mod d = 0 then false else check n (d+1)\n    end\n  let is_prime (n:int) : bool =\n    if n <= 1 then false else check n 2\nend"
+        },
+        {
+            "description": "Check for prime using the NumOf combinator from int.NumOf to count divisors in [1, n].",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.NumOf\n  let is_prime (n:int) : bool =\n    if n <= 1 then false else numof (fun d -> n mod d = 0) 1 n = 2\nend"
+        },
+        {
+            "description": "Check for small primes explicitly, then test divisibility by 2 and 3, then increment by 6 (6k\u00b11 optimization).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec check_6k (n:int) (i:int) : bool =\n    if i * i > n then true\n    else if n mod i = 0 || n mod (i+2) = 0 then false\n    else check_6k n (i+6)\n  let is_prime (n:int) : bool =\n    if n <= 1 then false\n    else if n <= 3 then true\n    else if n mod 2 = 0 || n mod 3 = 0 then false\n    else check_6k n 5\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursion and pattern matching, always constructing from min to max.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    if lo > hi then Nil else Cons lo (generate_integers (lo + 1) hi)\nend"
+        },
+        {
+            "description": "Iterative construction using a for-loop and a reference list, appending elements from min to max.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.RevAppend\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref res = Nil in\n    for i = hi downto lo do\n      res <- Cons i res\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator (tail recursion), building the list in reverse, then reversing at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let rec aux (cur:int) (hi:int) (acc:list int) : list int =\n    if cur > hi then acc else aux (cur+1) hi (Cons cur acc)\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    reverse (aux lo hi Nil)\nend"
+        },
+        {
+            "description": "Using Why3's int.Iter to repeatedly cons elements, starting from min and incrementing.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use int.Iter\n  use list.List\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let n = hi - lo + 1 in\n    let f (l:list int) (i:int) : list int = Cons (hi - i) l in\n    let l = iter f n Nil in\n    l\nend"
+        },
+        {
+            "description": "Recursively build the list from high to low, then reverse.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let rec aux (lo:int) (hi:int) (acc:list int) : list int =\n    if hi < lo then acc else aux lo (hi-1) (Cons hi acc)\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    reverse (aux lo hi Nil)\nend"
+        },
+        {
+            "description": "Iterative construction using a while-loop, incrementing from min to max and pushing into accumulator, then reverse.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref acc = Nil in\n    let ref i = lo in\n    while i <= hi do\n      acc <- Cons i acc;\n      i <- i + 1\n    done;\n    reverse acc\nend"
+        },
+        {
+            "description": "Recursion with explicit if-then-else branches for base and recursive cases.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    if lo > hi then Nil else if lo = hi then Cons lo Nil else Cons lo (generate_integers (lo+1) hi)\nend"
+        },
+        {
+            "description": "Recursion with pattern matching on difference between min and max.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    match hi - lo with\n    | d when d < 0 -> Nil\n    | 0 -> Cons lo Nil\n    | _ -> Cons lo (generate_integers (lo+1) hi)\n    end\nend"
+        },
+        {
+            "description": "Iterative construction using a for-loop from min to max, appending to result using rev_append for efficiency.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.RevAppend\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref res = Nil in\n    for i = lo to hi do\n      res <- Cons i res\n    done;\n    rev_append res Nil\nend"
+        },
+        {
+            "description": "Recursion, using a separate helper to always swap a and b so a <= b, then do a simple range construction.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n  let rec gen (a:int) (b:int) : list int =\n    if a > b then Nil else Cons a (gen (a+1) b)\n  let generate_integers (a:int) (b:int) : list int =\n    if a <= b then gen a b else gen b a\nend"
+        }
+    ]
+}

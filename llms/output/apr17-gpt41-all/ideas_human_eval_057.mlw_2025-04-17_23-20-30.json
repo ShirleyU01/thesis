@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check monotonicity by using two helper recursive functions: one for increasing, one for decreasing. The main function returns true if either helper returns true.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec is_increasing (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) -> if x <= y then is_increasing (Cons y xs) else false\n    end\n\n  let rec is_decreasing (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) -> if x >= y then is_decreasing (Cons y xs) else false\n    end\n\n  let monotonic (l: list int) : bool =\n    is_increasing l || is_decreasing l\nend"
+        },
+        {
+            "description": "Use a single recursive function with an additional parameter that determines the current direction (increasing or decreasing, or undetermined for the first comparison).",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  type direction = Undetermined | Increasing | Decreasing\n\n  let rec check_dir (l: list int) (dir: direction) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) ->\n      match dir with\n      | Undetermined ->\n          if x < y then check_dir (Cons y xs) Increasing\n          else if x > y then check_dir (Cons y xs) Decreasing\n          else check_dir (Cons y xs) Undetermined\n      | Increasing -> if x <= y then check_dir (Cons y xs) Increasing else false\n      | Decreasing -> if x >= y then check_dir (Cons y xs) Decreasing else false\n      end\n    end\n\n  let monotonic (l: list int) : bool = check_dir l Undetermined\nend"
+        },
+        {
+            "description": "Use the for_all predicate from list.Quant to check if all adjacent pairs are non-decreasing or all are non-increasing.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Quant\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let monotonic (l: list int) : bool =\n    let n = length l in\n    for_all (fun i: int -> nth_my i l <= nth_my (i+1) l) 0 (n-2) ||\n    for_all (fun i: int -> nth_my i l >= nth_my (i+1) l) 0 (n-2)\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop and index-based traversal. Maintains two boolean flags and sets them to false if a violation is found.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let monotonic (l: list int) : bool =\n    let n = length l in\n    if n <= 1 then true else\n    let ref i = 0 in\n    let ref inc = true in\n    let ref dec = true in\n    while i < n-1 do\n      if nth_my i l > nth_my (i+1) l then inc <- false;\n      if nth_my i l < nth_my (i+1) l then dec <- false;\n      i <- i + 1\n    done;\n    inc || dec\nend"
+        },
+        {
+            "description": "Recursive pattern matching: On the first difference between two elements, determines the direction and recursively checks the rest of the list accordingly.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec check (l: list int) (incr: bool) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) ->\n      if incr then (x <= y && check (Cons y xs) true)\n      else (x >= y && check (Cons y xs) false)\n    end\n\n  let rec monotonic (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) ->\n      if x < y then check (Cons y xs) true\n      else if x > y then check (Cons y xs) false\n      else monotonic (Cons y xs)\n    end\nend"
+        },
+        {
+            "description": "Use two accumulators in a single recursive function: one for increasing, one for decreasing. At each step, update both and at the end, return their disjunction.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec helper (l: list int) (inc: bool) (dec: bool) : bool =\n    match l with\n    | Nil -> inc || dec\n    | Cons _ Nil -> inc || dec\n    | Cons x (Cons y xs) ->\n      let inc' = inc && (x <= y) in\n      let dec' = dec && (x >= y) in\n      helper (Cons y xs) inc' dec'\n    end\n\n  let monotonic (l: list int) : bool = helper l true true\nend"
+        },
+        {
+            "description": "Use the list.SortedInt and list.RevSorted libraries to check if the list is sorted in either direction.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.SortedInt\n  use list.RevSorted\n\n  let monotonic (l: list int) : bool =\n    sorted l || rev_sorted l\nend"
+        },
+        {
+            "description": "Fold-left approach: Traverse the list with fold_left, maintaining current direction and a flag for monotonicity, updating them as necessary.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.FoldLeft\n\n  type dir = None | Up | Down\n\n  let update_dir ((d, ok): (dir, bool)) (pair: (int, int)) : (dir, bool) =\n    let (a, b) = pair in\n    match d with\n    | None -> if a < b then (Up, ok) else if a > b then (Down, ok) else (None, ok)\n    | Up -> if a <= b then (Up, ok) else (Up, false)\n    | Down -> if a >= b then (Down, ok) else (Down, false)\n    end\n\n  let rec pairs (l: list int) : list (int, int) =\n    match l with\n    | Nil -> Nil\n    | Cons _ Nil -> Nil\n    | Cons x (Cons y xs) -> Cons (x, y) (pairs (Cons y xs))\n    end\n\n  let monotonic (l: list int) : bool =\n    let (_, ok) = fold_left update_dir (None, true) (pairs l) in\n    ok\nend"
+        },
+        {
+            "description": "Recursive approach that skips over equal elements and determines direction on the first unequal pair. Continues checking until a violation is found or the end is reached.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec skip_equals (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y xs) ->\n      if x = y then skip_equals (Cons y xs) else Cons x (Cons y xs)\n    end\n\n  let rec check_dir (l: list int) (incr: bool) : bool =\n    match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) ->\n      if incr then (x <= y && check_dir (Cons y xs) true)\n      else (x >= y && check_dir (Cons y xs) false)\n    end\n\n  let monotonic (l: list int) : bool =\n    let l' = skip_equals l in\n    match l' with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y xs) ->\n      if x < y then check_dir (Cons y xs) true\n      else check_dir (Cons y xs) false\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using a for loop that checks for both monotonic increasing and decreasing in a single traversal, updating flags as necessary.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let monotonic (l: list int) : bool =\n    let n = length l in\n    if n <= 1 then true else\n    let ref inc = true in\n    let ref dec = true in\n    for i = 0 to n-2 do\n      if nth_my i l > nth_my (i+1) l then inc <- false;\n      if nth_my i l < nth_my (i+1) l then dec <- false\n    done;\n    inc || dec\nend"
+        }
+    ]
+}

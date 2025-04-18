@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using floor function: Subtract the integer part (floor) from the original real number to get the decimal part.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.Floor\n\n  let truncate_number (number: real) : real =\n    number -. floor number\nend"
+        },
+        {
+            "description": "Using cast from real to int: Convert the real to int and subtract from the original number to get the decimal part.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.ToInt\n  use int.Int\n  use int.ToReal\n\n  let truncate_number (number: real) : real =\n    number -. to_real (to_int number)\nend"
+        },
+        {
+            "description": "Using recursive subtraction: Subtract 1 repeatedly from the real number until the result is less than 1, and return the leftover (decimal part).",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.Real\n  use real.FromInt\n\n  let rec helper (x: real) : real =\n    if x < 1.0 then x else helper (x -. 1.0)\n  \n  let truncate_number (number: real) : real =\n    helper number\nend"
+        },
+        {
+            "description": "Using while loop (simulated with reference): Decrement the number by 1.0 until it is less than 1.0, then return the remainder.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.Real\n  use real.FromInt\n\n  let truncate_number (number: real) : real =\n    let ref n = number in\n    while n >= 1.0 do\n      n <- n -. 1.0\n    done;\n    n\nend"
+        },
+        {
+            "description": "Using round towards zero (trunc): Truncate the real to int, convert back to real, and subtract to get the decimal.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.ToInt\n  use int.Int\n  use int.ToReal\n\n  let truncate_number (number: real) : real =\n    number -. to_real (to_int number)\nend"
+        },
+        {
+            "description": "Using modf-like approach: Simulate a modf operation by separating integer and fractional part using to_int.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.ToInt\n  use int.Int\n  use int.ToReal\n\n  let truncate_number (number: real) : real =\n    let ipart = to_int number in\n    let fpart = number -. to_real ipart in\n    fpart\nend"
+        },
+        {
+            "description": "Using list and fold: Create a list of 1.0's and subtract using fold until the number is less than 1.0.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use list.List\n  use list.FoldLeft\n  use int.Int\n  use int.ToReal\n\n  let rec make_ones (n:int) : list real =\n    if n = 0 then Nil else Cons 1.0 (make_ones (n-1))\n\n  let truncate_number (number: real) : real =\n    let n = (if number < 0.0 then 0 else to_int number) in\n    let ones = make_ones n in\n    fold_left (fun acc x -> acc -. x) number ones\nend"
+        },
+        {
+            "description": "Using pattern matching on the integer part: Extract integer part using to_int and use pattern matching to get the decimal.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.ToInt\n  use int.Int\n  use int.ToReal\n\n  let truncate_number (number: real) : real =\n    let ipart = to_int number in\n    match ipart with\n    | n -> number -. to_real n\n    end\nend"
+        },
+        {
+            "description": "Using auxiliary function and if-then-else for edge cases: Check if number is already an integer and return 0.0, else subtract floor.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.Floor\n\n  let truncate_number (number: real) : real =\n    if number = floor number then 0.0 else number -. floor number\nend"
+        },
+        {
+            "description": "Using mod operator for positive numbers: Use real modulo 1.0 to get the decimal part.",
+            "implementation": "module HumanEval002\n  use real.RealInfix\n  use real.Mod\n\n  let truncate_number (number: real) : real =\n    number %. 1.0\nend"
+        }
+    ]
+}

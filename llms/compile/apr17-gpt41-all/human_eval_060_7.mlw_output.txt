@@ -1,0 +1,4 @@
+=======================human_eval_060_7.mlw=====================
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_060_7.mlw", line 45, characters 34-48: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/apr17-gpt41-all/human_eval_060_7.mlw", line 48, characters 4-13:
+Logical symbol fold_left is used in a non-ghost context

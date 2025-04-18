@@ -1,0 +1,178 @@
+(* def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    """ Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+    False
+    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+    True
+    """
+*)
+
+ 
+module HumanEval000Goal
+
+    use real.Real
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use list.Mem
+    use int.Int
+    use real.RealInfix
+
+    let rec nth_1 (n : int) (l : list real) : real =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let rec has_close_elements (l : list real) (threshold : real) : bool =
+        ensures { result <-> exists x. (mem x l) /\ (exists y. (mem y l) /\ ((x -. y) <. threshold)) }
+        let n = length l in
+        let ref flag = false in
+        for i = 0 to n - 1 do
+            for j = i + 1 to n - 1 do
+                if (((nth_1 i l) - (nth_1 j l)) < threshold) 
+                then flag <- true
+            done;
+        done;
+        flag
+
+end 
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval000
+  use real.Real
+  use list.List
+  use list.FoldLeft
+  
+  let rec exists_close (x: real) (l: list real) (threshold: real) : bool =
+    match l with
+    | Nil -> false
+    | Cons y ys -> if abs (x -. y) < threshold then true else exists_close x ys threshold
+    end
+  
+  let has_close_elements (numbers: list real) (threshold: real) : bool =
+    let f = (fun (acc: (list real, bool)) (x: real) ->
+      let (prev, found) = acc in
+      if found then (prev, true) else
+        if exists_close x prev threshold then (prev, true) else (Cons x prev, false)) in
+    let (_, result) = fold_left f (Nil, false) numbers in
+    result
+end
+
+
+module TestHumanEval000
+    use real.Real
+    use list.List
+    use list.Length
+    use int.Int
+    use HumanEval000Goal
+    
+    let test1() : bool =
+        not (has_close_elements (Cons 1.0 (Cons 2.0 (Cons 3.0 Nil))) 0.5) 
+
+    let test1_output() : bool = 
+        has_close_elements (Cons 1.0 (Cons 2.0 (Cons 3.0 Nil))) 0.5
+
+    let test2() : bool =
+        (has_close_elements (Cons 1.0 (Cons 2.8 (Cons 3.0 (Cons 4.0 (Cons 5.0 (Cons 2.0 Nil)))))) 0.3)
+
+    let test2_output() : bool = 
+        has_close_elements (Cons 1.0 (Cons 2.8 (Cons 3.0 (Cons 4.0 (Cons 5.0 (Cons 2.0 Nil)))))) 0.3
+
+    let test3() : bool =
+        not (has_close_elements (Cons 5.5 (Cons 6.2 (Cons 7.1 (Cons 8.0 Nil)))) 0.9) 
+
+    let test3_output() : bool = 
+        has_close_elements (Cons 5.5 (Cons 6.2 (Cons 7.1 (Cons 8.0 Nil)))) 0.9
+
+    let test4() : bool =
+        (has_close_elements (Cons 0.1 (Cons 0.2 (Cons 0.25 (Cons 0.3 Nil)))) 0.05) 
+
+    let test4_output() : bool = 
+        has_close_elements (Cons 0.1 (Cons 0.2 (Cons 0.25 (Cons 0.3 Nil)))) 0.05
+
+    let test5() : bool =
+        not (has_close_elements (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil))) 5.0) 
+
+    let test5_output() : bool = 
+        has_close_elements (Cons 10.0 (Cons 20.0 (Cons 30.0 Nil))) 5.0
+
+    let test6() : bool =
+        (has_close_elements (Cons 100.0 (Cons 100.05 (Cons 100.1 Nil))) 0.06) 
+
+    let test6_output() : bool = 
+        has_close_elements (Cons 100.0 (Cons 100.05 (Cons 100.1 Nil))) 0.06
+
+    let test7() : bool =
+        not (has_close_elements (Cons 1.0 (Cons 1.00001 (Cons 2.0 Nil))) 0.0001) 
+
+    let test7_output() : bool = 
+        has_close_elements (Cons 1.0 (Cons 1.00001 (Cons 2.0 Nil))) 0.0001
+
+    let test8() : bool =
+        (has_close_elements (Cons 2.5 (Cons 2.5001 (Cons 3.5 Nil))) 0.0002)
+
+    let test8_output() : bool = 
+        has_close_elements (Cons 2.5 (Cons 2.5001 (Cons 3.5 Nil))) 0.0002
+
+    let test9() : bool =
+        not (has_close_elements (Cons 0.0 (Cons 0.001 (Cons 0.002 Nil))) 0.0005) 
+
+    let test9_output() : bool = 
+        has_close_elements (Cons 0.0 (Cons 0.001 (Cons 0.002 Nil))) 0.0005
+
+    let test10() : bool =
+        (has_close_elements (Cons 1.1 (Cons 1.2 (Cons 1.3 (Cons 1.31 Nil)))) 0.02) 
+
+    let test10_output() : bool = 
+        has_close_elements (Cons 1.1 (Cons 1.2 (Cons 1.3 (Cons 1.31 Nil)))) 0.02
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let runtest (x : int) : bool =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else if x = 6 then test6_output()
+        else if x = 7 then test7_output()
+        else if x = 8 then test8_output()
+        else if x = 9 then test9_output()
+        else if x = 10 then test10_output()
+        else false
+
+    let rec failoutput (l : list int) : list bool =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+
+
+    let test () : list bool =
+        let l = testfail () in failoutput l
+
+
+
+end
+

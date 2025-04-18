@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct arithmetic formula (Gauss formula): Uses the closed-form expression n*(n+1)/2 to compute the sum in constant time.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let sum_to_n (n: int) : int =\n    n * (n + 1) / 2\nend"
+        },
+        {
+            "description": "Simple recursion: Defines sum_to_n recursively as n + sum_to_n(n-1), with the base case sum_to_n(1) = 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    if n = 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Tail recursive with accumulator: Uses a helper with an accumulator to collect the sum, improving on call stack usage.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n_aux (n: int) (acc: int) : int =\n    if n = 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n\n  let sum_to_n (n: int) : int =\n    sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "For-loop using references: Sums from 1 to n using a for-loop and a mutable reference for the accumulator.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    let ref s = 0 in\n    for i = 1 to n do\n      s <- s + i\n    done ;\n    s\nend"
+        },
+        {
+            "description": "While-loop: Uses a while loop with manual index and accumulator to sum the numbers 1 through n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    let ref i = 1 in\n    let ref s = 0 in\n    while i <= n do\n      s <- s + i ;\n      i <- i + 1\n    done ;\n    s\nend"
+        },
+        {
+            "description": "List generation and sum: Constructs a list of numbers from 1 to n, then uses the built-in list.Sum module to sum them.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let rec upto (k: int) : list int =\n    if k = 0 then Nil else Cons k (upto (k - 1))\n\n  let sum_to_n (n: int) : int =\n    sum (upto n)\nend"
+        },
+        {
+            "description": "Map-reduce style: Maps the identity function over a list 1..n, then folds left to sum the result.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Map\n  use list.FoldLeft\n\n  let rec upto (k: int) : list int =\n    if k = 0 then Nil else Cons k (upto (k - 1))\n\n  let sum_to_n (n: int) : int =\n    fold_left (fun acc x -> acc + x) 0 (map (fun x -> x) (upto n))\nend"
+        },
+        {
+            "description": "Pattern matching with recursion: Uses pattern matching on a custom list built from 1 to n, summing recursively.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  let rec upto (k : int) : list int =\n    if k = 0 then Nil else Cons k (upto (k - 1))\n\n  let rec sumlist (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sumlist xs\n    end\n\n  let sum_to_n (n: int) : int =\n    sumlist (upto n)\nend"
+        },
+        {
+            "description": "Using int.Sum library: Uses the int.Sum module's higher-order sum function to sum identity over range 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.Sum\n\n  let sum_to_n (n: int) : int =\n    sum (fun x -> x) 1 n\nend"
+        },
+        {
+            "description": "Recursion with branching (if-then-else): Uses explicit conditional branching without else, returning early on base case.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    if n <= 1 then n else n + sum_to_n (n - 1)\nend"
+        }
+    ]
+}

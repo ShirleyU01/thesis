@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check by arithmetic: n must be even, at least 8, and n/2 >= 4. This is the minimal logic: n must be a sum of 4 even numbers, so n >= 8 and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    n >= 8 && (n mod 2 = 0)\nend"
+        },
+        {
+            "description": "Use recursion: subtract 2 at each step, count the number of 2s until 4, and check if all positive and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec can_sum (n: int) (k: int) : bool =\n    if k = 0 then n = 0 else n >= 2 && (n mod 2 = 0) && can_sum (n - 2) (k - 1)\n  let is_equal_to_sum_even (n: int) : bool =\n    can_sum n 4\nend"
+        },
+        {
+            "description": "Explicitly look for four positive even numbers a,b,c,d such that a+b+c+d=n and all a,b,c,d >= 2. Try a=2, b=2, c=2, d=n-6 and check if d is even and >=2.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    let d = n - 6 in\n    d >= 2 && (d mod 2 = 0)\nend"
+        },
+        {
+            "description": "Try all possible combinations of four positive even numbers summing to n using a for-loop simulation with recursion.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec try_comb (a: int) (n: int) : bool =\n    if a > n/4 then false\n    else let rem = n - a in\n      let b = 2 in\n      let c = 2 in\n      let d = rem - b - c in\n      if a >= 2 && b >= 2 && c >= 2 && d >= 2 && (a mod 2 = 0) && (d mod 2 = 0) then a + b + c + d = n\n      else try_comb (a + 2) n\n  let is_equal_to_sum_even (n: int) : bool =\n    try_comb 2 n\nend"
+        },
+        {
+            "description": "Use number theory: any even number n >= 8 can be written as sum of four positive even numbers. Direct check using this fact.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    n >= 8 && (n mod 2 = 0)\nend"
+        },
+        {
+            "description": "Partition n into four parts using division, check if all parts are >=2 and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    let q = n / 4 in\n    let r = n mod 4 in\n    if n < 8 || n mod 2 <> 0 then false\n    else\n      let a = 2 in\n      let b = 2 in\n      let c = 2 in\n      let d = n - 6 in\n      d >= 2 && (d mod 2 = 0)\nend"
+        },
+        {
+            "description": "Recursive backtracking: try to subtract even numbers from n, four times, and see if it is possible to reach zero.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec helper (n:int) (k:int) : bool =\n    if k = 0 then n = 0\n    else if n < 2 then false\n    else\n      let rec loop (e:int) : bool =\n        if e > n then false\n        else if helper (n-e) (k-1) then true\n        else loop (e+2)\n      in loop 2\n  let is_equal_to_sum_even (n:int) : bool =\n    helper n 4\nend"
+        },
+        {
+            "description": "Explicit if-then-else branching for n < 8 (false), for n even and >=8 (true), else false.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n:int) : bool =\n    if n < 8 then false\n    else if n mod 2 = 0 then true\n    else false\nend"
+        },
+        {
+            "description": "Simulate a for-loop (from 2 to n-6 by 2) to enumerate possible first addend, then check if the rest can be split as three positive even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec check_first (a:int) (n:int) : bool =\n    if a > n - 6 then false\n    else let rest = n - a in\n      let b = 2 in\n      let c = 2 in\n      let d = rest - 4 in\n      if d >= 2 && (d mod 2 = 0) then true\n      else check_first (a + 2) n\n  let is_equal_to_sum_even (n:int) : bool =\n    check_first 2 n\nend"
+        },
+        {
+            "description": "Use a mathematical formula: Since you need four positive even numbers, their minimum sum is 8, so check if n >= 8 and n is even, return accordingly using a begin-end block.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n:int) : bool =\n    begin\n      if n < 8 then false\n      else if n mod 2 = 0 then true\n      else false\n    end\nend"
+        }
+    ]
+}

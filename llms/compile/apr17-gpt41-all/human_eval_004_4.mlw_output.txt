@@ -1,0 +1,13 @@
+=======================human_eval_004_4.mlw=====================
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 32, characters 28-39: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 38, characters 53-68: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 44, characters 15-16: unused variable x
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 44, characters 29-40: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 49, characters 18-28: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 48, characters 16-26: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 57, characters 27-52: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 57, characters 37-51: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 57, characters 56-68: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 57, characters 16-22: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/apr17-gpt41-all/human_eval_004_4.mlw", line 73, characters 21-23:
+unbound function or predicate symbol '(+.)'

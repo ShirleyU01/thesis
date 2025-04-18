@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative implementation using a for-loop with an accumulator to track the balance. Returns true as soon as the balance drops below zero.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref bal = 0 in\n    let ref found = False in\n    for i = 0 to n-1 do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then found <- True\n    done;\n    found\nend"
+        },
+        {
+            "description": "Recursive function with pattern matching, passing current balance as an accumulator argument. Returns true when balance is negative.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  let rec helper (ops: list int) (bal: int) : bool =\n    match ops with\n    | Nil -> False\n    | Cons x xs -> let new_bal = bal + x in\n                   if new_bal < 0 then True else helper xs new_bal\n    end\n  let below_zero (operations: list int) : bool = helper operations 0\nend"
+        },
+        {
+            "description": "Recursive implementation with pattern matching and no helper function. The recursion is directly inside below_zero and uses an accumulator.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  let rec below_zero_acc (ops: list int) (bal: int) : bool =\n    match ops with\n    | Nil -> False\n    | Cons x xs -> if bal + x < 0 then True else below_zero_acc xs (bal + x)\n    end\n  let below_zero (operations: list int) : bool = below_zero_acc operations 0\nend"
+        },
+        {
+            "description": "Using while-loop to simulate imperative logic, with an explicit index and accumulator for the balance.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref i = 0 in\n    let ref bal = 0 in\n    let ref found = False in\n    while i < n do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then found <- True;\n      i <- i + 1\n    done;\n    found\nend"
+        },
+        {
+            "description": "Purely functional recursive implementation, using explicit if-then-else instead of pattern matching for Nil/Cons.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  let rec below_zero (operations: list int) : bool =\n    if is_nil operations then False\n    else\n      let x = match operations with | Cons y _ -> y | _ -> 0 end in\n      let xs = match operations with | Cons _ ys -> ys | _ -> Nil end in\n      let rec aux (os: list int) (bal: int) : bool =\n        if is_nil os then False\n        else\n          let y = match os with | Cons z _ -> z | _ -> 0 end in\n          let ys = match os with | Cons _ zs -> zs | _ -> Nil end in\n          if bal + y < 0 then True else aux ys (bal + y)\n      in aux operations 0\nend"
+        },
+        {
+            "description": "Implementation using fold_left to traverse the list, carrying balance and a found flag as a tuple. The flag is set to true if balance drops below zero.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.FoldLeft\n  let below_zero (operations: list int) : bool =\n    let f (acc: (int, bool)) (x: int) : (int, bool) =\n      let (bal, found) = acc in\n      let new_bal = bal + x in\n      (new_bal, found || (new_bal < 0))\n    in\n    let (_, found) = fold_left f (0, False) operations in\n    found\nend"
+        },
+        {
+            "description": "Recursive implementation that returns False if the list is empty, otherwise checks if the running sum so far is negative before the next step.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  let rec below_zero (operations: list int) : bool =\n    let rec aux (ops: list int) (bal: int) : bool =\n      match ops with\n      | Nil -> False\n      | Cons x xs ->\n        let nb = bal + x in\n        if nb < 0 then True else aux xs nb\n      end\n    in aux operations 0\nend"
+        },
+        {
+            "description": "Implementation by mapping the list to the list of cumulative sums, then checking if any sum is negative (using for_some).",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.Quant\n  let rec scanl (f: int -> int -> int) (acc: int) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> let new_acc = f acc x in Cons new_acc (scanl f new_acc xs)\n    end\n  let below_zero (operations: list int) : bool =\n    let balances = scanl (+) 0 operations in\n    for_some (fun x -> x < 0) balances\nend"
+        },
+        {
+            "description": "Iterative implementation that breaks the loop as soon as the balance is negative, for efficiency (early exit).",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref bal = 0 in\n    let ref found = False in\n    let ref i = 0 in\n    while i < n && not found do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then found <- True;\n      i <- i + 1\n    done;\n    found\nend"
+        },
+        {
+            "description": "Recursive implementation with a separate helper to compute cumulative balances and then checks if any balance is negative.",
+            "implementation": "module HumanEval003\n  use int.Int\n  use list.List\n  use list.Quant\n  let rec compute_balances (ops: list int) (bal: int) : list int =\n    match ops with\n    | Nil -> Nil\n    | Cons x xs -> let new_bal = bal + x in Cons new_bal (compute_balances xs new_bal)\n    end\n  let below_zero (operations: list int) : bool =\n    let balances = compute_balances operations 0 in\n    for_some (fun x -> x < 0) balances\nend"
+        }
+    ]
+}

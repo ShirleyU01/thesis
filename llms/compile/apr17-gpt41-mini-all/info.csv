@@ -32,6 +32,8 @@ human_eval_163_3.mlw,"[""unbound function or predicate symbol '(!)'""]","unbound
 "
 human_eval_053_4.mlw,['anomaly: Stack overflow'],"anomaly: Stack overflow
 "
+human_eval_020_8.mlw,"[""unbound function or predicate symbol 'abs'""]","unbound function or predicate symbol 'abs'
+"
 human_eval_139_6.mlw,[],
 human_eval_004_3.mlw,"['This expression has type int, but is expected to have type real']","This expression has type int, but is expected to have type real
 "
@@ -42,12 +44,18 @@ human_eval_000_6.mlw,"[""unbound function or predicate symbol '(-._)'""]","unbou
 "
 human_eval_009_9.mlw,"[""unbound function or predicate symbol 'nth_1'""]","unbound function or predicate symbol 'nth_1'
 "
+human_eval_020_2.mlw,['syntax error'],"syntax error
+"
 human_eval_052_10.mlw,[],
 human_eval_000_5.mlw,"['This expression has type int, but is expected to have type real']","This expression has type int, but is expected to have type real
+"
+human_eval_020_4.mlw,['Module Sort not found in library list'],"Module Sort not found in library list
 "
 human_eval_085_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
 human_eval_159_6.mlw,[],
+human_eval_020_1.mlw,['Module Sort not found in library list'],"Module Sort not found in library list
+"
 human_eval_052_8.mlw,[],
 human_eval_085_7.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
@@ -160,11 +168,15 @@ human_eval_042_6.mlw,[],
 human_eval_053_1.mlw,[],
 human_eval_035_8.mlw,['syntax error'],"syntax error
 "
+human_eval_020_3.mlw,['syntax error'],"syntax error
+"
 human_eval_052_2.mlw,[],
 human_eval_163_5.mlw,[],
 human_eval_060_4.mlw,[],
 human_eval_009_1.mlw,"['Type mismatch between (list.List.list int, list.List.list int, list.List.list', 'int) and int']","Type mismatch between (list.List.list int, list.List.list int, list.List.list
 int) and int
+"
+human_eval_020_6.mlw,['syntax error'],"syntax error
 "
 human_eval_138_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
@@ -528,6 +540,8 @@ human_eval_009_6.mlw,"['Type mismatch between (list.List.list int, list.List.lis
 int) and int
 "
 human_eval_008_4.mlw,[],
+human_eval_020_7.mlw,"[""unbound type symbol 'array'""]","unbound type symbol 'array'
+"
 human_eval_138_8.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
 human_eval_000_4.mlw,"[""unbound function or predicate symbol '(-._)'""]","unbound function or predicate symbol '(-._)'
@@ -549,6 +563,8 @@ human_eval_035_5.mlw,['syntax error'],"syntax error
 human_eval_097_10.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
 human_eval_053_5.mlw,[],
+human_eval_020_10.mlw,['Module Sort not found in library list'],"Module Sort not found in library list
+"
 human_eval_031_10.mlw,['syntax error'],"syntax error
 "
 human_eval_163_8.mlw,[],
@@ -812,6 +828,8 @@ for input the output we obtained with current implementation is ); but the expec
     Please revise the current implementation to fix the problem.
 "
 human_eval_009_3.mlw,[],
+human_eval_020_9.mlw,['syntax error'],"syntax error
+"
 human_eval_005_9.mlw,[],
 human_eval_004_5.mlw,"[""unbound function or predicate symbol '(+.)'""]","unbound function or predicate symbol '(+.)'
 "
@@ -889,6 +907,8 @@ human_eval_152_8.mlw,['syntax error'],"syntax error
 human_eval_085_1.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "
 human_eval_042_3.mlw,"[""Type mismatch between list.List.list 'a and list.List.list int""]","Type mismatch between list.List.list 'a and list.List.list int
+"
+human_eval_020_5.mlw,"[""unbound function or predicate symbol 'abs'""]","unbound function or predicate symbol 'abs'
 "
 human_eval_031_3.mlw,"[""unbound function or predicate symbol 'mod'""]","unbound function or predicate symbol 'mod'
 "

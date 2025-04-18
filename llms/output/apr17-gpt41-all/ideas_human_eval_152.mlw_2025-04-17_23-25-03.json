@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative implementation using a for-loop and index access to compute the absolute difference between elements at the same position in both lists.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    let n = length l1 in\n    let ref res = Nil : list int in\n    for i = n - 1 downto 0 do\n      let diff = abs (nth_my i l1 - nth_my i l2) in\n      res <- Cons diff res\n    done;\n    res\nend\n"
+        },
+        {
+            "description": "Recursive implementation using pattern matching to traverse both lists simultaneously and compute the result.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    end\nend\n"
+        },
+        {
+            "description": "Implementation using a helper function with an accumulator, building the result list in reverse and reversing at the end.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Reverse\n\n  let rec helper (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> reverse acc\n    | Cons x xs, Cons y ys -> helper xs ys (Cons (abs (x - y)) acc)\n    end\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    helper l1 l2 Nil\nend\n"
+        },
+        {
+            "description": "Implementation using the map2 combinator from the list.Map2 library to apply the difference computation to pairs of elements.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Map2\n\n  let diff (x:int) (y:int) : int = abs (x-y)\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    map2 diff l1 l2\nend\n"
+        },
+        {
+            "description": "Implementation using a fold_left over indices, constructing the result list from back to front, similar to a for-loop.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.FoldLeft\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    let n = length l1 in\n    let f acc i = Cons (abs (nth_my i l1 - nth_my i l2)) acc in\n    let res = fold_left f Nil (List.create n (fun i -> n - i - 1)) in\n    res\nend\n"
+        },
+        {
+            "description": "Implementation using explicit recursion with an index parameter for position-based access, building the result list recursively.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let rec compare_index (l1 : list int) (l2 : list int) (i : int) (n : int) : list int =\n    if i >= n then Nil\n    else Cons (abs (nth_my i l1 - nth_my i l2)) (compare_index l1 l2 (i + 1) n)\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    compare_index l1 l2 0 (length l1)\nend\n"
+        },
+        {
+            "description": "Implementation using a while-loop and mutable references for iteration and result construction.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    let n = length l1 in\n    let ref i = 0 in\n    let ref res = Nil : list int in\n    while i < n do\n      res <- Cons (abs (nth_my i l1 - nth_my i l2)) res;\n      i <- i + 1\n    done;\n    let rec rev (l : list int) (acc : list int) : list int =\n      match l with | Nil -> acc | Cons x xs -> rev xs (Cons x acc) end\n    in rev res Nil\nend\n"
+        },
+        {
+            "description": "Recursive implementation with an explicit accumulator parameter, tail-recursive style.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Reverse\n\n  let rec compare_acc (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> reverse acc\n    | Cons x xs, Cons y ys -> compare_acc xs ys (Cons (abs (x - y)) acc)\n    end\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    compare_acc l1 l2 Nil\nend\n"
+        },
+        {
+            "description": "Implementation using the combine function to pair up elements, then mapping over the resulting list of pairs.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Combine\n  use list.Map\n\n  let diff_pair (p : (int, int)) : int =\n    let (x, y) = p in abs (x - y)\n\n  let compare (l1 : list int) (l2 : list int) : list int =\n    map diff_pair (combine l1 l2)\nend\n"
+        },
+        {
+            "description": "Recursive implementation using a helper function that matches only on the first list, assuming equal length lists, and advances the second via a tail function.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.HdTlNoOpt\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1 with\n    | Nil -> Nil\n    | Cons x xs -> Cons (abs (x - hd l2)) (compare xs (tl l2))\n    end\nend\n"
+        }
+    ]
+}

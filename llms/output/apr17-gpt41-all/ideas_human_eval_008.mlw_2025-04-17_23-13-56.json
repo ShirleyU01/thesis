@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Traverse the list recursively, summing and multiplying each element, returning a list of [sum, product] at the end.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n        match sum_product xs with\n        | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n        | _ -> Nil (* Should not occur *)\n        end\n    end\nend"
+        },
+        {
+            "description": "Use fold_left to aggregate sum and product in a single pass, then construct the result list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.FoldLeft\n  let sum_product (l: list int) : list int =\n    let pair = fold_left (\\(acc: (int, int)) (x: int) -> (fst acc + x, snd acc * x)) (0, 1) l in\n    Cons (fst pair) (Cons (snd pair) Nil)\nend"
+        },
+        {
+            "description": "Explicit recursion with accumulator arguments for sum and product, helper returns a pair which is converted to list at the end.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec helper (l: list int) (s: int) (p: int) : (int, int) =\n    match l with\n    | Nil -> (s, p)\n    | Cons x xs -> helper xs (s + x) (p * x)\n    end\n  let sum_product (l: list int) : list int =\n    let result = helper l 0 1 in\n    Cons (fst result) (Cons (snd result) Nil)\nend"
+        },
+        {
+            "description": "Iterative approach using a for-loop over the list's indices, updating references for sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Length\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n  let sum_product (l: list int) : list int =\n    let n = length l in\n    let ref sum = 0 in\n    let ref prod = 1 in\n    for i = 0 to n - 1 do\n      sum <- sum + nth_my i l;\n      prod <- prod * nth_my i l\n    done ;\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "While-loop based traversal emulating a manual iterator on the list, updating sum and product as references.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let sum_product (l: list int) : list int =\n    let ref cur = l in\n    let ref sum = 0 in\n    let ref prod = 1 in\n    while (match cur with Nil -> false | _ -> true end) do\n      match cur with\n      | Cons x xs ->\n          sum <- sum + x;\n          prod <- prod * x;\n          cur <- xs\n      | Nil -> ()\n      end\n    done ;\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Use map with a dummy function to traverse the list, updating sum and product as references for side-effects.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Map\n  let sum_product (l: list int) : list int =\n    let ref sum = 0 in\n    let ref prod = 1 in\n    let _ = map (\\x. sum <- sum + x; prod <- prod * x; x) l in\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Use Why3's list.Sum for sum and a custom recursive function for product, then combine results in a list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Sum\n  let rec product (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n    end\n  let sum_product (l: list int) : list int =\n    let s = sum l in\n    let p = product l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Purely tail-recursive version with accumulators, initial call from the main function, returns result as list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec helper (l: list int) (acc_sum: int) (acc_prod: int) : list int =\n    match l with\n    | Nil -> Cons acc_sum (Cons acc_prod Nil)\n    | Cons x xs -> helper xs (acc_sum + x) (acc_prod * x)\n    end\n  let sum_product (l: list int) : list int =\n    helper l 0 1\nend"
+        },
+        {
+            "description": "Pattern match to distinguish between empty and non-empty lists; for non-empty lists, split into head and tail, recursively compute sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let rest = sum_product xs in\n      match rest with\n      | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n      | _ -> Nil\n      end\n    end\nend"
+        },
+        {
+            "description": "Use fold_right to accumulate sum and product, then build the result list from the tuple.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.FoldRight\n  let sum_product (l: list int) : list int =\n    let pair = fold_right (\\x acc. (x + fst acc, x * snd acc)) l (0, 1) in\n    Cons (fst pair) (Cons (snd pair) Nil)\nend"
+        }
+    ]
+}

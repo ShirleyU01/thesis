@@ -16,10 +16,12 @@ def test(output : str) :
     if output == "Passed!":
         return
     prompt_revise = f"""
-    For the given implementation, some of testcases failed. Here are the list of failed testcases:
-    {output} 
-    Please revise the current implementation to fix the problem.
+    For the given implementation, some of testcases failed.
     """
+    #Here are the list of failed testcases:
+    #{output} 
+    #Please revise the current implementation to fix the problem.
+    #"""
     return prompt_revise
 
 def is_compile_success(text):
@@ -54,9 +56,9 @@ def replace_function_name(code, module_name, function_name):
 
 
 
-folder_path = "llms/implementation/apr17-gpt41-mini-all"
-compile_folder_path = "llms/compile/apr17-gpt41-mini-all"
-excel_output_path = 'llms/compile/apr17-gpt41-mini-all/info.csv'
+folder_path = "llms/implementation/apr17-gpt41-all"
+compile_folder_path = "llms/compile/apr17-gpt41-all"
+excel_output_path = 'llms/compile/apr17-gpt41-all/info.csv'
 data = []
 os.makedirs(compile_folder_path, exist_ok=True)
 

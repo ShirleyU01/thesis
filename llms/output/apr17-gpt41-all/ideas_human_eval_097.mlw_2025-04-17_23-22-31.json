@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use the absolute value and EuclideanDivision's mod to extract unit digits, then multiply. Uses Why3's int.Abs and int.EuclideanDivision.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = abs a mod 10 in\n    let ub = abs b mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract unit digits using subtraction and integer division, then multiply. Does not use mod; uses arithmetic only.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let multiply (a : int) (b : int) : int =\n    let ua = abs a - 10 * (abs a / 10) in\n    let ub = abs b - 10 * (abs b / 10) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Recursive helper to extract the unit digit by repeatedly subtracting 10. No mod or division used.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec unit_digit (x : int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else unit_digit (ax - 10)\n  let multiply (a : int) (b : int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Pattern matching to handle zero and single-digit cases directly, otherwise use mod for others.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = abs a in\n    let ub = abs b in\n    let uda = match ua < 10 with True -> ua | False -> ua mod 10 end in\n    let udb = match ub < 10 with True -> ub | False -> ub mod 10 end in\n    uda * udb\nend"
+        },
+        {
+            "description": "Use while loops to reduce a and b to their unit digits, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let multiply (a : int) (b : int) : int =\n    let ua = ref (abs a) in\n    let ub = ref (abs b) in\n    while !ua >= 10 do ua := !ua - 10 * (!ua / 10) done ;\n    while !ub >= 10 do ub := !ub - 10 * (!ub / 10) done ;\n    !ua * !ub\nend"
+        },
+        {
+            "description": "Use a for loop to calculate the unit digit by iteratively subtracting 10 until less than 10.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let unit_digit_loop (x : int) : int =\n    let ax = abs x in\n    let ref u = ax in\n    for _i = 0 to 12 do\n      if !u >= 10 then u := !u - 10 * (!u / 10)\n    done ;\n    !u\n  let multiply (a : int) (b : int) : int =\n    unit_digit_loop a * unit_digit_loop b\nend"
+        },
+        {
+            "description": "Convert negative numbers to positive by multiplying by -1 if needed, then mod 10 for unit digit.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let abs_manual (x : int) : int = if x < 0 then -x else x\n  let multiply (a : int) (b : int) : int =\n    let ua = abs_manual a mod 10 in\n    let ub = abs_manual b mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Recursive multiply that calls a recursive unit digit extractor for both a and b.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec unit_digit_rec (x : int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else unit_digit_rec (ax - 10)\n  let rec multiply (a : int) (b : int) : int =\n    unit_digit_rec a * unit_digit_rec b\nend"
+        },
+        {
+            "description": "Use branching to handle the sign of a and b, then use EuclideanDivision's mod.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = if a < 0 then (-a) mod 10 else a mod 10 in\n    let ub = if b < 0 then (-b) mod 10 else b mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use a helper function to encapsulate getting the unit digit in one line, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let unit_digit (x : int) : int = abs x mod 10\n  let multiply (a : int) (b : int) : int =\n    unit_digit a * unit_digit b\nend"
+        }
+    ]
+}

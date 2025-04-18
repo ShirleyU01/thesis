@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Brute-force double loop using for-loops and custom nth function: Iterate through all pairs (i, j) with i < j and check if their absolute difference is less than threshold.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  \n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let n = length numbers in\n    let ref found = false in\n    for i = 0 to n-2 do\n      for j = i+1 to n-1 do\n        if abs (nth_my i numbers -. nth_my j numbers) < threshold then found <- true\n      done\n    done ;\n    found\nend\n"
+        },
+        {
+            "description": "Recursive pattern matching over the list: At each step, compare head to all elements in tail and recurse.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  \n  let rec exists_close (x: real) (l: list real) (threshold: real) : bool =\n    match l with\n    | Nil -> false\n    | Cons y ys -> if abs (x -. y) < threshold then true else exists_close x ys threshold\n    end\n  \n  let rec has_close_elements (numbers: list real) (threshold: real) : bool =\n    match numbers with\n    | Nil -> false\n    | Cons x xs -> if exists_close x xs threshold then true else has_close_elements xs threshold\n    end\nend\n"
+        },
+        {
+            "description": "Using a while-loop and custom nth function to iterate over all unique pairs (i, j).",
+            "implementation": "module HumanEval000\n  use real.Real\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  \n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let n = length numbers in\n    let ref i = 0 in\n    let ref found = false in\n    while i < n - 1 do\n      let ref j = i + 1 in\n      while j < n do\n        if abs (nth_my i numbers -. nth_my j numbers) < threshold then found <- true;\n        j <- j + 1\n      done;\n      i <- i + 1\n    done;\n    found\nend\n"
+        },
+        {
+            "description": "Fold over the list, collecting all numbers seen so far, and for each new number compare it to all previous ones.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  use list.FoldLeft\n  \n  let rec exists_close (x: real) (l: list real) (threshold: real) : bool =\n    match l with\n    | Nil -> false\n    | Cons y ys -> if abs (x -. y) < threshold then true else exists_close x ys threshold\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let f = (fun (acc: (list real, bool)) (x: real) ->\n      let (prev, found) = acc in\n      if found then (prev, true) else\n        if exists_close x prev threshold then (prev, true) else (Cons x prev, false)) in\n    let (_, result) = fold_left f (Nil, false) numbers in\n    result\nend\n"
+        },
+        {
+            "description": "Recursive 'for' emulation by passing current index and comparing element at index with all greater indices using nth_my.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  \n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n  \n  let rec check_from (numbers: list real) (threshold: real) (i: int) (n: int) : bool =\n    if i >= n - 1 then false else\n      let xi = nth_my i numbers in\n      let rec check_j (j: int) : bool =\n        if j >= n then false else\n          if abs (xi -. nth_my j numbers) < threshold then true else check_j (j+1)\n      in\n      if check_j (i+1) then true else check_from numbers threshold (i+1) n\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let n = length numbers in\n    check_from numbers threshold 0 n\nend\n"
+        },
+        {
+            "description": "Sort the list and scan for consecutive close elements (avoids checking all pairs).",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Sort\n  \n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n  \n  let rec scan_sorted (l: list real) (threshold: real) : bool =\n    match l with\n    | Nil -> false\n    | Cons _ Nil -> false\n    | Cons x (Cons y ys) ->\n        if abs (x -. y) < threshold then true else scan_sorted (Cons y ys) threshold\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let sorted = sort numbers in\n    scan_sorted sorted threshold\nend\n"
+        },
+        {
+            "description": "Recursive solution with accumulator: For each element, compare against all elements in acc (previous elements).",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  \n  let rec compare_all (x: real) (acc: list real) (threshold: real) : bool =\n    match acc with\n    | Nil -> false\n    | Cons y ys -> if abs (x -. y) < threshold then true else compare_all x ys threshold\n    end\n  \n  let rec helper (l: list real) (acc: list real) (threshold: real) : bool =\n    match l with\n    | Nil -> false\n    | Cons x xs ->\n        if compare_all x acc threshold then true else helper xs (Cons x acc) threshold\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    helper numbers Nil threshold\nend\n"
+        },
+        {
+            "description": "Use for_some from list.Quant to check if any pair is close, via a helper that generates all pairs recursively.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  use list.Quant\n  \n  let rec exists_close_in_tail (x: real) (l: list real) (threshold: real) : bool =\n    for_some (fun y -> abs (x -. y) < threshold) l\n  \n  let rec has_close_elements (numbers: list real) (threshold: real) : bool =\n    match numbers with\n    | Nil -> false\n    | Cons x xs ->\n        if exists_close_in_tail x xs threshold then true else has_close_elements xs threshold\n    end\nend\n"
+        },
+        {
+            "description": "Tail recursive with accumulator and early return: At each step, compare head with accumulator, return immediately if found.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use list.List\n  \n  let rec has_close_tailrec (l: list real) (seen: list real) (threshold: real) : bool =\n    match l with\n    | Nil -> false\n    | Cons x xs ->\n        let rec aux (ys: list real) : bool =\n          match ys with\n          | Nil -> false\n          | Cons y ys' -> if abs (x -. y) < threshold then true else aux ys'\n          end\n        in\n        if aux seen then true else has_close_tailrec xs (Cons x seen) threshold\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    has_close_tailrec numbers Nil threshold\nend\n"
+        },
+        {
+            "description": "Iterative single scan using two nested references: Outer index over list, inner index over tail, with explicit references for indices.",
+            "implementation": "module HumanEval000\n  use real.Real\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  \n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n  \n  let has_close_elements (numbers: list real) (threshold: real) : bool =\n    let n = length numbers in\n    let ref i = 0 in\n    let ref found = false in\n    while i < n - 1 do\n      let ref j = i + 1 in\n      while j < n do\n        let xi = nth_my i numbers in\n        let xj = nth_my j numbers in\n        if abs (xi -. xj) < threshold then found <- true;\n        j <- j + 1\n      done;\n      i <- i + 1\n    done;\n    found\nend\n"
+        }
+    ]
+}

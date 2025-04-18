@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for-loop over the list indices, computing mean, then sum of absolute deviations.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let ref sum = 0.0 in\n    for i = 0 to n - 1 do sum <- sum +. nth_my i numbers done;\n    let mean = sum /. (real_of_int n) in\n    let ref mad = 0.0 in\n    for i = 0 to n - 1 do\n      mad <- mad +. abs (nth_my i numbers -. mean)\n    done;\n    mad /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Recursive approach, first compute mean recursively, then sum absolute deviations recursively.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec sum (l: list real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> x +. sum xs\n    end\n\n  let rec sum_abs_dev (l: list real) (mean: real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> abs (x -. mean) +. sum_abs_dev xs mean\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let s = sum numbers in\n    let mean = s /. (real_of_int n) in\n    (sum_abs_dev numbers mean) /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Accumulative tail-recursive approach: use a helper with accumulators for mean and sum of deviations.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec sum_acc (l: list real) (acc: real) : real =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> sum_acc xs (acc +. x)\n    end\n\n  let rec mad_acc (l: list real) (mean: real) (acc: real) : real =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> mad_acc xs mean (acc +. abs (x -. mean))\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let s = sum_acc numbers 0.0 in\n    let mean = s /. (real_of_int n) in\n    mad_acc numbers mean 0.0 /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Map approach: map each value to its absolute deviation, then sum the mapped list and divide by length.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n  use list.Map\n\n  let rec sum (l: list real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> x +. sum xs\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let s = sum numbers in\n    let mean = s /. (real_of_int n) in\n    let deviations = map (fun x -> abs (x -. mean)) numbers in\n    sum deviations /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Fold_left approach: use a left fold to sum values and then to sum absolute deviations.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n  use list.FoldLeft\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let sum = fold_left (fun acc x -> acc +. x) 0.0 numbers in\n    let mean = sum /. (real_of_int n) in\n    let mad_sum = fold_left (fun acc x -> acc +. abs (x -. mean)) 0.0 numbers in\n    mad_sum /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Pattern matching and branching: define mean and MAD using pattern matching on lists.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec sum (l: list real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> x +. sum xs\n    end\n\n  let rec abs_sum (l: list real) (mean: real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> abs (x -. mean) +. abs_sum xs mean\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    match numbers with\n    | Nil -> 0.0\n    | _ ->\n      let n = length numbers in\n      let m = sum numbers /. (real_of_int n) in\n      abs_sum numbers m /. (real_of_int n)\n    end\nend"
+        },
+        {
+            "description": "Index-based while-loop: use a while loop to iterate by index for sum and MAD computation.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n: int) (l: list real) : real =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let ref sum = 0.0 in\n    let ref i = 0 in\n    while i < n do sum <- sum +. nth_my i numbers; i <- i + 1 done;\n    let mean = sum /. (real_of_int n) in\n    let ref mad = 0.0 in\n    let ref j = 0 in\n    while j < n do mad <- mad +. abs (nth_my j numbers -. mean); j <- j + 1 done;\n    mad /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Recursive single-pass: pass through the list twice, but in two separate recursive functions.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec list_sum (l: list real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> x +. list_sum xs\n    end\n\n  let rec list_mad (l: list real) (mean: real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> abs (x -. mean) +. list_mad xs mean\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let n = length numbers in\n    if n = 0 then 0.0 else\n    let m = list_sum numbers /. (real_of_int n) in\n    list_mad numbers m /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Use separate helper functions for mean and MAD, emphasizing modularity.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec sum_list (l: list real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> x +. sum_list xs\n    end\n\n  let mean_list (l: list real) : real =\n    let n = length l in\n    if n = 0 then 0.0 else sum_list l /. (real_of_int n)\n\n  let rec mad_list (l: list real) (mean: real) : real =\n    match l with\n    | Nil -> 0.0\n    | Cons x xs -> abs (x -. mean) +. mad_list xs mean\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let m = mean_list numbers in\n    let n = length numbers in\n    if n = 0 then 0.0 else mad_list numbers m /. (real_of_int n)\nend"
+        },
+        {
+            "description": "Recursive with accumulator for both sum and MAD in one pass, using a composite helper function.",
+            "implementation": "module HumanEval004\n  use real.Real\n  use list.List\n  use list.Length\n\n  let rec sum_and_count (l: list real) (acc: real) (count: int) : (real, int) =\n    match l with\n    | Nil -> (acc, count)\n    | Cons x xs -> sum_and_count xs (acc +. x) (count + 1)\n    end\n\n  let rec mad_helper (l: list real) (mean: real) (acc: real) : real =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> mad_helper xs mean (acc +. abs (x -. mean))\n    end\n\n  let mean_absolute_deviation (numbers: list real) : real =\n    let (sum, n) = sum_and_count numbers 0.0 0 in\n    if n = 0 then 0.0 else\n    let mean = sum /. (real_of_int n) in\n    mad_helper numbers mean 0.0 /. (real_of_int n)\nend"
+        }
+    ]
+}

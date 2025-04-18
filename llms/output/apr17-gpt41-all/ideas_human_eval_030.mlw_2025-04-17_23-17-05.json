@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Directly process the list recursively, adding only positive elements to the result.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec get_positive (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Recursive accumulator: Use an auxiliary function with an accumulator, then reverse the result to preserve order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec get_positive_acc (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x > 0 then get_positive_acc xs (Cons x acc) else get_positive_acc xs acc\n    end\n\n  let get_positive (l: list int) : list int =\n    reverse (get_positive_acc l Nil)\nend"
+        },
+        {
+            "description": "Using fold_left: Accumulate positives using fold_left, then reverse at the end to maintain order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.FoldLeft\n  use list.Reverse\n\n  let get_positive (l: list int) : list int =\n    let positives = fold_left (fun acc x -> if x > 0 then Cons x acc else acc) Nil l in\n    reverse positives\nend"
+        },
+        {
+            "description": "Using fold_right: Build the new list in correct order directly with fold_right.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.FoldRight\n\n  let get_positive (l: list int) : list int =\n    fold_right (fun x acc -> if x > 0 then Cons x acc else acc) l Nil\nend"
+        },
+        {
+            "description": "Iterative for-loop: Use a for-loop over indices, extracting positives by index and building the result in order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Reverse\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let get_positive (l: list int) : list int =\n    let n = length l in\n    let ref acc = Nil in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      if x > 0 then acc <- Cons x acc\n    done;\n    reverse acc\nend"
+        },
+        {
+            "description": "While-loop index iteration: Use a while-loop to iterate by index and collect positives.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Reverse\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let get_positive (l: list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref acc = Nil in\n    while i < n do\n      let x = nth_my i l in\n      if x > 0 then acc <- Cons x acc;\n      i <- i + 1\n    done;\n    reverse acc\nend"
+        },
+        {
+            "description": "Map and filter via recursion: Recursively map and filter at once, skipping non-positive values.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n\n  let rec get_positive (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let filtered = get_positive xs in\n        if x > 0 then Cons x filtered else filtered\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive manual loop using explicit state: Simulate a loop over the list using tail recursion and an accumulator, reversing the result at the end.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec loop (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x > 0 then loop xs (Cons x acc) else loop xs acc\n    end\n\n  let get_positive (l: list int) : list int =\n    reverse (loop l Nil)\nend"
+        },
+        {
+            "description": "Using a helper function to append positives to the result (inefficient, but diverse): For each positive, append it at the end of the result list.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Append\n\n  let rec get_positive (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let rest = get_positive xs in\n        if x > 0 then Cons x rest else rest\n    end\nend"
+        },
+        {
+            "description": "Divide-and-conquer: Split the list recursively, filter positives in both halves, and concatenate the result.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Prefix\n  use list.Append\n\n  let rec split_at (n: int) (l: list int) : (list int, list int) =\n    if n = 0 then (Nil, l)\n    else match l with\n      | Nil -> (Nil, Nil)\n      | Cons x xs -> let (l1, l2) = split_at (n - 1) xs in (Cons x l1, l2)\n      end\n\n  let rec get_positive (l: list int) : list int =\n    let n = length l in\n    if n <= 1 then\n      match l with\n      | Nil -> Nil\n      | Cons x Nil -> if x > 0 then Cons x Nil else Nil\n      end\n    else\n      let k = n / 2 in\n      let (l1, l2) = split_at k l in\n      append (get_positive l1) (get_positive l2)\nend"
+        }
+    ]
+}
