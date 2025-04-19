@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion with pattern matching to filter and sum odd squares",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Sum\n\nlet rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then (x * x) + double_the_difference xs\n        else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate through the list and accumulate the sum of odd squares",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\nlet double_the_difference (l : list int) : int =\n    let len = length l in\n    let ref i = 0 in\n    let ref sum = 0 in\n    while i < len do\n        let x = nth_my i l in\n        if x >= 0 && x mod 2 = 1 then sum <- sum + x * x;\n        i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Using fold-like recursion with an accumulator to compute the sum",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec fold_f (f : int -> int -> int) (acc : int) (l : list int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> fold_f f (f acc x) xs\n    end\n\nlet double_the_difference (l : list int) : int =\n    let f acc x =\n        if x >= 0 && x mod 2 = 1 then acc + x * x else acc\n    in\n    fold_f f 0 l\nend"
+        },
+        {
+            "description": "Using a for-loop by constructing an index-based iteration",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.NthNoOpt\n\nlet double_the_difference (l : list int) : int =\n    let len = length l in\n    let ref sum = 0 in\n    for i = 0 to len - 1 do\n        let x = nth_my i l in\n        if x >= 0 && x mod 2 = 1 then sum <- sum + x * x\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Using a helper function to separate filtering and squaring",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet is_valid (x : int) : bool =\n    x >= 0 && x mod 2 = 1\n\nlet square (x : int) : int =\n    x * x\n\nlet rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if is_valid x then square x + double_the_difference xs\n        else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Using recursion with an auxiliary function to manage state",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec aux (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then aux xs (acc + x * x)\n        else aux xs acc\n    end\n\nlet double_the_difference (l : list int) : int =\n    aux l 0\nend"
+        },
+        {
+            "description": "Using pattern matching and local let-binding for clarity",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let addend = if x >= 0 && x mod 2 = 1 then x * x else 0 in\n        addend + double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Splitting list into two lists: valid and invalid, then processing",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec partition (f : int -> bool) (l : list int) : (list int, list int) =\n    match l with\n    | Nil -> (Nil, Nil)\n    | Cons x xs ->\n        let (yes, no) = partition f xs in\n        if f x then (Cons x yes, no) else (yes, Cons x no)\n    end\n\nlet double_the_difference (l : list int) : int =\n    let is_valid x = x >= 0 && x mod 2 = 1 in\n    let (valid, _) = partition is_valid l in\n    let rec sum_of_squares (l : list int) : int =\n        match l with\n        | Nil -> 0\n        | Cons x xs -> (x * x) + sum_of_squares xs\n        end\n    in\n    sum_of_squares valid\nend"
+        },
+        {
+            "description": "Using reverse and then applying a recursive function to sum squares",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet rec sum_squares (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then (x * x) + sum_squares xs\n        else sum_squares xs\n    end\n\nlet double_the_difference (l : list int) : int =\n    sum_squares (reverse l)\nend"
+        },
+        {
+            "description": "Using a recursive helper function with a conditional to filter and sum",
+            "implementation": "module HumanEval151\n\nuse int.Int\nuse list.List\n\nlet rec helper (l : list int) (sum : int) : int =\n    match l with\n    | Nil -> sum\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then helper xs (sum + x * x)\n        else helper xs sum\n    end\n\nlet double_the_difference (l : list int) : int =\n    helper l 0\nend"
+        }
+    ]
+}

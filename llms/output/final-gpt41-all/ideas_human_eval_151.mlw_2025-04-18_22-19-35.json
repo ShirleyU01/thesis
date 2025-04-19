@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Sum squares of odd, non-negative integers using direct recursion and pattern matching.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 && (mod x 2 = 1) then x * x + double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Recursive auxiliary function with accumulator: Uses an inner recursive function to accumulate the sum of squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec helper (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x >= 0 && (mod x 2 = 1) then helper xs (acc + x * x)\n        else helper xs acc\n    end\n\n  let double_the_dfference (l : list int) : int =\n    helper l 0\nend"
+        },
+        {
+            "description": "Using for loop and nth_my: Iterates through the list using a custom nth function and for-loop to sum squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let double_the_dfference (l : list int) : int =\n    let n = length l in\n    let ref s = 0 in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      if x >= 0 && (mod x 2 = 1) then s <- s + x * x\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Using while loop and nth_my: Uses a while loop to iterate and sum squares of valid elements.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let double_the_dfference (l : list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref s = 0 in\n    while i < n do\n      let x = nth_my i l in\n      if x >= 0 && (mod x 2 = 1) then s <- s + x * x;\n      i <- i + 1\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Recursive filter first, then sum squares: First recursively filters valid elements, then computes their squares' sum.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Append\n\n  let rec filter_odds (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x >= 0 && (mod x 2 = 1) then Cons x (filter_odds xs)\n        else filter_odds xs\n    end\n\n  let rec sum_squares (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x * x + sum_squares xs\n    end\n\n  let double_the_dfference (l : list int) : int =\n    let odds = filter_odds l in\n    sum_squares odds\nend"
+        },
+        {
+            "description": "Recursive pattern match, separate positive/odd checks: Checks for non-negative first, then for oddness.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 then\n          if mod x 2 = 1 then x * x + double_the_dfference xs\n          else double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Recursion with explicit evenness check: Skips even numbers first, then checks for negativity.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if mod x 2 = 0 then double_the_dfference xs\n        else if x >= 0 then x * x + double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Recursive helper with two accumulators: Uses a secondary function with an accumulator for the sum and index.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec helper (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if x >= 0 && (mod x 2 = 1) then acc + x * x else acc in\n        helper xs acc'\n    end\n\n  let double_the_dfference (l : list int) : int =\n    helper l 0\nend"
+        },
+        {
+            "description": "Explicitly handle empty list, then process recursively: Checks for Nil, then processes head and tail.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let tail_sum = double_the_dfference xs in\n        if x >= 0 && (mod x 2 = 1) then x * x + tail_sum else tail_sum\n    end\nend"
+        },
+        {
+            "description": "Recursive approach with guards on negative: Returns 0 immediately for negative numbers, otherwise checks for oddness.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x < 0 then double_the_dfference xs\n        else if mod x 2 = 1 then x * x + double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        }
+    ]
+}

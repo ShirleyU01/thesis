@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Standard recursion through the list with pattern matching, adding element to result only if it's strictly positive.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Recursive with accumulator: Use an auxiliary recursive function with an accumulator, building the result in reverse then reversing at the end.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec get_positive_aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> if x > 0 then get_positive_aux xs (Cons x acc) else get_positive_aux xs acc\n    end\n  let get_positive (l : list int) : list int =\n    reverse (get_positive_aux l Nil)\nend"
+        },
+        {
+            "description": "Iterative using for-loop and index: Use a for-loop over indices to check each element and build output list.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let get_positive (l : list int) : list int =\n    let n = length l in\n    let ref res = Nil in\n    for i = n - 1 downto 0 do\n      let v = nth_my i l in\n      if v > 0 then res <- Cons v res else res <- res\n    done;\n    res\nend"
+        },
+        {
+            "description": "Iterative using while-loop: Traverse the list by index using a while-loop, accumulating positive numbers.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let get_positive (l : list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref res = Nil in\n    while i < n do\n      let v = nth_my i l in\n      if v > 0 then res <- Cons v res;\n      i <- i + 1\n    done;\n    let rec rev (l: list int) (acc: list int) : list int =\n      match l with | Nil -> acc | Cons x xs -> rev xs (Cons x acc) end\n    in rev res Nil\nend"
+        },
+        {
+            "description": "List append approach: Construct the result by appending a singleton list for each positive element and Nil otherwise.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Append\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      (if x > 0 then Cons x Nil else Nil) ++ get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Using for_all from Quant: Use for_all to check if all elements are negative, return Nil if true, else process recursively.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Quant\n  let rec get_positive (l : list int) : list int =\n    if for_all (fun x -> x <= 0) l then Nil\n    else match l with\n      | Nil -> Nil\n      | Cons x xs ->\n        if x > 0 then Cons x (get_positive xs) else get_positive xs\n      end\nend"
+        },
+        {
+            "description": "Using reverse and pattern matching: Reverse the list, process recursively, then reverse again for correct order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec get_positive_aux (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive_aux xs) else get_positive_aux xs\n    end\n  let get_positive (l : list int) : list int =\n    reverse (get_positive_aux (reverse l))\nend"
+        },
+        {
+            "description": "Using for_some from Quant: If some element is positive, process recursively; else, return Nil.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Quant\n  let rec get_positive (l : list int) : list int =\n    if not (for_some (fun x -> x > 0) l) then Nil\n    else match l with\n      | Nil -> Nil\n      | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n      end\nend"
+        },
+        {
+            "description": "Using an auxiliary filter function: Simulate a filter by passing a predicate and list, collect positives.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec filter_pos (f: int -> bool) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if f x then Cons x (filter_pos f xs) else filter_pos f xs\n    end\n  let get_positive (l: list int) : list int =\n    filter_pos (fun x -> x > 0) l\nend"
+        },
+        {
+            "description": "Tail recursive with explicit helper and accumulator, then reverse at the end for correct order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec helper (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      if x > 0 then helper xs (Cons x acc) else helper xs acc\n    end\n  let get_positive (l: list int) : list int =\n    reverse (helper l Nil)\nend"
+        }
+    ]
+}

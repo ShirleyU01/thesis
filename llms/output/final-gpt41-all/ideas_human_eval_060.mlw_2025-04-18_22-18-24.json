@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using the closed-form formula n*(n+1)/2 (Gauss sum) for direct computation.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n  let sum_to_n (n: int) : int =\n    div (n * (n + 1)) 2\nend"
+        },
+        {
+            "description": "Recursive implementation that sums from n down to 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n: int) : int =\n    if n = 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Iterative implementation using a while loop and an accumulator variable.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref acc = 0 in\n    let ref i = 1 in\n    while i <= n do\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator for tail recursion.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_aux (n: int) (acc: int) : int =\n    if n = 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n  let sum_to_n (n: int) : int =\n    sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Iterative for-loop summing from 1 to n (using Why3 for notation).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref sum = 0 in\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Constructs a list from 1 to n and then uses list.Sum to sum the elements.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Sum\n  let rec make_list (a: int) (b: int) : list int =\n    if a > b then Nil else Cons a (make_list (a + 1) b)\n  let sum_to_n (n: int) : int =\n    sum (make_list 1 n)\nend"
+        },
+        {
+            "description": "Uses int.Sum library to sum the identity function from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.Sum\n  let sum_to_n (n: int) : int =\n    sum (fun i -> i) 1 n\nend"
+        },
+        {
+            "description": "Pattern matching: returns 0 for n=0, else n + sum_to_n (n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n: int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using int.Iter to iteratively add numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.Iter\n  let sum_to_n (n: int) : int =\n    let add1 (a: (int, int)) : (int, int) = (a.0 + 1, a.1 + a.0 + 1) in\n    let (_, tot) = iter add1 n (0, 0) in\n    tot\nend"
+        },
+        {
+            "description": "Using a decreasing for loop from n down to 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n: int) : int =\n    let ref sum = 0 in\n    let ref i = n in\n    while i >= 1 do\n      sum <- sum + i;\n      i <- i - 1\n    done;\n    sum\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to generate integers between a and b.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let ref l = Nil in\n    let start = min a b in\n    let stop = max a b in\n    for i = start to stop do\n      l <- l ++ Cons i Nil\n    done;\n    l\nend"
+        },
+        {
+            "description": "Using a while-loop to generate integers between a and b.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let ref l = Nil in\n    let ref i = min a b in\n    let stop = max a b in\n    while i <= stop do\n      l <- l ++ Cons i Nil;\n      i <- i + 1\n    done;\n    l\nend"
+        },
+        {
+            "description": "Using recursion and pattern matching to generate integers.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec generate_integers_recur (start: int) (stop: int) : list int =\n    if start > stop then Nil else Cons start (generate_integers_recur (start + 1) stop)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    generate_integers_recur start stop\nend"
+        },
+        {
+            "description": "Using an accumulator within a recursive function to generate integers.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec generate_with_accumulator (start: int) (stop: int) (acc: list int) : list int =\n    if start > stop then acc else generate_with_accumulator (start + 1) stop (acc ++ Cons start Nil)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    generate_with_accumulator start stop Nil\nend"
+        },
+        {
+            "description": "Using recursion and branching (if-then-else) to generate integers.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    if start > stop then Nil else Cons start (generate_integers (start + 1) stop)\nend"
+        },
+        {
+            "description": "Using a list comprehension-like approach to generate integers.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    let rec helper (current: int) : list int =\n      if current > stop then Nil else Cons current (helper (current + 1))\n    in helper start\nend"
+        },
+        {
+            "description": "Using a recursive helper function with a custom merge approach.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec merge (l1: list int) (l2: list int) : list int =\n    match l1 with\n    | Nil -> l2\n    | Cons x xs -> Cons x (merge xs l2)\n    end\n\n  let rec generate_list (start: int) (stop: int) : list int =\n    if start > stop then Nil else Cons start (generate_list (start + 1) stop)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    generate_list start stop\nend"
+        },
+        {
+            "description": "Using an iterative approach with an explicit stack to simulate recursion.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    let ref stack = Cons start Nil in\n    let ref l = Nil in\n    while not (is_nil stack) do\n      match stack with\n      | Cons x xs ->\n          stack <- xs;\n          l <- Cons x l;\n          if x < stop then stack <- Cons (x + 1) stack\n      end\n    done;\n    reverse l\nend"
+        },
+        {
+            "description": "Using a tail-recursive function to generate integers efficiently.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec generate_tail (start: int) (stop: int) (acc: list int) : list int =\n    if start > stop then acc else generate_tail (start + 1) stop (Cons start acc)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    reverse (generate_tail start stop Nil)\nend"
+        },
+        {
+            "description": "Using a mutable list with a loop to append elements.",
+            "implementation": "module HumanEval163\n\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let ref l = Nil in\n    let start = min a b in\n    let stop = max a b in\n    for i = start to stop do\n      l <- l ++ Cons i Nil\n    done;\n    l\nend"
+        }
+    ]
+}

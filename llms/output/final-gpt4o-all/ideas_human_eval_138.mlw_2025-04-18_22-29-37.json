@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a simple range check",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8\nend"
+        },
+        {
+            "description": "Checking if n is divisible by 2 and greater than or equal to 8",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n mod 2 = 0 && n >= 8\nend"
+        },
+        {
+            "description": "Using pattern matching on n",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    match n with\n    | 8 -> true\n    | 10 -> true\n    | _ -> n > 10 && n mod 2 = 0\n    end\nend"
+        },
+        {
+            "description": "Recursively checking if n can be decomposed into four even numbers",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_equal_to_sum_even (n : int) : bool =\n    if n < 8 then false\n    else if n mod 2 = 0 then true\n    else is_equal_to_sum_even (n - 2)\nend"
+        },
+        {
+            "description": "Iteratively checking using a loop",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let ref i = 8 in\n    let ref result = false in\n    while i <= n do\n      invariant { i mod 2 = 0 }\n      if i = n then result <- true;\n      i <- i + 2\n    done;\n    result\nend"
+        },
+        {
+            "description": "Using a boolean expression with logical operators",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Checking the range of n using a max function",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.MinMax\n\n  let is_equal_to_sum_even (n : int) : bool =\n    let min_sum = 8 in\n    n >= min_sum && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Using a custom helper function to determine even sums",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let rec sum_of_four_evens (k : int) : bool =\n    if k < 8 then false\n    else if k = 8 then true\n    else sum_of_four_evens (k - 2)\n\n  let is_equal_to_sum_even (n : int) : bool =\n    sum_of_four_evens n\nend"
+        },
+        {
+            "description": "Using a direct calculation of n divided by 2",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n div 2 >= 4\nend"
+        },
+        {
+            "description": "Checking only necessary conditions: evenness and minimum value",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n : int) : bool =\n    n mod 2 = 0 && n >= 8\nend"
+        }
+    ]
+}

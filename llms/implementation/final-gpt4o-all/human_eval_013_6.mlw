@@ -1,0 +1,145 @@
+(*
+def greatest_common_divisor(a: int, b: int) -> int:
+    """ Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5)
+    1
+    >>> greatest_common_divisor(25, 15)
+    5
+    """
+ *)
+
+module HumanEval013Goal
+    use int.Int
+    use list.List
+    use bool.Bool
+    use int.EuclideanDivision
+
+    let rec greatest_common_divisor (a: int) (b: int) : int =
+        ensures { forall d . (mod d a = 0 /\ mod d b = 0) -> mod d result = 0 }
+        ensures { mod result a = 0 /\ mod result b = 0 }
+        ensures { result >= 1 }
+        if b = 0 then a else (greatest_common_divisor b (mod a b))
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval013
+
+  use int.Int
+  use int.EuclideanDivision
+
+  let rec greatest_common_divisor (a: int) (b: int) : int =
+    match b with
+    | 0 -> a
+    | _ -> greatest_common_divisor b (mod a b)
+    end
+
+end
+
+module TestHumanEval013
+    use int.Int
+    use list.List
+    use bool.Bool
+    use HumanEval013
+    (* Test cases *)
+    let test1() : bool =
+        greatest_common_divisor 3 5 = 1
+
+    let test1_output() : int =
+        greatest_common_divisor 3 5
+
+    let test2() : bool =
+        greatest_common_divisor 25 15 = 5
+
+    let test2_output() : int =
+        greatest_common_divisor 25 15
+
+    let test3() : bool =
+        greatest_common_divisor 18 24 = 6
+
+    let test3_output() : int =
+        greatest_common_divisor 18 24
+
+    let test4() : bool =
+        greatest_common_divisor 100 10 = 10
+
+    let test4_output() : int =
+        greatest_common_divisor 100 10
+
+    let test5() : bool =
+        greatest_common_divisor 17 0 = 17
+
+    let test5_output() : int =
+        greatest_common_divisor 17 0
+
+    let test6() : bool =
+        greatest_common_divisor 0 19 = 19
+
+    let test6_output() : int =
+        greatest_common_divisor 0 19
+
+    let test7() : bool =
+        greatest_common_divisor 270 192 = 6
+
+    let test7_output() : int =
+        greatest_common_divisor 270 192
+
+    let test8() : bool =
+        greatest_common_divisor 81 27 = 27
+
+    let test8_output() : int =
+        greatest_common_divisor 81 27
+
+    let test9() : bool =
+        greatest_common_divisor 14 49 = 7
+
+    let test9_output() : int =
+        greatest_common_divisor 14 49
+
+    let test10() : bool =
+        greatest_common_divisor 1 1 = 1
+
+    let test10_output() : int =
+        greatest_common_divisor 1 1
+
+    let testfail() : list int =
+        let ref res = Nil in
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let testall () : bool =
+        test1() && test2() && test3() && test4() && test5() &&
+        test6() && test7() && test8() && test9() && test10()
+
+    let runtest (x: int) : int =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else if x = 6 then test6_output()
+        else if x = 7 then test7_output()
+        else if x = 8 then test8_output()
+        else if x = 9 then test9_output()
+        else if x = 10 then test10_output()
+        else -1
+
+    let rec failoutput (l : list int) : list int =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test () : list int =
+        let l = testfail () in failoutput l
+
+    end

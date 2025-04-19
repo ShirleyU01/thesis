@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a simple mathematical formula to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    (n * (n + 1)) / 2\n\nend"
+        },
+        {
+            "description": "Using a recursive function to calculate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 1 then n else n + sum_to_n (n - 1)\n\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate through numbers from 1 to n and sum them.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref sum = 0 in\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using a while-loop to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref sum = 0 in\n    let ref i = 1 in\n    while i <= n do\n      sum <- sum + i;\n      i <- i + 1\n    done;\n    sum\n\nend"
+        },
+        {
+            "description": "Using tail recursion to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n_acc (n : int) (acc : int) : int =\n    if n = 0 then acc else sum_to_n_acc (n - 1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    sum_to_n_acc n 0\n\nend"
+        },
+        {
+            "description": "Using pattern matching to sum numbers from 1 to n in a recursive way.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\n\nend"
+        },
+        {
+            "description": "Using a list-based approach to create a list from 1 to n and sum it.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let sum_to_n (n : int) : int =\n    let rec make_list (i : int) : list int =\n      if i > n then Nil else Cons i (make_list (i + 1))\n    in\n    sum (make_list 1)\n\nend"
+        },
+        {
+            "description": "Using list comprehension to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let sum_to_n (n : int) : int =\n    sum (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 (Cons 9 (Cons 10 Nil))))))))))\n\nend"
+        },
+        {
+            "description": "Using a fold-like recursive approach to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let rec fold_sum (acc : int) (n : int) : int =\n    if n = 0 then acc else fold_sum (acc + n) (n - 1)\n\n  let sum_to_n (n : int) : int =\n    fold_sum 0 n\n\nend"
+        },
+        {
+            "description": "Using mathematical induction to derive the sum of numbers from 1 to n.",
+            "implementation": "module HumanEval060\n\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let rec induction (m : int) : int =\n      if m = 0 then 0 else m + induction (m - 1)\n    in\n    induction n\n\nend"
+        }
+    ]
+}

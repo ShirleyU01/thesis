@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use a for-loop to check for divisors from 2 up to sqrt(n). If any divisor is found, return false, otherwise true. This is the classic trial division.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref res = true in\n    let ref d = 2 in\n    while d * d <= n && res do\n      if mod n d = 0 then res <- false;\n      d <- d + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Use recursion to check each possible divisor from 2 upwards. If any divisor divides n, return false. Stop when divisor exceeds sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec check_div (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else check_div n (d + 1)\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else check_div n 2\nend"
+        },
+        {
+            "description": "Check for small primes (2, 3) as special cases, and rule out all even numbers greater than 2 immediately. Then check divisibility by odd numbers only.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n = 2 then true else\n    if mod n 2 = 0 then false else\n    let ref res = true in\n    let ref d = 3 in\n    while d * d <= n && res do\n      if mod n d = 0 then res <- false;\n      d <- d + 2\n    done;\n    res\nend"
+        },
+        {
+            "description": "Use for-loop to check all divisors from 2 up to n-1. This is a brute-force approach without square root optimization.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref result = true in\n    let ref d = 2 in\n    while d < n && result do\n      if mod n d = 0 then result <- false;\n      d <- d + 1\n    done;\n    result\nend"
+        },
+        {
+            "description": "Check for primality by counting the number of divisors of n in the range 1 to n. If the count is exactly 2, then n is prime.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref count = 0 in\n    let ref d = 1 in\n    while d <= n do\n      if mod n d = 0 then count <- count + 1;\n      d <- d + 1\n    done;\n    count = 2\nend"
+        },
+        {
+            "description": "Use recursion with an accumulator to check divisibility from 2 to sqrt(n). The accumulator holds the current divisor.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec is_prime_helper (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else is_prime_helper n (d + 1)\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else is_prime_helper n 2\nend"
+        },
+        {
+            "description": "Use early exit for all small primes and even numbers, then only check divisibility by numbers of the form 6k\u00b11.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n <= 3 then true else\n    if mod n 2 = 0 || mod n 3 = 0 then false else\n    let ref i = 5 in\n    let ref res = true in\n    while i * i <= n && res do\n      if mod n i = 0 || mod n (i + 2) = 0 then res <- false;\n      i <- i + 6\n    done;\n    res\nend"
+        },
+        {
+            "description": "Check primality by summing up the number of divisors of n from 2 to n-1. If the sum is 0, n is prime.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref found = false in\n    let ref d = 2 in\n    while d < n && not found do\n      if mod n d = 0 then found <- true;\n      d <- d + 1\n    done;\n    not found\nend"
+        },
+        {
+            "description": "Use a decreasing divisor from n-1 down to 2, stopping as soon as a divisor is found.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref found = false in\n    let ref d = n - 1 in\n    while d >= 2 && not found do\n      if mod n d = 0 then found <- true;\n      d <- d - 1\n    done;\n    not found\nend"
+        },
+        {
+            "description": "Use recursion with pattern matching to check all divisors from 2 to n-1. This approach solely relies on recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let rec is_prime_rec (n: int) (d: int) : bool =\n    if d = n then true\n    else if mod n d = 0 then false\n    else is_prime_rec n (d + 1)\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else is_prime_rec n 2\nend"
+        }
+    ]
+}

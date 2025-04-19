@@ -1,0 +1,179 @@
+(*
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """
+*)
+
+module HumanEval003Goal
+
+    use list.List
+    use int.Int
+    use list.Length
+    use list.NthNoOpt
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let below_zero (l : list int) : bool =
+        let ref acc = 0 in
+        let n = length l in 
+        let ref flag = false in 
+        for i = 0 to n - 1 do
+            acc <- acc + (nth_1 i l);
+            if acc < 0 
+            then flag <- true
+        done;
+        flag
+    
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval003
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use int.Int
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end 
+
+  let below_zero (operations: list int) : bool =
+    let n = length operations in
+    let ref bal = 0 in
+    let ref i = 0 in
+    let ref found = false in
+    while i < n /\ not found do
+      bal <- bal + nth_my i operations;
+      if bal < 0 then found <- true;
+      i <- i + 1
+    done ;
+    found
+end
+
+module TestHumanEval003
+    use list.List
+    use int.Int
+    use HumanEval003
+    
+    let test1() : bool =
+        not (below_zero (Cons 1 (Cons 2 (Cons 3 Nil)))) 
+
+    let test1_output() : bool = 
+        below_zero (Cons 1 (Cons 2 (Cons 3 Nil)))
+
+    let test2() : bool =
+        (below_zero (Cons 1 (Cons 2 (Cons (-4) (Cons 5 Nil))))) 
+
+    let test2_output() : bool = 
+        below_zero (Cons 1 (Cons 2 (Cons (-4) (Cons 5 Nil))))
+
+    let test3() : bool =
+        (below_zero (Cons (-1) (Cons 2 (Cons (-2) (Cons 1 Nil))))) 
+
+    let test3_output() : bool = 
+        below_zero (Cons (-1) (Cons 2 (Cons (-2) (Cons 1 Nil))))
+
+    let test4() : bool =
+        not (below_zero (Cons 10 (Cons (-5) (Cons (-4) (Cons (-1) Nil))))) 
+
+    let test4_output() : bool = 
+        below_zero (Cons 10 (Cons (-5) (Cons (-4) (Cons (-1) Nil))))
+
+    let test5() : bool =
+        (below_zero (Cons (-10) (Cons 5 (Cons 3 Nil)))) 
+
+    let test5_output() : bool = 
+        below_zero (Cons (-10) (Cons 5 (Cons 3 Nil)))
+
+    let test6() : bool =
+        (below_zero (Cons 3 (Cons (-2) (Cons (-2) (Cons 2 Nil))))) 
+
+    let test6_output() : bool = 
+        below_zero (Cons 3 (Cons (-2) (Cons (-2) (Cons 2 Nil))))
+
+    let test7() : bool =
+        not (below_zero (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil))))) 
+
+    let test7_output() : bool = 
+        below_zero (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil))))
+
+    let test8() : bool =
+        not (below_zero (Cons 100 (Cons (-50) (Cons (-50) Nil)))) 
+
+    let test8_output() : bool = 
+        below_zero (Cons 100 (Cons (-50) (Cons (-50) Nil)))
+
+    let test9() : bool =
+        (below_zero (Cons 1 (Cons (-2) (Cons 1 Nil)))) 
+
+    let test9_output() : bool = 
+        below_zero (Cons 1 (Cons (-2) (Cons 1 Nil)))
+
+    let test10() : bool =
+        not (below_zero (Cons 5 (Cons (-5) (Cons 5 (Cons (-5) Nil)))))
+
+    let test10_output() : bool = 
+        below_zero (Cons 5 (Cons (-5) (Cons 5 (Cons (-5) Nil))))
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+
+    let runtest (x : int) : bool =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else if x = 6 then test6_output()
+        else if x = 7 then test7_output()
+        else if x = 8 then test8_output()
+        else if x = 9 then test9_output()
+        else if x = 10 then test10_output()
+        else false
+    
+    let rec failoutput (l : list int) : list bool =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+
+    
+    let test () : list bool =
+        let l = testfail () 
+        in failoutput l
+
+end

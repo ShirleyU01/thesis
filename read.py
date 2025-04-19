@@ -7,9 +7,9 @@ import json
 import re
 
 # Define the base directory containing JSON files
-json_folder = "llms/output/apr18-gpt41-mini-all-v3"
+json_folder = "llms/output/final-gpt4o-all"
 mlw_folder = "human_eval_test"  
-result_folder = "llms/implementation/apr18-gpt41-mini-all-v3"
+result_folder = "llms/implementation/final-gpt4o-all"
 os.makedirs(result_folder, exist_ok=True)
 
 # Iterate through JSON files in the folder

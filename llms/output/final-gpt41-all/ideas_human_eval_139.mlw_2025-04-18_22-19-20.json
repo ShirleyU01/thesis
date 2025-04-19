@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct recursive implementation: Compute n! and recursively multiply with special_factorial(n-1). Base case for n = 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec special_factorial (n : int) : int =\n    if n = 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Iterative for-loop implementation: Use a for-loop to accumulate the product of fact(i) for i in 1..n.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n: int) : int =\n    let ref res = 1 in\n    for i = 1 to n do\n      res <- res * fact i\n    done;\n    res\nend"
+        },
+        {
+            "description": "Iterative while-loop implementation: Use a while-loop to multiply by fact(i) from i = n down to 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n: int) : int =\n    let ref res = 1 in\n    let ref i = n in\n    while i >= 1 do\n      res <- res * fact i;\n      i <- i - 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive implementation with accumulator: Use an auxiliary function with an accumulator parameter for tail recursion.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec aux (i: int) (acc: int) : int =\n    if i = 0 then acc else aux (i - 1) (acc * fact i)\n  let special_factorial (n: int) : int =\n    aux n 1\nend"
+        },
+        {
+            "description": "Implementation using list and fold: Build a list 1..n, map fact over it, and multiply all elements.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use list.List\n  use list.Length\n  let rec build_list (a: int) (b: int) : list int =\n    if a > b then Nil else Cons a (build_list (a+1) b)\n  let rec product (l: list int) : int =\n    match l with | Nil -> 1 | Cons x xs -> x * product xs end\n  let rec map_fact (l: list int) : list int =\n    match l with | Nil -> Nil | Cons x xs -> Cons (fact x) (map_fact xs) end\n  let special_factorial (n: int) : int =\n    let l = build_list 1 n in\n    product (map_fact l)\nend"
+        },
+        {
+            "description": "Recursive implementation with pattern matching on n: Explicit match for n = 1 and n > 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec special_factorial (n: int) : int =\n    match n with\n    | 1 -> 1\n    | _ -> fact n * special_factorial (n-1)\n    end\nend"
+        },
+        {
+            "description": "Using int.Sum to compute the product of factorials via a helper function that multiplies fact(i) for i in 1..n.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec prod_facts (a: int) (b: int) : int =\n    if a > b then 1 else fact b * prod_facts a (b-1)\n  let special_factorial (n: int) : int =\n    prod_facts 1 n\nend"
+        },
+        {
+            "description": "Recursive implementation where each call multiplies fact(n) and passes n-1 down, with explicit termination on n = 0.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let rec special_factorial (n: int) : int =\n    if n = 0 then 1 else fact n * special_factorial (n-1)\nend"
+        },
+        {
+            "description": "Iterative version using a ref variable and decrementing n in a while-loop, multiplying by fact(n) at each step.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n: int) : int =\n    let ref res = 1 in\n    let ref i = n in\n    while i > 0 do\n      res <- res * fact i;\n      i <- i - 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Implementation using int.Iter to multiply fact(i) across 1..n, leveraging why3 iteration constructs.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  let special_factorial (n: int) : int =\n    let ref res = 1 in\n    for i = 1 to n do\n      res <- res * fact i\n    done;\n    res\nend"
+        }
+    ]
+}

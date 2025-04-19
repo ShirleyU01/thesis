@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using pattern matching with separate functions to verify increasing and decreasing order.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rec is_increasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x <= y && is_increasing (Cons y ys)\n        end\n\n    let rec is_decreasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x >= y && is_decreasing (Cons y ys)\n        end\n\n    let monotonic (l : list int) : bool =\n        is_increasing l || is_decreasing l\nend"
+        },
+        {
+            "description": "Using a single recursive function with an accumulator to track monotonic direction.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rec check_monotonic (l : list int) (is_increasing : bool) (is_decreasing : bool) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) ->\n            let inc = x <= y in\n            let dec = x >= y in\n            check_monotonic (Cons y ys) (is_increasing && inc) (is_decreasing && dec)\n        end\n\n    let monotonic (l : list int) : bool =\n        check_monotonic l true true\nend"
+        },
+        {
+            "description": "Using a while-loop to iteratively check monotonicity.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let monotonic (l : list int) : bool =\n        let n = length l in\n        if n <= 1 then true else\n        let ref i = 0 in\n        let ref inc = true in\n        let ref dec = true in\n        while i < n - 1 do\n            let x = nth_my i l in\n            let y = nth_my (i + 1) l in\n            if x > y then inc <- false;\n            if x < y then dec <- false;\n            i <- i + 1\n        done;\n        inc || dec\nend"
+        },
+        {
+            "description": "Using fold_left to determine the monotonicity by maintaining state.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let monotonic (l : list int) : bool =\n        let f (state : (bool, bool, int)) (x : int) : (bool, bool, int) =\n            let (inc, dec, prev) = state in\n            (inc && prev <= x, dec && prev >= x, x)\n        in\n        let (inc, dec, _) = List.fold_left f (true, true, hd l) (tl l) in\n        inc || dec\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate over the list with directional checks.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Length\n\n    let monotonic (l : list int) : bool =\n        let n = length l in\n        if n <= 1 then true else\n        let ref inc = true in\n        let ref dec = true in\n        for i = 0 to n - 2 do\n            let x = nth_my i l in\n            let y = nth_my (i + 1) l in\n            if x > y then inc <- false;\n            if x < y then dec <- false;\n        done;\n        inc || dec\nend"
+        },
+        {
+            "description": "Checking monotonicity by separately verifying non-decreasing and non-increasing conditions.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n\n    let rec non_decreasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x <= y && non_decreasing (Cons y ys)\n        end\n\n    let rec non_increasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x >= y && non_increasing (Cons y ys)\n        end\n\n    let monotonic (l : list int) : bool =\n        non_decreasing l || non_increasing l\nend"
+        },
+        {
+            "description": "Using pattern matching with a helper function to check if all elements are equal.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n\n    let rec all_equal (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x = y && all_equal (Cons y ys)\n        end\n\n    let rec is_increasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x < y && is_increasing (Cons y ys)\n        end\n\n    let rec is_decreasing (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x > y && is_decreasing (Cons y ys)\n        end\n\n    let monotonic (l : list int) : bool =\n        is_increasing l || is_decreasing l || all_equal l\nend"
+        },
+        {
+            "description": "Using a function to convert list to a set and check if the sorted set is equal to the list.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Elements\n    use list.Combine\n\n    let rec is_sorted (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x <= y && is_sorted (Cons y ys)\n        end\n\n    let monotonic (l : list int) : bool =\n        let s = elements l in\n        let sorted_l = List.combine s in\n        is_sorted sorted_l\nend"
+        },
+        {
+            "description": "Checking monotonicity by using the reverse of the list and comparing with original.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n    use list.Reverse\n    use list.Permut\n\n    let rec is_sorted (l : list int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) -> x <= y && is_sorted (Cons y ys)\n        end\n\n    let monotonic (l : list int) : bool =\n        let reversed_l = reverse l in\n        is_sorted l || is_sorted reversed_l\nend"
+        },
+        {
+            "description": "Implementing monotonic check using a recursive helper with three-way condition checks.",
+            "implementation": "module HumanEval057\n\n    use int.Int\n    use list.List\n\n    let rec check_monotonic (l : list int) (state : int) : bool =\n        match l with\n        | Nil -> true\n        | Cons _ Nil -> true\n        | Cons x (Cons y ys) ->\n            match state with\n            | 0 -> if x < y then check_monotonic (Cons y ys) 1 else if x > y then check_monotonic (Cons y ys) -1 else check_monotonic (Cons y ys) 0\n            | 1 -> x <= y && check_monotonic (Cons y ys) 1\n            | -1 -> x >= y && check_monotonic (Cons y ys) -1\n            end\n        end\n\n    let monotonic (l : list int) : bool =\n        check_monotonic l 0\nend"
+        }
+    ]
+}

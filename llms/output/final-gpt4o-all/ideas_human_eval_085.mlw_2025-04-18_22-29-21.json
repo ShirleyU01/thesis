@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using pattern matching to iterate through the list and checking indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec add (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if mod (length xs) 2 = 0 && mod (length l) 2 = 1 then x + add xs else add xs\n  end\nend"
+        },
+        {
+            "description": "Using a recursive helper function with an index to process the list.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec add_helper (l: list int) (i: int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if mod i 2 = 1 && mod x 2 = 0 then x + add_helper xs (i + 1) else add_helper xs (i + 1)\n  end\n\nlet add (l: list int) : int =\n  add_helper l 0\nend"
+        },
+        {
+            "description": "Using fold_left to accumulate the result based on index and even check.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec fold_left (f: int -> int -> int) (acc: int) (l: list int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> fold_left f (f acc x) xs\n  end\n\nlet add (l: list int) : int =\n  let f acc (i, x) = if mod i 2 = 1 && mod x 2 = 0 then acc + x else acc in\n  fold_left f 0 (zip (seq 0 (length l)) l)\nend"
+        },
+        {
+            "description": "Using a while loop to iterate through the list and sum up the even elements at odd indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet add (l: list int) : int =\n  let n = length l in\n  let ref i = 0 in\n  let ref sum = 0 in\n  while i < n do\n    if mod i 2 = 1 && mod nth_my i l 2 = 0 then sum <- sum + nth_my i l;\n    i <- i + 1\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using a for loop to iterate through the list indices and calculate the sum.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet add (l: list int) : int =\n  let n = length l in\n  let ref sum = 0 in\n  for i = 0 to n - 1 do\n    if mod i 2 = 1 && mod nth_my i l 2 = 0 then sum <- sum + nth_my i l\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using pattern matching with a helper function and an accumulator for the sum.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec add_acc (l: list int) (i: int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> if mod i 2 = 1 && mod x 2 = 0 then add_acc xs (i + 1) (acc + x) else add_acc xs (i + 1) acc\n  end\n\nlet add (l: list int) : int =\n  add_acc l 0 0\nend"
+        },
+        {
+            "description": "Using a combination of recursion and conditional expressions to filter and sum elements.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec add (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> (if mod (length xs) 2 = 0 && mod (length l) 2 = 1 then x else 0) + add xs\n  end\nend"
+        },
+        {
+            "description": "Using reverse list to iterate from the end and sum even elements at odd indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\nuse list.Reverse\n\nlet rec add_reversed (l: list int) (i: int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if mod i 2 = 1 && mod x 2 = 0 then x + add_reversed xs (i + 1) else add_reversed xs (i + 1)\n  end\n\nlet add (l: list int) : int =\n  add_reversed (reverse l) 0\nend"
+        },
+        {
+            "description": "Using zipped list with indices to iterate and sum the elements at odd indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\nuse list.Combine\n\nlet rec add (l: list int) : int =\n  fold_left (fun acc (i, x) -> if mod i 2 = 1 && mod x 2 = 0 then acc + x else acc) 0 (combine (seq 0 (length l)) l)\nend"
+        },
+        {
+            "description": "Using nested pattern matching to selectively sum elements at odd indices.",
+            "implementation": "module HumanEval085\n\nuse int.Int\nuse int.EuclideanDivision\nuse list.List\n\nlet rec add (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> match xs with\n                 | Nil -> 0\n                 | Cons y ys -> if mod y 2 = 0 then y + add ys else add ys\n                 end\n  end\nend"
+        }
+    ]
+}

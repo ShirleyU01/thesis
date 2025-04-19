@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using for-loop and custom nth function. This implementation iterates over the list using indices and keeps track of the maximum value seen so far.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.MinMax\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let max_element (t : list int) : int =\n    let n = length t in\n    let ref max = nth_my 0 t in\n    for i = 0 to n-1 do \n      let v = nth_my i t in\n      max <- max max v\n    done ;\n    max\nend"
+        },
+        {
+            "description": "Iterative approach using while-loop and index-based traversal. This version uses a reference for index and maximum, updating as it traverses the list.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.MinMax\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let max_element (t : list int) : int =\n    let n = length t in\n    let ref i = 0 in \n    let ref max = nth_my 0 t in\n    while i < n do\n      let v = nth_my i t in\n      if max < v then max <- v;\n      i <- i + 1\n    done ;\n    max\nend"
+        },
+        {
+            "description": "Recursive approach with pattern matching to directly compare head and recursive result. This is a classic divide-and-conquer method.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let rec max_element (t : list int) : int =\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs ->\n      let m = max_element xs in\n      max x m\n    end\nend"
+        },
+        {
+            "description": "Recursive approach with accumulator argument. This form uses an inner helper that threads the current maximum through recursive calls.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let rec max_element_acc (t : list int) (acc : int) : int =\n    match t with\n    | Nil -> acc\n    | Cons x xs -> max_element_acc xs (max x acc)\n    end\n\n  let rec max_element (t : list int) : int =\n    match t with\n    | Cons x xs -> max_element_acc xs x\n    | Nil -> 0 (* Edge case: should not happen as per usage *)\n    end\nend"
+        },
+        {
+            "description": "Recursive, tail-recursive approach using explicit accumulator and pattern matching on list structure, initializing with first element.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let rec max_element_tail (t : list int) (current_max : int) : int =\n    match t with\n    | Nil -> current_max\n    | Cons x xs -> max_element_tail xs (max x current_max)\n    end\n\n  let max_element (t : list int) : int =\n    match t with\n    | Cons x xs -> max_element_tail xs x\n    | Nil -> 0\n    end\nend"
+        },
+        {
+            "description": "Recursive approach, comparing head and recursive call using if-then-else for greater clarity in branching rather than max function.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n\n  let rec max_element (t : list int) : int =\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs ->\n      let m = max_element xs in\n      if x > m then x else m\n    end\nend"
+        },
+        {
+            "description": "Recursive approach, using pattern matching to explicitly handle base case (Nil) and single-element list, falling back to the head if only one remains.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let rec max_element (t : list int) : int =\n    match t with\n    | Nil -> 0 (* Or error, but for code simplicity *)\n    | Cons x Nil -> x\n    | Cons x xs -> max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using for-loop but starting with the first element as initial maximum and then iterating from index 1, avoiding unnecessary comparison with itself.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.MinMax\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let max_element (t : list int) : int =\n    let n = length t in\n    let ref max = nth_my 0 t in\n    for i = 1 to n-1 do\n      let v = nth_my i t in\n      if max < v then max <- v\n    done ;\n    max\nend"
+        },
+        {
+            "description": "Recursive approach that uses reverse to process the list from the end, then finds max recursively, emphasizing list traversal order.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Reverse\n  use int.MinMax\n\n  let rec max_element (t : list int) : int =\n    let reversed = reverse t in\n    let rec aux (l : list int) : int =\n      match l with\n      | Cons x Nil -> x\n      | Cons x xs -> max x (aux xs)\n      end\n    in aux reversed\nend"
+        },
+        {
+            "description": "Iterative approach using for-loop and min integer as initial value to handle possible negative values, updating the maximum during iteration.",
+            "implementation": "module HumanEval035\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.MinMax\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let min_int : int = (-2147483648)\n\n  let max_element (t : list int) : int =\n    let n = length t in\n    let ref max = min_int in\n    for i = 0 to n-1 do\n      let v = nth_my i t in\n      if max < v then max <- v\n    done ;\n    max\nend"
+        }
+    ]
+}

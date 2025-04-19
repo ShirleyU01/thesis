@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative for-loop using min and max to determine range and construct the list incrementally.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    for i = finish downto start do\n      acc <- Cons i acc\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive function, building the list from start to finish using min and max.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let rec aux (x:int) : list int =\n      if x > finish then Nil else Cons x (aux (x + 1))\n    in\n    aux start\nend"
+        },
+        {
+            "description": "Tail-recursive version using an accumulator, then reversing the list at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let rec aux (i:int) (acc:list int) : list int =\n      if i > finish then acc else aux (i + 1) (Cons i acc)\n    in\n    reverse (aux start Nil)\nend"
+        },
+        {
+            "description": "While-loop with accumulator, incrementing index and building the list, then reversing at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    let ref i = start in\n    while i <= finish do\n      acc <- Cons i acc;\n      i <- i + 1\n    done;\n    reverse acc\nend"
+        },
+        {
+            "description": "Recursive approach using Cons and branching, base case only when start > finish.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec build (s:int) (e:int) : list int =\n    if s > e then Nil else Cons s (build (s + 1) e)\n  let generate_integers (a:int) (b:int) : list int =\n    build (min a b) (max a b)\nend"
+        },
+        {
+            "description": "For-loop iterating from start to finish, appending each element to the end using rev_append for efficiency.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.RevAppend\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    for i = finish downto start do\n      acc <- Cons i acc\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive approach, generating list backwards and then reversing it to achieve ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let rec build_rev (s:int) (e:int) : list int =\n    if e < s then Nil else Cons e (build_rev s (e - 1))\n  let generate_integers (a:int) (b:int) : list int =\n    reverse (build_rev (min a b) (max a b))\nend"
+        },
+        {
+            "description": "Using int.Iter to fold over the range, building the list with a function application.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use int.Iter\n  use list.List\n  use list.Reverse\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let len = finish - start + 1 in\n    let f (acc:list int) (i:int) : list int = Cons (finish - i) acc in\n    let lst = iter f len Nil in\n    reverse lst\nend"
+        },
+        {
+            "description": "For-loop, building a list in reverse order, and then reversing it once at the end for ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  let generate_integers (a:int) (b:int) : list int =\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    for i = start to finish do\n      acc <- Cons i acc\n    done;\n    reverse acc\nend"
+        },
+        {
+            "description": "Recursive version with explicit branching on whether a < b or a > b, delegating to helper to generate proper list.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n  let rec aux (s:int) (e:int) : list int =\n    if s > e then Nil else Cons s (aux (s + 1) e)\n  let generate_integers (a:int) (b:int) : list int =\n    if a <= b then aux a b else aux b a\nend"
+        }
+    ]
+}

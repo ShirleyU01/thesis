@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for-loop and manual nth function to collect the rolling maximum by iterating over indices.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rolling_max (l: list int) : list int =\n    let n = length l in\n    if n = 0 then Nil else\n    let ref result = Nil in\n    let ref current_max = nth_my 0 l in\n    for i = 0 to n-1 do\n      let v = nth_my i l in\n      current_max <- max current_max v;\n      result <- result ++ (Cons current_max Nil)\n    done ;\n    result\nend"
+        },
+        {
+            "description": "Recursive approach with pattern matching, passing the current maximum as an accumulator.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max_aux (l: list int) (current: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      let new_max = max current x in\n      Cons new_max (rolling_max_aux xs new_max)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (rolling_max_aux xs x)\n    end\nend"
+        },
+        {
+            "description": "Simple recursion without accumulator, each step computes the rolling max so far and appends.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys as xs) ->\n        let rest = rolling_max xs in\n        match rest with\n        | Cons m _ -> Cons x (Cons (max x m) (match rest with | Cons _ rs -> rs end))\n        | Nil -> Cons x Nil\n        end\n    end\nend"
+        },
+        {
+            "description": "While-loop based approach, maintaining and updating the rolling maximum with indexed access.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n\n  let rolling_max (l: list int) : list int =\n    let n = length l in\n    if n = 0 then Nil else\n    let ref res = Nil in\n    let ref i = 0 in\n    let ref cur = nth_my 0 l in\n    while i < n do\n      let v = nth_my i l in\n      cur <- max cur v;\n      res <- res ++ (Cons cur Nil);\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Tail-recursive version using an accumulator to build the result list in reverse, then reverse the final result.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec rolling_max_rev (l: list int) (cur: int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      let m = max cur x in\n      rolling_max_rev xs m (Cons m acc)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> reverse (Cons x (rolling_max_rev xs x Nil))\n    end\nend"
+        },
+        {
+            "description": "Pure recursive approach creating the result list by prepending new rolling maxima at each step, no explicit accumulator.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      match rolling_max xs with\n      | Nil -> Cons x Nil\n      | Cons y ys -> Cons (max x y) (Cons y ys)\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive approach using a helper function that consumes the input list and returns a tuple (last maximum, list), then reconstructs the output.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max_helper (l: list int) : (int, list int) =\n    match l with\n    | Nil -> (-1000, Nil)\n    | Cons x xs ->\n      let (last_max, lst) = rolling_max_helper xs in\n      let cur_max = max x last_max in\n      (cur_max, Cons cur_max lst)\n    end\n\n  let rec reverse (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> (reverse xs) ++ (Cons x Nil)\n    end\n\n  use list.Append\n  let rolling_max (l: list int) : list int =\n    let (_, res) = rolling_max_helper l in\n    reverse res\nend"
+        },
+        {
+            "description": "Recursive approach, computes the running maximum at each step, passing it as an explicit parameter and building the result directly.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max_explicit (l: list int) (cur: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      let m = max cur x in\n      Cons m (rolling_max_explicit xs m)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (rolling_max_explicit xs x)\n    end\nend"
+        },
+        {
+            "description": "Iterative approach that builds the result by traversing the list with a reference pointer, updating and appending current max.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      let ref res = Cons x Nil in\n      let ref cur_max = x in\n      let ref tail = xs in\n      while tail <> Nil do\n        match tail with\n        | Cons y ys ->\n          cur_max <- max cur_max y;\n          res <- res ++ (Cons cur_max Nil);\n          tail <- ys\n        | Nil -> ()\n        end\n      done;\n      res\n    end\nend"
+        },
+        {
+            "description": "Pattern-matching recursion that handles Nil, Cons x Nil, and Cons x xs separately for clarity and directness.",
+            "implementation": "module HumanEval009\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys as xs) ->\n      let tail_max = rolling_max xs in\n      match tail_max with\n      | Cons m ms -> Cons x (Cons (max x m) ms)\n      | Nil -> Cons x Nil\n      end\n    end\nend"
+        }
+    ]
+}

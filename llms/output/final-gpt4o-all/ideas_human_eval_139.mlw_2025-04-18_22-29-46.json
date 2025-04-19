@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursive factorial calculation with a helper function for calculating factorial of a single number.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec special_factorial (n : int) : int =\n  requires { n > 0 }\n  if n = 1 then 1\n  else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Using a nested recursive function to calculate factorial within the main function for each number down to 1.",
+            "implementation": "module HumanEval139\n\nuse int.Int\n\nlet rec factorial (x : int) : int =\n  if x <= 1 then 1 else x * factorial (x - 1)\n\nlet rec special_factorial (n : int) : int =\n  if n = 1 then 1\n  else factorial n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Using an iterative approach with a for-loop to compute the special factorial.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet special_factorial (n : int) : int =\n  requires { n > 0 }\n  let ref result = 1 in\n  for i = 1 to n do\n    result <- result * fact i\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using a while-loop to iteratively calculate special factorial.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet special_factorial (n : int) : int =\n  requires { n > 0 }\n  let ref result = 1 in\n  let ref i = n in\n  while i > 0 do\n    result <- result * fact i;\n    i <- i - 1\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to calculate special factorial.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec special_factorial (n : int) : int =\n  match n with\n  | 1 -> 1\n  | _ -> fact n * special_factorial (n - 1)\n  end\nend"
+        },
+        {
+            "description": "Using an accumulator in a recursive helper function to calculate the special factorial.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec special_factorial_helper (n : int) (acc : int) : int =\n  if n = 1 then acc\n  else special_factorial_helper (n - 1) (acc * fact n)\n\nlet special_factorial (n : int) : int =\n  special_factorial_helper n 1\nend"
+        },
+        {
+            "description": "Using a fold-like approach (manually implemented) to calculate the special factorial iteratively.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec fold_factorial (acc : int) (i : int) : int =\n  if i = 0 then acc\n  else fold_factorial (acc * fact i) (i - 1)\n\nlet special_factorial (n : int) : int =\n  fold_factorial 1 n\nend"
+        },
+        {
+            "description": "Using a tail-recursive approach to calculate the special factorial for optimized stack usage.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec special_factorial_tailrec (n : int) (acc : int) : int =\n  if n = 1 then acc\n  else special_factorial_tailrec (n - 1) (acc * fact n)\n\nlet special_factorial (n : int) : int =\n  special_factorial_tailrec n 1\nend"
+        },
+        {
+            "description": "Using a direct approach to calculate factorials and multiply them in a single loop with an accumulator.",
+            "implementation": "module HumanEval139\n\nuse int.Int\n\nlet rec factorial (n : int) : int =\n  if n <= 1 then 1 else n * factorial (n - 1)\n\nlet special_factorial (n : int) : int =\n  let ref result = 1 in\n  for i = 1 to n do\n    result <- result * factorial i\n  done;\n  result\nend"
+        },
+        {
+            "description": "Using a recursive function with multiple base cases to handle different scenarios for special factorial.",
+            "implementation": "module HumanEval139\n\nuse int.Int\nuse int.Fact\n\nlet rec special_factorial (n : int) : int =\n  match n with\n  | 0 -> 1\n  | 1 -> 1\n  | _ -> fact n * special_factorial (n - 1)\n  end\nend"
+        }
+    ]
+}

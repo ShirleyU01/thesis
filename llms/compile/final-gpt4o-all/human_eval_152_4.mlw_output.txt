@@ -1,0 +1,5 @@
+=======================human_eval_152_4.mlw=====================
+Warning, file "llms/implementation/final-gpt4o-all/human_eval_152_4.mlw", line 32, character 8 to line 35, character 11: Non-exhaustive pattern matching, asserting `absurd'
+Warning, file "llms/implementation/final-gpt4o-all/human_eval_152_4.mlw", line 34, characters 53-68: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt4o-all/human_eval_152_4.mlw", line 56, characters 2-9:
+unbound function or predicate symbol 'reverse'

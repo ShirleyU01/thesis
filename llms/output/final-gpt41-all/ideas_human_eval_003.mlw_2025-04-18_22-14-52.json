@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for-loop and a reference variable to keep track of the current balance, returning true if it ever goes below zero.",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref bal = 0 in\n    let ref i = 0 in\n    let ref ret = false in\n    while i < n do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then ret <- true;\n      i <- i + 1\n    done ;\n    ret\nend"
+        },
+        {
+            "description": "Recursive pattern matching approach, carrying the current balance as an accumulator.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec below_zero_acc (operations: list int) (bal: int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs -> \n      let bal2 = bal + x in\n      if bal2 < 0 then true else below_zero_acc xs bal2\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_acc operations 0\nend"
+        },
+        {
+            "description": "Recursive approach that stops immediately and returns true as soon as a negative balance is detected.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec below_zero_rec (ops: list int) (bal: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let bal' = bal + x in\n      if bal' < 0 then true else below_zero_rec xs bal'\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_rec operations 0\nend"
+        },
+        {
+            "description": "Using a while-loop with a reference variable, and early exit by setting a boolean flag when the balance goes below zero.",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref bal = 0 in\n    let ref i = 0 in\n    let ref found = false in\n    while i < n /\\ not found do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then found <- true;\n      i <- i + 1\n    done ;\n    found\nend"
+        },
+        {
+            "description": "Using pattern matching and recursion, but only passing the tail of the list and the updated balance in each step.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec below_zero (operations: list int) : bool =\n    let rec helper (ops: list int) (bal: int) : bool =\n      match ops with\n      | Nil -> false\n      | Cons x xs ->\n        let bal2 = bal + x in\n        if bal2 < 0 then true else helper xs bal2\n      end\n    in helper operations 0\nend"
+        },
+        {
+            "description": "Iterative approach using the hd/tl functions to walk the list, updating the balance in each iteration.",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.HdTl\n  use int.Int\n\n  let below_zero (operations: list int) : bool =\n    let ref l = operations in\n    let ref bal = 0 in\n    let ref found = false in\n    while not (is_nil l) /\\ not found do\n      match hd l with\n      | None -> ()\n      | Some x -> bal <- bal + x;\n        if bal < 0 then found <- true\n      end;\n      match tl l with\n      | None -> l <- Nil\n      | Some r -> l <- r\n      end\n    done ;\n    found\nend"
+        },
+        {
+            "description": "Recursive solution with a helper function that uses a boolean flag to indicate if negative balance was encountered, and passes it along.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec detect (ops: list int) (bal: int) (flag: bool) : bool =\n    match ops with\n    | Nil -> flag\n    | Cons x xs ->\n      let bal2 = bal + x in\n      if bal2 < 0 then true else detect xs bal2 flag\n    end\n\n  let below_zero (operations: list int) : bool =\n    detect operations 0 false\nend"
+        },
+        {
+            "description": "Iterative approach using for-loop, updating a reference balance variable, with an immediate return if negative balance is found.",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref bal = 0 in\n    let ref answer = false in\n    for i = 0 to n - 1 do\n      bal <- bal + nth_my i operations;\n      if bal < 0 then answer <- true\n    done ;\n    answer\nend"
+        },
+        {
+            "description": "Recursive approach using only the list and no extra accumulator, by reconstructing the current balance at each recursive step (inefficient but distinct).",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec sum_prefix (l: list int) (n: int) : int =\n    if n = 0 then 0 else match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_prefix xs (n-1)\n    end\n\n  let rec below_zero_aux (l: list int) (idx: int) : bool =\n    match l with\n    | Nil -> false\n    | Cons _ xs ->\n      let cur_sum = sum_prefix l (idx+1) in\n      if cur_sum < 0 then true else below_zero_aux xs (idx+1)\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_aux operations 0\nend"
+        },
+        {
+            "description": "Recursive approach using pattern matching and an explicit accumulator, but using an inner helper defined as a local function for clarity.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let below_zero (operations: list int) : bool =\n    let rec helper (l: list int) (bal: int) : bool =\n      match l with\n      | Nil -> false\n      | Cons x xs ->\n        let bal2 = bal + x in\n        if bal2 < 0 then true else helper xs bal2\n      end\n    in helper operations 0\nend"
+        }
+    ]
+}

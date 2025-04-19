@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterate using a for-loop over the list indices, summing even elements at odd indices by using a helper nth_my to access elements by index.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let add (l : list int) : int =\n    let n = length l in\n    let ref s = 0 in\n    for i = 0 to n-1 do\n      if mod i 2 = 1 then\n        let v = nth_my i l in\n        if mod v 2 = 0 then s <- s + v\n      end\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Iterate with a while-loop over the indices and accumulate the sum of even elements at odd indices, using nth_my to fetch elements.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let add (l : list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref s = 0 in\n    while i < n do\n      if mod i 2 = 1 then\n        let v = nth_my i l in\n        if mod v 2 = 0 then s <- s + v\n      end;\n      i <- i + 1\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Recursive processing with a helper that keeps track of the current index and accumulates the sum if the index is odd and value is even.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add_aux (l : list int) (idx : int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if mod idx 2 = 1 && mod x 2 = 0 then\n          x + add_aux xs (idx + 1)\n        else\n          add_aux xs (idx + 1)\n    end\n\n  let add (l : list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Recursive pattern matching without index; pairwise decompose list to track odd indices by alternating recursion.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let to_add = if mod y 2 = 0 then y else 0 in\n        to_add + add ys\n    end\nend"
+        },
+        {
+            "description": "Recursion with accumulator, tracking index and sum in parameters for tail recursion.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add_acc (l : list int) (idx : int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if mod idx 2 = 1 && mod x 2 = 0 then acc + x else acc in\n        add_acc xs (idx + 1) acc'\n    end\n\n  let add (l : list int) : int =\n    add_acc l 0 0\nend"
+        },
+        {
+            "description": "Recursively process pairs, using let-binding to clarify the odd-index handling and sum up the even values at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let s = add ys in\n        if mod y 2 = 0 then y + s else s\n    end\nend"
+        },
+        {
+            "description": "Convert the list into a zipped list of (index, value) pairs using recursion, then process each pair, summing only valid ones.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec zip_index (l : list int) (i : int) : list (int, int) =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (i, x) (zip_index xs (i + 1))\n    end\n\n  let rec add_zip (l : list (int, int)) : int =\n    match l with\n    | Nil -> 0\n    | Cons (i, x) xs ->\n        let s = add_zip xs in\n        if mod i 2 = 1 && mod x 2 = 0 then x + s else s\n    end\n\n  let add (l : list int) : int =\n    add_zip (zip_index l 0)\nend"
+        },
+        {
+            "description": "Use for_all to check for list length, then recursively process the list, skipping elements at even indices by alternating boolean flag.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Quant\n\n  let rec add_flag (l : list int) (odd : bool) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if odd then\n          (if mod x 2 = 0 then x else 0) + add_flag xs (not odd)\n        else\n          add_flag xs (not odd)\n    end\n\n  let add (l : list int) : int =\n    add_flag l false\nend"
+        },
+        {
+            "description": "Use a helper that advances two steps each recursion, increasing index by 2, and only processes the second element for evenness.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add (l : list int) : int =\n    match l with\n    | Cons _ (Cons y ys) -> (if mod y 2 = 0 then y else 0) + add ys\n    | _ -> 0\n    end\nend"
+        },
+        {
+            "description": "Iteratively reverse the list, sum even elements at odd indices by tracking the new reversed indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.Reverse\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let add (l : list int) : int =\n    let rl = reverse l in\n    let n = length rl in\n    let ref s = 0 in\n    for i = 0 to n - 1 do\n      if mod i 2 = 1 then\n        let v = nth_my i rl in\n        if mod v 2 = 0 then s <- s + v\n      end\n    done ;\n    s\nend"
+        }
+    ]
+}

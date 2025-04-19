@@ -56,9 +56,9 @@ def replace_function_name(code, module_name, function_name):
 
 
 
-folder_path = "llms/implementation/apr18-gpt41-mini-all-v3"
-compile_folder_path = "llms/compile/apr18-gpt41-mini-all-v3"
-excel_output_path = 'llms/compile/apr18-gpt41-mini-all-v3/info.csv'
+folder_path = "llms/implementation/final-gpt4o-all"
+compile_folder_path = "llms/compile/final-gpt4o-all"
+excel_output_path = 'llms/compile/final-gpt4o-all/info.csv'
 data = []
 os.makedirs(compile_folder_path, exist_ok=True)
 

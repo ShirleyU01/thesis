@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using Euclidean algorithm with recursion.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then a else greatest_common_divisor b (mod a b)\n\nend"
+        },
+        {
+            "description": "Using Euclidean algorithm with iteration.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = a in\n    let ref y = b in\n    while y <> 0 do\n      let temp = y in\n      y <- mod x y;\n      x <- temp\n    done;\n    x\n\nend"
+        },
+        {
+            "description": "Using subtraction method with recursion.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if a = b then a\n    else if a > b then greatest_common_divisor (a - b) b\n    else greatest_common_divisor a (b - a)\n\nend"
+        },
+        {
+            "description": "Using subtraction method with iteration.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = a in\n    let ref y = b in\n    while x <> y do\n      if x > y then x <- x - y\n      else y <- y - x\n    done;\n    x\n\nend"
+        },
+        {
+            "description": "Using binary GCD algorithm (Stein's algorithm).",
+            "implementation": "module HumanEval013\n\n  use int.Int\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if a = b then a\n    else if a = 0 then b\n    else if b = 0 then a\n    else if (a mod 2 = 0) && (b mod 2 = 0) then\n      2 * greatest_common_divisor (a div 2) (b div 2)\n    else if (a mod 2 = 0) then\n      greatest_common_divisor (a div 2) b\n    else if (b mod 2 = 0) then\n      greatest_common_divisor a (b div 2)\n    else if a > b then\n      greatest_common_divisor ((a - b) div 2) b\n    else\n      greatest_common_divisor ((b - a) div 2) a\n\nend"
+        },
+        {
+            "description": "Using pattern matching to implement Euclidean algorithm.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match b with\n    | 0 -> a\n    | _ -> greatest_common_divisor b (mod a b)\n    end\n\nend"
+        },
+        {
+            "description": "Using a helper function to handle negative input values before applying the Euclidean algorithm.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let abs_gcd (a: int) (b: int) : int =\n    let a_pos = abs a in\n    let b_pos = abs b in\n    greatest_common_divisor a_pos b_pos\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then a else greatest_common_divisor b (mod a b)\n\nend"
+        },
+        {
+            "description": "Using a for loop to implement an iterative version of Euclidean algorithm.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let n = 1000 in (* Arbitrary large number to limit iterations *)\n    let ref x = a in\n    let ref y = b in\n    for i = 0 to n do\n      if y = 0 then x <- x\n      else\n        let temp = y in\n        y <- mod x y;\n        x <- temp\n    done;\n    x\n\nend"
+        },
+        {
+            "description": "Using a list to store remainders in an iterative Euclidean algorithm.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.Append\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = a in\n    let ref y = b in\n    let ref remainders = Cons x Nil in\n    while y <> 0 do\n      let temp = y in\n      y <- mod x y;\n      x <- temp;\n      remainders <- Cons x remainders\n    done;\n    x\n\nend"
+        },
+        {
+            "description": "Using Euclidean algorithm in a way that swaps variables using pattern matching.",
+            "implementation": "module HumanEval013\n\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match (a, b) with\n    | (0, b) -> b\n    | (a, 0) -> a\n    | (a, b) when a > b -> greatest_common_divisor b (mod a b)\n    | (a, b) -> greatest_common_divisor a (mod b a)\n    end\n\nend"
+        }
+    ]
+}

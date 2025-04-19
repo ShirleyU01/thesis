@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Implementing 'compare' using recursion with pattern matching. This approach breaks down the problem recursively and uses pattern matching to handle base and recursive cases.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> Nil\n  | _, Nil -> Nil\n  | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n  end\nend"
+        },
+        {
+            "description": "Implementing 'compare' using a for-loop after converting lists to arrays. This method involves iterating over arrays converted from lists using a for-loop.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.Abs\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  let len = min (length l1) (length l2) in\n  let ref result = Nil in\n  for i = 0 to len - 1 do\n    result <- Cons (abs (nth_my i l1 - nth_my i l2)) result\n  done;\n  reverse result\nend"
+        },
+        {
+            "description": "Implementing 'compare' using a while-loop. This approach uses a while-loop to iterate over elements of the lists, modifying a result list as it goes.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.Abs\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  let ref i = 0 in\n  let ref result = Nil in\n  let len = min (length l1) (length l2) in\n  while i < len do\n    result <- Cons (abs (nth_my i l1 - nth_my i l2)) result;\n    i <- i + 1\n  done;\n  reverse result\nend"
+        },
+        {
+            "description": "Implementing 'compare' using fold_left to accumulate differences. This approach uses the fold_left function to traverse the lists and accumulate results.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.Abs\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  let rec fold_left f acc l1 l2 =\n    match l1, l2 with\n    | Nil, _ -> acc\n    | _, Nil -> acc\n    | Cons x xs, Cons y ys -> fold_left f (Cons (f x y) acc) xs ys\n    end\n  in\n  reverse (fold_left (fun x y -> abs (x - y)) Nil l1 l2)\nend"
+        },
+        {
+            "description": "Implementing 'compare' using recursion with an accumulator for results. This approach uses recursive calls with an accumulator to build the result list.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse int.Abs\n\nlet rec compare_acc (l1 : list int) (l2 : list int) (acc : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> reverse acc\n  | _, Nil -> reverse acc\n  | Cons x xs, Cons y ys -> compare_acc xs ys (Cons (abs (x - y)) acc)\n  end\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  compare_acc l1 l2 Nil\nend"
+        },
+        {
+            "description": "Implementing 'compare' using a combination of recursion and branching. This approach uses recursion with explicit branching to determine the result.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> Nil\n  | _, Nil -> Nil\n  | Cons x xs, Cons y ys ->\n    let diff = abs (x - y) in\n    Cons diff (compare xs ys)\n  end\nend"
+        },
+        {
+            "description": "Implementing 'compare' using direct list processing with recursive calls. This approach directly processes list elements in a recursive manner.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match l1, l2 with\n  | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n  | _, _ -> Nil\n  end\nend"
+        },
+        {
+            "description": "Implementing 'compare' using a helper function to manage recursion and list processing. This approach separates the logic into a helper function for clarity.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.Abs\n\nlet rec compare_helper (l1 : list int) (l2 : list int) (result : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> reverse result\n  | _, Nil -> reverse result\n  | Cons x xs, Cons y ys -> compare_helper xs ys (Cons (abs (x - y)) result)\n  end\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n  compare_helper l1 l2 Nil\nend"
+        },
+        {
+            "description": "Implementing 'compare' by constructing a list of differences directly within a recursive loop. This approach focuses on direct list construction.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> Nil\n  | _, Nil -> Nil\n  | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n  end\nend"
+        },
+        {
+            "description": "Implementing 'compare' using a recursive approach with list concatenation. This approach uses list concatenation to build the result list.",
+            "implementation": "module HumanEval152\n\nuse int.Int\nuse list.List\nuse list.Append\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n  match l1, l2 with\n  | Nil, _ -> Nil\n  | _, Nil -> Nil\n  | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n  end\nend"
+        }
+    ]
+}
