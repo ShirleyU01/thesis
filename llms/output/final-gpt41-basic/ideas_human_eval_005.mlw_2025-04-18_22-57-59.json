@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Standard recursive implementation: traverse the list, inserting delimiter between each pair, handling empty and singleton lists as base cases.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with an auxiliary function to avoid delimiter after the last element.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec aux (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (aux xs n))\n    end\n  let intersperse (l: list int) (n: int) : list int = aux l n\nend"
+        },
+        {
+            "description": "Pattern-match on length to handle edge cases, then use recursive helper for the main part.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Length\n  let rec intersperse_rec (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse_rec xs n))\n    end\n  let intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | _ -> intersperse_rec l n\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive implementation using an accumulator to build the result in reverse, then reverse it at the end.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Reverse\n  let rec intersperse_aux (l: list int) (n: int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x xs -> intersperse_aux xs n (Cons n (Cons x acc))\n    end\n  let intersperse (l: list int) (n: int) : list int =\n    reverse (intersperse_aux l n Nil)\nend"
+        },
+        {
+            "description": "Iterative implementation using Why3's fold_left to accumulate the result.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Fold\n  use list.Reverse\n  let intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      let f acc y = Cons n (Cons y acc) in\n      reverse (fold_left f (Cons x Nil) xs)\n    end\nend"
+        },
+        {
+            "description": "Implementation using an index counter to decide when to insert the delimiter.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse_index (l: list int) (n: int) (at_start: bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if at_start then\n        Cons x (intersperse_index xs n false)\n      else\n        Cons n (Cons x (intersperse_index xs n false))\n    end\n  let intersperse (l: list int) (n: int) : list int = intersperse_index l n true\nend"
+        },
+        {
+            "description": "Use a helper function to build the list by appending delimiter after each element except the last, using explicit length check.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Length\n  let rec build (l: list int) (n: int) (len: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if len = 1 then Cons x Nil\n      else Cons x (Cons n (build xs n (len - 1)))\n    end\n  let intersperse (l: list int) (n: int) : list int =\n    build l n (length l)\nend"
+        },
+        {
+            "description": "Recursive implementation that constructs the result from back to front, combining sublists.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> let rest = intersperse xs n in Cons x (Cons n rest)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that builds a pair of (head, tail) and intersperses by concatenation.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      match xs with\n      | Nil -> Cons x Nil\n      | _ -> Cons x (Cons n (intersperse xs n))\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using explicit auxiliary function to handle the first element distinctly, then always prepend delimiter before subsequent elements.",
+            "implementation": "module HumanEval005\n  use list.List\n  let rec aux (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons n (Cons x (aux xs n))\n    end\n  let intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (aux xs n)\n    end\nend"
+        }
+    ]
+}

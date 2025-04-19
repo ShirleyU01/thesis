@@ -29,8 +29,8 @@ def main():
                 print(row)
 
                 #llm = LLM(model="gpt41-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
-                llm = LLM(model="gpt41", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
-                #llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=1)
+                #llm = LLM(model="gpt41", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
+                llm = LLM(model="gpt4o-mini", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=1.0)
                 #llm = LLM(model="gpt4o", litellm_url="http://0.0.0.0:4000", master_key="anything",temperature=0.7)
 
                 # Create an instance of IdeasGeneration

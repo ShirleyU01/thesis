@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive traversal accumulating sum and product in helper function, then returning Cons sum (Cons product Nil) as result.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec helper (l: list int) (s: int) (p: int) : (int, int) =\n    match l with\n    | Nil -> (s, p)\n    | Cons x xs -> helper xs (s + x) (p * x)\n    end\n  let sum_product (l: list int) : list int =\n    let (s, p) = helper l 0 1 in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Direct recursive implementation: at each call, decompose into head and tail, aggregate sum and product upward.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs -> let Cons s (Cons p Nil) = sum_product xs in Cons (x + s) (Cons (x * p) Nil)\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop over a mutable list, with mutable sum and product variables.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let sum_product (l: list int) : list int =\n    var sum : int = 0 in\n    var prod : int = 1 in\n    var cur : list int = l in\n    while cur <> Nil do\n      match cur with\n      | Nil -> ()\n      | Cons x xs -> sum <- sum + x; prod <- prod * x; cur <- xs\n      end\n    done;\n    Cons sum (Cons prod Nil)\nend"
+        },
+        {
+            "description": "Two separate recursive functions for sum and product, then combine the results into a list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sum_ (l: list int) : int =\n    match l with | Nil -> 0 | Cons x xs -> x + sum_ xs end\n  let rec prod_ (l: list int) : int =\n    match l with | Nil -> 1 | Cons x xs -> x * prod_ xs end\n  let sum_product (l: list int) : list int =\n    Cons (sum_ l) (Cons (prod_ l) Nil)\nend"
+        },
+        {
+            "description": "Recursive version using accumulator pairs (tuple) and a wrapper for the public interface.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sumprod_acc (l: list int) (acc: int, accp: int) : (int, int) =\n    match l with\n    | Nil -> acc, accp\n    | Cons x xs -> sumprod_acc xs (acc + x, accp * x)\n    end\n  let sum_product (l: list int) : list int =\n    let (s, p) = sumprod_acc l (0, 1) in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Use pattern matching for base and singleton cases, and recursive calls for longer lists.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x Nil -> Cons x (Cons x Nil)\n    | Cons x xs ->\n      let Cons s (Cons p Nil) = sum_product xs in\n      Cons (x + s) (Cons (x * p) Nil)\n    end\nend"
+        },
+        {
+            "description": "Recursive, but reverse the list first, then accumulate sum and product. Demonstrates list reversal.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec rev (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> rev xs (Cons x acc)\n    end\n  let rec helper (l: list int) (s: int) (p: int) : (int, int) =\n    match l with\n    | Nil -> (s, p)\n    | Cons x xs -> helper xs (s + x) (p * x)\n    end\n  let sum_product (l: list int) : list int =\n    let lrev = rev l Nil in\n    let (s, p) = helper lrev 0 1 in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Use a local inner function to perform recursion with accumulator, showing lexical scoping.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let sum_product (l: list int) : list int =\n    let rec aux (l: list int) (s: int) (p: int) : (int, int) =\n      match l with\n      | Nil -> (s, p)\n      | Cons x xs -> aux xs (s + x) (p * x)\n      end\n    in\n    let (s, p) = aux l 0 1 in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Recursive, but makes use of a custom pair type for sum and product, then converts to list at the end.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  type pair = { s: int; p: int }\n  let rec sumprod_pair (l: list int) : pair =\n    match l with\n    | Nil -> { s = 0; p = 1 }\n    | Cons x xs -> let r = sumprod_pair xs in { s = x + r.s; p = x * r.p }\n    end\n  let sum_product (l: list int) : list int =\n    let res = sumprod_pair l in Cons res.s (Cons res.p Nil)\nend"
+        },
+        {
+            "description": "Recursive with explicit pattern matching and explicit variable names for clarity.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons head tail ->\n      let Cons s (Cons p Nil) = sum_product tail in\n      let sum = head + s in\n      let prod = head * p in\n      Cons sum (Cons prod Nil)\n    end\nend"
+        }
+    ]
+}

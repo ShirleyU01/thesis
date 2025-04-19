@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple direct computation using mod to extract unit digits",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ua = mod a 10 in\n    let ub = mod b 10 in\n    ua * ub\n  end\nend"
+        },
+        {
+            "description": "Compute unit digit by subtracting ten times the div result",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ua = a - (div a 10) * 10 in\n    let ub = b - (div b 10) * 10 in\n    ua * ub\n  end\nend"
+        },
+        {
+            "description": "Use a while-loop and mod to isolate the last digit repeatedly",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ref x = a in\n    let ref y = b in\n    while x >= 10 do x <- mod x 10 done;\n    while y >= 10 do y <- mod y 10 done;\n    x * y\n  end\nend"
+        },
+        {
+            "description": "Use a while-loop with repeated subtraction of 10 to find the unit digit",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ref x = a in\n    let ref y = b in\n    while x >= 10 do x <- x - 10 done;\n    while y >= 10 do y <- y - 10 done;\n    x * y\n  end\nend"
+        },
+        {
+            "description": "Recursive extraction of the unit digit via pattern matching",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec unit_digit (n:int) : int =\n    if n < 0 then unit_digit (- n)\n    else if n < 10 then n\n    else unit_digit (mod n 10)\n  \n  let multiply (a : int) (b : int) : int =\n    unit_digit a * unit_digit b\n  end\nend"
+        },
+        {
+            "description": "Tail-recursive helper to get the unit digit",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec unit_digit_aux (n:int) (acc:int) : int =\n    if n < 0 then unit_digit_aux (- n) acc\n    else if n < 10 then n\n    else unit_digit_aux (mod n 10) acc\n\n  let multiply (a : int) (b : int) : int =\n    unit_digit_aux a 0 * unit_digit_aux b 0\n  end\nend"
+        },
+        {
+            "description": "Build a list of digits in reverse and take its head",
+            "implementation": "module HumanEval097\n  use int.Int\n  use list.List\n  use list.Length\n  use list.HdTl\n  use list.Append\n  use int.EuclideanDivision\n\n  let rec digits_rev (n:int) : list int =\n    if n < 0 then digits_rev (- n)\n    else if n < 10 then Cons n Nil\n    else\n      let d = mod n 10 in\n      Cons d (digits_rev (div n 10))\n  \n  let multiply (a : int) (b : int) : int =\n    let da = digits_rev a in\n    let db = digits_rev b in\n    match HdTl.hd da, HdTl.hd db with\n    | Some ua, Some ub -> ua * ub\n    | _, _ -> 0\n    end\n  end\nend"
+        },
+        {
+            "description": "Build full digit list then use custom nth to get last element",
+            "implementation": "module HumanEval097\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.EuclideanDivision\n\n  let rec nth_my (n:int) (l:list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    end\n\n  let rec digits (n:int) : list int =\n    if n < 0 then digits (- n)\n    else if n < 10 then Cons n Nil\n    else\n      let rest = digits (div n 10) in\n      append rest (Cons (mod n 10) Nil)\n  \n  let multiply (a:int) (b:int) : int =\n    let da = digits a in\n    let db = digits b in\n    let ua = nth_my (length da - 1) da in\n    let ub = nth_my (length db - 1) db in\n    ua * ub\n  end\nend"
+        },
+        {
+            "description": "Use abs before mod to handle negative inputs explicitly",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\n  end\nend"
+        },
+        {
+            "description": "Use abs, div, and subtraction to compute positive unit digits",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let pa = abs a in\n    let pb = abs b in\n    let ua = pa - (div pa 10) * 10 in\n    let ub = pb - (div pb 10) * 10 in\n    ua * ub\n  end\nend"
+        }
+    ]
+}

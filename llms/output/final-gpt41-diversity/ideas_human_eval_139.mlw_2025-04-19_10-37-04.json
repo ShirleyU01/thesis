@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for loop: Compute factorial for each k from 1 to n in a for loop, then accumulate the product.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact (k: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    ensures { result = (if k = 0 then 1 else k * fact (k - 1)) }\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    ensures { result > 0 }\n    let ref res = 1 in\n    for k = 1 to n do\n      res <- res * fact k\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive approach: Define special_factorial recursively as n! * special_factorial(n-1), with base case special_factorial(1) = 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact (k: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let rec special_factorial (n: int) : int =\n    requires { n > 0 }\n    variant { n }\n    ensures { result > 0 }\n    if n = 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Accumulator-based recursion: Use an accumulator to keep the product while recursively reducing n.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact (k: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let rec special_factorial_aux (n: int) (acc: int) : int =\n    requires { n > 0 }\n    variant { n }\n    if n = 0 then acc else special_factorial_aux (n - 1) (acc * fact n)\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    special_factorial_aux n 1\nend"
+        },
+        {
+            "description": "While loop approach: Use a while loop to iterate from n down to 1, multiplying the result by k! at each step.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact (k: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    let ref res = 1 in\n    let ref k = n in\n    while k > 0 do\n      invariant { k >= 0 }\n      res <- res * fact k;\n      k <- k - 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Nested recursion: Compute factorial and special_factorial in a single recursive function with two parameters.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec special_factorial (n: int) : int =\n    requires { n > 0 }\n    variant { n }\n    let rec fact (k: int) : int =\n      requires { k >= 0 }\n      variant { k }\n      if k = 0 then 1 else k * fact (k - 1)\n    in\n    if n = 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Product over a list: Build a list of integers from 1 to n, map factorial over the list, and then take the product.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Map\n\n  let rec fact (k: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let rec range (a: int) (b: int) : list int =\n    requires { a <= b }\n    variant { b - a }\n    if a > b then Nil else Cons a (range (a + 1) b)\n\n  let rec product (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n    end\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    let l = range 1 n in\n    let facts = map fact l in\n    product facts\nend"
+        },
+        {
+            "description": "Tail-recursive factorial with iterative multiplication: Use an inner tail-recursive factorial and multiply in a for loop.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact_tail_aux (k: int) (acc: int) : int =\n    requires { k >= 0 }\n    variant { k }\n    if k = 0 then acc else fact_tail_aux (k - 1) (acc * k)\n\n  let fact (k: int) : int = fact_tail_aux k 1\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    let ref res = 1 in\n    for i = 1 to n do\n      res <- res * fact i\n    done;\n    res\nend"
+        },
+        {
+            "description": "Unfolded direct computation for small n: Use pattern matching for small n and recursive call for larger n.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact (k: int) : int =\n    if k = 0 then 1 else k * fact (k - 1)\n\n  let rec special_factorial (n: int) : int =\n    requires { n > 0 }\n    match n with\n    | 1 -> 1\n    | 2 -> fact 2 * fact 1\n    | 3 -> fact 3 * fact 2 * fact 1\n    | _ -> fact n * special_factorial (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Use two nested loops: Outer loop for k from 1 to n, inner loop computes factorial for k, then multiplies the result.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    let ref res = 1 in\n    for k = 1 to n do\n      let ref f = 1 in\n      for i = 1 to k do\n        f <- f * i\n      done;\n      res <- res * f\n    done;\n    res\nend"
+        },
+        {
+            "description": "Reverse order loop: Iterate from n down to 1, in each step compute k! using another loop and multiply the result.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n: int) : int =\n    requires { n > 0 }\n    let ref res = 1 in\n    let ref k = n in\n    while k > 0 do\n      let ref f = 1 in\n      let ref i = 1 in\n      while i <= k do\n        f <- f * i;\n        i <- i + 1\n      done;\n      res <- res * f;\n      k <- k - 1\n    done;\n    res\nend"
+        }
+    ]
+}

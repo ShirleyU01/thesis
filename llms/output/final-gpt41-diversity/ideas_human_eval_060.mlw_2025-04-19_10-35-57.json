@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative implementation using a for-loop to accumulate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref s = 0 in\n    for i = 1 to n do\n      s <- s + i\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Recursive implementation using pattern matching with base case n = 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    if n = 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Implementation using the arithmetic progression formula n * (n + 1) / 2.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    n * (n + 1) / 2\nend"
+        },
+        {
+            "description": "Iterative implementation using a while-loop for summing values.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref i = 1 in\n    let ref s = 0 in\n    while i <= n do\n      s <- s + i ;\n      i <- i + 1\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Recursive implementation with an explicit accumulator (tail recursion).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_aux (n acc : int) : int =\n    if n = 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n  let sum_to_n (n : int) : int =\n    sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Recursive implementation using pattern matching with base case n = 0.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using a decreasing for-loop from n down to 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref s = 0 in\n    for i = n downto 1 do\n      s <- s + i\n    done ;\n    s\nend"
+        },
+        {
+            "description": "Implementation using a temporary list and summing the elements, simulating list accumulation.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  let rec build_list (n : int) : list int =\n    if n = 0 then Nil else Cons n (build_list (n - 1))\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n  let sum_to_n (n : int) : int =\n    sum_list (build_list n)\nend"
+        },
+        {
+            "description": "Implementation using a pair of references and parallel accumulation: one reference for index, one for sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref idx = 1 in\n    let ref acc = 0 in\n    while idx <= n do\n      acc <- acc + idx ;\n      idx <- idx + 1\n    done ;\n    acc\nend"
+        },
+        {
+            "description": "Implementation using a helper function to simulate the behavior of Math induction.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_induct (n : int) : int =\n    if n = 0 then 0 else sum_to_n_induct (n - 1) + n\n  let sum_to_n (n : int) : int =\n    sum_to_n_induct n\nend"
+        }
+    ]
+}

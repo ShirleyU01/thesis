@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Pure recursive implementation using simultaneous pattern matching on both lists and computing the difference with an if-then-else.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n\n    let rec compare (l1 : list int) (l2 : list int) : list int =\n        match l1, l2 with\n        | Nil, Nil -> Nil\n        | Cons x xs, Cons y ys ->\n            let d = if x <= y then y - x else x - y in\n            Cons d (compare xs ys)\n        end\nend"
+        },
+        {
+            "description": "Tail-recursive version with an accumulator building the result in reverse order, then reversing at the end.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n    use list.Reverse\n\n    let rec compare_aux (l1 : list int) (l2 : list int) (acc : list int) : list int =\n        match l1, l2 with\n        | Nil, Nil -> reverse acc\n        | Cons x xs, Cons y ys ->\n            let d = if x <= y then y - x else x - y in\n            compare_aux xs ys (Cons d acc)\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        compare_aux l1 l2 Nil\nend"
+        },
+        {
+            "description": "Zip the two lists using combine and then recursively process the list of pairs.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n    use list.Combine\n\n    let rec compare_pairs (l : list (int, int)) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons (x, y) ys ->\n            let d = if x <= y then y - x else x - y in\n            Cons d (compare_pairs ys)\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        compare_pairs (combine l1 l2)\nend"
+        },
+        {
+            "description": "Index-based recursion: define a local helper aux over an integer index, using a custom nth_my to access elements.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n    use list.Length\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        match l with\n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        let n = length l1 in\n        let rec aux (i : int) : list int =\n            if i = n then Nil else\n            let x = nth_my i l1 in\n            let y = nth_my i l2 in\n            let d = if x <= y then y - x else x - y in\n            Cons d (aux (i + 1))\n        in aux 0\nend"
+        },
+        {
+            "description": "Imperative for-loop with references: iterate indices, build result list in reverse, then reverse.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n    use list.Length\n    use list.Reverse\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        match l with\n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        let n = length l1 in\n        let ref res = Nil in\n        for i = 0 to n - 1 do\n            let x = nth_my i l1 in\n            let y = nth_my i l2 in\n            let d = if x <= y then y - x else x - y in\n            res <- Cons d res\n        done;\n        reverse res\nend"
+        },
+        {
+            "description": "Imperative while-loop with references: similar to for-loop but using a while and manual index increment.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use list.List\n    use list.Length\n    use list.Reverse\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        match l with\n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        let n = length l1 in\n        let ref i = 0 in\n        let ref res = Nil in\n        while i < n do\n            let x = nth_my i l1 in\n            let y = nth_my i l2 in\n            let d = if x <= y then y - x else x - y in\n            res <- Cons d res;\n            i <- i + 1\n        done;\n        reverse res\nend"
+        },
+        {
+            "description": "Using head and tail operations via HdTl to deconstruct lists option-wise.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use int.Abs\n    use list.List\n    use list.HdTl\n\n    let rec compare (l1 : list int) (l2 : list int) : list int =\n        match hd l1, hd l2 with\n        | None, None -> Nil\n        | Some x, Some y ->\n            let d = abs (x - y) in\n            match tl l1, tl l2 with\n            | Some xs, Some ys -> Cons d (compare xs ys)\n            | _, _ -> Cons d Nil\n            end\n        | _, _ -> Nil\n        end\nend"
+        },
+        {
+            "description": "Reverse both input lists first, process them with a helper, then reverse the result to restore original order.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use int.Abs\n    use list.List\n    use list.Reverse\n\n    let rec compare_rev (l1 l2 : list int) : list int =\n        match l1, l2 with\n        | Nil, Nil -> Nil\n        | Cons x xs, Cons y ys ->\n            let d = abs (x - y) in\n            Cons d (compare_rev xs ys)\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        let rl1 = reverse l1 in\n        let rl2 = reverse l2 in\n        let rres = compare_rev rl1 rl2 in\n        reverse rres\nend"
+        },
+        {
+            "description": "Define a generic map2 higher-order helper to apply a function to pairs of list elements.",
+            "implementation": "module HumanEval152\n    use int.Int\n    use int.Abs\n    use list.List\n\n    let rec map2 (f : int -> int -> int) (l1 : list int) (l2 : list int) : list int =\n        match l1, l2 with\n        | Nil, Nil -> Nil\n        | Cons x xs, Cons y ys -> Cons (f x y) (map2 f xs ys)\n        end\n\n    let compare (l1 : list int) (l2 : list int) : list int =\n        map2 (fun x y -> abs (x - y)) l1 l2\nend"
+        },
+        {
+            "description": "Compute difference by leveraging min and max functions: d = max(x,y) - min(x,y).",
+            "implementation": "module HumanEval152\n    use int.Int\n    use int.MinMax\n    use list.List\n\n    let rec compare (l1 : list int) (l2 : list int) : list int =\n        match l1, l2 with\n        | Nil, Nil -> Nil\n        | Cons x xs, Cons y ys ->\n            let d = max x y - min x y in\n            Cons d (compare xs ys)\n        end\nend"
+        }
+    ]
+}

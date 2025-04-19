@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct use of EuclideanDivision.mod to obtain unit digits, then multiply. This is the most straightforward approach using Why3's standard library.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = mod a 10 in\n    let ub = mod b 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Handle negative numbers explicitly by taking the absolute value of the unit digits before multiplying, using int.Abs.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n  let multiply (a : int) (b : int) : int =\n    let ua = abs (mod a 10) in\n    let ub = abs (mod b 10) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract unit digit by subtracting 10 * (a div 10) from a, instead of using mod explicitly. This showcases arithmetic manipulation.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = a - 10 * div a 10 in\n    let ub = b - 10 * div b 10 in\n    (if ua < 0 then -ua else ua) * (if ub < 0 then -ub else ub)\nend"
+        },
+        {
+            "description": "Use pattern matching to handle the sign of a and b, and then use mod to get unit digits, making sure the result is always non-negative.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a : int) (b : int) : int =\n    let ua = match a < 0 with | True -> -mod (-a) 10 | False -> mod a 10 end in\n    let ub = match b < 0 with | True -> -mod (-b) 10 | False -> mod b 10 end in\n    (if ua < 0 then -ua else ua) * (if ub < 0 then -ub else ub)\nend"
+        },
+        {
+            "description": "Recursive version: define a helper function that simulates modulus by repeatedly subtracting or adding 10, and use it to extract the unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec unit_digit (n : int) : int =\n    if n < 0 then unit_digit (-n)\n    else if n < 10 then n\n    else unit_digit (n - 10)\n  let multiply (a : int) (b : int) : int =\n    let ua = unit_digit a in\n    let ub = unit_digit b in\n    ua * ub\nend"
+        },
+        {
+            "description": "Using int.MinMax to ensure non-negative unit digits and then multiplying. This approach ensures positive results even for negative inputs.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n  let multiply (a : int) (b : int) : int =\n    let ua = max (mod a 10) (-(mod a 10)) in\n    let ub = max (mod b 10) (-(mod b 10)) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract unit digit using a loop (simulated with recursion) that divides by 10 until the result is less than 10, then takes its absolute value.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let rec last_digit (n : int) : int =\n    let n1 = if n < 0 then -n else n in\n    if n1 < 10 then n1 else last_digit (div n1 10)\n  let multiply (a : int) (b : int) : int =\n    let ua = last_digit a in\n    let ub = last_digit b in\n    ua * ub\nend"
+        },
+        {
+            "description": "Explicitly handle 0 as a special case for either input, returning 0 immediately for efficiency.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n  let multiply (a : int) (b : int) : int =\n    if a = 0 || b = 0 then 0\n    else let ua = abs (mod a 10) in\n         let ub = abs (mod b 10) in\n         ua * ub\nend"
+        },
+        {
+            "description": "Compute absolute unit digits by combining mod and abs inline, then multiply. This is a compact and clear approach.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n  let multiply (a : int) (b : int) : int =\n    abs (mod a 10) * abs (mod b 10)\nend"
+        },
+        {
+            "description": "Use a function that handles negative unit digits by adding 10 when the mod result is negative, to always get a positive unit digit.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let fix_unit (n : int) : int =\n    let m = mod n 10 in\n    if m < 0 then m + 10 else m\n  let multiply (a : int) (b : int) : int =\n    fix_unit a * fix_unit b\nend"
+        }
+    ]
+}

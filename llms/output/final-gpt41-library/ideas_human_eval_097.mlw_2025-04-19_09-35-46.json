@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use absolute value and Euclidean modulus to obtain the unit digit, then multiply directly.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract the unit digit by subtracting ten times the integer division by ten (using Euclidean division), then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let ua = abs a - 10 * div (abs a) 10 in\n    let ub = abs b - 10 * div (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use recursion to compute the unit digit by repeatedly subtracting 10 until the result is less than 10, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec last_digit (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else last_digit (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Use a helper function with pattern matching to compute the absolute unit digit iteratively, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec unit_digit (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else unit_digit (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    let ua = unit_digit a in\n    let ub = unit_digit b in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use a functional approach with int.Iter to 'peel off' tens until the unit digit remains, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.Iter\n  let rec peel (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else peel (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    peel a * peel b\nend"
+        },
+        {
+            "description": "Use a sequence of subtractions in a while loop to compute the unit digit, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec get_unit (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else get_unit (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    let ua = get_unit a in\n    let ub = get_unit b in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use a min-max trick: take min of abs(x) and 10, subtract 10 if >=10, repeat until less than 10.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.MinMax\n  let rec min10 (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else min10 (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    min10 a * min10 b\nend"
+        },
+        {
+            "description": "Use abs, mod, and multiplication in a single line for brevity.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    (mod (abs a) 10) * (mod (abs b) 10)\nend"
+        },
+        {
+            "description": "Use explicit pattern matching for single-digit numbers and mod otherwise.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let unit (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else mod ax 10\n  let multiply (a:int) (b:int) : int =\n    unit a * unit b\nend"
+        },
+        {
+            "description": "Use a helper function that accumulates subtraction of 10 in a tail-recursive style.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  let rec tail_unit (x:int) : int =\n    let ax = abs x in\n    if ax < 10 then ax else tail_unit (ax - 10)\n  let multiply (a:int) (b:int) : int =\n    tail_unit a * tail_unit b\nend"
+        }
+    ]
+}

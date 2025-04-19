@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive element-wise comparison with pattern matching. Uses direct recursion and pattern matches on both lists simultaneously.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (if x = y then 0 else (if x > y then x - y else y - x)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with a helper function for absolute difference. The absolute value is computed via a separate let function.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let abs (a:int) : int = if a < 0 then 0 - a else a\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using a helper function and an accumulator-style inner function to build the result list.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let abs (a:int) : int = if a < 0 then 0 - a else a\n\n  let rec helper (l1: list int) (l2: list int) : list int =\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (helper xs ys)\n    | _, _ -> Nil\n    end\n\n  let compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    helper l1 l2\nend"
+        },
+        {
+            "description": "Recursive approach with explicit branching for zero and nonzero difference. Uses if-then-else for clarity.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n      let diff = x - y in\n      if diff = 0 then Cons 0 (compare xs ys)\n      else if diff > 0 then Cons diff (compare xs ys)\n      else Cons (-diff) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive approach using max and min to compute absolute difference. Leverages int.MinMax for clarity.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n\n  let abs_diff (a:int) (b:int) : int = max (a - b) (b - a)\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs_diff x y) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using a local let-in for the difference calculation. All logic is inline within the recursive call.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n      let d = x - y in\n      Cons (if d < 0 then -d else d) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with a custom 'my_abs' function as a local let binding inside compare.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    let my_abs x = if x < 0 then -x else x in\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (my_abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with a helper function using pattern matching, but the absolute value is computed using a match expression as well.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let absval (a: int) : int =\n    match a < 0 with\n    | True -> -a\n    | False -> a\n    end\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (absval (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Explicit recursion over indices: builds the result by recursively processing the first n elements, using a helper function for nth access.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    | Nil -> 0 (* unreachable *)\n    end\n\n  let rec build (i:int) (n:int) (l1:list int) (l2:list int) : list int =\n    requires { 0 <= i /\\ i <= n }\n    requires { length l1 = n /\\ length l2 = n }\n    variant { n - i }\n    if i = n then Nil else\n      let x = nth_my i l1 in\n      let y = nth_my i l2 in\n      let d = x - y in\n      Cons (if d < 0 then -d else d) (build (i+1) n l1 l2)\n\n  let compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    build 0 (length l1) l1 l2\nend"
+        },
+        {
+            "description": "Recursive implementation with tail-recursive accumulator, reversing at the end. This simulates a fold by building the result in reverse.",
+            "implementation": "theory HumanEval152\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Reverse\n\n  let abs (a:int) : int = if a < 0 then -a else a\n\n  let rec compare_aux (l1: list int) (l2: list int) (acc: list int) : list int =\n    variant { l1 }\n    match l1, l2 with\n    | Nil, Nil -> acc\n    | Cons x xs, Cons y ys -> compare_aux xs ys (Cons (abs (x - y)) acc)\n    | _, _ -> acc\n    end\n\n  let compare (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    reverse (compare_aux l1 l2 Nil)\nend"
+        }
+    ]
+}

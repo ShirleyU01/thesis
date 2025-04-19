@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Basic conditional logic: use min to determine the actual number of carrots eaten, then subtract from remaining.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let eaten = min need remaining in\n    Cons (number + eaten) (Cons (remaining - eaten) Nil)\nend"
+        },
+        {
+            "description": "Pattern matching on whether need <= remaining or not, then construct the result accordingly.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    match need <= remaining with\n    | True -> Cons (number + need) (Cons (remaining - need) Nil)\n    | False -> Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Use if-then-else to decide how much rabbit can eat, and return the result as a list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    if need <= remaining then Cons (number + need) (Cons (remaining - need) Nil)\n    else Cons (number + remaining) (Cons 0 Nil)\nend"
+        },
+        {
+            "description": "Calculate the amount actually eaten with a helper let-binding, then build the result.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let actual_eaten = if need <= remaining then need else remaining in\n    Cons (number + actual_eaten) (Cons (remaining - actual_eaten) Nil)\nend"
+        },
+        {
+            "description": "Use two separate let-bindings for carrots eaten and carrots left, then return result.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let can_eat = min need remaining in\n    let left = remaining - can_eat in\n    Cons (number + can_eat) (Cons left Nil)\nend"
+        },
+        {
+            "description": "Use a begin-end block with if-else for clarity before constructing the result list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    begin\n      if need <= remaining then Cons (number + need) (Cons (remaining - need) Nil)\n      else Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Recursive style: use a helper recursive function to determine how much to eat, then build the result.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let rec eat_rec (need:int) (remaining:int) : int =\n    variant { need }\n    if need = 0 || remaining = 0 then 0\n    else 1 + eat_rec (need - 1) (remaining - 1)\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let actual = eat_rec need remaining in\n    Cons (number + actual) (Cons (remaining - actual) Nil)\nend"
+        },
+        {
+            "description": "Use max to calculate the carrots left after eating, then calculate total eaten.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let left = max 0 (remaining - need) in\n    let eaten = number + (remaining - left) in\n    Cons eaten (Cons left Nil)\nend"
+        },
+        {
+            "description": "Use let-bindings for needed, actually eaten, and remaining, then build output list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let will_eat = min need remaining in\n    let still_left = remaining - will_eat in\n    let eaten_total = number + will_eat in\n    Cons eaten_total (Cons still_left Nil)\nend"
+        },
+        {
+            "description": "Use a helper function to determine the actual number of carrots eaten, and then compute the result.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  let actual_eat (need:int) (remaining:int) : int =\n    if need < remaining then need else remaining\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let act = actual_eat need remaining in\n    Cons (number + act) (Cons (remaining - act) Nil)\nend"
+        }
+    ]
+}

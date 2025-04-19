@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: process the list recursively, summing squares of odd, non-negative integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then x * x + double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Iterative approach with for loop: use indices to traverse the list, summing squares of odd, non-negative integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let double_the_dfference (l: list int) : int =\n    let n = length l in\n    let ref sum = 0 in\n    for i = 0 to n - 1 do\n      let x = nth i l in\n      if x >= 0 && x mod 2 = 1 then sum <- sum + x * x\n    done ;\n    sum\nend"
+        },
+        {
+            "description": "Tail-recursive accumulator: use a recursive helper function with an accumulator to sum the squares as we traverse the list.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_dfference_aux (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then\n          double_the_dfference_aux xs (acc + x * x)\n        else\n          double_the_dfference_aux xs acc\n    end\n\n  let double_the_dfference (l: list int) : int =\n    double_the_dfference_aux l 0\nend"
+        },
+        {
+            "description": "Using a filter helper: first filter the list to keep only odd, non-negative integers, then sum their squares recursively.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec filter_odd_nonneg (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then Cons x (filter_odd_nonneg xs)\n        else filter_odd_nonneg xs\n    end\n\n  let rec sum_of_squares (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x * x + sum_of_squares xs\n    end\n\n  let double_the_dfference (l: list int) : int =\n    sum_of_squares (filter_odd_nonneg l)\nend"
+        },
+        {
+            "description": "Branching explicitly on the three cases: negative, even, or odd non-negative; sum only for the last.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x < 0 then double_the_dfference xs\n        else if x mod 2 = 0 then double_the_dfference xs\n        else x * x + double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Using a map helper: map each integer to its square if odd and non-negative, else zero; then sum the result.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec map_square_odd_nonneg (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x >= 0 && x mod 2 = 1 then Cons (x * x) (map_square_odd_nonneg xs)\n        else Cons 0 (map_square_odd_nonneg xs)\n    end\n\n  let rec sum (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum xs\n    end\n\n  let double_the_dfference (l: list int) : int =\n    sum (map_square_odd_nonneg l)\nend"
+        },
+        {
+            "description": "Explicitly check all input properties with a helper: create is_valid function for condition, then sum squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let is_valid (x: int) : bool = x >= 0 && x mod 2 = 1\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> if is_valid x then x * x + double_the_dfference xs else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Pattern matching with guards: use pattern matching with guards to only process odd, non-negative integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs when x >= 0 && x mod 2 = 1 -> x * x + double_the_dfference xs\n    | Cons _ xs -> double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Sum squares using a while loop and explicit index variable, avoiding helper modules.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let double_the_dfference (l: list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref sum = 0 in\n    while i < n do\n      let x = nth i l in\n      if x >= 0 && x mod 2 = 1 then sum <- sum + x * x;\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive approach with 'if-then-else' and avoiding pattern matching, for a different style.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    if l = Nil then 0\n    else let Cons x xs = l in\n      if x >= 0 && x mod 2 = 1 then x * x + double_the_dfference xs\n      else double_the_dfference xs\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Standard recursive implementation using pattern matching. Each element is incremented by 1 and cons'd to the result of recursively calling incr_list on the tail.",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with \n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with an auxiliary function that carries the output list as an accumulator (tail-recursive style).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> aux xs (Cons (x + 1) acc)\n    end\n  let rec reverse (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> (reverse xs) ++ (Cons x Nil)\n    end\n  use list.Append\n  let incr_list (l : list int) : list int =\n    reverse (aux l Nil)\nend"
+        },
+        {
+            "description": "Recursive implementation that reverses the input list, increments all elements, then reverses back to preserve order.",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  use list.Append\n  let rec reverse (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> (reverse xs) ++ (Cons x Nil)\n    end\n  let rec incr_list_rec (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list_rec xs)\n    end\n  let incr_list (l : list int) : list int =\n    reverse (incr_list_rec (reverse l))\nend"
+        },
+        {
+            "description": "Recursive implementation using a helper function that processes the list while keeping track of the index, though index is unused (demonstrates the use of an index parameter).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec helper (l : list int) (i : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (helper xs (i + 1))\n    end\n  let incr_list (l : list int) : list int =\n    helper l 0\nend"
+        },
+        {
+            "description": "Recursive implementation using pattern matching and a separate increment function for clarity (demonstrates modularity).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let inc (x : int) : int = x + 1\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (inc x) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that increments only even-indexed elements (demonstrates variant behavior, not strictly required but shows diversity).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec helper (l : list int) (even : bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if even then Cons (x + 1) (helper xs (not even))\n        else Cons x (helper xs (not even))\n    end\n  let incr_list (l : list int) : list int =\n    helper l true\nend"
+        },
+        {
+            "description": "Recursive implementation where only elements greater than 0 are incremented (shows conditional increment).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let y = if x > 0 then x + 1 else x in\n        Cons y (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that increments elements by 1, but stops incrementing after the first zero is found (demonstrates early stop and partial transformation).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x = 0 then Cons x xs\n        else Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using a custom nth_my function to get elements by index and rebuild the list by position (demonstrates index-based access).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  use list.Length\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let rec build (i : int) (len : int) (l : list int) : list int =\n    if i = len then Nil\n    else Cons (nth_my i l + 1) (build (i + 1) len l)\n  let incr_list (l : list int) : list int =\n    build 0 (length l) l\nend"
+        },
+        {
+            "description": "Recursive implementation that uses two mutually recursive functions: one for incrementing, one for traversing (demonstrates mutual recursion).",
+            "implementation": "theory HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list_aux (l : list int) : list int = aux l\n  with aux (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list_aux xs)\n    end\n  let incr_list (l : list int) : list int = incr_list_aux l\nend"
+        }
+    ]
+}

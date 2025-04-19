@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation using pattern matching. For each element, if it is positive, prepend it to the result of recursively processing the tail; otherwise, skip it.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Use an auxiliary accumulator to collect positive numbers in reverse order, then reverse the result at the end.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec aux (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> if x > 0 then aux xs (Cons x acc) else aux xs acc\n    end\n  let get_positive (l: list int) : list int =\n    reverse (aux l Nil)\nend"
+        },
+        {
+            "description": "Iterative version using a for-loop and list.nth to traverse the list and build the result.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n  let get_positive (l : list int) : list int =\n    let n = length l in\n    let ref res = Nil in\n    for i = 0 to n - 1 do\n      let x = nth i l in\n      if x > 0 then res <- append res (Cons x Nil)\n    done;\n    res\nend"
+        },
+        {
+            "description": "Implementation using a while-loop and explicit index, accumulating positives into a result list.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n  let get_positive (l : list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref res = Nil in\n    while i < n do\n      let x = nth i l in\n      if x > 0 then res <- append res (Cons x Nil);\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive implementation using an explicit filter higher-order function to select positives.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  function is_pos (x: int) : bool = x > 0\n  let rec filter (l: list int) (f: int -> bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if f x then Cons x (filter xs f) else filter xs f\n    end\n  let get_positive (l : list int) : list int =\n    filter l is_pos\nend"
+        },
+        {
+            "description": "Recursive implementation that builds the list in reverse and reverses it at the end, avoiding explicit accumulator.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec get_positive_rev (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> let r = get_positive_rev xs in\n                   if x > 0 then append r (Cons x Nil) else r\n    end\n  let get_positive (l: list int) : list int =\n    get_positive_rev l\nend"
+        },
+        {
+            "description": "Mutually recursive helper functions: one to process the list and one to skip negatives.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec skip_neg (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> if x > 0 then Cons x (skip_neg xs) else skip_neg xs\n    end\n  let get_positive (l : list int) : list int =\n    skip_neg l\nend"
+        },
+        {
+            "description": "Tail-recursive implementation with accumulator, using a helper function that returns the positives in order.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Reverse\n  let rec get_pos_acc (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> if x > 0 then get_pos_acc xs (Cons x acc) else get_pos_acc xs acc\n    end\n  let get_positive (l : list int) : list int =\n    reverse (get_pos_acc l Nil)\nend"
+        },
+        {
+            "description": "Recursive implementation using only pattern matching and guards, no explicit if-then-else.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs when x > 0 -> Cons x (get_positive xs)\n    | Cons _ xs -> get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using explicit case analysis: split into positive and non-positive branches.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> match x > 0 with\n      | True -> Cons x (get_positive xs)\n      | False -> get_positive xs\n      end\n    end\nend"
+        }
+    ]
+}

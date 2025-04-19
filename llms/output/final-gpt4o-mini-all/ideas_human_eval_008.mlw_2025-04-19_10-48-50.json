@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Basic recursion: directly pattern-match the input list and combine recursive result by destructuring the two-element list returned for the tail.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let res = sum_product xs in\n      match res with\n      | Cons s (Cons p Nil) ->\n        Cons (x + s) (Cons (x * p) Nil)\n      end\n    end\nend"
+        },
+        {
+            "description": "Tail\u2011recursive accumulator: single pass tail recursion carries running sum and product in parameters, then builds the two\u2011element list at the end.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sum_prod_aux (l: list int) (acc_s acc_p: int) : list int =\n    match l with\n    | Nil -> Cons acc_s (Cons acc_p Nil)\n    | Cons x xs -> sum_prod_aux xs (acc_s + x) (acc_p * x)\n    end\n\n  let sum_product (l: list int) : list int =\n    sum_prod_aux l 0 1\nend"
+        },
+        {
+            "description": "Imperative while\u2011loop with refs and a custom nth_my function to index into the list, updating sum and product in place.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\  n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let sum_product (l : list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref acc_s = 0 in\n    let ref acc_p = 1 in\n    while i < n do\n      let x = nth_my i l in\n      acc_s <- acc_s + x;\n      acc_p <- acc_p * x;\n      i <- i + 1\n    done;\n    Cons acc_s (Cons acc_p Nil)\nend"
+        },
+        {
+            "description": "Imperative for\u2011loop with refs and custom nth_my: iterate i from 0 to length-1, accumulating sum and product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\  n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let sum_product (l : list int) : list int =\n    let n = length l in\n    let ref acc_s = 0 in\n    let ref acc_p = 1 in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      acc_s <- acc_s + x;\n      acc_p <- acc_p * x\n    done;\n    Cons acc_s (Cons acc_p Nil)\nend"
+        },
+        {
+            "description": "Two\u2011pass with library sum: use Why3's list.Sum for the sum and a small recursive function for the product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Sum\n  use int.Int\n\n  let rec prod (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * prod xs\n    end\n\n  let sum_product (l : list int) : list int =\n    let s = sum l in\n    let p = prod l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Separate helper functions: define two independent recursive functions sum_rec and prod_rec, then combine their results.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sum_rec (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_rec xs\n    end\n\n  let rec prod_rec (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * prod_rec xs\n    end\n\n  let sum_product (l : list int) : list int =\n    Cons (sum_rec l) (Cons (prod_rec l) Nil)\nend"
+        },
+        {
+            "description": "Option\u2011based pattern matching: use list.HdTl and hd/tl options to special\u2011case and destructure the list.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.HdTl\n  use int.Int\n\n  let rec sum_product (l : list int) : list int =\n    if is_nil l then\n      Cons 0 (Cons 1 Nil)\n    else begin\n      match hd l with\n      | None -> Cons 0 (Cons 1 Nil)\n      | Some x ->\n        match tl l with\n        | None -> Cons x (Cons x Nil)\n        | Some xs ->\n          let rest = sum_product xs in\n          match rest with\n          | Cons s (Cons p Nil) ->\n            Cons (x + s) (Cons (x * p) Nil)\n          end\n        end\n      end\n    end\nend"
+        },
+        {
+            "description": "Tuple accumulator: return an (int,int) pair in a helper, then destruct it and build a two\u2011element list.",
+            "implementation": "module HumanEval008\n  use list.List\n  use int.Int\n\n  let rec sp_aux (l : list int) : (int,int) pair =\n    match l with\n    | Nil -> (0, 1)\n    | Cons x xs ->\n      let (s, p) = sp_aux xs in\n      (x + s, x * p)\n    end\n\n  let sum_product (l : list int) : list int =\n    let (s, p) = sp_aux l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Reverse then recursive pass: first reverse the list, then do a standard tail\u2011recursive accumulation.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec sum_prod_rev (l : list int) (acc_s acc_p: int) : list int =\n    match l with\n    | Nil -> Cons acc_s (Cons acc_p Nil)\n    | Cons x xs -> sum_prod_rev xs (acc_s + x) (acc_p * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    let rl = reverse l in\n    sum_prod_rev rl 0 1\nend"
+        },
+        {
+            "description": "Zip with itself: combine the list with itself via list.Combine and recurse over the list of pairs, accumulating sum and product.",
+            "implementation": "module HumanEval008\n  use list.List\n  use list.Combine\n  use int.Int\n\n  let rec sp_pairs (lp : list (int,int)) (acc_s acc_p: int) : (int,int) pair =\n    match lp with\n    | Nil -> (acc_s, acc_p)\n    | Cons pr ps ->\n      match pr with\n      | Pair x y -> sp_pairs ps (acc_s + x) (acc_p * y)\n      end\n    end\n\n  let sum_product (l : list int) : list int =\n    let pairs = combine l l in\n    let (s, p) = sp_pairs pairs 0 1 in\n    Cons s (Cons p Nil)\nend"
+        }
+    ]
+}

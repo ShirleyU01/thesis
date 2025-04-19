@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if n is at least 8 and divisible by 2. Since the smallest sum of 4 positive even numbers is 2+2+2+2=8, and all numbers are even, n must be even and at least 8.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Explicitly check if n is 8 or greater and even using pattern matching for clarity.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    match n mod 2 = 0, n >= 8 with\n    | true, true -> true\n    | _, _ -> false\nend"
+        },
+        {
+            "description": "Use recursion to simulate the selection of four positive even numbers (always 2) and check if the remainder is zero.",
+            "implementation": "module HumanEval138\n  let rec aux (k n : int) : bool =\n    if k = 0 then n = 0 else aux (k-1) (n-2)\n  let is_equal_to_sum_even (n : int) : bool = aux 4 n && n > 0\nend"
+        },
+        {
+            "description": "Iterate over all possible partitions of n into four positive even numbers (each at least 2) and return true if found.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    exists a:int. exists b:int. exists c:int. exists d:int.\n      a > 0 /\\ b > 0 /\\ c > 0 /\\ d > 0 /\\\n      a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\\n      a + b + c + d = n\nend"
+        },
+        {
+            "description": "Calculate the minimum possible sum (8), then check if n is even and at least 8 using logical conjunctions.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    let min_sum = 8 in\n    n >= min_sum && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Subtract 8 from n and check if the result is non-negative and even. Any sum of four even numbers is 8 plus some even number.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    let diff = n - 8 in\n    diff >= 0 && diff mod 2 = 0\nend"
+        },
+        {
+            "description": "Use a function to check that there exist four numbers all equal to 2 (the smallest) whose sum is n, or larger even numbers.",
+            "implementation": "module HumanEval138\n  let is_possible (n : int) : bool =\n    exists a:int. exists b:int. exists c:int. exists d:int.\n      a >= 2 /\\ b >= 2 /\\ c >= 2 /\\ d >= 2 /\\\n      a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\\n      a + b + c + d = n\n  let is_equal_to_sum_even (n : int) : bool = is_possible n\nend"
+        },
+        {
+            "description": "Check if n is in a list of known sums (precompute a range, such as 8 to 100, all even) and return true if n is in the list.",
+            "implementation": "module HumanEval138\n  let rec is_in_range (n : int) (minv : int) (maxv : int) : bool =\n    if minv > maxv then false\n    else if n = minv then true\n    else is_in_range n (minv+2) maxv\n  let is_equal_to_sum_even (n : int) : bool =\n    is_in_range n 8 n\nend"
+        },
+        {
+            "description": "Formulate the problem as checking if there is an integer k >= 0 such that n = 8 + 2*k, i.e., n - 8 is a non-negative even number.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    let k = n - 8 in\n    k >= 0 && k mod 2 = 0\nend"
+        },
+        {
+            "description": "Decompose n as 2*x for some x >= 4. If such an integer x exists, then n can be written as sum of four positive even numbers.",
+            "implementation": "module HumanEval138\n  let is_equal_to_sum_even (n : int) : bool =\n    exists x:int. x >= 4 /\\ 2 * x = n\nend"
+        }
+    ]
+}

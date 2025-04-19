@@ -1,0 +1,4 @@
+=======================human_eval_042_4.mlw=====================
+Warning, file "llms/implementation/final-gpt41-basic/human_eval_042_4.mlw", line 33, characters 2-22: the keyword `import' is redundant here and can be omitted
+File "llms/implementation/final-gpt41-basic/human_eval_042_4.mlw", line 36, characters 13-21:
+unbound function or predicate symbol 'List.rev'

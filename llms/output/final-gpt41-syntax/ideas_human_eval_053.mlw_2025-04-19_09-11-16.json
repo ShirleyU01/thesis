@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct addition using the built-in plus operator. This is the simplest and most common way to implement addition, relying on Why3's built-in arithmetic.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int = x + y\nend"
+        },
+        {
+            "description": "Addition using recursion: increment x by 1 and decrement y by 1 until y reaches 0. This is a classic recursive approach to addition.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    if y = 0 then x else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Addition using pattern matching on y: base case when y = 0, recursive case otherwise. This demonstrates pattern matching and recursion.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    match y with\n      | 0 -> x\n      | _ -> add (x + 1) (y - 1)\n    end\nend"
+        },
+        {
+            "description": "Addition using a while loop: increment a local variable x and decrement y until y is zero. This approach uses iteration instead of recursion.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    var a = x in\n    var b = y in\n    while b <> 0 do\n      invariant { a + b = x + y }\n      a <- a + 1;\n      b <- b - 1\n    done;\n    a\nend"
+        },
+        {
+            "description": "Addition by swapping the order of parameters if y is negative. Handles negative y by swapping and negating.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    if y = 0 then x\n    else if y > 0 then add (x + 1) (y - 1)\n    else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Addition by using min and max from int.MinMax and calculating the difference and sum. This uses utility functions to demonstrate combining min/max with arithmetic.",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.MinMax\n  let add (x: int) (y: int) : int =\n    let m = min x y in\n    let n = max x y in\n    m + (n - m)\nend"
+        },
+        {
+            "description": "Addition using the arithmetic progression formula: sum = 2 * (mean of x and y) if x = y, else x + y. (For demonstration, not efficient for addition, but valid for integers.)",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    if x = y then 2 * x\n    else x + y\nend"
+        },
+        {
+            "description": "Addition by converting negative y to subtract from x. Handles negative y using only addition and subtraction.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    if y > 0 then add (x + 1) (y - 1)\n    else if y < 0 then add (x - 1) (y + 1)\n    else x\nend"
+        },
+        {
+            "description": "Addition using a local recursive helper function inside add. Demonstrates local function definition.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    let rec aux (a: int) (b: int) : int =\n      if b = 0 then a else aux (a + 1) (b - 1)\n    in aux x y\nend"
+        },
+        {
+            "description": "Addition by summing the two arguments in a tuple and extracting the result. This uses tuple manipulation.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    let p = (x, y) in\n    let (a, b) = p in\n    a + b\nend"
+        }
+    ]
+}

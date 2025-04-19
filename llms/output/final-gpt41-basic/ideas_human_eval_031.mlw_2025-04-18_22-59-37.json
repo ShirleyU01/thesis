@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Brute-force check divisibility from 2 to n-1. Returns false if n <= 1 or if any divisor is found.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec loop (d: int) : bool =\n      if d >= n then true\n      else if n mod d = 0 then false\n      else loop (d + 1)\n    in loop 2\nend"
+        },
+        {
+            "description": "Optimized divisibility check up to sqrt(n). Only checks up to d * d > n.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec check (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else check (d + 1)\n    in check 2\nend"
+        },
+        {
+            "description": "Checks for even numbers separately, then checks odd divisors from 3 up to sqrt(n).",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if n mod 2 = 0 then false\n    else let rec loop (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else loop (d + 2)\n    in loop 3\nend"
+        },
+        {
+            "description": "Special cases for small n, then uses a while-like recursive loop for divisibility.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else let rec loop (d: int) : bool =\n      if d = n then true\n      else if n mod d = 0 then false\n      else loop (d + 1)\n    in loop 2\nend"
+        },
+        {
+            "description": "Checks for divisibility only by primes less than sqrt(n), using a helper is_prime function recursively.",
+            "implementation": "module HumanEval031\n  let rec is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else let rec check (d: int) : bool =\n      if d * d > n then true\n      else if is_prime d && n mod d = 0 then false\n      else check (d + 1)\n    in check 2\nend"
+        },
+        {
+            "description": "Check divisibility using a for-loop like recursive structure from 2 to n/2.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let rec loop (d: int) : bool =\n      if d > n / 2 then true\n      else if n mod d = 0 then false\n      else loop (d + 1)\n    in loop 2\nend"
+        },
+        {
+            "description": "Handle all small numbers as special cases, then only check for divisibility by 2 and numbers of the form 6k\u00b11 (wheel factorization).",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n <= 3 then true\n    else if n mod 2 = 0 || n mod 3 = 0 then false\n    else let rec loop (i: int) : bool =\n      if i * i > n then true\n      else if n mod i = 0 || n mod (i + 2) = 0 then false\n      else loop (i + 6)\n    in loop 5\nend"
+        },
+        {
+            "description": "Use an accumulator in a helper function to check divisibility, tail-recursive style.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    let rec aux (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else aux (d + 1)\n    in if n <= 1 then false else aux 2\nend"
+        },
+        {
+            "description": "Check for divisibility by 2, 3, then start checking only odd numbers from 5 upwards.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 || n = 3 then true\n    else if n mod 2 = 0 || n mod 3 = 0 then false\n    else let rec loop (d: int) : bool =\n      if d * d > n then true\n      else if n mod d = 0 then false\n      else loop (d + 2)\n    in loop 5\nend"
+        },
+        {
+            "description": "Simple recursive check with explicit base case for n = 2, then try dividing by all numbers up to n-1.",
+            "implementation": "module HumanEval031\n  let is_prime (n: int) : bool =\n    let rec check (d: int) : bool =\n      if d = n then true\n      else if n mod d = 0 then false\n      else check (d + 1)\n    in if n <= 1 then false else if n = 2 then true else check 2\nend"
+        }
+    ]
+}

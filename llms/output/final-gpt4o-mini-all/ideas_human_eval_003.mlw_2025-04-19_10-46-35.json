@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Tail-recursive helper with accumulator using pattern matching",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use int.Int\n\n  let rec helper (ops: list int) (bal: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n        let bal' = bal + x in\n        if bal' < 0 then true else helper xs bal'\n    end\n\n  let below_zero (operations: list int) : bool =\n    helper operations 0\nend"
+        },
+        {
+            "description": "Tail-recursive helper with specification annotations (requires, variant)",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use int.Int\n\n  let rec below_zero_rec (ops: list int) (bal: int) : bool\n    variant { length ops }\n  =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n        let bal' = bal + x in\n        if bal' < 0 then true else below_zero_rec xs bal'\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_rec operations 0\nend"
+        },
+        {
+            "description": "Imperative for-loop with refs and a flag to record negative balance, using nth_my",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    | Nil -> 0\n    end\n\n  let below_zero (operations: list int) : bool =\n    let len = length operations in\n    let ref bal = 0 in\n    let ref flag = false in\n    for i = 0 to len - 1 do\n      if not flag then begin\n        let x = nth_my i operations in\n        bal <- bal + x;\n        if bal < 0 then flag <- true\n      end\n    done;\n    flag\nend"
+        },
+        {
+            "description": "Imperative while-loop with refs, using nth_my to access elements",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    | Nil -> 0\n    end\n\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref i = 0 in\n    let ref bal = 0 in\n    let ref res = false in\n    while i < n do\n      if not res then begin\n        let x = nth_my i operations in\n        bal <- bal + x;\n        if bal < 0 then res <- true\n      end;\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive iteration by index with accumulator, using length and nth_my",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    | Nil -> 0\n    end\n\n  let rec iter_idx (i: int) (bal: int) (ops: list int) : bool =\n    if i >= length ops then false else\n      let x = nth_my i ops in\n      let bal' = bal + x in\n      if bal' < 0 then true else iter_idx (i + 1) bal' ops\n\n  let below_zero (operations: list int) : bool =\n    iter_idx 0 0 operations\nend"
+        },
+        {
+            "description": "Check each prefix sum via recursion with prefix and sum functions",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Length\n  use list.Prefix\n  use list.Sum\n  use int.Int\n\n  let rec check_pref (i: int) (ops: list int) : bool =\n    if i > length ops then false else\n      let p = prefix i ops in\n      if sum p < 0 then true else check_pref (i + 1) ops\n\n  let below_zero (operations: list int) : bool =\n    check_pref 1 operations\nend"
+        },
+        {
+            "description": "Build a list of running balances and use for_some to detect negative",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Quant\n  use int.Int\n\n  let rec build_balances (ops: list int) (bal: int) : list int =\n    match ops with\n    | Nil -> Nil\n    | Cons x xs ->\n        let b' = bal + x in\n        Cons b' (build_balances xs b')\n    end\n\n  let below_zero (operations: list int) : bool =\n    let balances = build_balances operations 0 in\n    for_some (fun b -> b < 0) balances\nend"
+        },
+        {
+            "description": "Build a list of running balances and use for_all to check non-negativity, then negate result",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.Quant\n  use int.Int\n\n  let rec build_balances (ops: list int) (bal: int) : list int =\n    match ops with\n    | Nil -> Nil\n    | Cons x xs ->\n        let b' = bal + x in\n        Cons b' (build_balances xs b')\n    end\n\n  let below_zero (operations: list int) : bool =\n    let balances = build_balances operations 0 in\n    not (for_all (fun b -> b >= 0) balances)\nend"
+        },
+        {
+            "description": "Recursive traversal using hd and tl from HdTl module",
+            "implementation": "module HumanEval003\n  use list.List\n  use list.HdTl\n  use int.Int\n\n  let rec below_zero_aux (ops: list int) (bal: int) : bool =\n    match hd ops with\n    | None -> false\n    | Some x ->\n        let bal' = bal + x in\n        if bal' < 0 then true else\n          let rest = match tl ops with None -> Nil | Some l -> l in\n          below_zero_aux rest bal'\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_aux operations 0\nend"
+        },
+        {
+            "description": "Build balances list then compute minimum recursively and compare to zero",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n\n  let rec build_balances (ops: list int) (bal: int) : list int =\n    match ops with\n    | Nil -> Nil\n    | Cons x xs ->\n        let b' = bal + x in\n        Cons b' (build_balances xs b')\n    end\n\n  let rec find_min (bs: list int) : int =\n    match bs with\n    | Nil -> 0\n    | Cons x Nil -> x\n    | Cons x xs ->\n        let m = find_min xs in\n        if x < m then x else m\n    end\n\n  let below_zero (operations: list int) : bool =\n    let balances = build_balances operations 0 in\n    find_min balances < 0\nend"
+        }
+    ]
+}

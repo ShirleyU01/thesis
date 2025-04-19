@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for loop from min(a, b) to max(a, b), constructing the list in order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lower = if a < b then a else b in\n    let upper = if a > b then a else b in\n    let ref res = Nil in\n    for i = upper downto lower do\n      res <- Cons i res\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive approach with an accumulator building the list from lower to upper.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec aux (cur: int) (upper: int) (acc: list int) : list int =\n    if cur > upper then acc else aux (cur+1) upper (Cons cur acc)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lower = if a < b then a else b in\n    let upper = if a > b then a else b in\n    let lrev = aux lower upper Nil in\n    let rec rev l acc = match l with Nil -> acc | Cons x xs -> rev xs (Cons x acc) end in\n    rev lrev Nil\nend"
+        },
+        {
+            "description": "Simple recursion: generate the list directly from lower to upper, appending at the front (and reverse at the end).",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec build (cur: int) (upper: int) : list int =\n    if cur > upper then Nil else Cons cur (build (cur+1) upper)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lower = if a < b then a else b in\n    let upper = if a > b then a else b in\n    build lower upper\nend"
+        },
+        {
+            "description": "Using a while loop: start from lower, append to result until reaching upper.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lower = if a < b then a else b in\n    let upper = if a > b then a else b in\n    let ref i = lower in\n    let ref res = Nil in\n    while i <= upper do\n      res <- Cons i res;\n      i <- i + 1\n    done;\n    let rec rev l acc = match l with Nil -> acc | Cons x xs -> rev xs (Cons x acc) end in\n    rev res Nil\nend"
+        },
+        {
+            "description": "Pattern matching with a helper function: handle a=b and a\u2260b cases distinctly.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec range (lo: int) (hi: int) : list int =\n    if lo > hi then Nil else Cons lo (range (lo+1) hi)\n\n  let generate_integers (a: int) (b: int) : list int =\n    match a = b with\n    | True -> Cons a Nil\n    | False -> let lo = if a < b then a else b in let hi = if a > b then a else b in range lo hi\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive version: build list in reverse, then reverse at end for order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec build_rev (cur: int) (upper: int) (acc: list int) : list int =\n    if cur > upper then acc else build_rev (cur+1) upper (Cons cur acc)\n\n  let rec rev (l: list int) (acc: list int) : list int = match l with Nil -> acc | Cons x xs -> rev xs (Cons x acc) end\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    rev (build_rev lo hi Nil) Nil\nend"
+        },
+        {
+            "description": "Pure recursive: always build from min(a,b) up, using only recursion with minimal helpers.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let rec aux (cur: int) : list int =\n      if cur > hi then Nil else Cons cur (aux (cur+1))\n    in aux lo\nend"
+        },
+        {
+            "description": "Using a helper function to swap arguments if necessary, then generate list with a for loop.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let ref res = Nil in\n    for i = hi downto lo do res <- Cons i res done;\n    res\nend"
+        },
+        {
+            "description": "Construct the range as a list, then sort it (although it should already be sorted, shows use of sorting).",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n  use list.QuickSort\n\n  let rec range (lo: int) (hi: int) : list int =\n    if lo > hi then Nil else Cons lo (range (lo+1) hi)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let l = range lo hi in\n    quicksort l\nend"
+        },
+        {
+            "description": "Build the list backwards with recursion, then reverse once at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec build_backwards (lo: int) (hi: int) (acc: list int) : list int =\n    if hi < lo then acc else build_backwards lo (hi-1) (Cons hi acc)\n\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    build_backwards lo hi Nil\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Classic recursive Euclidean algorithm: repeatedly replace (a,b) with (b, a mod b) until b is zero, returning |a|.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    if b = 0 then abs a else greatest_common_divisor b (mod a b)\nend"
+        },
+        {
+            "description": "Subtraction-based recursion: normalize to non\u2010negative, then repeatedly subtract the smaller from the larger until they become equal.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a0 = abs a in\n    let b0 = abs b in\n    if a0 = b0 then a0\n    else if a0 > b0 then greatest_common_divisor (a0 - b0) b0\n    else greatest_common_divisor a0 (b0 - a0)\nend"
+        },
+        {
+            "description": "Iterative Euclidean algorithm with while\u2010loop and mutation: compute remainder until divisor becomes zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = abs a in\n    let ref y = abs b in\n    while !y <> 0 do\n      let r = mod !x !y in\n      x <- !y;\n      y <- r\n    done;\n    !x\nend"
+        },
+        {
+            "description": "Iterative subtraction using while\u2010loop: normalize then loop, subtracting the smaller from the larger until they meet.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.Abs\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let ref x = abs a in\n    let ref y = abs b in\n    while x <> y do\n      if x > y then x <- x - y else y <- y - x\n    done;\n    x\nend"
+        },
+        {
+            "description": "Brute\u2010force downward search: test all divisors from 1 to min(|a|,|b|) using a for\u2010loop, keeping the largest that divides both.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n  use int.Abs\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let a0 = abs a in\n    let b0 = abs b in\n    let m = min a0 b0 in\n    let ref d = 1 in\n    for i = 1 to m do\n      if mod a0 i = 0 && mod b0 i = 0 then d <- i\n    done;\n    d\nend"
+        },
+        {
+            "description": "Divisor\u2010list intersection: build lists of divisors for |a| and |b|, then traverse one list to find the maximum common element.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.Mem\n\n  let rec divisors (n: int) (i: int) (acc: list int) : list int =\n    if i > n then acc else\n    if mod n i = 0 then divisors n (i + 1) (Cons i acc)\n    else divisors n (i + 1) acc\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    let da = divisors (abs a) 1 Nil in\n    let db = divisors (abs b) 1 Nil in\n    let rec find_max (l1: list int) (l2: list int) (current: int) : int =\n      match l1 with\n      | Nil -> current\n      | Cons x xs -> if mem x l2 then\n          if x > current then find_max xs l2 x else find_max xs l2 current\n        else find_max xs l2 current\n      end\n    in\n    find_max da db 1\nend"
+        },
+        {
+            "description": "Tail\u2010recursive Euclidean helper: factor out abs\u2010normalization and use a small auxiliary to ensure tail recursion.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec gcd_aux (a: int) (b: int) : int =\n    if b = 0 then a else gcd_aux b (mod a b)\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    gcd_aux (abs a) (abs b)\nend"
+        },
+        {
+            "description": "Manual remainder via div: compute quotient with div, then remainder = a0 - q*b0, and recurse.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a0 = abs a in\n    let b0 = abs b in\n    if b0 = 0 then a0 else\n    let q = div a0 b0 in\n    let r = a0 - q * b0 in\n    greatest_common_divisor b0 r\nend"
+        },
+        {
+            "description": "Pattern\u2010matching on the pair: normalize and use a single match on (a0,b0) to branch between base case and recursion.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a0 = abs a in\n    let b0 = abs b in\n    match (a0, b0) with\n    | (x, 0) -> x\n    | (x, y) -> greatest_common_divisor y (mod x y)\n    end\nend"
+        },
+        {
+            "description": "Binary (Stein\u2019s) GCD algorithm: use parity tests and halving to reduce both numbers with shifts and subtractions.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let a0 = abs a in\n    let b0 = abs b in\n    if a0 = b0 then a0\n    else if a0 = 0 then b0\n    else if b0 = 0 then a0\n    else if mod a0 2 = 0 && mod b0 2 = 0 then\n      2 * greatest_common_divisor (div a0 2) (div b0 2)\n    else if mod a0 2 = 0 then greatest_common_divisor (div a0 2) b0\n    else if mod b0 2 = 0 then greatest_common_divisor a0 (div b0 2)\n    else if a0 > b0 then greatest_common_divisor (div (a0 - b0) 2) b0\n    else greatest_common_divisor (div (b0 - a0) 2) a0\nend"
+        }
+    ]
+}

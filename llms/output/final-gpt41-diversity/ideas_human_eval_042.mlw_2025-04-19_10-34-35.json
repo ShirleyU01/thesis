@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation using pattern matching: increment the head, recurse on the tail.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with explicit if-then-else instead of pattern matching.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    if l = Nil then Nil else Cons ((head l) + 1) (incr_list (tail l))\nend"
+        },
+        {
+            "description": "Iterative implementation using a while loop and a reference to build the result list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let incr_list (l : list int) : list int =\n    let n = length l in\n    let ref res = Nil in\n    let ref i = n - 1 in\n    while i >= 0 do\n      res <- Cons ((nth i l) + 1) res;\n      i <- i - 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive implementation using an accumulator to build the list in reverse order, then reversing at the end.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_acc (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> incr_acc xs (Cons (x + 1) acc)\n    end\n  let rec rev (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> rev xs (Cons x acc)\n    end\n  let incr_list (l : list int) : list int =\n    rev (incr_acc l Nil) Nil\nend"
+        },
+        {
+            "description": "Implementation using map combinator if available: mapping (+1) over the list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec map (f : int -> int) (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x) (map f xs)\n    end\n  let incr_list (l : list int) : list int =\n    map (fun x -> x + 1) l\nend"
+        },
+        {
+            "description": "Tail-recursive version using an inner helper that builds the result with an accumulator and reverses at the end.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec reverse (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> reverse xs (Cons x acc)\n    end\n  let rec incr_list_aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> reverse acc Nil\n    | Cons x xs -> incr_list_aux xs (Cons (x + 1) acc)\n    end\n  let incr_list (l : list int) : list int =\n    incr_list_aux l Nil\nend"
+        },
+        {
+            "description": "Implementation using a for loop over list indices and constructing the result list backwards.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let incr_list (l : list int) : list int =\n    let n = length l in\n    let ref res = Nil in\n    for i = n - 1 downto 0 do\n      res <- Cons ((nth i l) + 1) res\n    done;\n    res\nend"
+        },
+        {
+            "description": "Implementation that first converts the list to an array, increments each element, then converts back to a list.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use array.Array\n  use list.ToArray\n  use list.OfArray\n  let incr_list (l : list int) : list int =\n    let n = length l in\n    let arr = to_array l in\n    for i = 0 to n - 1 do\n      arr[i] <- arr[i] + 1\n    done;\n    of_array arr\nend"
+        },
+        {
+            "description": "Recursive implementation using an explicit match on Nil and Cons with let-binding for clarity.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> let y = x + 1 in let ys = incr_list xs in Cons y ys\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using pattern guards (when available) to separate empty and non-empty cases.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs when true -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        }
+    ]
+}

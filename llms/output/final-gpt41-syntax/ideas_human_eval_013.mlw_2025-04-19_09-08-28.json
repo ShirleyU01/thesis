@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Classic Euclidean algorithm (iterative) using mod. The function repeatedly replaces (a, b) with (b, a mod b) until b = 0, then returns a.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    var x = abs a in\n    var y = abs b in\n    while y <> 0 do\n      invariant { x >= 0 /\\ y >= 0 }\n      let temp = y in\n      y <- mod x y;\n      x <- temp\n    done;\n    x\nend"
+        },
+        {
+            "description": "Recursive Euclidean algorithm (modulo version): Base case when b = 0, return a; otherwise, recursively call with (b, a mod b).",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    if y = 0 then x else greatest_common_divisor y (mod x y)\nend"
+        },
+        {
+            "description": "Iterative subtraction-based Euclidean algorithm: Instead of mod, repeatedly subtract the smaller from the larger until they are equal.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.MinMax\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    var x = abs a in\n    var y = abs b in\n    while x <> y && x > 0 && y > 0 do\n      invariant { x > 0 /\\ y > 0 }\n      if x > y then x <- x - y else y <- y - x\n    done;\n    if x = 0 then y else x\nend"
+        },
+        {
+            "description": "Recursive subtraction-based algorithm: At each step, subtract the smaller from the larger, recurse, stop when one is zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    if x = 0 then y else if y = 0 then x\n    else if x > y then greatest_common_divisor (x - y) y\n    else greatest_common_divisor x (y - x)\nend"
+        },
+        {
+            "description": "Use min and max: Always recurse with (min(a, b), max(a, b) mod min(a, b)) to guarantee a <= b, then mod.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.MinMax\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    let m = min x y in\n    let n = max x y in\n    if m = 0 then n else greatest_common_divisor m (mod n m)\nend"
+        },
+        {
+            "description": "Iterative version handling negative numbers explicitly, making sure output is always non-negative.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    var x = if a < 0 then -a else a in\n    var y = if b < 0 then -b else b in\n    while y <> 0 do\n      invariant { x >= 0 /\\ y >= 0 }\n      let t = y in\n      y <- mod x y;\n      x <- t\n    done;\n    x\nend"
+        },
+        {
+            "description": "Recursive version that swaps arguments to ensure the second is always less than or equal to the first.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.MinMax\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    let x = abs a in\n    let y = abs b in\n    if y > x then greatest_common_divisor y x\n    else if y = 0 then x\n    else greatest_common_divisor y (mod x y)\nend"
+        },
+        {
+            "description": "Iterative algorithm with early exit if either argument is zero, avoiding unnecessary computation.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    var x = abs a in\n    var y = abs b in\n    if x = 0 then y else if y = 0 then x\n    else\n      while y <> 0 do\n        invariant { x >= 0 /\\ y >= 0 }\n        let t = y in\n        y <- mod x y;\n        x <- t\n      done;\n      x\nend"
+        },
+        {
+            "description": "Recursive algorithm using pattern matching for base cases (zero arguments) and reduction steps.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    match (a, b) with\n    | (x, 0) -> if x < 0 then -x else x\n    | (0, y) -> if y < 0 then -y else y\n    | (x, y) -> greatest_common_divisor b (mod a b)\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using a single variable swap for compactness and clarity, always working with absolute values.",
+            "implementation": "module HumanEval013\n  use int.Int\n  use int.EuclideanDivision\n\n  let greatest_common_divisor (a: int) (b: int) : int =\n    var x = abs a in\n    var y = abs b in\n    var temp = 0 in\n    while y <> 0 do\n      invariant { x >= 0 /\\ y >= 0 }\n      temp <- y;\n      y <- mod x y;\n      x <- temp\n    done;\n    x\nend"
+        }
+    ]
+}

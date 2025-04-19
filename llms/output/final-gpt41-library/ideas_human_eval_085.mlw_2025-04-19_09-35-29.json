@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive approach with explicit index tracking. The main function delegates to a helper that keeps the current index, summing even elements at odd positions.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  \n  let rec add_aux (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if idx mod 2 = 1 && x mod 2 = 0 then x + add_aux xs (idx + 1)\n      else add_aux xs (idx + 1)\n    end\n  \n  let add (l: list int) : int = add_aux l 0\nend"
+        },
+        {
+            "description": "Fold-like recursive approach: process the list by pattern matching, skipping even-indexed elements, and considering only odd indices in recursion.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  \n  let rec add (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons x xs) ->\n      (if x mod 2 = 0 then x else 0) + add xs\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using list.Nth to access elements by index and list.Length to determine bounds.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Nth\n  \n  let add (l: list int) : int =\n    let rec aux (i: int) (n: int) (acc: int) : int =\n      if i >= n then acc else\n      match nth i l with\n      | None -> acc\n      | Some x ->\n        let addx = if i mod 2 = 1 && x mod 2 = 0 then x else 0 in\n        aux (i+1) n (acc + addx)\n      end\n    in aux 0 (length l) 0\nend"
+        },
+        {
+            "description": "Recursive two-step pattern: Always skip first element, check second for evenness, accumulate if so, and recurse on the tail beyond both.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  \n  let rec add (l: list int) : int =\n    match l with\n    | Cons _ (Cons x xs) -> (if x mod 2 = 0 then x else 0) + add xs\n    | _ -> 0\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using list.HdTl and manual index variable to loop through the list.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.HdTl\n  \n  let add (l: list int) : int =\n    let rec loop (lst: list int) (idx: int) (acc: int) : int =\n      match hd lst with\n      | None -> acc\n      | Some x ->\n        let addx = if idx mod 2 = 1 && x mod 2 = 0 then x else 0 in\n        let tail = match tl lst with None -> Nil | Some t -> t end in\n        loop tail (idx+1) (acc + addx)\n      end\n    in loop l 0 0\nend"
+        },
+        {
+            "description": "Recursive approach using list.Reverse: reverse the list first then process with explicit index counter for demonstration.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Reverse\n  \n  let add (l: list int) : int =\n    let revl = reverse l in\n    let rec aux (lst: list int) (idx: int) (acc: int) : int =\n      match lst with\n      | Nil -> acc\n      | Cons x xs ->\n        let addx = if idx mod 2 = 1 && x mod 2 = 0 then x else 0 in\n        aux xs (idx+1) (acc + addx)\n      end\n    in aux revl 0 0\nend"
+        },
+        {
+            "description": "Using list.Combine to zip with a list of indices, then recursively sum matching items.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Combine\n  \n  let rec range (n: int) : list int =\n    if n = 0 then Nil else range (n-1) ++ (Cons (n-1) Nil)\n  \n  let add (l: list int) : int =\n    let n = let rec len l = match l with Nil -> 0 | Cons _ xs -> 1 + len xs end in len l in\n    let idxs = range n in\n    let pairs = combine idxs l in\n    let rec aux (pl: list (int, int)) : int =\n      match pl with\n      | Nil -> 0\n      | Cons (idx, x) xs ->\n        (if idx mod 2 = 1 && x mod 2 = 0 then x else 0) + aux xs\n      end\n    in aux pairs\nend"
+        },
+        {
+            "description": "Using int.SumParam: abstract iteration over indices, summing up the value at each odd index if even.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Nth\n  use int.SumParam\n  \n  let add (l: list int) : int =\n    let n = length l in\n    sum (fun _ i ->\n      match nth i l with\n      | Some x -> if i mod 2 = 1 && x mod 2 = 0 then x else 0\n      | None -> 0\n      end) () 0 n\nend"
+        },
+        {
+            "description": "Recursive implementation that builds a new list of relevant even elements at odd indices, then sum them using list.Sum.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Sum\n  \n  let rec filter_even_odd (l: list int) (idx: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if idx mod 2 = 1 && x mod 2 = 0 then Cons x (filter_even_odd xs (idx+1))\n      else filter_even_odd xs (idx+1)\n    end\n  \n  let add (l: list int) : int =\n    sum (filter_even_odd l 0)\nend"
+        },
+        {
+            "description": "Pattern-matching approach that uses arithmetic on the index: recursively pass an increasing index, but reverse the list first to show index counting from the other end.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Reverse\n  use list.Length\n  \n  let add (l: list int) : int =\n    let revl = reverse l in\n    let n = length l in\n    let rec aux (lst: list int) (idx: int) : int =\n      match lst with\n      | Nil -> 0\n      | Cons x xs ->\n        let real_idx = n - idx - 1 in\n        (if real_idx mod 2 = 1 && x mod 2 = 0 then x else 0) + aux xs (idx+1)\n      end\n    in aux revl 0\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple recursive implementation: Keep track of the current rolling maximum and build the output list recursively.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_aux (l: list int) (current_max: int) : list int =\n    variant { l }\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let next_max = max current_max x in\n        Cons next_max (rolling_max_aux xs next_max)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (rolling_max_aux xs x)\n    end\nend"
+        },
+        {
+            "description": "Two-pass approach: First find the initial value, then use a helper function to build the rolling max list.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec build (l: list int) (mx: int) : list int =\n    variant { l }\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let new_mx = max mx x in\n        Cons new_mx (build xs new_mx)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (build xs x)\n    end\nend"
+        },
+        {
+            "description": "Index-based recursive solution using an auxiliary function that builds the list by index.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use list.Length\n  use int.Int\n  use int.MinMax\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    end\n\n  let rec rolling_max_from (l: list int) (i: int) (mx: int) (len: int) : list int =\n    requires { 0 <= i /\\ i <= len }\n    variant { len - i }\n    if i >= len then Nil else\n      let x = nth_my i l in\n      let new_mx = max mx x in\n      Cons new_mx (rolling_max_from l (i + 1) new_mx len)\n\n  let rolling_max (l: list int) : list int =\n    let len = length l in\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (rolling_max_from l 1 x len)\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive implementation using a helper function that accumulates the result in reverse and then reverses it at the end.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use list.Reverse\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_tail_aux (l: list int) (current_max: int) (acc: list int) : list int =\n    variant { l }\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let new_max = max current_max x in\n        rolling_max_tail_aux xs new_max (Cons new_max acc)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Reverse.reverse (rolling_max_tail_aux xs x (Cons x Nil))\n    end\nend"
+        },
+        {
+            "description": "Explicitly reconstruct output list by traversing input and output lists together, carrying the maximum so far.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_pair (l: list int) (current_max: int) : list int =\n    variant { l }\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let next_max = max current_max x in\n        Cons next_max (rolling_max_pair xs next_max)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (rolling_max_pair xs x)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that uses a minimum possible value (-1000) as the initial maximum for an empty list.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_aux (l: list int) (mx: int) : list int =\n    variant { l }\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let next_mx = max mx x in\n        Cons next_mx (rolling_max_aux xs next_mx)\n    end\n\n  let rolling_max (l: list int) : list int =\n    rolling_max_aux l (-1000)\nend"
+        },
+        {
+            "description": "Use an auxiliary function that constructs the result list from the back and then reverses it, simulating a right-to-left traversal.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use list.Reverse\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_rev (l: list int) (current_max: int) (acc: list int) : list int =\n    variant { l }\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let next_max = max current_max x in\n        rolling_max_rev xs next_max (Cons next_max acc)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Reverse.reverse (rolling_max_rev xs x (Cons x Nil))\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that builds the output list by prepending elements, then reverses at the end for correct order.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use list.Reverse\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_build (l: list int) (mx: int) (acc: list int) : list int =\n    variant { l }\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let new_mx = max mx x in\n        rolling_max_build xs new_mx (Cons new_mx acc)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Reverse.reverse (rolling_max_build xs x (Cons x Nil))\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that uses a helper function to return a tuple (rolling_max_list, current_max), ignoring the max at the end.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max_tuple (l: list int) (mx: int) : (list int, int) =\n    variant { l }\n    match l with\n    | Nil -> (Nil, mx)\n    | Cons x xs ->\n        let new_mx = max mx x in\n        let (rest, _) = rolling_max_tuple xs new_mx in\n        (Cons new_mx rest, new_mx)\n    end\n\n  let rolling_max (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> let (lst, _) = rolling_max_tuple xs x in Cons x lst\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with explicit base case for empty and singleton lists.",
+            "implementation": "theory HumanEval009\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec rolling_max (l: list int) : list int =\n    variant { l }\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) ->\n        let tail = rolling_max (Cons y ys) in\n        match tail with\n        | Nil -> Cons x Nil\n        | Cons m ms -> Cons x (Cons (max x m) ms)\n        end\n    end\nend"
+        }
+    ]
+}

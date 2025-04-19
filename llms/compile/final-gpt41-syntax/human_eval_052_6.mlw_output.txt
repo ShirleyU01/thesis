@@ -1,0 +1,3 @@
+=======================human_eval_052_6.mlw=====================
+File "llms/implementation/final-gpt41-syntax/human_eval_052_6.mlw", line 40, characters 4-13:
+Logical symbol all_below is used in a non-ghost context

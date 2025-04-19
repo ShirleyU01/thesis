@@ -1,0 +1,162 @@
+(* 
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+ *)
+
+module HumanEval139Goal
+
+    use int.Int
+    use int.Fact
+
+    predicate spec_fact (n : int) (a : int)
+    axiom spec_fact_base :
+        forall a. spec_fact 1 a <-> a = 1
+    axiom spec_fact_ind :
+        forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\ a = b * fact n
+
+    let rec special_factorial (n : int) : int =
+        requires { n > 0 }
+        ensures { spec_fact n result } 
+        if n = 0 then 1
+        else (fact n) * special_factorial (n - 1)
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval139
+  use int.Int
+  use list.List
+
+  let rec fact_rec (k : int) : int =
+    if k <= 1 then 1 else k * fact_rec (k - 1)
+
+  let rec build_list (m : int) : list int =
+    if m <= 0 then Nil else Cons (fact_rec m) (build_list (m - 1))
+
+  let rec prod_list (l : list int) : int =
+    match l with
+    | Nil -> 1
+    | Cons x tl -> x * prod_list tl
+    end
+
+  let special_factorial (n : int) : int =
+    prod_list (build_list n)
+end
+
+module TestHumanEval139
+
+    use int.Int
+    use list.List
+    use HumanEval139
+
+    let test1 () : bool =
+        special_factorial 1 = 1
+
+    let test1_output () : (int, int, int) =
+        (1, special_factorial 1, 1)
+
+    let test2 () : bool =
+        special_factorial 2 = 2
+
+    let test2_output () : (int, int, int) =
+        (2, special_factorial 2, 2)
+
+    let test3 () : bool =
+        special_factorial 3 = 12  (* 3! * 2! * 1! = 6 * 2 * 1 = 12 *)
+
+    let test3_output () : (int, int, int) =
+        (3, special_factorial 3, 12)
+
+    let test4 () : bool =
+        special_factorial 4 = 288  (* 4! * 3! * 2! * 1! = 24 * 6 * 2 * 1 = 288 *)
+
+    let test4_output () : (int, int, int) =
+        (4, special_factorial 4, 288)
+
+    let test5 () : bool =
+        special_factorial 5 = 34560  (* 5! * 4! * 3! * 2! * 1! = 120 * 24 * 6 * 2 * 1 = 34560 *)
+
+    let test5_output () : (int, int, int) =
+        (5, special_factorial 5, 34560)
+
+    let test6 () : bool =
+        special_factorial 6 = 24883200  (* 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test6_output () : (int, int, int) =
+        (6, special_factorial 6, 24883200)
+
+    let test7 () : bool =
+        special_factorial 0 = 1  (* Edge case: special factorial of 0 defined as 1 *)
+
+    let test7_output () : (int, int, int) =
+        (0, special_factorial 0, 1)
+
+    let test8 () : bool =
+        special_factorial 7 = 125411328000  (* 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test8_output () : (int, int, int) =
+        (7, special_factorial 7, 125411328000)
+
+    let test9 () : bool =
+        special_factorial 8 = 5056584744960000 (* 8! * 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test9_output () : (int, int, int) =
+        (8, special_factorial 8, 5056584744960000)
+
+    let test10 () : bool =
+        special_factorial 9 = 1834933472251084800000  (* 9! * 8! * 7! * 6! * 5! * 4! * 3! * 2! * 1! *)
+
+    let test10_output () : (int, int, int) =
+        (9, special_factorial 9, 1834933472251084800000)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : (int, int, int) =
+        let ref res = ((-1), (-1), (-1)) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (int, int, int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (int, int, int) =
+        let l = testfail () in
+        failoutput l
+end

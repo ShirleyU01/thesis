@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pairwise comparison: Traverses the list recursively, comparing the head to the maximum of the tail. If the list is empty, triggers an absurd pattern (for safety, assume input is non-empty).",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.MinMax\n  let rec max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x Nil -> x\n      | Cons x xs -> int.MaxMax.max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Iterative maximum with accumulator: Uses a helper function with an accumulator to keep track of the current maximum, iterating through the list.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.MinMax\n  let rec max_acc (acc: int) (t: list int) : int =\n    match t with\n      | Nil -> acc\n      | Cons x xs -> max_acc (int.MinMax.max acc x) xs\n    end\n  let max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x xs -> max_acc x xs\n    end\nend"
+        },
+        {
+            "description": "Reverse and fold: Reverses the list, then folds from left using max to find the maximum value.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Reverse\n  use int.MinMax\n  let rec fold_left (f: int -> int -> int) (acc: int) (t: list int) : int =\n    match t with\n      | Nil -> acc\n      | Cons x xs -> fold_left f (f acc x) xs\n    end\n  let max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x xs -> fold_left int.MinMax.max x (list.Reverse.reverse xs)\n    end\nend"
+        },
+        {
+            "description": "Divide and conquer: Splits the list into two halves, finds the maximum recursively in each half, then compares the results.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use list.Prefix\n  use int.MinMax\n  let rec split (t: list int) (n: int) : (list int, list int) =\n    if n <= 0 then (Nil, t)\n    else match t with\n      | Nil -> (Nil, Nil)\n      | Cons x xs -> let (l1, l2) = split xs (n - 1) in (Cons x l1, l2)\n    end\n  let rec max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x Nil -> x\n      | _ -> let len = list.Length.length t in\n              let mid = len / 2 in\n              let (l1, l2) = split t mid in\n              int.MinMax.max (max_element l1) (max_element l2)\n    end\nend"
+        },
+        {
+            "description": "Use list.Sum to find the sum and then recursively find the maximum, showing use of another list function as a distraction (though not efficient, demonstrates creative use).",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Sum\n  use int.MinMax\n  let rec max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x Nil -> x\n      | Cons x xs -> int.MinMax.max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Find the maximum by iteratively removing the head and tracking the max, using only pattern matching and no helper functions.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.MinMax\n  let max_element (t: list int) : int =\n    let rec aux (current: int) (l: list int) : int =\n      match l with\n        | Nil -> current\n        | Cons x xs -> aux (int.MinMax.max current x) xs\n      end\n    in\n    match t with\n      | Nil -> absurd\n      | Cons x xs -> aux x xs\n    end\nend"
+        },
+        {
+            "description": "Use list.HdTl to get the head and tail, then proceed recursively for the max computation, showing explicit use of standard library's HdTl.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.HdTl\n  use int.MinMax\n  let rec max_element (t: list int) : int =\n    match list.HdTl.hd t, list.HdTl.tl t with\n      | None, _ -> absurd\n      | Some x, None -> x\n      | Some x, Some xs -> int.MinMax.max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Use explicit recursion with an index: accesses each element by its position using list.Nth, recursively comparing elements.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Nth\n  use list.Length\n  use int.MinMax\n  let rec max_at (t: list int) (i: int) (n: int) (current: int) : int =\n    if i = n then current\n    else match list.Nth.nth i t with\n      | None -> current\n      | Some x -> max_at t (i+1) n (int.MinMax.max current x)\n    end\n  let max_element (t: list int) : int =\n    let len = list.Length.length t in\n    if len = 0 then absurd\n    else match list.Nth.nth 0 t with\n      | None -> absurd\n      | Some x -> max_at t 1 len x\n    end\nend"
+        },
+        {
+            "description": "Find the maximum by reversing the list and then applying a recursive max computation. This approach demonstrates use of list.Reverse.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Reverse\n  use int.MinMax\n  let rec max_element (t: list int) : int =\n    let t_rev = list.Reverse.reverse t in\n    match t_rev with\n      | Nil -> absurd\n      | Cons x Nil -> x\n      | Cons x xs -> int.MinMax.max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Use list.Prefix to split the list, always taking the first element and the rest, recursively finding the max. This intentionally uses Prefix to demonstrate its use.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Prefix\n  use int.MinMax\n  let rec max_element (t: list int) : int =\n    match t with\n      | Nil -> absurd\n      | Cons x Nil -> x\n      | _ -> let head = match t with Cons y _ -> y | _ -> absurd end in\n             let tail = list.Prefix.prefix (list.List.length t - 1) (match t with Cons _ xs -> xs | _ -> Nil end) in\n             int.MinMax.max head (max_element tail)\n    end\nend"
+        }
+    ]
+}

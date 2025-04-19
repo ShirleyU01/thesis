@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct addition using Why3's built-in integer addition operator.",
+            "implementation": "module HumanEval053\n  let add (x: int) (y: int) : int = x + y\nend"
+        },
+        {
+            "description": "Recursive implementation: increment x and decrement y until y is zero.",
+            "implementation": "module HumanEval053\n  let rec add (x: int) (y: int) : int =\n    if y = 0 then x else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Recursive implementation: increment y and decrement x until x is zero.",
+            "implementation": "module HumanEval053\n  let rec add (x: int) (y: int) : int =\n    if x = 0 then y else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Use Why3's pattern matching to implement addition recursively by matching on y.",
+            "implementation": "module HumanEval053\n  let rec add (x: int) (y: int) : int =\n    match y with\n    | 0 -> x\n    | _ -> add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Addition using a local recursive helper function with an accumulator.",
+            "implementation": "module HumanEval053\n  let add (x: int) (y: int) : int =\n    let rec aux (a: int) (b: int) : int =\n      if b = 0 then a else aux (a + 1) (b - 1)\n    in aux x y\nend"
+        },
+        {
+            "description": "Addition implemented via a while loop, incrementing x and decrementing y.",
+            "implementation": "module HumanEval053\n  let add (x: int) (y: int) : int =\n    var a: int = x in\n    var b: int = y in\n    while b <> 0 do\n      a <- a + 1;\n      b <- b - 1\n    done;\n    a\nend"
+        },
+        {
+            "description": "Addition by simulating addition with subtraction: x - (-y).",
+            "implementation": "module HumanEval053\n  let add (x: int) (y: int) : int = x - (-y)\nend"
+        },
+        {
+            "description": "Addition using the min and max functions to demonstrate property-based computation.",
+            "implementation": "module HumanEval053\n  use int.MinMax\n  let add (x: int) (y: int) : int =\n    if x = min x y then y + (x - min x y) else x + (y - min x y)\nend"
+        },
+        {
+            "description": "Addition implemented using an explicit match for positive and negative y values.",
+            "implementation": "module HumanEval053\n  let rec add (x: int) (y: int) : int =\n    if y = 0 then x\n    else if y > 0 then add (x + 1) (y - 1)\n    else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Addition using Why3's assert statement to check the result matches x + y.",
+            "implementation": "module HumanEval053\n  let add (x: int) (y: int) : int =\n    let res = x + y in\n    assert { res = x + y };\n    res\nend"
+        }
+    ]
+}

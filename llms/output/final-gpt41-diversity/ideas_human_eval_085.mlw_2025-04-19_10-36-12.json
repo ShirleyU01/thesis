@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for-loop, iterating over indices and accumulating even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add (l: list int) : int =\n    let n = length l in\n    let ref sum = 0 in\n    for i = 0 to n - 1 do\n      if i mod 2 = 1 then (\n        let v = nth i l in\n        if v mod 2 = 0 then sum <- sum + v)\n      done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive approach with index tracking: helper function walks the list with the current index.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add_aux (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = add_aux xs (idx + 1) in\n        if idx mod 2 = 1 && x mod 2 = 0 then x + rest else rest\n    end\n\n  let add (l: list int) : int = add_aux l 0\nend"
+        },
+        {
+            "description": "Pattern matching on pairs: recursively process two elements at a time, keeping track of index parity implicitly.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let sum_rest = add ys in\n        if y mod 2 = 0 then y + sum_rest else sum_rest\n    end\nend"
+        },
+        {
+            "description": "While-loop implementation: manual index and sum accumulator, mimicking imperative iteration.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let add (l: list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref sum = 0 in\n    while i < n do\n      if i mod 2 = 1 then (\n        let v = nth i l in\n        if v mod 2 = 0 then sum <- sum + v\n      );\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive approach using two accumulators: one for index and one for sum.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add_aux (l: list int) (idx: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if idx mod 2 = 1 && x mod 2 = 0 then\n          add_aux xs (idx + 1) (acc + x)\n        else\n          add_aux xs (idx + 1) acc\n    end\n\n  let add (l: list int) : int = add_aux l 0 0\nend"
+        },
+        {
+            "description": "Recursive approach, splitting list into head and tail, skipping elements at even indices.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let rest = add ys in\n        if y mod 2 = 0 then y + rest else rest\n    end\nend"
+        },
+        {
+            "description": "Map-index approach: build a list of values for even elements at odd indices, then sum.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec make_list (l: list int) (i: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let rest = make_list xs (i + 1) in\n        if i mod 2 = 1 && x mod 2 = 0 then Cons x rest else rest\n    end\n\n  let rec sum (l: list int) : int =\n    match l with | Nil -> 0 | Cons x xs -> x + sum xs end\n\n  let add (l: list int) : int = sum (make_list l 0)\nend"
+        },
+        {
+            "description": "Index-recursion: recursive function that always consumes the head and passes incremented index.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add_at_index (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let value = if i mod 2 = 1 && x mod 2 = 0 then x else 0 in\n        value + add_at_index xs (i + 1)\n    end\n\n  let add (l: list int) : int = add_at_index l 0\nend"
+        },
+        {
+            "description": "Fold-like recursion: define a helper that takes a function of index and value, and accumulates over the list.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec foldi (f: int -> int -> int -> int) (acc: int) (l: list int) (i: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> foldi f (f i x acc) xs (i + 1)\n    end\n\n  let add (l: list int) : int =\n    foldi (fun i x acc -> if i mod 2 = 1 && x mod 2 = 0 then acc + x else acc) 0 l 0\nend"
+        },
+        {
+            "description": "Two-pointer recursion: process two elements at a time, only checking the second (odd index) each time.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use list.List\n\n  let rec add (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let sum_rest = add ys in\n        if y mod 2 = 0 then y + sum_rest else sum_rest\n    end\nend"
+        }
+    ]
+}

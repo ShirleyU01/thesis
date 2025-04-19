@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Standard recursive solution: recursively compare head elements of both lists, compute absolute difference, and proceed to tail.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> Nil\n    | _, Nil -> Nil\n    | Cons x1 r1, Cons x2 r2 -> Cons (abs (x1 - x2)) (compare r1 r2)\n    end\nend"
+        },
+        {
+            "description": "Using List.combine to pair the lists and then mapping the absolute difference over the pairs.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Combine\n  use int.Abs\n  let rec map_absdiff (l: list (int, int)) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons (x, y) r -> Cons (abs (x - y)) (map_absdiff r)\n    end\n  let compare (l1: list int) (l2: list int) : list int =\n    map_absdiff (combine l1 l2)\nend"
+        },
+        {
+            "description": "Tail-recursive accumulator version: uses an accumulator to build the result list efficiently, then reverses at the end.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Reverse\n  use int.Abs\n  let rec compare_acc (l1: list int) (l2: list int) (acc: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> reverse acc\n    | _, Nil -> reverse acc\n    | Cons x1 r1, Cons x2 r2 -> compare_acc r1 r2 (Cons (abs (x1 - x2)) acc)\n    end\n  let compare (l1: list int) (l2: list int) : list int =\n    compare_acc l1 l2 Nil\nend"
+        },
+        {
+            "description": "Using pattern matching and guards: explicitly handle the case when values are equal (output 0), otherwise compute abs difference.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> Nil\n    | _, Nil -> Nil\n    | Cons x1 r1, Cons x2 r2 ->\n        if x1 = x2 then Cons 0 (compare r1 r2)\n        else Cons (abs (x1 - x2)) (compare r1 r2)\n    end\nend"
+        },
+        {
+            "description": "Use an inner helper function to process the lists and collect results in a reversed order, then reverse at the end.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Reverse\n  use int.Abs\n  let rec helper (l1: list int) (l2: list int) (acc: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> acc\n    | _, Nil -> acc\n    | Cons x1 r1, Cons x2 r2 -> helper r1 r2 (Cons (abs (x1 - x2)) acc)\n    end\n  let compare (l1: list int) (l2: list int) : list int =\n    reverse (helper l1 l2 Nil)\nend"
+        },
+        {
+            "description": "Use explicit indexing and List.nth to retrieve values at each index and build the result recursively by decreasing length.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Nth\n  use list.Length\n  use int.Abs\n  let rec build (l1: list int) (l2: list int) (i: int) (n: int) : list int =\n    if i >= n then Nil else\n      match nth i l1, nth i l2 with\n      | Some x1, Some x2 -> Cons (abs (x1 - x2)) (build l1 l2 (i+1) n)\n      | _, _ -> Nil\n      end\n  let compare (l1: list int) (l2: list int) : list int =\n    let n1 = length l1 in\n    let n2 = length l2 in\n    let n = if n1 < n2 then n1 else n2 in\n    build l1 l2 0 n\nend"
+        },
+        {
+            "description": "Use List.prefix to truncate the longer list, then process in lockstep with standard recursion.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Prefix\n  use list.Length\n  use int.Abs\n  let rec compare (l1: list int) (l2: list int) : list int =\n    let n1 = length l1 in\n    let n2 = length l2 in\n    let n = if n1 < n2 then n1 else n2 in\n    let l1p = prefix n l1 in\n    let l2p = prefix n l2 in\n    let rec aux (a: list int) (b: list int) : list int =\n      match a, b with\n      | Nil, _ -> Nil\n      | _, Nil -> Nil\n      | Cons x1 r1, Cons x2 r2 -> Cons (abs (x1 - x2)) (aux r1 r2)\n      end\n    in aux l1p l2p\nend"
+        },
+        {
+            "description": "Purely iterative approach using int.Iter: build the result list by iterating through indices, using List.nth to access elements.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Nth\n  use list.Length\n  use int.Iter\n  use int.Abs\n  let compare (l1: list int) (l2: list int) : list int =\n    let n1 = length l1 in\n    let n2 = length l2 in\n    let n = if n1 < n2 then n1 else n2 in\n    let f (acc: list int) (i: int) : list int =\n      match nth i l1, nth i l2 with\n      | Some x1, Some x2 -> Cons (abs (x1 - x2)) acc\n      | _, _ -> acc\n      end\n    in\n    reverse (iter f n Nil)\nend"
+        },
+        {
+            "description": "Recursive solution using only the tail of the lists: process head elements, recurse on tails, and append result.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> Nil\n    | _, Nil -> Nil\n    | Cons x1 r1, Cons x2 r2 -> Cons (abs (x1 - x2)) (compare r1 r2)\n    end\nend"
+        },
+        {
+            "description": "Alternative: Use List.rev_append to accumulate results in reverse and then append to Nil to complete reversal.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.RevAppend\n  use int.Abs\n  let rec helper (l1: list int) (l2: list int) (acc: list int) : list int =\n    match l1, l2 with\n    | Nil, _ -> acc\n    | _, Nil -> acc\n    | Cons x1 r1, Cons x2 r2 -> helper r1 r2 (Cons (abs (x1 - x2)) acc)\n    end\n  let compare (l1: list int) (l2: list int) : list int =\n    rev_append (helper l1 l2 Nil) Nil\nend"
+        }
+    ]
+}

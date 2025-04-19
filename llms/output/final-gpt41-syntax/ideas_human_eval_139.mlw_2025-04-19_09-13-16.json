@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple double recursion: one recursive function for factorial, one loop to multiply all factorials from n to 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let rec fact (n:int) : int =\n    variant { n }\n    if n <= 1 then 1 else n * fact (n - 1)\n  let rec special_factorial (n:int) : int =\n    variant { n }\n    if n <= 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Tail-recursive variant: use an accumulator to multiply factorials as we descend from n to 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let rec fact (n:int) : int =\n    variant { n }\n    if n <= 1 then 1 else n * fact (n - 1)\n  let rec aux (k:int) (acc:int) : int =\n    variant { k }\n    if k = 0 then acc else aux (k - 1) (acc * fact k)\n  let special_factorial (n:int) : int = aux n 1\nend"
+        },
+        {
+            "description": "Iterative approach: compute all factorials once, store them in an array, and then multiply them together.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use array.Array\n  let special_factorial (n:int) : int =\n    let arr = Array.make (n+1) 1 in\n    let i = ref 2 in\n    while !i <= n do\n      invariant { 1 <= !i <= n+1 }\n      arr[!i] <- arr[!i - 1] * !i;\n      i := !i + 1\n    done;\n    let res = ref 1 in\n    let j = ref 1 in\n    while !j <= n do\n      invariant { 1 <= !j <= n+1 }\n      res := !res * arr[!j];\n      j := !j + 1\n    done;\n    !res\nend"
+        },
+        {
+            "description": "Recursive product: implement a helper function to calculate the product of factorials from a to b.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let rec fact (n:int) : int =\n    variant { n }\n    if n <= 1 then 1 else n * fact (n - 1)\n  let rec product (a:int) (b:int) : int =\n    variant { b - a }\n    if a > b then 1 else fact a * product (a + 1) b\n  let special_factorial (n:int) : int = product 1 n\nend"
+        },
+        {
+            "description": "Compute factorial and accumulate product in a single pass to avoid recomputation.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let special_factorial (n:int) : int =\n    let acc = ref 1 in\n    let f = ref 1 in\n    let i = ref 1 in\n    while !i <= n do\n      invariant { 1 <= !i <= n+1 }\n      f := !f * !i;\n      acc := !acc * !f;\n      i := !i + 1\n    done;\n    !acc\nend"
+        },
+        {
+            "description": "List-based approach: generate a list of numbers, map factorial over them, and fold to product.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n  let rec fact (n:int) : int =\n    variant { n }\n    if n <= 1 then 1 else n * fact (n - 1)\n  let rec range (a:int) (b:int) : list int =\n    variant { b - a }\n    if a > b then Nil else Cons a (range (a+1) b)\n  let rec prod (l:list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x r -> x * prod r\n    end\n  let rec map_fact (l:list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x r -> Cons (fact x) (map_fact r)\n    end\n  let special_factorial (n:int) : int = prod (map_fact (range 1 n))\nend"
+        },
+        {
+            "description": "Reverse order: compute factorials from n down to 1, multiplying at each step, using a while loop.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let special_factorial (n:int) : int =\n    let res = ref 1 in\n    let i = ref n in\n    while !i > 0 do\n      invariant { 0 <= !i <= n }\n      let f = ref 1 in\n      let j = ref !i in\n      while !j > 0 do\n        invariant { 0 <= !j <= !i }\n        f := !f * !j;\n        j := !j - 1\n      done;\n      res := !res * !f;\n      i := !i - 1\n    done;\n    !res\nend"
+        },
+        {
+            "description": "Memoization of factorials: store previously computed factorials in an array to avoid recomputation.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use array.Array\n  let special_factorial (n:int) : int =\n    let facts = Array.make (n+1) 1 in\n    let i = ref 2 in\n    while !i <= n do\n      invariant { 2 <= !i <= n+1 }\n      facts[!i] <- facts[!i-1] * !i;\n      i := !i + 1\n    done;\n    let res = ref 1 in\n    let j = ref 1 in\n    while !j <= n do\n      invariant { 1 <= !j <= n+1 }\n      res := !res * facts[!j];\n      j := !j + 1\n    done;\n    !res\nend"
+        },
+        {
+            "description": "Nested recursion: recursively compute the factorial product by embedding the factorial computation inside the product recursion.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let rec special_factorial (n:int) : int =\n    variant { n }\n    let rec fact (k:int) : int =\n      variant { k }\n      if k <= 1 then 1 else k * fact (k - 1)\n    in\n    if n <= 1 then 1 else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Iterative single-pass: accumulate the running factorial and multiply it into the result, all in a single loop.",
+            "implementation": "module HumanEval139\n  use int.Int\n  let special_factorial (n:int) : int =\n    let result = ref 1 in\n    let running_fact = ref 1 in\n    let i = ref 1 in\n    while !i <= n do\n      invariant { 1 <= !i <= n+1 }\n      running_fact := !running_fact * !i;\n      result := !result * !running_fact;\n      i := !i + 1\n    done;\n    !result\nend"
+        }
+    ]
+}

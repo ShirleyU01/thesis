@@ -1,0 +1,7 @@
+=======================human_eval_030_4.mlw=====================
+Warning, file "llms/implementation/final-gpt41-basic/human_eval_030_4.mlw", line 24, characters 44-61: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-basic/human_eval_030_4.mlw", line 24, characters 67-82: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-basic/human_eval_030_4.mlw", line 32, characters 2-22: the keyword `import' is redundant here and can be omitted
+Warning, file "llms/implementation/final-gpt41-basic/human_eval_030_4.mlw", line 33, characters 2-26: the keyword `import' is redundant here and can be omitted
+File "llms/implementation/final-gpt41-basic/human_eval_030_4.mlw", line 34, characters 43-44:
+unbound function or predicate symbol '(>)'

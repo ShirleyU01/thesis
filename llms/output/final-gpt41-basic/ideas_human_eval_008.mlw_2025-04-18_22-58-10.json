@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation using pattern matching to accumulate sum and product, returning them as a list at the end.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let rec sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons h t ->\n        let r = sum_product t in\n        match r with\n        | Cons s (Cons p Nil) -> Cons (h + s) (Cons (h * p) Nil)\n        | _ -> Cons 0 (Cons 1 Nil)\n        end\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using a helper function with two accumulators for sum and product.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let sum_product (l: list int) : list int =\n    let rec aux (l: list int) (s: int) (p: int) : list int =\n      match l with\n      | Nil -> Cons s (Cons p Nil)\n      | Cons h t -> aux t (s + h) (p * h)\n      end\n    in aux l 0 1\nend"
+        },
+        {
+            "description": "Implementation using fold_left from the List library to accumulate sum and product in a tuple, then convert to list.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n  use import list.FoldLeft\n\n  let sum_product (l: list int) : list int =\n    let (s, p) = fold_left (fun (a: int, b: int) (x: int) -> (a + x, b * x)) (0, 1) l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Implementation using explicit map over the list to build sum and product separately, then combine.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n  use import list.Length\n\n  let rec sum (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> h + sum t\n    end\n\n  let rec prod (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons h t -> h * prod t\n    end\n\n  let sum_product (l: list int) : list int =\n    Cons (sum l) (Cons (prod l) Nil)\nend"
+        },
+        {
+            "description": "Implementation using a single pass with a tuple accumulator in an auxiliary function.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let sum_product (l: list int) : list int =\n    let rec aux (l: list int) (acc: (int, int)) : (int, int) =\n      match l with\n      | Nil -> acc\n      | Cons h t -> aux t (acc.0 + h, acc.1 * h)\n      end in\n    let (s, p) = aux l (0, 1) in Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Implementation using only pattern matching and without any auxiliary function, with a nested let for sum and product.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let sum_product (l: list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | _ -> let rec sum (l: list int) : int = match l with Nil -> 0 | Cons h t -> h + sum t end in\n           let rec prod (l: list int) : int = match l with Nil -> 1 | Cons h t -> h * prod t end in\n           Cons (sum l) (Cons (prod l) Nil)\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive implementation using accumulators with a nested recursive function.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let sum_product (l: list int) : list int =\n    let rec aux (s: int) (p: int) (l: list int) : list int =\n      match l with\n      | Nil -> Cons s (Cons p Nil)\n      | Cons h t -> aux (s + h) (p * h) t\n      end\n    in aux 0 1 l\nend"
+        },
+        {
+            "description": "Recursive implementation that builds the result as a pair and converts it to list at the end.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let rec sum_product_aux (l: list int) : (int, int) =\n    match l with\n    | Nil -> (0, 1)\n    | Cons h t -> let (s, p) = sum_product_aux t in (h + s, h * p)\n    end\n\n  let sum_product (l: list int) : list int =\n    let (s, p) = sum_product_aux l in Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Implementation using two passes: first computes the sum, then the product, then combines results.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n\n  let rec sum (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> h + sum t\n    end\n\n  let rec product (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons h t -> h * product t\n    end\n\n  let sum_product (l: list int) : list int =\n    let s = sum l in\n    let p = product l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Implementation using fold_left from List library, but accumulates results in a list, then reverses it.",
+            "implementation": "module HumanEval008\n  use import int.Int\n  use import list.List\n  use import list.FoldLeft\n  use import list.Reverse\n\n  let sum_product (l: list int) : list int =\n    let acc = fold_left (fun acc x ->\n      match acc with\n      | Cons s (Cons p Nil) -> Cons (s + x) (Cons (p * x) Nil)\n      | _ -> Cons x (Cons x Nil)\n      end) (Cons 0 (Cons 1 Nil)) l in\n    acc\nend"
+        }
+    ]
+}

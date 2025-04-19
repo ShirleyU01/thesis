@@ -1,0 +1,40 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: directly traverse the list, at each Cons node check if x is non\u2011negative and odd, square and add to recursive result.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = double_the_dfference xs in\n        if x >= 0 && mod x 2 = 1 then x * x + rest else rest\n    end\nend"
+        },
+        {
+            "description": "Tail\u2011recursive accumulator: use an inner helper with an accumulator to avoid growing the call stack.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n\n  let rec aux (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if x >= 0 && mod x 2 = 1 then acc + x * x else acc in\n        aux xs acc'\n    end\n\n  let double_the_dfference (l : list int) : int =\n    aux l 0\nend"
+        },
+        {
+            "description": "Indexed for\u2011loop: define nth_my to index into the list, iterate with a for loop updating a mutable sum.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n:int) (l:list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    ensures  { nth n l = result }\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs\n    end\n\n  let double_the_dfference (l : list int) : int =\n    let n = length l in\n    let ref sum = 0 in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      if x >= 0 && mod x 2 = 1 then sum <- sum + x * x\n    done;\n    sum\nend"
+        },
+        {
+            "description": "While\u2011loop traversal: use hd and tl with is_nil to step through the list in a while loop, summing squares of valid elements.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.HdTl\n\n  let double_the_dfference (l : list int) : int =\n    let ref cur = l in\n    let ref sum = 0 in\n    while not (is_nil cur) do\n      let x = match hd cur with Some y -> y | None -> 0 end in\n      if x >= 0 && mod x 2 = 1 then sum <- sum + x * x;\n      cur <- match tl cur with Some ys -> ys | None -> Nil end\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Build intermediate list of squares: recursively collect x*x for each odd x>=0 into a new list, then use list.Sum to total.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Sum\n\n  let rec collect (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x >= 0 && mod x 2 = 1 then Cons (x * x) (collect xs)\n        else collect xs\n    end\n\n  let double_the_dfference (l : list int) : int =\n    sum (collect l)\nend"
+        },
+        {
+            "description": "Use exponentiation: same direct recursion but square via the power function from int.Power.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use int.Power\n  use list.List\n  use list.Length\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = double_the_dfference xs in\n        if x >= 0 && mod x 2 = 1 then power x 2 + rest else rest\n    end\nend"
+        },
+        {
+            "description": "Nested if branches: first exclude negatives, then test oddness, avoiding Boolean &&.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n\n  let rec double_the_dfference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x < 0 then double_the_dfference xs else\n        if mod x 2 = 1 then x * x + double_the_dfference xs\n        else double_the_dfference xs\n    end\nend"
+        },
+        {
+            "description": "Filter then map: first build list of all x>=0 and odd, then map each element to its square, finally sum.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Append\n  use list.Reverse\n  use list.Sum\n\n  let rec filter (l:list int) (acc:list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if x >= 0 && mod x 2 = 1 then Cons x acc else acc in\n        filter xs acc'\n    end\n\n  let rec map_sq (l:list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x * x) (map_sq xs)\n    end\n\n  let double_the_dfference (l : list int) : int =\n    let fs = reverse (filter l Nil) in\n    sum (map_sq fs)\nend"
+        },
+        {
+            "description": "Reverse\u2011then\u2011recurse: reverse the list once and then use a tail\u2011recursive helper over the reversed list.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Reverse\n  use list.Length\n\n  let rec aux (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if x >= 0 && mod x 2 = 1 then acc + x * x else acc in\n        aux xs acc'\n    end\n\n  let double_the_dfference (l : list int) : int =\n    aux (reverse l) 0\nend"
+        }
+    ]
+}

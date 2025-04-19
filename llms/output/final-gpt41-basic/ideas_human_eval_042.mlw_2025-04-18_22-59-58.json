@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple recursive implementation that traverses the list and increments each element by 1.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using an accumulator and then reversing the result at the end.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> aux xs (Cons (x + 1) acc)\n    end\n  let incr_list (l : list int) : list int =\n    List.rev (aux l Nil)\nend"
+        },
+        {
+            "description": "Implementation using map combinator from the standard library to apply (x + 1) to every element.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let incr_list (l : list int) : list int =\n    List.map (fun x -> x + 1) l\nend"
+        },
+        {
+            "description": "Tail-recursive implementation using a helper function with explicit accumulator and list reversal.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec loop (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> List.rev acc\n    | Cons x xs -> loop xs (Cons (x + 1) acc)\n    end\n  let incr_list (l : list int) : list int =\n    loop l Nil\nend"
+        },
+        {
+            "description": "Recursive implementation that builds the result list using append, though inefficient.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> List.Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation with pattern matching using explicit match for empty and non-empty lists.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec incr_list (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Implementation using a fold (left fold) to accumulate the incremented list then reverse it.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let incr_list (l : list int) : list int =\n    List.rev (List.fold_left (fun acc x -> Cons (x + 1) acc) Nil l)\nend"
+        },
+        {
+            "description": "Implementation using a fold (right fold) to build the result list directly.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let incr_list (l : list int) : list int =\n    List.fold_right (fun x acc -> Cons (x + 1) acc) l Nil\nend"
+        },
+        {
+            "description": "Recursive implementation that first calculates the length, then fills a new list with incremented elements (simulating array-like traversal).",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec fill (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (fill xs)\n    end\n  let incr_list (l : list int) : list int =\n    fill l\nend"
+        },
+        {
+            "description": "Implementation using a helper function that applies a transformation function element-wise, then uses it for incrementing.",
+            "implementation": "module HumanEval042\n  use import list.List\n  let rec map_int (f: int -> int) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x) (map_int f xs)\n    end\n  let incr_list (l : list int) : list int =\n    map_int (fun x -> x + 1) l\nend"
+        }
+    ]
+}

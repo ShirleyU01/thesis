@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct recursive pattern matching: traverse the list node by node, increment head by 1 and recurse on tail.",
+            "implementation": "module HumanEval042\n  use list.List\n  use int.Int\n\n  let rec incr_list (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Tail recursion with accumulator and post-reversal: build a reversed result in an accumulator, then reverse it at the end.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec aux (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> aux xs (Cons (x + 1) acc)\n    end\n\n  let incr_list (l: list int) : list int =\n    let rev_res = aux l Nil in\n    reverse rev_res\nend"
+        },
+        {
+            "description": "While-loop with mutable references and custom nth_my: iterate by index, fetch each element and append to result.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let incr_list (l: list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref res = Nil in\n    while i < n do\n      let x = nth_my i l in\n      res <- res ++ Cons (x + 1) Nil;\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "For-loop with mutable references and custom nth_my: same as while-version but using a for construct.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let incr_list (l: list int) : list int =\n    let n = length l in\n    let ref res = Nil in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      res <- res ++ Cons (x + 1) Nil\n    done;\n    res\nend"
+        },
+        {
+            "description": "Index-driven recursion using custom nth_my: build the result by recursively increasing an index from 0 to length.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec aux (i: int) (l: list int) : list int =\n    if i = length l then Nil\n    else Cons (nth_my i l + 1) (aux (i + 1) l)\n\n  let incr_list (l: list int) : list int =\n    aux 0 l\nend"
+        },
+        {
+            "description": "Using hd and tl destructors: check for empty via hd/tl options, then increment head and recurse on tail.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.HdTl\n  use int.Int\n\n  let rec incr_list (l: list int) : list int =\n    match hd l, tl l with\n    | None, _ -> Nil\n    | Some x, Some xs -> Cons (x + 1) (incr_list xs)\n    end\nend"
+        },
+        {
+            "description": "Generic map abstraction: define a polymorphic map and apply it with the increment function.",
+            "implementation": "module HumanEval042\n  use list.List\n  use int.Int\n\n  let rec map (f: int -> int) (l: list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (f x) (map f xs)\n    end\n\n  let incr_list (l: list int) : list int =\n    map (fun x -> x + 1) l\nend"
+        },
+        {
+            "description": "Combine with a ones-list: build a list of 1's the same length, zip via combine, then sum each pair.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.Length\n  use list.Combine\n  use int.Int\n\n  let rec ones (n: int) : list int =\n    if n <= 0 then Nil else Cons 1 (ones (n - 1))\n\n  let rec map_pair (l: list (int, int)) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons (x, y) xs -> Cons (x + y) (map_pair xs)\n    end\n\n  let incr_list (l: list int) : list int =\n    let n = length l in\n    let o = ones n in\n    let combined = combine l o in\n    map_pair combined\nend"
+        },
+        {
+            "description": "Tail recursion with rev_append: accumulate reversed incremented elements and then use rev_append to restore order.",
+            "implementation": "module HumanEval042\n  use list.List\n  use list.RevAppend\n  use int.Int\n\n  let rec aux (l: list int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> aux xs (Cons (x + 1) acc)\n    end\n\n  let incr_list (l: list int) : list int =\n    rev_append (aux l Nil) Nil\nend"
+        },
+        {
+            "description": "Using is_nil and explicit destructuring: guard with is_nil then extract head and tail via pattern and recurse.",
+            "implementation": "module HumanEval042\n  use list.List\n  use int.Int\n\n  let rec incr_list (l: list int) : list int =\n    if is_nil l then Nil else\n      let h = match l with Cons x _ -> x end in\n      let t = match l with Cons _ xs -> xs end in\n      Cons (h + 1) (incr_list t)\nend"
+        }
+    ]
+}

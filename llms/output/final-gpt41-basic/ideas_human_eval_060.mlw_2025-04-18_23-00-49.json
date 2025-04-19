@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation: sum from 1 to n using recursion. Base case for n=1, otherwise sum n and sum_to_n(n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    if n = 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Iterative implementation using a while loop and accumulator variable.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    var acc = 0 in\n    var i = 1 in\n    while i <= n do\n      invariant { 1 <= i <= n + 1 }\n      invariant { acc = ((i - 1) * i) div 2 }\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Closed-form formula implementation using the arithmetic progression sum formula.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Recursive implementation with helper function and tail recursion (explicit accumulator).",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n_aux (acc: int) (n: int) : int =\n    requires { n >= 0 }\n    ensures  { result = acc + (n * (n + 1)) div 2 }\n    if n = 0 then acc else sum_to_n_aux (acc + n) (n - 1)\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    sum_to_n_aux 0 n\nend"
+        },
+        {
+            "description": "Implementation using a for loop, explicitly summing over the range 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    var acc = 0 in\n    for i = 1 to n do\n      invariant { 0 <= i <= n+1 }\n      invariant { acc = ((i-1)*i) div 2 }\n      acc <- acc + i\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive implementation with explicit pattern matching on the value of n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    match n with\n    | 1 -> 1\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation summing down from n to 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    var acc = 0 in\n    var i = n in\n    while i >= 1 do\n      invariant { 0 <= i <= n }\n      invariant { acc = ((n * (n + 1)) div 2) - (i * (i - 1)) div 2 }\n      acc <- acc + i;\n      i <- i - 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Implementation using list construction and fold to sum up the numbers.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Length\n  use list.FoldLeft\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures { result = (n * (n + 1)) div 2 }\n    let rec build_list i acc =\n      if i = 0 then acc else build_list (i - 1) (i :: acc)\n    in\n    let l = build_list n Nil in\n    fold_left (fun x y -> x + y) 0 l\nend"
+        },
+        {
+            "description": "Implementation using a mathematical induction proof-style approach, returning precomputed values for small n, then formula for large n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures { result = (n * (n + 1)) div 2 }\n    if n = 1 then 1\n    else if n = 2 then 3\n    else if n = 3 then 6\n    else (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Recursive implementation that splits the problem: sum_to_n(n) = sum_to_n(n/2) + sum_to_n(n) - sum_to_n(n/2), for even n, otherwise as usual.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n: int) : int =\n    requires { n >= 1 }\n    ensures  { result = (n * (n + 1)) div 2 }\n    if n = 1 then 1\n    else if n mod 2 = 0 then\n      let half = n div 2 in\n      2 * sum_to_n (half) + half * half\n    else\n      n + sum_to_n (n - 1)\nend"
+        }
+    ]
+}

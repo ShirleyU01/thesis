@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive comparison: Traverse the list recursively, comparing each element with the current maximum and returning the largest. This is the classic approach.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs -> max x (max_element xs)\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive helper: Use a tail-recursive auxiliary function with an accumulator that tracks the current maximum, for better stack efficiency.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_element_aux (acc: int) (t: list int) : int =\n    variant { length t }\n    match t with\n    | Nil -> acc\n    | Cons x xs -> max_element_aux (max acc x) xs\n    end\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    match t with\n    | Cons x xs -> max_element_aux x xs\n    | Nil -> absurd\n    end\nend"
+        },
+        {
+            "description": "Reverse and recursive: First reverse the list, then recursively compute the maximum, demonstrating a two-step approach.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Reverse\n  use int.Int\n  use int.MinMax\n\n  let rec max_element_rec (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs -> max x (max_element_rec xs)\n    end\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let t_rev = reverse t in\n    max_element_rec t_rev\nend"
+        },
+        {
+            "description": "Using list length and a custom nth function: Iterate through the list using indexes and a helper nth_my function to find the maximum.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use int.Int\n  use int.MinMax\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    | Nil -> absurd\n    end\n\n  let rec max_element_idx (i: int) (len: int) (l: list int) (curmax: int) : int =\n    variant { len - i }\n    requires { i >= 0 /\\ i <= len }\n    if i = len then curmax else\n      let v = nth_my i l in\n      max_element_idx (i+1) len l (max curmax v)\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let len = length t in\n    let first = nth_my 0 t in\n    max_element_idx 1 len t first\nend"
+        },
+        {
+            "description": "Split and conquer: Recursively split the list into head and tail, find the maximum of each, and combine using max.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x (Cons y ys) ->\n        let tailmax = max_element (Cons y ys) in\n        max x tailmax\n    | _ -> absurd\n    end\nend"
+        },
+        {
+            "description": "Find maximum by filtering: Use a helper to traverse and filter all elements equal to the current maximum, demonstrating a filter-like pattern.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_element (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs ->\n        let m = max_element xs in\n        if x >= m then x else m\n    end\nend"
+        },
+        {
+            "description": "Max by pairwise reduction: Recursively reduce the list two elements at a time, combining by max, until only one element remains.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec reduce_max (t: list int) : int =\n    requires { t <> Nil }\n    variant { length t }\n    match t with\n    | Cons x Nil -> x\n    | Cons x (Cons y ys) -> reduce_max (Cons (max x y) ys)\n    | _ -> absurd\n    end\n\n  let max_element (t: list int) : int = reduce_max t\nend"
+        },
+        {
+            "description": "Max using explicit loop with a decreasing index: Simulate a loop by recursively decreasing an index over the list, using nth_my to fetch elements.",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use int.Int\n  use int.MinMax\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    | Nil -> absurd\n    end\n\n  let rec max_element_loop (i: int) (curmax: int) (l: list int) : int =\n    variant { i }\n    requires { i >= 0 }\n    if i = 0 then curmax else\n      let v = nth_my i l in\n      max_element_loop (i - 1) (max curmax v) l\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    let len = length t in\n    let first = nth_my 0 t in\n    max_element_loop (len - 1) first t\nend"
+        },
+        {
+            "description": "Handle maximum by separating head and tail, then process tail with an accumulator, ensuring separation of concerns.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_tail (acc: int) (t: list int) : int =\n    variant { length t }\n    match t with\n    | Nil -> acc\n    | Cons x xs -> max_tail (max acc x) xs\n    end\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    match t with\n    | Cons x xs -> max_tail x xs\n    | Nil -> absurd\n    end\nend"
+        },
+        {
+            "description": "Use a helper to collect all elements into a single max value by recursively comparing each with the accumulator, but using explicit if-then-else instead of max.",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec helper (acc: int) (t: list int) : int =\n    variant { length t }\n    match t with\n    | Nil -> acc\n    | Cons x xs -> helper (if x > acc then x else acc) xs\n    end\n\n  let max_element (t: list int) : int =\n    requires { t <> Nil }\n    match t with\n    | Cons x xs -> helper x xs\n    | Nil -> absurd\n    end\nend"
+        }
+    ]
+}

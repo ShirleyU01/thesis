@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct arithmetic solution using let-binding for intermediate values.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let eaten = if need <= remaining then need else remaining in\n    let total = number + eaten in\n    let left = if need <= remaining then remaining - need else 0 in\n    Cons total (Cons left Nil)\nend"
+        },
+        {
+            "description": "Pattern match on whether there are enough remaining carrots or not.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    match need <= remaining with\n    | True -> Cons (number + need) (Cons (remaining - need) Nil)\n    | False -> Cons (number + remaining) (Cons 0 Nil)\nend"
+        },
+        {
+            "description": "Recursive calculation for the number of carrots to eat, then use that to compute other outputs.",
+            "implementation": "module HumanEval159\n  let rec to_eat (need:int) (remaining:int) : int =\n    if need = 0 || remaining = 0 then 0\n    else 1 + to_eat (need - 1) (remaining - 1)\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let eaten = to_eat need remaining in\n    Cons (number + eaten) (Cons (remaining - eaten) Nil)\nend"
+        },
+        {
+            "description": "Use min and max for clear arithmetic handling of cases.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let eaten = min need remaining in\n    Cons (number + eaten) (Cons (max 0 (remaining - need)) Nil)\nend"
+        },
+        {
+            "description": "Calculate the actual need that can be satisfied, then build the result.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let actual_eat = if need > remaining then remaining else need in\n    let total = number + actual_eat in\n    let after = if need > remaining then 0 else remaining - need in\n    Cons total (Cons after Nil)\nend"
+        },
+        {
+            "description": "Explicitly handle the two cases separately using two let blocks.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    if need <= remaining then\n      let total = number + need in\n      let left = remaining - need in\n      Cons total (Cons left Nil)\n    else\n      let total = number + remaining in\n      Cons total (Cons 0 Nil)\nend"
+        },
+        {
+            "description": "Use guards to check cases, with early returns from the function.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    if remaining = 0 then Cons number (Cons 0 Nil)\n    else if need = 0 then Cons number (Cons remaining Nil)\n    else if need <= remaining then Cons (number + need) (Cons (remaining - need) Nil)\n    else Cons (number + remaining) (Cons 0 Nil)\nend"
+        },
+        {
+            "description": "Use separate helper function to compute the result as a tuple, then convert to list.",
+            "implementation": "module HumanEval159\n  let eat_tuple (number:int) (need:int) (remaining:int) : (int, int) =\n    if need <= remaining then (number + need, remaining - need)\n    else (number + remaining, 0)\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let (a, b) = eat_tuple number need remaining in\n    Cons a (Cons b Nil)\nend"
+        },
+        {
+            "description": "Compute all intermediate values in one let-binding for clarity.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    let can_eat = if need <= remaining then need else remaining in\n    let remaining_after = if need <= remaining then remaining - need else 0 in\n    let total_eaten = number + can_eat in\n    Cons total_eaten (Cons remaining_after Nil)\nend"
+        },
+        {
+            "description": "Use a single if-then-else expression for the entire result list.",
+            "implementation": "module HumanEval159\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    if need <= remaining then\n      Cons (number + need) (Cons (remaining - need) Nil)\n    else\n      Cons (number + remaining) (Cons 0 Nil)\nend"
+        }
+    ]
+}

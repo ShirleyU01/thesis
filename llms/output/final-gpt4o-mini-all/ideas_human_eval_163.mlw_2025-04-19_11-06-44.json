@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Basic recursive implementation using min and max to normalize the range and direct recursion.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n\n  let rec generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    if low > high then\n      Nil\n    else\n      Cons low (generate_integers (low + 1, high))\n    end\n\nend"
+        },
+        {
+            "description": "Recursive implementation that swaps arguments when a > b and uses a nested if in a begin/end block.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec generate_integers (a: int, b: int) : list int =\n    if a <= b then\n      Cons a (generate_integers (a + 1, b))\n    else begin\n      if b < a then generate_integers (b, a) else Nil end\n    end\n\nend"
+        },
+        {
+            "description": "Tail\u2010recursive implementation with an accumulator and a final reverse to restore ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec aux (curr: int, high: int, acc: list int) : list int =\n    if curr > high then\n      reverse acc\n    else\n      aux (curr + 1, high, Cons curr acc)\n    end\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    aux (low, high, Nil)\n\nend"
+        },
+        {
+            "description": "Tail\u2010recursive implementation using rev_append to avoid a separate reverse call.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.RevAppend\n\n  let rec aux (curr: int, high: int, acc: list int) : list int =\n    if curr > high then\n      rev_append acc Nil\n    else\n      aux (curr + 1, high, Cons curr acc)\n    end\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    aux (low, high, Nil)\n\nend"
+        },
+        {
+            "description": "Imperative while\u2010loop implementation that accumulates in reverse and then reverses at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    let ref i = low in\n    let ref acc = Nil in\n    while !i <= high do\n      acc := Cons !i !acc;\n      i := !i + 1\n    done;\n    reverse !acc\n\nend"
+        },
+        {
+            "description": "Imperative for\u2010loop implementation that builds a reversed list then reverses it.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.Reverse\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    let n = high - low + 1 in\n    let ref acc = Nil in\n    for j = 0 to n - 1 do\n      acc := Cons (low + j) !acc\n    done;\n    reverse !acc\n\nend"
+        },
+        {
+            "description": "Generate the range in reverse order by simple recursion on decreasing values, then reverse the result.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec gen_rev (curr: int, low: int) : list int =\n    if curr < low then\n      Nil\n    else\n      Cons curr (gen_rev (curr - 1, low))\n    end\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    reverse (gen_rev (high, low))\n\nend"
+        },
+        {
+            "description": "Recursive implementation that appends a single\u2010element list at each step using the ++ operator.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let rec generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    if low > high then\n      Nil\n    else\n      Cons low Nil ++ generate_integers (low + 1, high)\n    end\n\nend"
+        },
+        {
+            "description": "Imperative while\u2010loop that appends each new element at the end using ++, preserving order directly.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    let ref i = low in\n    let ref acc = Nil in\n    while !i <= high do\n      acc := !acc ++ Cons !i Nil;\n      i := !i + 1\n    done;\n    !acc\n\nend"
+        },
+        {
+            "description": "Imperative for\u2010loop that appends each new element at the end using ++, avoiding the need to reverse.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.Append\n\n  let generate_integers (a: int, b: int) : list int =\n    let low = min a b in\n    let high = max a b in\n    let n = high - low + 1 in\n    let ref acc = Nil in\n    for k = 0 to n - 1 do\n      acc := !acc ++ Cons (low + k) Nil\n    done;\n    !acc\n\nend"
+        }
+    ]
+}

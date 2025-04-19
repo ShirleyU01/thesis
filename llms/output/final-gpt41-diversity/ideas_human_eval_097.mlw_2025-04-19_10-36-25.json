@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract unit digits using modulo and multiply directly. This is the most straightforward approach using the modulus operator to isolate unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let multiply (a:int) (b:int) : int =\n    let ua = abs a mod 10 in\n    let ub = abs b mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract unit digits recursively (without modulo). Implement a helper function that recursively strips digits until only the unit digit remains.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec unit_digit (x:int) : int =\n    let y = abs x in\n    if y < 10 then y else unit_digit (y / 10)\n  let multiply (a:int) (b:int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching on negative values first, then extract unit digits and multiply. Handles negatives explicitly then applies modulo.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let multiply (a:int) (b:int) : int =\n    let ua = match a < 0 with | True -> (-a) | False -> a end mod 10 in\n    let ub = match b < 0 with | True -> (-b) | False -> b end mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Using division and subtraction to extract unit digit instead of modulo. Unit digit is computed as x - 10*(x/10).",
+            "implementation": "module HumanEval097\n  use int.Int\n  let unit_digit (x:int) : int =\n    let y = abs x in\n    y - 10 * (y / 10)\n  let multiply (a:int) (b:int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Iterative approach: Loop to remove digits until unit digit remains, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let unit_digit (x:int) : int =\n    let ref y = abs x in\n    while y >= 10 do y <- y / 10 done;\n    y\n  let multiply (a:int) (b:int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use a helper function to return a tuple of unit digits for both numbers, then multiply them.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let unit_digits (a:int) (b:int) : (int, int) =\n    (abs a mod 10, abs b mod 10)\n  let multiply (a:int) (b:int) : int =\n    let (ua,ub) = unit_digits a b in\n    ua * ub\nend"
+        },
+        {
+            "description": "Recursive multiply: recursively extract unit digits and multiply, with recursive helper for digit extraction.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec last_digit (x:int) : int =\n    if abs x < 10 then abs x else last_digit (x / 10)\n  let rec multiply (a:int) (b:int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Use match and if-then-else to handle both negative and positive numbers for unit digit extraction.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let unit_digit (x:int) : int =\n    if x < 0 then (-x) mod 10 else x mod 10\n  let multiply (a:int) (b:int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use arithmetic properties: compute absolute values before modulo, emphasizing property-based extraction.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let multiply (a:int) (b:int) : int =\n    let ua = (if a < 0 then -a else a) mod 10 in\n    let ub = (if b < 0 then -b else b) mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Fully expanded, no helper: all logic inline with explicit local variables for clarity.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let multiply (a:int) (b:int) : int =\n    let abs_a = if a < 0 then -a else a in\n    let abs_b = if b < 0 then -b else b in\n    let unit_a = abs_a mod 10 in\n    let unit_b = abs_b mod 10 in\n    unit_a * unit_b\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct computation with conditional binding: calculate the number of carrots eaten (consumed) using an if-then-else, then build the result list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let consumed = if need <= remaining then need else remaining in\n    let new_number = number + consumed in\n    let left = remaining - consumed in\n    Cons new_number (Cons left Nil)\nend"
+        },
+        {
+            "description": "Using the library min function to pick the smaller of need and remaining for consumption.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let consumed = min need remaining in\n    Cons (number + consumed) (Cons (remaining - consumed) Nil)\nend"
+        },
+        {
+            "description": "Imperative style with a while loop: decrement need and remaining until one hits zero.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let ref n = number in\n    let ref r = remaining in\n    let ref cnt = need in\n    while cnt > 0 and r > 0 do\n      n <- n + 1;\n      r <- r - 1;\n      cnt <- cnt - 1\n    done;\n    Cons !n (Cons !r Nil)\nend"
+        },
+        {
+            "description": "Imperative style with a for loop: iterate up to need times and stop when out of stock.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let ref n = number in\n    let ref r = remaining in\n    for i = 1 to need do\n      if r > 0 then\n        n <- n + 1;\n        r <- r - 1\n      else\n        ()\n    done;\n    Cons !n (Cons !r Nil)\nend"
+        },
+        {
+            "description": "Tail\u2010recursive helper returning a pair (new total eaten, remaining stock), then build the list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec helper (number: int) (need: int) (remaining: int) : (int * int) =\n    if need <= 0 || remaining <= 0 then (number, remaining)\n    else helper (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let (n, r) = helper number need remaining in\n    Cons n (Cons r Nil)\nend"
+        },
+        {
+            "description": "Pure recursion on all three arguments with if-then-else branching to the base cases.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec eat (number: int) (need: int) (remaining: int) : list int =\n    if need <= 0 then\n      Cons number (Cons remaining Nil)\n    else if remaining <= 0 then\n      Cons number (Cons 0 Nil)\n    else\n      eat (number + 1) (need - 1) (remaining - 1)\nend"
+        },
+        {
+            "description": "Using a begin...end block around the main conditional for clarity.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    begin\n      if need <= remaining then\n        Cons (number + need) (Cons (remaining - need) Nil)\n      else\n        Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Compute the leftovers via max, then infer consumed as the difference.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let left = max (remaining - need) 0 in\n    let consumed = remaining - left in\n    Cons (number + consumed) (Cons left Nil)\nend"
+        },
+        {
+            "description": "Build a list of ones of length min(need,remaining), sum it to get consumption, then form result.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Sum\n\n  let rec build (n: int) (acc: list int) : list int =\n    if n <= 0 then acc else build (n - 1) (Cons 1 acc)\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let count = min need remaining in\n    let consumed_list = build count Nil in\n    let consumed = sum consumed_list in\n    Cons (number + consumed) (Cons (remaining - consumed) Nil)\nend"
+        },
+        {
+            "description": "Separate recursive helper to count consumed one\u2010by\u2010one, then compute results.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec consumed (need: int) (remaining: int) : int =\n    if need <= 0 || remaining <= 0 then 0\n    else 1 + consumed (need - 1) (remaining - 1)\n\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let c = consumed need remaining in\n    Cons (number + c) (Cons (remaining - c) Nil)\nend"
+        }
+    ]
+}

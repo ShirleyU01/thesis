@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple arithmetic check: return true if and only if n is even and at least 8.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    begin\n      n >= 8 && mod n 2 = 0\n    end\nend"
+        },
+        {
+            "description": "Brute\u2010force search with four nested for\u2010loops: test every combination of four even numbers from 2 to n\u20102.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    let ref found = false in\n    for i = 2 to n - 6 do\n      if mod i 2 = 0 then\n        for j = 2 to n - 4 do\n          if mod j 2 = 0 then\n            for k = 2 to n - 2 do\n              if mod k 2 = 0 then\n                let l = n - (i + j + k) in\n                if l >= 2 && mod l 2 = 0 then found <- true\n            done\n        done\n    done;\n    found\nend"
+        },
+        {
+            "description": "Brute\u2010force search with four nested while\u2010loops: same idea as idea 2 but using while for finer control.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    let ref result = false in\n    let ref i = 2 in\n    while i <= n - 6 && not result do\n      if mod i 2 = 0 then\n        let ref j = 2 in\n        while j <= n - 4 && not result do\n          if mod j 2 = 0 then\n            let ref k = 2 in\n            while k <= n - 2 && not result do\n              if mod k 2 = 0 then\n                let l = n - (i + j + k) in\n                if l >= 2 && mod l 2 = 0 then result <- true;\n              k <- k + 2\n            done;\n          j <- j + 2\n        done;\n      i <- i + 2\n    done;\n    result\nend"
+        },
+        {
+            "description": "General recursive k\u2010sum search: define search(k,rem) that picks one even at a time and recurses until k=1.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec search (k: int) (rem: int) : bool =\n    if k = 1 then rem >= 2 && mod rem 2 = 0\n    else if rem < 2 * k then false\n    else\n      let rec loop_e e =\n        if e <= rem - 2 * (k - 1) then\n          if mod e 2 = 0 && search (k - 1) (rem - e) then true\n          else loop_e (e + 2)\n        else false\n      in loop_e 2\n  let is_equal_to_sum_even (n: int) : bool =\n    search 4 n\nend"
+        },
+        {
+            "description": "Nested list recursion: build a list of even numbers and then three nested recursive loops over that list to find a fourth that completes the sum.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Append\n  type list 'a = Nil | Cons 'a (list 'a)\n  let rec gen_evens (m: int) : list int =\n    if m < 2 then Nil else gen_evens (m - 2) ++ Cons m Nil\n  let is_equal_to_sum_even (n: int) : bool =\n    let evens = gen_evens (n - 2) in\n    let rec loop1 = function\n      | Nil -> false\n      | Cons a as1 ->\n        let rec loop2 = function\n          | Nil -> loop1 as1\n          | Cons b as2 ->\n            let rec loop3 = function\n              | Nil -> loop2 as2\n              | Cons c cs ->\n                let d = n - (a + b + c) in\n                if d >= 2 && mod d 2 = 0 then true else loop3 cs\n            end in\n            loop3 evens\n        end in\n        loop2 evens\n    in loop1 evens\nend"
+        },
+        {
+            "description": "Pair\u2010sum decomposition: generate all pairwise sums of evens and then search for two of these that add up to n using for_some.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Append\n  use list.Quant\n  type list 'a = Nil | Cons 'a (list 'a)\n  let rec gen_evens m = if m < 2 then Nil else gen_evens (m-2) ++ Cons m Nil\n  let rec build_pair_sums = function\n    | Nil -> Nil\n    | Cons a as1 ->\n      let rec aux = function\n        | Nil -> Nil\n        | Cons b bs -> Cons (a+b) (aux bs)\n      end in\n      aux as1 ++ build_pair_sums as1\n  let is_equal_to_sum_even (n: int) : bool =\n    if n < 8 || mod n 2 <> 0 then false else\n    let ev = gen_evens (n-2) in\n    let sum2 = build_pair_sums ev in\n    for_some (fun x -> for_some (fun y -> x + y = n) sum2) sum2\nend"
+        },
+        {
+            "description": "Pattern matching on the boolean test: first compute the predicate and then match on True/False.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    match (n >= 8 && mod n 2 = 0) with\n    | True -> true\n    | False -> false\n    end\nend"
+        },
+        {
+            "description": "Nested if\u2011then\u2011else guard: check parity first, then lower bound, finally accept or reject.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    begin\n      if mod n 2 <> 0 then false\n      else if n < 8 then false\n      else true\n    end\nend"
+        },
+        {
+            "description": "Accumulator count via recursion: count all quadruples of even numbers recursively and check if count > 0.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec count_i i n acc =\n    if i > n - 6 then acc else\n      let acc_i = count_j 2 i n acc in\n      count_i (i + 2) n acc_i\n  and count_j j i n acc =\n    if j > n - 4 then acc else\n      let acc_j = count_k 2 i j n acc in\n      count_j (j + 2) i n acc_j\n  and count_k k i j n acc =\n    if k > n - 2 then acc else\n      let l = n - (i + j + k) in\n      let acc_k = if l >= 2 && mod l 2 = 0 then acc + 1 else acc in\n      count_k (k + 2) i j n acc_k\n  let is_equal_to_sum_even (n: int) : bool =\n    count_i 2 n 0 > 0\nend"
+        },
+        {
+            "description": "Dynamic\u2010programming via list of reachable sums: build dp lists for 0,1,2,3,4 parts and test if n is reachable.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Mem\n  use list.Append\n  type list 'a = Nil | Cons 'a (list 'a)\n  let rec gen_evens m = if m < 2 then Nil else gen_evens (m-2) ++ Cons m Nil\n  let rec map_add lst v =\n    match lst with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + v) (map_add xs v)\n    end\n  let rec concat_map_add evens sums =\n    match evens with\n    | Nil -> Nil\n    | Cons e es -> map_add sums e ++ concat_map_add es sums\n    end\n  let is_equal_to_sum_even (n: int) : bool =\n    if n < 8 || mod n 2 <> 0 then false else\n    let ev = gen_evens (n - 2) in\n    let dp0 = Cons 0 Nil in\n    let dp1 = concat_map_add ev dp0 in\n    let dp2 = concat_map_add ev dp1 in\n    let dp3 = concat_map_add ev dp2 in\n    let dp4 = concat_map_add ev dp3 in\n    mem n dp4\nend"
+        }
+    ]
+}

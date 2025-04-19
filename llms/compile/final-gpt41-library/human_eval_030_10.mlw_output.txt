@@ -1,0 +1,7 @@
+=======================human_eval_030_10.mlw=====================
+Warning, file "llms/implementation/final-gpt41-library/human_eval_030_10.mlw", line 24, characters 44-61: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-library/human_eval_030_10.mlw", line 24, characters 67-82: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-library/human_eval_030_10.mlw", line 40, characters 22-54: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-library/human_eval_030_10.mlw", line 40, characters 60-83: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt41-library/human_eval_030_10.mlw", line 43, characters 63-65:
+unbound function or predicate symbol '(|>)'

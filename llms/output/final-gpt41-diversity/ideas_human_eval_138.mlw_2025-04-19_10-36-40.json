@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct arithmetic check using modulo. Since all four numbers must be positive and even, the smallest sum is 8 (2+2+2+2). Thus, n must be at least 8 and even. Check directly with simple arithmetic and modulo.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Pattern match on n for obvious small cases and then use modulo for general case. Handles small numbers explicitly for clarity.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    match n with\n    | 4 | 6 -> false\n    | _ -> n >= 8 && n mod 2 = 0\n    end\nend"
+        },
+        {
+            "description": "Recursive function decreasing n by 2 each time, counting the number of even numbers used. Returns true if exactly 4 positive even numbers sum to n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec is_sum_even_count (n: int) (count: int) : bool =\n    if count = 0 then n = 0 else\n    if n >= 2 then is_sum_even_count (n - 2) (count - 1) else false\n  let is_equal_to_sum_even (n: int) : bool =\n    is_sum_even_count n 4\nend"
+        },
+        {
+            "description": "Explicitly enumerate all possible partitions of n into 4 positive even numbers using nested loops (symbolically, as Why3 has no true loops). Return true if found.",
+            "implementation": "module HumanEval138\n  use int.Int\n  predicate exists_partition (n: int) =\n    exists a b c d: int. a >= 2 /\\ b >= 2 /\\ c >= 2 /\\ d >= 2 /\\ a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\ n = a + b + c + d\n  let is_equal_to_sum_even (n: int) : bool =\n    exists_partition n\nend"
+        },
+        {
+            "description": "Algebraic reduction: Any sum of 4 positive even numbers is 2*(a+b+c+d), a,b,c,d >=1. So n must be even and n/2 >= 4. Checks this property.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    n mod 2 = 0 && n/2 >= 4\nend"
+        },
+        {
+            "description": "Recursive approach: Try all possible values for the first number (from 2 to n-6, step 2), and recursively check remaining sum with fewer numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec can_sum_even (n: int) (k: int) : bool =\n    if k = 1 then n >= 2 && n mod 2 = 0 else\n      exists x: int. 2 <= x <= n - 2*(k-1) && x mod 2 = 0 && can_sum_even (n-x) (k-1)\n  let is_equal_to_sum_even (n: int) : bool =\n    can_sum_even n 4\nend"
+        },
+        {
+            "description": "Use the fact that n must be a sum of four even numbers greater than 2, and directly check with existential quantification if such numbers exist.",
+            "implementation": "module HumanEval138\n  use int.Int\n  predicate sum4even (n: int) =\n    exists a b c d: int. 2 <= a /\\ 2 <= b /\\ 2 <= c /\\ 2 <= d /\\ a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\ n = a + b + c + d\n  let is_equal_to_sum_even (n: int) : bool =\n    sum4even n\nend"
+        },
+        {
+            "description": "Check by subtracting the minimum (8) and verifying if the remainder is divisible by 2 (i.e., can be distributed to the four parts).",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    n >= 8 && (n - 8) mod 2 = 0\nend"
+        },
+        {
+            "description": "Generalize by checking if n can be written as 2*k for some k >= 4. Uses quantification.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    exists k: int. k >= 4 /\\ n = 2*k\nend"
+        },
+        {
+            "description": "Recursive decomposition: At each step, subtract 2 and count down the number of terms. Base case is when 4 terms are used and n is 0.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec decompose (n: int) (k: int) : bool =\n    if k = 0 then n = 0 else\n      n >= 2 && decompose (n - 2) (k - 1)\n  let is_equal_to_sum_even (n: int) : bool =\n    decompose n 4\nend"
+        }
+    ]
+}

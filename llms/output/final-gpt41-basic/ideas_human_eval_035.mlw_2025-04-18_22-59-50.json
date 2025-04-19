@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation using pattern matching on the list. The function compares the head with the maximum of the tail recursively.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n\n  let rec max_element (t: list int) : int =\n    match t with\n    | Nil -> 0 (* or raise an exception if empty is not allowed *)\n    | Cons(x, Nil) -> x\n    | Cons(x, xs) -> let m = max_element xs in if x > m then x else m\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation using a helper function with an accumulator to keep track of the current maximum.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n\n  let max_element (t: list int) : int =\n    let rec aux (l: list int) (acc: int) : int =\n      match l with\n      | Nil -> acc\n      | Cons(x, xs) -> aux xs (if x > acc then x else acc)\n      end in\n    match t with\n    | Nil -> 0 (* or appropriate error handling *)\n    | Cons(x, xs) -> aux xs x\n    end\nend"
+        },
+        {
+            "description": "Implementation using Why3's list maximum function (if available) or folding over the list with max.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import list.Fold\n\n  let max_element (t: list int) : int =\n    match t with\n    | Nil -> 0\n    | Cons(x, xs) -> fold_left (fun acc y -> if acc > y then acc else y) x xs\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that uses explicit if-else statements instead of pattern matching for clarity.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n\n  let rec max_element (t: list int) : int =\n    if is_nil t then 0\n    else if is_nil (tl t) then hd t\n    else\n      let m = max_element (tl t) in\n      if hd t > m then hd t else m\nend"
+        },
+        {
+            "description": "Recursive implementation that throws an exception if the list is empty, demonstrating error handling.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n\n  exception Empty_list\n\n  let rec max_element (t: list int) : int =\n    match t with\n    | Nil -> raise Empty_list\n    | Cons(x, Nil) -> x\n    | Cons(x, xs) -> let m = max_element xs in if x > m then x else m\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation using a helper function that always expects a non-empty list, and enforces this via preconditions.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import list.Length\n\n  let rec max_element (t: list int) : int\n    requires { length t > 0 }\n    ensures  { exists i. 0 <= i < length t /\\ result = nth t i }\n    ensures  { forall i. 0 <= i < length t -> nth t i <= result }\n  = match t with\n    | Cons(x, Nil) -> x\n    | Cons(x, xs) -> let m = max_element xs in if x > m then x else m\n    | Nil -> absurd\n    end\nend"
+        },
+        {
+            "description": "Implementation that traverses the list twice: first to check for emptiness, second to find the maximum.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import list.Length\n\n  let max_element (t: list int) : int =\n    let len = length t in\n    if len = 0 then 0 else\n      let rec aux (l: list int) (acc: int) : int =\n        match l with\n        | Nil -> acc\n        | Cons(x, xs) -> aux xs (if x > acc then x else acc)\n        end in\n      match t with\n      | Nil -> 0\n      | Cons(x, xs) -> aux xs x\n      end\nend"
+        },
+        {
+            "description": "Implementation that uses a for loop over the list indices (using nth), to demonstrate index-based access.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import list.Length\n  use import list.Nth\n\n  let max_element (t: list int) : int =\n    let n = length t in\n    if n = 0 then 0 else\n      let rec loop (i: int) (acc: int) : int =\n        if i = n then acc else\n          let x = nth t i in\n          loop (i + 1) (if x > acc then x else acc)\n      in loop 1 (nth t 0)\nend"
+        },
+        {
+            "description": "Implementation using a reference (mutable variable) to store the current maximum, mimicking stateful imperative style.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import ref.Ref\n\n  let max_element (t: list int) : int =\n    match t with\n    | Nil -> 0\n    | Cons(x, xs) ->\n      let r = ref x in\n      let rec aux l =\n        match l with\n        | Nil -> ()\n        | Cons(y, ys) -> if y > !r then r := y; aux ys\n        end\n      in aux xs; !r\n    end\nend"
+        },
+        {
+            "description": "Implementation that maps the list to itself (identity), then reduces with max, illustrating use of map and reduce composition.",
+            "implementation": "module HumanEval035\n  use import int.Int\n  use import list.List\n  use import list.Fold\n  use import list.Map\n\n  let max_element (t: list int) : int =\n    match t with\n    | Nil -> 0\n    | Cons(x, xs) ->\n      let l2 = map (fun y -> y) t in\n      fold_left (fun acc y -> if acc > y then acc else y) x (tl l2)\n    end\nend"
+        }
+    ]
+}

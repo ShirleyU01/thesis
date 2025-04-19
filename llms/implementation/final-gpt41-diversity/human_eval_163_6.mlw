@@ -1,0 +1,152 @@
+(*
+def generate_integers(a, b):
+    """
+    Given two positive integers a and b, return the digits between a
+    and b, in ascending order.
+
+    For example:
+    generate_integers(2, 8) => [2, 3, 4, 5, 6, 7, 8]
+    generate_integers(8, 2) => [2, 3, 4, 5, 6, 7, 8]
+    generate_integers(10, 14) => [10, 11, 12, 13, 14]
+    """
+ *)
+
+module HumanEval163Goal
+
+    use int.Int
+    use list.List
+    use bool.Bool
+    use list.Length
+    use int.MinMax
+    use list.NthNoOpt
+
+    let rec generate_from_to (a: int) (b: int) : list int
+        requires { a <= b }
+        ensures { length result = b - a + 1 }
+        variant { b - a }
+    =
+        if a > b then Nil
+        else Cons a (generate_from_to (a + 1) b)
+
+    let generate_integers (a: int) (b: int) : list int
+        requires { a > 0 /\ b > 0 }
+        ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}
+    =
+        if a <= b then generate_from_to a b
+        else generate_from_to b a
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval163
+  use int.Int
+  use list.List
+
+  let rec build_rev (cur: int) (upper: int) (acc: list int) : list int =
+    if cur > upper then acc else build_rev (cur+1) upper (Cons cur acc)
+
+  let rec rev (l: list int) (acc: list int) : list int = match l with Nil -> acc | Cons x xs -> rev xs (Cons x acc) end
+
+  let generate_integers (a: int) (b: int) : list int =
+    let lo = if a < b then a else b in
+    let hi = if a > b then a else b in
+    rev (build_rev lo hi Nil) Nil
+end
+
+module TestHumanEval163
+
+    use int.Int
+    use list.List
+    use list.Length
+    use bool.Bool
+    use list.NthNoOpt
+    use HumanEval163
+
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+    let test1() : bool =
+        list_eq (generate_integers 2 8) (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 Nil)))))))
+
+    let test1_output() : list int =
+        generate_integers 2 8
+
+    let test2() : bool =
+        list_eq (generate_integers 8 2) (Cons 2 (Cons 3 (Cons 4 (Cons 5 (Cons 6 (Cons 7 (Cons 8 Nil)))))))
+
+    let test2_output() : list int =
+        generate_integers 8 2
+
+    let test3() : bool =
+        list_eq (generate_integers 10 14) (Cons 10 (Cons 11 (Cons 12 (Cons 13 (Cons 14 Nil)))))
+
+    let test3_output() : list int =
+        generate_integers 10 14
+
+    let test4() : bool =
+        list_eq (generate_integers 1 1) (Cons 1 Nil)
+
+    let test4_output() : list int =
+        generate_integers 1 1
+
+    let test5() : bool =
+        list_eq (generate_integers 100 103) (Cons 100 (Cons 101 (Cons 102 (Cons 103 Nil))))
+
+    let test5_output() : list int =
+        generate_integers 100 103
+    
+    let testfail() : list int =
+        let ref res = Nil in
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
+
+    let testall () : bool =
+        test1() && test2() && test3() && test4() && test5()
+
+
+    let runtest (x: int) : list int =
+        if x = 1 then test1_output()
+        else if x = 2 then test2_output()
+        else if x = 3 then test3_output()
+        else if x = 4 then test4_output()
+        else if x = 5 then test5_output()
+        else Nil
+    
+    let rec failoutput (l : list int) : list (list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+
+    let test () : list (list int) =
+        let l = testfail () in failoutput l
+end

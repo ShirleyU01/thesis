@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple for-loop up to sqrt(n) to check for divisibility. Rejects n <= 1. Uses ref variables and bounded for-loop.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use ref.Ref\n  use int.ComputerDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else\n      let ref res = True in\n      let ref i = 2 in\n      let bound = sqrt n in\n      for i = 2 to bound do\n        if n % i = 0 then res := False\n      done ;\n      !res\nend"
+        },
+        {
+            "description": "Recursive helper function, checks divisibility starting from 2 up to sqrt(n). Short-circuits on first divisor.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n\n  let rec is_prime_helper (n: int) (d: int) : bool =\n    if d * d > n then True\n    else if n % d = 0 then False\n    else is_prime_helper n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else is_prime_helper n 2\nend"
+        },
+        {
+            "description": "Pattern matching with early returns for n=2, n even, and a while-loop for odd divisors. Using ref variables.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use ref.Ref\n  use int.ComputerDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else\n    if n = 2 then True else\n    if n % 2 = 0 then False else\n      let ref d = 3 in\n      let ref res = True in\n      while d * d <= n do\n        if n % d = 0 then res := False;\n        d := d + 2\n      done ;\n      !res\nend"
+        },
+        {
+            "description": "Recursive check using accumulator for divisor, skipping even numbers after 2. All logic in recursive function.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n\n  let rec check_prime (n: int) (d: int) : bool =\n    if d * d > n then True\n    else if n % d = 0 then False\n    else check_prime n (d + 2)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else\n    if n = 2 then True else\n    if n % 2 = 0 then False else check_prime n 3\nend"
+        },
+        {
+            "description": "Linear search for divisors, using for-loop from 2 up to n-1. Brute-force but simple.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use ref.Ref\n  use int.ComputerDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else\n      let ref res = True in\n      for d = 2 to n - 1 do\n        if n % d = 0 then res := False\n      done ;\n      !res\nend"
+        },
+        {
+            "description": "Nested recursion: recursive function to check if any divisor exists between 2 and n-1.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n\n  let rec has_divisor (n: int) (d: int) : bool =\n    if d = n then False\n    else if n % d = 0 then True\n    else has_divisor n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else not (has_divisor n 2)\nend"
+        },
+        {
+            "description": "Pattern matching on n with explicit cases for n <= 3, then checks divisibility by 2 and 3, then 6k+-1 rule.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n  use ref.Ref\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False\n    else if n <= 3 then True\n    else if n % 2 = 0 || n % 3 = 0 then False\n    else\n      let ref i = 5 in\n      let ref res = True in\n      while i * i <= n do\n        if n % i = 0 || n % (i + 2) = 0 then res := False;\n        i := i + 6\n      done ;\n      !res\nend"
+        },
+        {
+            "description": "Recursive function with explicit branching for n=2,3,4, and divides by odd numbers only. Uses only recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n\n  let rec is_prime_odd (n: int) (d: int) : bool =\n    if d * d > n then True\n    else if n % d = 0 then False\n    else is_prime_odd n (d + 2)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False\n    else if n = 2 || n = 3 then True\n    else if n % 2 = 0 then False\n    else is_prime_odd n 3\nend"
+        },
+        {
+            "description": "Uses an auxiliary function to count number of divisors (should be 2 for primes). Returns True iff count == 2.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.ComputerDivision\n\n  let rec count_divisors (n: int) (d: int) (acc: int) : int =\n    if d > n then acc\n    else if n % d = 0 then count_divisors n (d + 1) (acc + 1)\n    else count_divisors n (d + 1) acc\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False else count_divisors n 1 0 = 2\nend"
+        },
+        {
+            "description": "Checks edge cases, then uses a set of guards for small primes (2, 3, 5, 7), then for-loop skipping multiples of 2 and 3.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use ref.Ref\n  use int.ComputerDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then False\n    else if n <= 3 then True\n    else if n % 2 = 0 || n % 3 = 0 then False\n    else if n = 5 || n = 7 then True\n    else\n      let ref d = 5 in\n      let ref res = True in\n      while d * d <= n do\n        if n % d = 0 || n % (d + 2) = 0 then res := False;\n        d := d + 6\n      done ;\n      !res\nend"
+        }
+    ]
+}

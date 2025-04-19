@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Euclidean algorithm via recursion using modulo (classic approach). This is the most common and efficient way to compute GCD, using a recursive structure and the property gcd(a, b) = gcd(b, a mod b).",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { b }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    if b = 0 then a else greatest_common_divisor b (a mod b)\nend\n"
+        },
+        {
+            "description": "Euclidean algorithm using a while loop. This implementation maintains two mutable variables and iteratively applies the Euclidean step until the remainder is zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    var x = a in\n    var y = b in\n    while y <> 0 do\n      invariant { x >= 0 /\\ y >= 0 /\\ gcd(x, y) = gcd(a, b) }\n      var t = y in\n      y <- x mod y;\n      x <- t\n    done;\n    x\nend\n"
+        },
+        {
+            "description": "Recursive subtraction-based GCD algorithm. Instead of modulo, repeatedly subtracts the smaller number from the larger until one becomes zero.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { a + b }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    if a = 0 then b\n    else if b = 0 then a\n    else if a > b then greatest_common_divisor (a - b) b\n    else greatest_common_divisor a (b - a)\nend\n"
+        },
+        {
+            "description": "Iterative subtraction-based GCD using a while loop. Same logic as above but implemented with mutable variables and a loop.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    var x = a in\n    var y = b in\n    while x <> 0 /\\ y <> 0 do\n      invariant { x >= 0 /\\ y >= 0 /\\ gcd(x, y) = gcd(a, b) }\n      if x > y then x <- x - y else y <- y - x\n    done;\n    if x = 0 then y else x\nend\n"
+        },
+        {
+            "description": "Pattern matching for base cases and recursive modulo for general case. This uses a more explicit match on the base cases before recursion.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { b }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    match (a, b) with\n    | (x, 0) -> x\n    | (0, y) -> y\n    | (x, y) -> greatest_common_divisor y (x mod y)\n    end\nend\n"
+        },
+        {
+            "description": "For-loop searching for the greatest common divisor from min(a, b) down to 1. Simple but inefficient brute-force approach.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    let m = if a < b then a else b in\n    let ref res = 1 in\n    for d = m downto 1 do\n      if a mod d = 0 /\\ b mod d = 0 then res <- d; break\n    done;\n    res\nend\n"
+        },
+        {
+            "description": "Return 0 if both inputs are 0, otherwise use Euclidean algorithm. Handles (0,0) specially, as sometimes this is left undefined.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { b }\n    ensures { (a = 0 /\\ b = 0) -> result = 0 }\n    ensures { not (a = 0 /\\ b = 0) -> result > 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    if a = 0 /\\ b = 0 then 0 else if b = 0 then a else greatest_common_divisor b (a mod b)\nend\n"
+        },
+        {
+            "description": "Recursive approach with swapping to always keep a >= b, then modulo. This implementation ensures that the first argument is always greater or equal, to avoid negative mods.",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { if a >= b then b else a }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    if b > a then greatest_common_divisor b a\n    else if b = 0 then a\n    else greatest_common_divisor b (a mod b)\nend\n"
+        },
+        {
+            "description": "Recursive GCD using explicit accumulator for tail recursion. This approach uses a helper function with an accumulator for optimization (even though Why3 may not optimize tail calls).",
+            "implementation": "module HumanEval013\n  use int.Int\n  let rec gcd_acc (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { b }\n    if b = 0 then a else gcd_acc b (a mod b)\n  let greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    gcd_acc a b\nend\n"
+        },
+        {
+            "description": "Recursive approach using bitwise operations (binary GCD/Stein's algorithm). Uses properties of even/odd numbers to reduce the problem size without division.",
+            "implementation": "module HumanEval013\n  use int.Int\n  predicate even (x: int) = x mod 2 = 0\n  let rec greatest_common_divisor (a: int) (b: int) : int =\n    requires { a >= 0 /\\ b >= 0 }\n    variant { a + b }\n    ensures { result >= 0 /\\ a mod result = 0 /\\ b mod result = 0 /\\ forall d. d > 0 /\\ a mod d = 0 /\\ b mod d = 0 -> d <= result }\n    if a = 0 then b\n    else if b = 0 then a\n    else if even a /\\ even b then 2 * greatest_common_divisor (a div 2) (b div 2)\n    else if even a then greatest_common_divisor (a div 2) b\n    else if even b then greatest_common_divisor a (b div 2)\n    else if a > b then greatest_common_divisor ((a - b) div 2) b\n    else greatest_common_divisor ((b - a) div 2) a\nend\n"
+        }
+    ]
+}

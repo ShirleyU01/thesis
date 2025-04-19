@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct use of the Gaussian formula (n * (n+1) / 2) for the sum of the first n natural numbers.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n  let sum_to_n (n : int) : int =\n    (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Recursive function: base case n=1, otherwise n + sum_to_n(n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    if n = 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Iterative loop with a mutable accumulator to sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    var acc : int = 0 in\n    var i : int = 1 in\n    while i <= n do\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using int.Sum library: sum of the identity function from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Sum\n  let sum_to_n (n : int) : int =\n    sum (fun i -> i) 1 n\nend"
+        },
+        {
+            "description": "Generate a list of numbers from 1 to n, then use list.Sum.sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Sum\n  let rec range (a:int) (b:int) : list int =\n    if a > b then Nil else Cons a (range (a+1) b)\n  let sum_to_n (n:int) : int =\n    Sum.sum (range 1 n)\nend"
+        },
+        {
+            "description": "Using int.Iter to accumulate values by repeatedly adding the next integer.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.Iter\n  let sum_to_n (n:int) : int =\n    let f (p:(int,int)) : (int,int) = (p.0 + 1, p.1 + p.0 + 1) in\n    let (_, acc) = iter f n (0,0) in acc\nend"
+        },
+        {
+            "description": "Tail-recursive helper function with accumulator, to avoid stack overflows.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_aux (n:int) (acc:int) : int =\n    if n = 0 then acc else sum_aux (n - 1) (acc + n)\n  let sum_to_n (n:int) : int = sum_aux n 0\nend"
+        },
+        {
+            "description": "Sum using int.NumOf to count and sum values that always satisfy true predicate.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.NumOf\n  let sum_to_n (n:int) : int =\n    var s : int = 0 in\n    for i = 1 to n do\n      s <- s + i\n    done;\n    s\nend"
+        },
+        {
+            "description": "Sum numbers from n down to 1 using a while loop decrementing n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n:int) : int =\n    var s : int = 0 in\n    var m : int = n in\n    while m > 0 do\n      s <- s + m;\n      m <- m - 1\n    done;\n    s\nend"
+        },
+        {
+            "description": "Sum only the odd numbers from 1 to n, then double the result if n is even and adjust if n is odd, so the sum is still sum 1..n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n:int) : int =\n    var s : int = 0 in\n    var i : int = 1 in\n    while i <= n do\n      s <- s + i;\n      i <- i + 2\n    done;\n    if n mod 2 = 0 then 2 * s + n div 2 else 2 * s - n div 2\nend"
+        }
+    ]
+}

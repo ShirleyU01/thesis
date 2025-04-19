@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple recursive implementation using pattern matching and Int.MinMax.max",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n  use int.MinMax\n\n  let rec max_element (t: list int) : int =\n    match t with\n    | Cons x Nil -> x\n    | Cons x xs ->\n        let r = max_element xs in\n        max x r\n    end\n\nend"
+        },
+        {
+            "description": "Tail\u2010recursive implementation with an accumulator",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec max_acc (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x > acc then max_acc xs x else max_acc xs acc\n    end\n\n  let max_element (t: list int) : int =\n    match t with\n    | Cons x xs -> max_acc xs x\n    | Nil -> 0\n    end\n\nend"
+        },
+        {
+            "description": "Iterative for\u2010loop implementation using a custom nth_my to access elements",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let max_element (t: list int) : int =\n    let n = length t in\n    let ref mx = nth_my 0 t in\n    for i = 1 to n - 1 do\n      let v = nth_my i t in\n      if v > !mx then mx <- v\n    done;\n    !mx\n\nend"
+        },
+        {
+            "description": "Iterative while\u2010loop implementation using a custom nth_my",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let max_element (t: list int) : int =\n    let n = length t in\n    let ref i = 0 in\n    let ref mx = nth_my 0 t in\n    while i < n do\n      let v = nth_my i t in\n      if v > !mx then mx <- v;\n      i <- i + 1\n    done;\n    !mx\n\nend"
+        },
+        {
+            "description": "Index\u2010based recursion over positions, comparing nth_my at each step",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec loop (i: int) (acc: int) (t: list int) : int =\n    if i = length t then acc\n    else\n      let v = nth_my i t in\n      if v > acc then loop (i + 1) v t else loop (i + 1) acc t\n\n  let max_element (t: list int) : int =\n    let initial = nth_my 0 t in\n    loop 1 initial t\n\nend"
+        },
+        {
+            "description": "Pairwise reduction: repeatedly reduce adjacent pairs to their local maxima until one element remains",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let rec reduce_step (l: list int) : list int =\n    match l with\n    | Cons x (Cons y ys) ->\n        let m = if x > y then x else y in\n        Cons m (reduce_step ys)\n    | Cons x Nil -> Cons x Nil\n    | Nil -> Nil\n    end\n\n  let rec reduce_all (l: list int) : int =\n    match l with\n    | Cons x Nil -> x\n    | _ -> reduce_all (reduce_step l)\n    end\n\n  let max_element (t: list int) : int =\n    reduce_all t\n\nend"
+        },
+        {
+            "description": "Divide\u2010and\u2010conquer: split the list into halves via prefix and drop, then compare two recursive results",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Length\n  use list.Prefix\n  use int.Int\n  use int.MinMax\n  use int.EuclideanDivision\n\n  let rec drop (n: int) (l: list int) : list int =\n    match n, l with\n    | 0, _ -> l\n    | _, Cons _ xs -> drop (n - 1) xs\n    | _, Nil -> Nil\n    end\n\n  let rec max_element (t: list int) : int =\n    match t with\n    | Cons x Nil -> x\n    | _ ->\n        let len = length t in\n        let mid = div len 2 in\n        let left = prefix mid t in\n        let right = drop mid t in\n        max (max_element left) (max_element right)\n    end\n\nend"
+        },
+        {
+            "description": "Reverse the list first, then perform a tail\u2010recursive scan over the reversed list",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec aux (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if x > acc then aux xs x else aux xs acc\n    end\n\n  let max_element (t: list int) : int =\n    match reverse t with\n    | Cons x xs -> aux xs x\n    | Nil -> 0\n    end\n\nend"
+        },
+        {
+            "description": "Local inner function declared inside a begin\u2026end block with tail recursion",
+            "implementation": "module HumanEval035\n  use list.List\n  use int.Int\n\n  let max_element (t: list int) : int =\n    begin\n      let rec aux l acc =\n        match l with\n        | Nil -> acc\n        | Cons x xs ->\n            if x > acc then aux xs x else aux xs acc\n        end\n      in\n      match t with\n      | Cons x xs -> aux xs x\n      | Nil -> 0\n      end\n    end\n\nend"
+        },
+        {
+            "description": "Combine each element with itself via list.Combine then reduce pairs",
+            "implementation": "module HumanEval035\n  use list.List\n  use list.Combine\n  use int.Int\n\n  let rec max_pair (l: list (int, int)) : (int, int) =\n    match l with\n    | Cons (x, _) Nil -> (x, 0)\n    | Cons (x, _) xs ->\n        let (m, i) = max_pair xs in\n        if x > m then (x, 0) else (m, i)\n    | Nil -> (0, 0)\n    end\n\n  let max_element (t: list int) : int =\n    let pairs = combine t t in\n    let (v, _) = max_pair pairs in\n    v\n\nend"
+        }
+    ]
+}

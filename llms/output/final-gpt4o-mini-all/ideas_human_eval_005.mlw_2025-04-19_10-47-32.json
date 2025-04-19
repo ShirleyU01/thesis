@@ -1,0 +1,40 @@
+{
+    "ideas": [
+        {
+            "description": "Simple direct recursion: pattern match on empty, single element, and general case inserting delimiter between head and recursively processed tail.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Append\n  use int.Int\n\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Two-element pattern matching: explicitly match `Cons x (Cons y ys)` to process two at a time and recursively rebuild the rest.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Append\n  use int.Int\n\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n    end\nend"
+        },
+        {
+            "description": "Prefix\u2013suffix approach: split off the last element using `prefix` and `nth_my`, recurse on the initial segment, then append delimiter and last.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Length\n  use list.Prefix\n  use list.Append\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (i: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= i /\\, i < length l }\n    variant { i }\n    ensures { nth i l = result }\n    match l with\n    | Cons x r -> if i = 0 then x else nth_my (i - 1) r\n    end\n\n  let rec intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | _ ->\n        let len = length l in\n        let init = prefix (len - 1) l in\n        let last = nth_my (len - 1) l in\n        intersperse init n ++ Cons n (Cons last Nil)\n    end\nend"
+        },
+        {
+            "description": "Tail recursion with a boolean flag: accumulate in reverse without delimiter before the first element, then reverse result.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec aux (first: bool) (l: list int) (acc: list int) (n: int) : list int =\n    match l with\n    | Nil -> reverse acc\n    | Cons x xs ->\n        if first then aux false xs (Cons x acc) n\n        else aux false xs (Cons x (Cons n acc)) n\n    end\n\n  let intersperse (l: list int) (n: int) : list int =\n    aux true l Nil n\nend"
+        },
+        {
+            "description": "Tail recursion with an accumulator and `is_nil`: use `is_nil acc` to detect first element and insert delimiter accordingly, then reverse.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec aux (l: list int) (acc: list int) (n: int) : list int =\n    match l with\n    | Nil -> reverse acc\n    | Cons x xs ->\n        let new_acc = if is_nil acc then Cons x acc else Cons x (Cons n acc) in\n        aux xs new_acc n\n    end\n\n  let intersperse (l: list int) (n: int) : list int =\n    aux l Nil n\nend"
+        },
+        {
+            "description": "While-loop implementation: use a mutable reference and `nth_my` to iterate by index, appending elements and delimiters.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Length\n  use list.Append\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (i: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= i /\\ i < length l }\n    variant { i }\n    ensures { nth i l = result }\n    match l with\n    | Cons x r -> if i = 0 then x else nth_my (i - 1) r\n    end\n\n  let intersperse (l: list int) (n: int) : list int =\n    let len = length l in\n    let ref i = 0 in\n    let ref res: list int = Nil in\n    while i < len do\n      res <- res ++ Cons (nth_my i l) Nil;\n      if i < len - 1 then res <- res ++ Cons n Nil;\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "For-loop implementation: similar to the while-loop but using `for i = 0 to len - 1` construct.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Length\n  use list.Append\n  use list.NthNoOpt\n  use int.Int\n\n  let rec nth_my (i: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= i /\\ i < length l }\n    variant { i }\n    ensures { nth i l = result }\n    match l with\n    | Cons x r -> if i = 0 then x else nth_my (i - 1) r\n    end\n\n  let intersperse (l: list int) (n: int) : list int =\n    let len = length l in\n    let ref res: list int = Nil in\n    for i = 0 to len - 1 do\n      res <- res ++ Cons (nth_my i l) Nil;\n      if i < len - 1 then res <- res ++ Cons n Nil\n    done;\n    res\nend"
+        },
+        {
+            "description": "Head-specialization with a helper: take the first element out, then define an inner `aux` that always prefixes delimiter before each subsequent element.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Append\n  use int.Int\n\n  let intersperse (l: list int) (n: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons h t ->\n        let rec aux (u: list int) : list int =\n          match u with\n          | Nil -> Nil\n          | Cons x xs -> Cons n (Cons x (aux xs))\n          end in\n        Cons h (aux t)\n    end\nend"
+        },
+        {
+            "description": "Reverse-building approach: traverse input, accumulate reversed interspersed list in `build_rev`, then reverse it at the end.",
+            "implementation": "module HumanEval005\n  use list.List\n  use list.Reverse\n  use int.Int\n\n  let rec build_rev (l: list int) (n: int) (acc: list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x xs -> build_rev xs n (Cons x (Cons n acc))\n    end\n\n  let intersperse (l: list int) (n: int) : list int =\n    reverse (build_rev l n Nil)\nend"
+        }
+    ]
+}

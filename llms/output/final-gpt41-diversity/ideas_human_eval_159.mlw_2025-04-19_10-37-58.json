@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Straightforward if-then-else branching. Direct calculation of actual eaten carrots with a single if, then return a 2-element constructed list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let to_eat = if need <= remaining then need else remaining in\n    Cons (number + to_eat) (Cons (remaining - to_eat) Nil)\nend"
+        },
+        {
+            "description": "Pattern matching on whether there are enough carrots remaining or not, using match ... with on a boolean expression.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    match need <= remaining with\n    | True -> Cons (number + need) (Cons (remaining - need) Nil)\n    | False -> Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Using a helper function to compute the number of carrots actually eaten, and then constructing the result list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let actual_eaten (need: int) (remaining: int) : int =\n    if need <= remaining then need else remaining\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let eaten = actual_eaten need remaining in\n    Cons (number + eaten) (Cons (remaining - eaten) Nil)\nend"
+        },
+        {
+            "description": "Computing min(need, remaining) using explicit conditional expressions, and then using it to build the returned list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let min (a: int) (b: int) : int = if a < b then a else b\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let to_eat = min need remaining in\n    Cons (number + to_eat) (Cons (remaining - to_eat) Nil)\nend"
+        },
+        {
+            "description": "Recursive implementation: Recursively decrease both 'need' and 'remaining' until one is zero, accumulating the count. Start from initial number eaten.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let rec eat_rec (n: int) (need: int) (rem: int) : (int, int) =\n    if need = 0 || rem = 0 then (n, rem) else eat_rec (n+1) (need-1) (rem-1)\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let (total, left) = eat_rec number need remaining in\n    Cons total (Cons left Nil)\nend"
+        },
+        {
+            "description": "Recursive implementation with accumulator for eaten carrots, using pattern matching.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let rec helper (eaten: int) (need: int) (rem: int) : int =\n    match (need, rem) with\n    | (0, _) -> eaten\n    | (_, 0) -> eaten\n    | (_, _) -> helper (eaten + 1) (need - 1) (rem - 1)\n    end\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let total = helper number need remaining in\n    let left = if need <= remaining then remaining - need else 0 in\n    Cons total (Cons left Nil)\nend"
+        },
+        {
+            "description": "Using arithmetic max and min functions and no if-then-else at all, building the result list with expressions.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let min (a: int) (b: int) : int = if a < b then a else b\n  let max (a: int) (b: int) : int = if a > b then a else b\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let to_eat = min need remaining in\n    let left = max (remaining - need) 0 in\n    Cons (number + to_eat) (Cons left Nil)\nend"
+        },
+        {
+            "description": "Using let-bound variables for each intermediate computation step: eaten, left, and then building the result list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let eaten = if need <= remaining then need else remaining in\n    let left = if need <= remaining then remaining - need else 0 in\n    let total = number + eaten in\n    Cons total (Cons left Nil)\nend"
+        },
+        {
+            "description": "Using a tuple to represent the result pair and then converting it to a list, to show a different return value construction.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let to_eat = if need <= remaining then need else remaining in\n    let pair = (number + to_eat, remaining - to_eat) in\n    Cons (fst pair) (Cons (snd pair) Nil)\nend"
+        },
+        {
+            "description": "Using a local helper function inside eat for the calculation. This demonstrates a local let function with shadowing.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  let eat (number: int) (need: int) (remaining: int) : list int =\n    let calc (n: int) (m: int) = if n <= m then (n, m-n) else (m, 0) in\n    let (eaten, left) = calc need remaining in\n    Cons (number + eaten) (Cons left Nil)\nend"
+        }
+    ]
+}

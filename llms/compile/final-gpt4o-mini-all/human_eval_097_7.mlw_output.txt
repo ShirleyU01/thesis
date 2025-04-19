@@ -1,0 +1,5 @@
+=======================human_eval_097_7.mlw=====================
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_7.mlw", line 39, characters 18-34: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_7.mlw", line 43, characters 13-36: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt4o-mini-all/human_eval_097_7.mlw", line 49, characters 6-10:
+unbound program function or variable symbol 'Some'

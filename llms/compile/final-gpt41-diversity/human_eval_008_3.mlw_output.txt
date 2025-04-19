@@ -1,0 +1,5 @@
+=======================human_eval_008_3.mlw=====================
+Warning, file "llms/implementation/final-gpt41-diversity/human_eval_008_3.mlw", line 26, characters 23-64: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-diversity/human_eval_008_3.mlw", line 32, characters 8-20: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt41-diversity/human_eval_008_3.mlw", line 48, characters 15-18:
+Logical symbol nth is used in a non-ghost context

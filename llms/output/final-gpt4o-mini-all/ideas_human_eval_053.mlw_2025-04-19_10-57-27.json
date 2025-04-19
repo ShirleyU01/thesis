@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct addition using the built\u2011in + operator.",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    x + y\nend"
+        },
+        {
+            "description": "Using subtraction of the negation: x - (-y).",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    x - (- y)\nend"
+        },
+        {
+            "description": "Recursive by decrementing y: if y = 0 then x else add (x+1) (y-1).",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x\n    else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Recursive by decrementing x: if x = 0 then y else add (x-1) (y+1).",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    if x = 0 then y\n    else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Tail\u2011recursive accumulator: accumulate result in acc.",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec aux_add (x : int) (y : int) (acc : int) : int =\n    if y = 0 then acc\n    else aux_add x (y - 1) (acc + 1)\n\n  let add (x : int) (y : int) : int =\n    aux_add x y x\nend"
+        },
+        {
+            "description": "Imperative style with while\u2011loops adjusting a mutable accumulator.",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    let ref r = x in\n    let ref c = y in\n    while c > 0 do\n      r <- r + 1;\n      c <- c - 1\n    done;\n    while c < 0 do\n      r <- r - 1;\n      c <- c + 1\n    done;\n    r\nend"
+        },
+        {
+            "description": "Branching on the sign of y: positive, negative or zero.",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x\n    else if y > 0 then add (x + 1) (y - 1)\n    else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Build a two\u2011element list [x;y] and sum it using list.Sum.",
+            "implementation": "module HumanEval053\n  use list.List\n  use list.Sum\n\n  let add (x : int) (y : int) : int =\n    let l = Cons x (Cons y Nil) in\n    sum l\nend"
+        },
+        {
+            "description": "Exploit min and max: min(x,y)+max(x,y)=x+y.",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.MinMax\n\n  let add (x : int) (y : int) : int =\n    min x y + max x y\nend"
+        },
+        {
+            "description": "Compute x+y via Euclidean division and modulus with d=1.",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.EuclideanDivision\n\n  let add (x : int) (y : int) : int =\n    let d = 1 in\n    let q = div x d + div y d in\n    let r = mod x d + mod y d in\n    q * d + r\nend"
+        }
+    ]
+}

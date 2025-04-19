@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Naive for-loop checking all divisors from 2 to n-1",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else\n        let ref is_p = true in\n        for i = 2 to n - 1 do\n          if is_p && mod n i = 0 then is_p <- false\n        done ;\n        is_p\n    end\nend"
+        },
+        {
+            "description": "While-loop checking divisibility up to n/2",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else\n        let ref i = 2 in\n        let ref is_p = true in\n        let limit = div n 2 in\n        while i <= limit do\n          if is_p && mod n i = 0 then is_p <- false;\n          i <- i + 1\n        done ;\n        is_p\n    end\nend"
+        },
+        {
+            "description": "Simple recursion checking divisors 2..n-1",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div (n:int) (i:int) : bool =\n    if i = n then true\n    else if mod n i = 0 then false\n    else check_div n (i + 1)\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false else check_div n 2\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive helper with accumulator for primality flag",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_tail (n:int) (i:int) (ok:bool) : bool =\n    if not ok then false\n    else if i = n then ok\n    else check_tail n (i + 1) (ok && mod n i <> 0)\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else check_tail n 2 true\n    end\nend"
+        },
+        {
+            "description": "Recursive divisor check stopping when i*i > n (sqrt optimization)",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_sqrt (n:int) (i:int) : bool =\n    if i * i > n then true\n    else if mod n i = 0 then false\n    else check_sqrt n (i + 1)\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else check_sqrt n 2\n    end\nend"
+        },
+        {
+            "description": "6k\u00b11 optimization: skip all multiples of 2 and 3",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_6k1 (n:int) (k:int) : bool =\n    if k * k > n then true\n    else if mod n k = 0 || mod n (k + 2) = 0 then false\n    else check_6k1 n (k + 6)\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else if n = 2 || n = 3 then true\n      else if mod n 2 = 0 || mod n 3 = 0 then false\n      else check_6k1 n 5\n    end\nend"
+        },
+        {
+            "description": "Count divisors with int.NumOf and check count==2",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.NumOf\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else numof (fun i -> mod n i = 0) 1 n = 2\n    end\nend"
+        },
+        {
+            "description": "Sum indicator function over range and check sum==2 using int.Sum",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.Sum\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else\n        let cnt = sum (fun i -> if mod n i = 0 then 1 else 0) 1 n in\n        cnt = 2\n    end\nend"
+        },
+        {
+            "description": "Build a range list 2..n-1 and use for_all to test no divisors",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Quant\n\n  let rec range (a:int) (b:int) : list int =\n    if a > b then Nil else Cons a (range (a + 1) b)\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else for_all (fun i -> mod n i <> 0) (range 2 (n - 1))\n    end\nend"
+        },
+        {
+            "description": "Fermat's little theorem with modular exponentiation (base=2)",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec powmod (a:int) (e:int) (m:int) : int =\n    if e = 0 then 1\n    else if mod e 2 = 0 then\n      let t = powmod a (div e 2) m in mod (t * t) m\n    else mod (a * powmod a (e - 1) m) m\n\n  let is_prime (n : int) : bool =\n    begin\n      if n < 2 then false\n      else powmod 2 (n - 1) n = 1\n    end\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive definition using the built\u2011in factorial (int.Fact) library: at each call compute n! via fact and multiply by special_factorial(n-1).",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    if n <= 1 then 1\n    else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Pattern\u2011matching on n to distinguish the base case 0 and the general case, still using int.Fact for n!.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    match n with\n    | 0 -> 1\n    | _ -> fact n * special_factorial (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Define your own recursive factorial helper (fact_rec), then a second recursion for special_factorial calling that helper.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact_rec (k : int) : int =\n    if k <= 1 then 1 else k * fact_rec (k - 1)\n\n  let rec special_factorial (n : int) : int =\n    if n <= 1 then 1\n    else fact_rec n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Tail\u2011recursive with two accumulators: one for the running factorial f_acc and one for the running special factorial sf_acc.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec special_factorial_aux (n : int) (sf_acc : int) (f_acc : int) : int =\n    if n <= 1 then sf_acc\n    else\n      let f_acc' = f_acc * n in\n      let sf_acc' = sf_acc * f_acc' in\n      special_factorial_aux (n - 1) sf_acc' f_acc'\n\n  let special_factorial (n : int) : int =\n    special_factorial_aux n 1 1\nend"
+        },
+        {
+            "description": "Tail\u2011recursive with a single accumulator: at each step compute k! via an inner recursion and multiply into acc.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let rec fact_rec (k : int) : int =\n    if k <= 1 then 1 else k * fact_rec (k - 1)\n\n  let rec special_aux (n : int) (acc : int) : int =\n    if n <= 1 then acc\n    else special_aux (n - 1) (acc * fact_rec n)\n\n  let special_factorial (n : int) : int =\n    special_aux n 1\nend"
+        },
+        {
+            "description": "Imperative nested for\u2011loops: for each i from 1 to n compute i! in an inner loop, multiply into sf.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n : int) : int =\n    let ref sf = 1 in\n    for i = 1 to n do\n      let ref f = 1 in\n      for j = 1 to i do f <- f * j done;\n      sf <- sf * f\n    done;\n    sf\nend"
+        },
+        {
+            "description": "Imperative nested while\u2011loops: same idea as nested for but with while.",
+            "implementation": "module HumanEval139\n  use int.Int\n\n  let special_factorial (n : int) : int =\n    let ref sf = 1 in\n    let ref i = 1 in\n    while i <= n do\n      let ref f = 1 in\n      let ref j = 1 in\n      while j <= i do f <- f * j; j <- j + 1 done;\n      sf <- sf * f;\n      i <- i + 1\n    done;\n    sf\nend"
+        },
+        {
+            "description": "Imperative single for\u2011loop using the library fact: multiply fact i for i=1..n.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n : int) : int =\n    let ref sf = 1 in\n    for i = 1 to n do sf <- sf * fact i done;\n    sf\nend"
+        },
+        {
+            "description": "First build a list of factorials recursively, then traverse that list recursively to compute their product.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use list.List\n\n  let rec fact_rec (k : int) : int =\n    if k <= 1 then 1 else k * fact_rec (k - 1)\n\n  let rec build_list (m : int) : list int =\n    if m <= 0 then Nil else Cons (fact_rec m) (build_list (m - 1))\n\n  let rec prod_list (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x tl -> x * prod_list tl\n    end\n\n  let special_factorial (n : int) : int =\n    prod_list (build_list n)\nend"
+        },
+        {
+            "description": "Use int.Iter to compute each i! as iter (fun x-> x * i) i 1 inside a for\u2011loop.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Iter\n\n  let special_factorial (n : int) : int =\n    let ref sf = 1 in\n    for i = 1 to n do\n      let f_i = iter (fun x -> x * i) i 1 in\n      sf <- sf * f_i\n    done;\n    sf\nend"
+        }
+    ]
+}

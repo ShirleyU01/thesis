@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Tail-recursive single-pass check that carries two flags (inc_ok and dec_ok) updating them on each step, then returns the disjunction at the end.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec aux (l: list int) (prev: int) (inc_ok: bool) (dec_ok: bool) : bool =\n    match l with\n    | Nil -> inc_ok or dec_ok\n    | Cons x xs ->\n      let inc_ok' = inc_ok and (prev <= x) in\n      let dec_ok' = dec_ok and (prev >= x) in\n      aux xs x inc_ok' dec_ok'\n    end\n\n  let monotonic (l: list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x xs -> aux xs x true true\n    end\nend"
+        },
+        {
+            "description": "Two-pass recursive approach: define separate non-decreasing and non-increasing functions, then combine them.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec inc (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then inc (Cons y ys) else false end\n    end\n\n  let rec dec (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) -> if x >= y then dec (Cons y ys) else false end\n    end\n\n  let monotonic (l: list int) : bool =\n    inc l or dec l\nend"
+        },
+        {
+            "description": "Imperative index-based loop using a custom nth_my to traverse by index, updating flags and breaking early.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n: int) (l: list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs end\n    | Nil -> 0\n    end\n\n  let monotonic (l: list int) : bool =\n    let n = length l in\n    if n <= 1 then true else\n    let ref i = 1 in\n    let ref inc_ok = true in\n    let ref dec_ok = true in\n    let ref prev = nth_my 0 l in\n    while i < n do\n      let cur = nth_my i l in\n      if cur < prev then inc_ok <- false;\n      if cur > prev then dec_ok <- false;\n      prev <- cur;\n      i <- i + 1\n    done;\n    inc_ok or dec_ok\nend"
+        },
+        {
+            "description": "Adjacency-pairs generator + for_all: build a list of (x,y) pairs then test if all satisfy <= or all satisfy >=.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Quant\n\n  let rec adj_pairs (l: list int) : list (int, int) =\n    match l with\n    | Nil | Cons _ Nil -> Nil\n    | Cons x (Cons y ys) -> Cons (x, y) (adj_pairs (Cons y ys)) end\n    end\n\n  let monotonic (l: list int) : bool =\n    let ps = adj_pairs l in\n    for_all (fun p -> let (x, y) = p in x <= y) ps\n    or\n    for_all (fun p -> let (x, y) = p in x >= y) ps\nend"
+        },
+        {
+            "description": "Single-pass recursion with an integer \"trend\" flag (0=unknown,1=inc,-1=dec) guiding subsequent checks.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec aux (l: list int) (trend: int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) ->\n      if trend = 0 then\n        if x < y then aux (Cons y ys) 1\n        else if x > y then aux (Cons y ys) (-1)\n        else aux (Cons y ys) 0\n      else if trend = 1 then\n        if x <= y then aux (Cons y ys) trend else false\n      else\n        if x >= y then aux (Cons y ys) trend else false\n      end\n    end\n\n  let monotonic (l: list int) : bool = aux l 0\nend"
+        },
+        {
+            "description": "Use list.Reverse: reuse a non-decreasing check on the original or reversed list.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec inc (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then inc (Cons y ys) else false end\n    end\n\n  let monotonic (l: list int) : bool =\n    inc l or inc (reverse l)\nend"
+        },
+        {
+            "description": "Imperative while + pattern-matching on hd/tl: iterate via hd and tl refs, updating flags.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.HdTl\n\n  let monotonic (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x xs ->\n      let ref prev = x in\n      let ref inc_ok = true in\n      let ref dec_ok = true in\n      let ref cur_ls = xs in\n      while not (is_nil cur_ls) do\n        match hd cur_ls, tl cur_ls with\n        | Some c, Some ts ->\n          if c < prev then inc_ok <- false;\n          if c > prev then dec_ok <- false;\n          prev <- c;\n          cur_ls <- ts\n        | _, _ -> ()\n        end\n      done;\n      inc_ok or dec_ok\n    end\nend"
+        },
+        {
+            "description": "Two-phase imperative: first check non-decreasing, if fails then check non-increasing with separate loops.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n: int) (l: list int) : int =\n    match l with\n    | Cons x xs -> if n = 0 then x else nth_my (n - 1) xs end\n    | Nil -> 0\n    end\n\n  let monotonic (l: list int) : bool =\n    let n = length l in\n    if n <= 1 then true else\n    let ref ok = true in\n    let ref i = 1 in\n    while i < n do\n      if nth_my i l < nth_my (i - 1) l then ok <- false;\n      i <- i + 1\n    done;\n    if ok then true else\n      let ref ok2 = true in\n      let ref j = 1 in\n      while j < n do\n        if nth_my j l > nth_my (j - 1) l then ok2 <- false;\n        j <- j + 1\n      done;\n      ok2\nend"
+        },
+        {
+            "description": "Pure recursion returning a pair of flags (inc,dec) at each step, combining them at the top-level.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec aux (l: list int) : (bool, bool) =\n    match l with\n    | Nil | Cons _ Nil -> (true, true)\n    | Cons x (Cons y ys) ->\n      let (inc, dec) = aux (Cons y ys) in\n      (inc and (x <= y), dec and (x >= y))\n    end\n\n  let monotonic (l: list int) : bool =\n    let (inc_ok, dec_ok) = aux l in\n    inc_ok or dec_ok\nend"
+        },
+        {
+            "description": "Direct branching on the first adjacent pair: decides inc/dec path then uses a small recursive helper.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n\n  let rec inc (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then inc (Cons y ys) else false end\n    end\n\n  let rec dec (l: list int) : bool =\n    match l with\n    | Nil | Cons _ Nil -> true\n    | Cons x (Cons y ys) -> if x >= y then dec (Cons y ys) else false end\n    end\n\n  let monotonic (l: list int) : bool =\n    match l with\n    | Cons x (Cons y ys) -> if x <= y then inc (Cons y ys) else dec (Cons y ys)\n    | _ -> true\n    end\nend"
+        }
+    ]
+}

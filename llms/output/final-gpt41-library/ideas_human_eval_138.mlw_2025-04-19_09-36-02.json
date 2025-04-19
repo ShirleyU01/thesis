@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if n is at least 8 and divisible by 2. This is the minimal even number sum with four positive even numbers (2+2+2+2).",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n:int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Enumerate all possible quadruples of positive even numbers and check if their sum matches n. Return true if any such quadruple exists. Use a bounded loop (since 2 <= ai <= n-6 for each component).",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.Sum\n\n  let is_equal_to_sum_even (n:int) : bool =\n    let result = ref false in\n    if n < 8 || n mod 2 <> 0 then False else\n    for a = 2 to n - 6 by 2 do\n      for b = 2 to n - a - 4 by 2 do\n        for c = 2 to n - a - b - 2 by 2 do\n          let d = n - a - b - c in\n          if d >= 2 && d mod 2 = 0 then result := true\n        done\n      done\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Check using Why3 integer sum quantifier (numof) if there exist four positive even numbers that sum to n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.NumOf\n\n  predicate exists_quadruple_even_sum (n:int) =\n    exists a:int. exists b:int. exists c:int. exists d:int.\n      a >= 2 /\\ b >= 2 /\\ c >= 2 /\\ d >= 2 /\\\n      a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\\n      a + b + c + d = n\n\n  let is_equal_to_sum_even (n:int) : bool =\n    exists_quadruple_even_sum n\nend"
+        },
+        {
+            "description": "Check if n can be written as 4 * k for some integer k >= 2. That is, n is a multiple of 4 and at least 8.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_equal_to_sum_even (n:int) : bool =\n    n >= 8 && n mod 4 = 0\nend"
+        },
+        {
+            "description": "Check using recursion: subtract 2 from n repeatedly up to four times and check if the remainder is zero and all numbers are positive.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let rec is_equal_to_sum_even_aux (n:int) (count:int) : bool =\n    if count = 0 then n = 0 else\n      n >= 2 && n mod 2 = 0 && is_equal_to_sum_even_aux (n-2) (count-1)\n\n  let is_equal_to_sum_even (n:int) : bool =\n    is_equal_to_sum_even_aux n 4\nend"
+        },
+        {
+            "description": "Construct the sum as 2 + 2 + 2 + (n-6) and check if (n-6) is a positive even number.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n:int) : bool =\n    let x = n - 6 in\n    x >= 2 && x mod 2 = 0\nend"
+        },
+        {
+            "description": "Build a list of four positive even numbers, all 2, and sum them. Check if the sum equals n, or if increasing one of the 2's to a higher even value can achieve n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let is_equal_to_sum_even (n:int) : bool =\n    let l = Cons 2 (Cons 2 (Cons 2 (Cons (n-6) Nil))) in\n    n >= 8 && (n-6) mod 2 = 0 && (n-6) >= 2\nend"
+        },
+        {
+            "description": "Check if n is even and at least 8, then return true. Otherwise, return false. This is a direct mathematical property (n = 2*a+2*b+2*c+2*d = 2*(a+b+c+d), each a,b,c,d >=1).",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n:int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Use Why3's sum function to check if n can be expressed as a sum of four positive even elements in a list.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let is_equal_to_sum_even (n:int) : bool =\n    exists a:int, b:int, c:int, d:int.\n      a >= 2 /\\ b >= 2 /\\ c >= 2 /\\ d >= 2 /\\\n      a mod 2 = 0 /\\ b mod 2 = 0 /\\ c mod 2 = 0 /\\ d mod 2 = 0 /\\\n      sum (Cons a (Cons b (Cons c (Cons d Nil)))) = n\nend"
+        },
+        {
+            "description": "Check by constructing all possible partitions of n into four positive even numbers (using a bounded loop) and return true if any valid partition is found.",
+            "implementation": "module HumanEval138\n  use int.Int\n\n  let is_equal_to_sum_even (n:int) : bool =\n    let found = ref false in\n    for a = 2 to n-6 by 2 do\n      for b = 2 to n-a-4 by 2 do\n        for c = 2 to n-a-b-2 by 2 do\n          let d = n - a - b - c in\n          if d >= 2 && d mod 2 = 0 then found := true\n        done\n      done\n    done;\n    !found\nend"
+        }
+    ]
+}

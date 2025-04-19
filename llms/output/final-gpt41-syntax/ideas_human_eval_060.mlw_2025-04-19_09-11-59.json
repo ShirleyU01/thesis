@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a loop variable to accumulate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    var acc = 0 in\n    var i = 1 in\n    while i <= n do\n      invariant { 1 <= i <= n+1 }\n      invariant { acc = (i-1)*i div 2 }\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Recursive approach: sum_to_n(n) = n + sum_to_n(n-1), with base case sum_to_n(0)=0.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then 0 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Closed-form formula using Gauss' formula: n*(n+1)/2, taking care to use integer division.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n  let sum_to_n (n : int) : int =\n    (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Sum numbers from n down to 1 using a while loop, decrementing n each time.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    var acc = 0 in\n    var k = n in\n    while k > 0 do\n      invariant { 0 <= k <= n }\n      invariant { acc = (n*(n+1) div 2) - (k*(k+1) div 2) }\n      acc <- acc + k;\n      k <- k - 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Use pattern matching for recursion: match n with 0 -> 0 | _ -> n + sum_to_n(n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    variant { n }\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Generate a list [1;2;...;n] and sum its elements using a helper recursive function.",
+            "implementation": "module HumanEval060\n  use int.Int\n  type list 'a = Nil | Cons 'a (list 'a)\n\n  let rec make_list (a:int) (b:int) : list int =\n    requires { a <= b+1 }\n    variant { b - a + 1 }\n    if a > b then Nil else Cons a (make_list (a+1) b)\n\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    sum_list (make_list 1 n)\nend"
+        },
+        {
+            "description": "Tail-recursive helper function with accumulator to sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_aux (n:int) (acc:int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then acc else sum_aux (n-1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    sum_aux n 0\nend"
+        },
+        {
+            "description": "Odd-even split: sum odds and evens separately, then add results.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_odds (n:int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then 0\n    else if (n mod 2) = 1 then n + sum_odds (n-1)\n    else sum_odds (n-1)\n\n  let rec sum_evens (n:int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then 0\n    else if (n mod 2) = 0 then n + sum_evens (n-1)\n    else sum_evens (n-1)\n\n  let sum_to_n (n : int) : int =\n    use int.EuclideanDivision\n    requires { n >= 0 }\n    sum_odds n + sum_evens n\nend"
+        },
+        {
+            "description": "Double and halve trick: repeatedly reduce n by 2 and add n+(n-1) until n=0 or 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n:int) : int =\n    requires { n >= 0 }\n    variant { n }\n    if n = 0 then 0\n    else if n = 1 then 1\n    else n + (n-1) + sum_to_n (n-2)\nend"
+        },
+        {
+            "description": "Sum using a for-like recursive function, incrementing from 1 up to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_for (i:int) (n:int) : int =\n    requires { 1 <= i <= n+1 }\n    variant { n - i + 1 }\n    if i > n then 0 else i + sum_for (i+1) n\n  let sum_to_n (n : int) : int =\n    requires { n >= 0 }\n    sum_for 1 n\nend"
+        }
+    ]
+}

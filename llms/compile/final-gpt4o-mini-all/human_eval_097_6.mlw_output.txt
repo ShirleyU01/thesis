@@ -1,0 +1,7 @@
+=======================human_eval_097_6.mlw=====================
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_6.mlw", line 35, characters 18-42: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_6.mlw", line 37, characters 9-38: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_6.mlw", line 40, characters 4-22: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt4o-mini-all/human_eval_097_6.mlw", line 40, characters 25-43: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt4o-mini-all/human_eval_097_6.mlw", line 42, characters 0-3:
+syntax error

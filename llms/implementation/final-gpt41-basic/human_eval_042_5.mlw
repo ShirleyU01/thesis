@@ -1,0 +1,135 @@
+(* 
+def incr_list(l: list):
+    """Return list with elements incremented by 1.
+    >>> incr_list([1, 2, 3])
+    [2, 3, 4]
+    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
+    [6, 4, 6, 3, 4, 4, 10, 1, 124]
+    """
+ *)
+    
+    
+module HumanEval042Goal
+
+    use list.List
+    use list.Length
+    use int.Int
+    use list.NthNoOpt
+
+    let rec incr_list (l : list int) : list int = 
+        ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }
+        ensures { length result = length l }
+        variant { l }
+        match l with
+        | Nil -> Nil 
+        | Cons x xs -> Cons (x+1) (incr_list xs)
+        end
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval042
+  use import list.List
+  let rec incr_list (l : list int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> List.Cons (x + 1) (incr_list xs)
+    end
+end
+
+module TestHumanEval042
+
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval042  
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+            
+
+    let test1() : bool =
+        list_eq (incr_list Nil) Nil 
+
+    let test1_output() : (list int, list int, list int) =
+        (Nil, incr_list Nil, Nil)
+
+    let test2() : bool = 
+        list_eq (incr_list (Cons 1 (Cons 2 (Cons 3 Nil)))) (Cons 2 (Cons 3 (Cons 4 Nil))) 
+
+    let test2_output() : (list int, list int, list int) =
+        (Cons 1 (Cons 2 (Cons 3 Nil)), incr_list (Cons 1 (Cons 2 (Cons 3 Nil))), Cons 2 (Cons 3 (Cons 4 Nil)))
+
+    let test3() : bool =
+        list_eq (incr_list (Cons 5 Nil)) (Cons 6 Nil)
+
+    let test3_output() : (list int, list int, list int) =
+        (Cons 5 Nil, incr_list (Cons 5 Nil), Cons 6 Nil)
+
+    let test4() : bool =
+        list_eq (incr_list (Cons (-1) (Cons 0 (Cons 1 Nil)))) (Cons 0 (Cons 1 (Cons 2 Nil)))
+
+    let test4_output() : (list int, list int, list int) =
+        (Cons (-1) (Cons 0 (Cons 1 Nil)), incr_list (Cons (-1) (Cons 0 (Cons 1 Nil))), Cons 0 (Cons 1 (Cons 2 Nil)))
+
+    let test5() : bool =
+        list_eq (incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))))) 
+                (Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
+
+    let test5_output() : (list int, list int, list int) =
+        (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil)))))))),
+         incr_list (Cons 5 (Cons 3 (Cons 5 (Cons 2 (Cons 3 (Cons 3 (Cons 9 (Cons 0 (Cons 123 Nil))))))))),
+         Cons 6 (Cons 4 (Cons 6 (Cons 3 (Cons 4 (Cons 4 (Cons 10 (Cons 1 (Cons 124 Nil)))))))))
+
+    let testall() : bool = 
+        test1() && test2() && test3() && test4() && test5()
+
+    let testfail() : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        res
+
+    let runtest (x : int) : (list int, list int, list int) =
+        let ref res = (Nil, Nil, Nil) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, list int, list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, list int, list int) =
+        let l = testfail () in
+        failoutput l
+
+end

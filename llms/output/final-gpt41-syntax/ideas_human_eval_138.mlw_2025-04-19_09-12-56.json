@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Check if n is at least 8 and divisible by 2. Since the sum of 4 positive even numbers is at least 8, and such a sum must be even, this approach checks the minimum and evenness.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum_even (n: int) : bool =\n    if n >= 8 && mod n 2 = 0 then true else false\nend"
+        },
+        {
+            "description": "Check if n can be expressed as 2 + 2 + 2 + x, where x is a positive even number. Thus, n - 6 must be positive and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    let x = n - 6 in\n    if x > 0 && mod x 2 = 0 then true else false\nend"
+        },
+        {
+            "description": "Use a for loop-like recursion to try all possible values for the first even number, and check if the rest can be split into 3 positive even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec helper (a: int) (n: int) : bool =\n    if a > n - 6 then false\n    else let b = n - a in\n      if a > 0 && mod a 2 = 0 && helper2 a b then true else helper (a + 2) n\n  with helper2 (a: int) (b: int) : bool =\n    let rest = b - 4 in\n    rest > 0 && mod rest 2 = 0\n  let is_equal_to_sum_even (n: int) : bool =\n    helper 2 n\nend"
+        },
+        {
+            "description": "Generate all combinations of 4 positive even numbers that sum to n using a recursive search (inefficient for large n, but illustrative).",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec search (count: int) (sum: int) (n: int) : bool =\n    if count = 0 then sum = n\n    else let rec loop (x: int) : bool =\n      if x > n - sum - 2 * (count - 1) then false\n      else if search (count - 1) (sum + x) n then true else loop (x + 2)\n    in loop 2\n  let is_equal_to_sum_even (n: int) : bool =\n    search 4 0 n\nend"
+        },
+        {
+            "description": "Check if n is a sum of four equal even numbers (i.e., n mod 4 = 0, and n/4 >= 2 and even), as a special case.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    if mod n 4 = 0 then let x = div n 4 in if x >= 2 && mod x 2 = 0 then true else n >= 8 && mod n 2 = 0 else n >= 8 && mod n 2 = 0\nend"
+        },
+        {
+            "description": "Check if n can be split as 2 + 2 + y + z where y and z are positive even numbers. Try all pairs (y, z).",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec try_pairs (y: int) (z: int) (target: int) : bool =\n    if y > target - 4 then false\n    else\n      let z = target - 4 - y in\n      if z > 0 && mod z 2 = 0 then true else try_pairs (y + 2) z target\n  let is_equal_to_sum_even (n: int) : bool =\n    if n < 8 || mod n 2 <> 0 then false else try_pairs 2 2 n\nend"
+        },
+        {
+            "description": "Count the number of positive even numbers less than n. If there are at least 4, and n is even and at least 8, return true.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    if n < 8 || mod n 2 <> 0 then false\n    else let count = (n - 2) div 2 in\n      if count >= 4 then true else false\nend"
+        },
+        {
+            "description": "Try to greedily subtract 2 from n four times, checking if the result is non-negative and even.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    let rest = n - 8 in\n    if rest < 0 then false else mod rest 2 = 0\nend"
+        },
+        {
+            "description": "Recursively check if n minus 2 is a sum of three positive even numbers, using a helper to check for the base case.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let rec helper (k: int) (m: int) : bool =\n    if k = 1 then m > 0 && mod m 2 = 0\n    else let rec try_val (x: int) : bool =\n      if x > m - 2 * (k - 1) then false\n      else if x > 0 && mod x 2 = 0 && helper (k - 1) (m - x) then true else try_val (x + 2)\n    in try_val 2\n  let is_equal_to_sum_even (n: int) : bool =\n    helper 4 n\nend"
+        },
+        {
+            "description": "Use pattern matching on n: specifically handle small cases (n<8) and then use the arithmetic check for larger n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n  let is_equal_to_sum_even (n: int) : bool =\n    match n with\n    | x when x < 8 -> false\n    | x -> if mod x 2 = 0 then true else false\n    end\nend"
+        }
+    ]
+}

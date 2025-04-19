@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Trial division up to sqrt(n): For n > 1, checks divisibility for all integers d from 2 to sqrt(n). Returns true if no divisors are found.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    let rec aux (d : int) : bool =\n      if d * d > n then True else\n      if n mod d = 0 then False else aux (d + 1)\n    in aux 2\nend"
+        },
+        {
+            "description": "Checks divisibility for all d in [2, n-1] using a for loop style recursion. Returns false if any divisor is found.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    let rec check (d : int) : bool =\n      if d >= n then True else\n      if n mod d = 0 then False else check (d + 1)\n    in check 2\nend"
+        },
+        {
+            "description": "Handles even numbers first: returns false for n=2 or even n>2, then checks odd divisors up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    if n = 2 then True else\n    if n mod 2 = 0 then False else\n    let rec aux (d : int) : bool =\n      if d * d > n then True else\n      if n mod d = 0 then False else aux (d + 2)\n    in aux 3\nend"
+        },
+        {
+            "description": "Uses int.NumOf to count divisors of n in [2, n-1]. Returns true if the count is zero.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.NumOf\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    numof (fun d -> n mod d = 0) 2 (n - 1) = 0\nend"
+        },
+        {
+            "description": "Checks if n is one of the known small primes (2, 3, 5, 7, 11), otherwise does trial division up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    if n = 2 || n = 3 || n = 5 || n = 7 || n = 11 then True else\n    if n <= 1 || n mod 2 = 0 then False else\n    let rec aux (d : int) : bool =\n      if d * d > n then True else\n      if n mod d = 0 then False else aux (d + 2)\n    in aux 3\nend"
+        },
+        {
+            "description": "Recursively checks for divisibility starting from 2, with a tail-recursive helper.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    let rec helper (d : int) : bool =\n      if d * d > n then True else\n      if n mod d = 0 then False else helper (d + 1)\n    in\n      if n <= 1 then False else helper 2\nend"
+        },
+        {
+            "description": "Uses int.Iter to simulate a loop: folds over possible divisors and returns false if any divides n.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.Iter\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    let g (acc : bool) (d : int) : bool =\n      if not acc then False else if n mod d = 0 then False else True in\n    let rec iter (d : int) (acc : bool) : bool =\n      if d >= n then acc else iter (d + 1) (g acc d)\n    in iter 2 True\nend"
+        },
+        {
+            "description": "Checks for trivial cases (n <= 1, n = 2 or 3), then eliminates all multiples of 2 and 3, then checks d, d+2, d+4 pattern.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    if n = 2 || n = 3 then True else\n    if n mod 2 = 0 || n mod 3 = 0 then False else\n    let rec aux (d : int) : bool =\n      if d * d > n then True else\n      if n mod d = 0 then False else\n      if n mod (d + 2) = 0 then False else aux (d + 6)\n    in aux 5\nend"
+        },
+        {
+            "description": "Uses a list of divisors from 2 to sqrt(n) and for_all to check that no element divides n.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Quant\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    let rec mklist (a : int) (b : int) : list int =\n      if a > b then Nil else Cons a (mklist (a + 1) b)\n    in\n    let upper = (let rec sqrt (x:int) (y:int) : int = if y*y > x then y-1 else sqrt x (y+1) in sqrt n 2) in\n    for_all (fun d -> n mod d <> 0) (mklist 2 upper)\nend"
+        },
+        {
+            "description": "Uses int.Sum to sum up the number of divisors in [2, n-1]; returns true if the sum is zero.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.Sum\n  let is_prime (n : int) : bool =\n    if n <= 1 then False else\n    let s = sum (fun d -> if n mod d = 0 then 1 else 0) 2 (n - 1) in\n    s = 0\nend"
+        }
+    ]
+}

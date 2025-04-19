@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive implementation: Traverse the list recursively, check for non-negative, odd integers, sum their squares.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> if h >= 0 /\\ h mod 2 = 1 then h * h + double_the_dfference t else double_the_dfference t\n    end\nend"
+        },
+        {
+            "description": "Iterative implementation: Use a helper function and a loop to accumulate the sum.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let double_the_dfference (l: list int) : int =\n    let rec loop (lst: list int) (acc: int) : int =\n      match lst with\n      | Nil -> acc\n      | Cons h t ->\n        if h >= 0 /\\ h mod 2 = 1 then loop t (acc + h * h)\n        else loop t acc\n      end\n    in\n    loop l 0\nend"
+        },
+        {
+            "description": "Filter-then-fold: First filter for relevant elements, then fold to sum their squares.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n  use import list.Filter\n  use import list.Fold\n\n  predicate valid_elem (x: int) = x >= 0 /\\ x mod 2 = 1\n\n  let double_the_dfference (l: list int) : int =\n    let filtered = filter valid_elem l in\n    fold_left (fun acc x -> acc + x * x) 0 filtered\nend"
+        },
+        {
+            "description": "Map and sum: Map non-matching elements to zero, then sum all squares.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n  use import list.Map\n  use import list.Fold\n\n  let double_the_dfference (l: list int) : int =\n    let squares = map (fun x -> if x >= 0 /\\ x mod 2 = 1 then x * x else 0) l in\n    fold_left (+) 0 squares\nend"
+        },
+        {
+            "description": "Tail-recursive implementation: Use an accumulator for efficient recursion.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let rec double_the_dfference_aux (l: list int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons h t ->\n      if h >= 0 /\\ h mod 2 = 1 then double_the_dfference_aux t (acc + h * h)\n      else double_the_dfference_aux t acc\n    end\n\n  let double_the_dfference (l: list int) : int = double_the_dfference_aux l 0\nend"
+        },
+        {
+            "description": "Explicit recursion with pattern guards: Use explicit guards for clarity.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t ->\n      if h < 0 then double_the_dfference t\n      else if h mod 2 = 1 then h * h + double_the_dfference t\n      else double_the_dfference t\n    end\nend"
+        },
+        {
+            "description": "Using a helper predicate: Encapsulate the validity check in a predicate.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  predicate is_valid (x: int) = x >= 0 /\\ x mod 2 = 1\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> if is_valid h then h * h + double_the_dfference t else double_the_dfference t\n    end\nend"
+        },
+        {
+            "description": "Separate helper for squaring or zero: Use a helper function that returns 0 or the square.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let square_or_zero (x: int) : int = if x >= 0 /\\ x mod 2 = 1 then x * x else 0\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> square_or_zero h + double_the_dfference t\n    end\nend"
+        },
+        {
+            "description": "Short-circuit evaluation: Inline all logic in a concise recursive function.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons h t -> (if h >= 0 /\\ h mod 2 = 1 then h * h else 0) + double_the_dfference t\n    end\nend"
+        },
+        {
+            "description": "Using a match inside an if: Use pattern matching inside the conditional for a different style.",
+            "implementation": "module HumanEval151\n  use import int.Int\n  use import list.List\n\n  let rec double_the_dfference (l: list int) : int =\n    if l = Nil then 0 else match l with Cons h t -> if h >= 0 /\\ h mod 2 = 1 then h * h + double_the_dfference t else double_the_dfference t end\nend"
+        }
+    ]
+}

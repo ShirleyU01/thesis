@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Arithmetic formula using Gaussian method: direct computation of n * (n + 1) div 2.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let sum_to_n (n : int) : int =\n    n * (n + 1) div 2\nend"
+        },
+        {
+            "description": "Simple recursion: define sum_to_n(n) = 0 for n \u2264 0, else n + sum_to_n(n - 1).",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 0 then 0\n    else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Tail-recursive helper with accumulator to achieve constant stack usage.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_aux (n : int) (acc : int) : int =\n    if n <= 0 then acc\n    else sum_aux (n - 1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    sum_aux n 0\nend"
+        },
+        {
+            "description": "Imperative for-loop: iterate i from 1 to n, accumulating into a mutable reference.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref sum = 0 in\n    for i = 1 to n do\n      sum <- sum + i\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Imperative while-loop: use two mutable references for index and running total.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref sum = 0 in\n    let ref i = 1 in\n    while i <= n do\n      sum <- sum + i;\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Use the built-in higher\u2011order function int.Sum to compute the sum of the identity function over [1..n].",
+            "implementation": "module HumanEval060\n  use int.Sum\n\n  let sum_to_n (n : int) : int =\n    sum (fun i -> i) 1 n\nend"
+        },
+        {
+            "description": "Parity-based arithmetic: branch on n mod 2 to compute sum without loops or recursion.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let sum_to_n (n : int) : int =\n    if mod n 2 = 0 then\n      (n div 2) * (n + 1)\n    else\n      ((n + 1) div 2) * n\nend"
+        },
+        {
+            "description": "Build a list of integers from n down to 1 and apply list.Sum to accumulate.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n  use list.Sum\n\n  let rec build (i : int) : list int =\n    if i <= 0 then Nil\n    else Cons i (build (i - 1))\n\n  let sum_to_n (n : int) : int =\n    sum (build n)\nend"
+        },
+        {
+            "description": "Parameterized summation with int.SumParam: pass an accumulator function over range.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.SumParam\n\n  let sum_to_n (n : int) : int =\n    sumParam (fun acc i -> acc + i) 0 1 n\nend"
+        },
+        {
+            "description": "Divide-and-conquer recursion: split the interval [1..n] in half and sum subranges.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec sum_range (l : int) (r : int) : int =\n    if l > r then 0\n    else if l = r then l\n    else let m = (l + r) div 2 in sum_range l m + sum_range (m + 1) r\n\n  let sum_to_n (n : int) : int =\n    sum_range 1 n\nend"
+        }
+    ]
+}

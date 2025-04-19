@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive traversal with index counter. Traverse the list recursively, passing down an index counter. At each step, if the current index is odd and the element is even, add it to the sum.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_aux (l : list int) (idx : int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if mod idx 2 = 1 && mod x 2 = 0 then\n          x + add_aux xs (idx + 1)\n        else\n          add_aux xs (idx + 1)\n    end\n\n  let add (l : list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Recursive traversal with index toggling (bool). Use a boolean to track whether the current index is odd. Toggle the boolean at each step and add the element if we're at an odd index and the element is even.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_aux (l : list int) (odd : bool) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if odd && mod x 2 = 0 then\n          x + add_aux xs (not odd)\n        else\n          add_aux xs (not odd)\n    end\n\n  let add (l : list int) : int =\n    add_aux l false\nend"
+        },
+        {
+            "description": "Pattern matching with index increment only for odd indices. Use a helper function that increments an index and only considers elements at odd indices.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_aux (l : list int) (i : int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let sum = add_aux xs (i+1) in\n        if mod i 2 = 1 && mod x 2 = 0 then x + sum else sum\n    end\n\n  let add (l : list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Iterative approach using an explicit while loop. Emulate iteration by recursion: maintain a running sum, index, and the rest of the list.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_iter (l : list int) (i : int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if mod i 2 = 1 && mod x 2 = 0 then\n          add_iter xs (i+1) (acc+x)\n        else\n          add_iter xs (i+1) acc\n    end\n\n  let add (l : list int) : int =\n    add_iter l 0 0\nend"
+        },
+        {
+            "description": "Skip even indices by using a helper that always consumes two elements at a time; only checks the second element (odd index) for being even.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_aux (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let rest = add_aux ys in\n        if mod y 2 = 0 then y + rest else rest\n    end\n\n  let add (l : list int) : int =\n    add_aux l\nend"
+        },
+        {
+            "description": "Build a list of even elements at odd indices using a helper, then sum it recursively.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec filter_odds (l : list int) (i : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        let rest = filter_odds xs (i+1) in\n        if mod i 2 = 1 && mod x 2 = 0 then Cons x rest else rest\n    end\n\n  let rec sum_list (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let add (l : list int) : int =\n    let filtered = filter_odds l 0 in\n    sum_list filtered\nend"
+        },
+        {
+            "description": "Use an accumulator for the index and the sum in a single helper, returning the result at the end.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_aux (l: list int) (i: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        if mod i 2 = 1 && mod x 2 = 0 then\n          add_aux xs (i+1) (acc+x)\n        else\n          add_aux xs (i+1) acc\n    end\n\n  let add (l : list int) : int =\n    add_aux l 0 0\nend"
+        },
+        {
+            "description": "Recursive approach where index is inferred by alternately flipping between even and odd index status, using two mutually recursive functions.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add_even (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ xs -> add_odd xs\n    end\n  with add_odd (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = add_even xs in\n        if mod x 2 = 0 then x + rest else rest\n    end\n\n  let add (l : list int) : int =\n    add_even l\nend"
+        },
+        {
+            "description": "Iterate through the list by always checking the tail for odd-indexed elements, using custom nth_my to access elements by index.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use list.Length\n  use int.EuclideanDivision\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n-1) r\n    end\n\n  let rec add_aux (l: list int) (len: int) (i: int) (acc: int) : int =\n    if i >= len then acc else\n      let x = nth_my i l in\n      let new_acc = if mod i 2 = 1 && mod x 2 = 0 then acc + x else acc in\n      add_aux l len (i+1) new_acc\n\n  let add (l: list int) : int =\n    let len = length l in\n    add_aux l len 0 0\nend"
+        },
+        {
+            "description": "Recursively process the list by alternating between skipping and checking for evenness, using a double Cons pattern match.",
+            "implementation": "theory HumanEval085\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec add (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let rest = add ys in\n        if mod y 2 = 0 then y + rest else rest\n    end\nend"
+        }
+    ]
+}

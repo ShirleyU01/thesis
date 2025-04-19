@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using a for loop from min(a,b) to max(a,b), building the list step by step.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let rec aux i acc =\n      if i < lo then acc\n      else aux (i-1) (Cons (i, acc))\n    in aux hi Nil\nend"
+        },
+        {
+            "description": "Recursive approach from min(a,b) to max(a,b), each call prepends the current integer to the result.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let rec f i = if i > hi then Nil else Cons (i, f (i+1)) in f lo\nend"
+        },
+        {
+            "description": "Recursive approach from max(a,b) down to min(a,b), building the list in reverse order then reversing the list before returning.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec reverse l acc = match l with Nil -> acc | Cons (x, xs) -> reverse xs (Cons (x, acc))\n  let rec build i lo acc = if i < lo then acc else build (i-1) lo (Cons (i, acc))\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    build hi lo Nil\nend"
+        },
+        {
+            "description": "Using Why3's List.init-like pattern: map over an integer interval of length (hi-lo+1) and add lo to each index.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  function add (x:int) (y:int) : int = x + y\n  let rec tab f n acc = if n < 0 then acc else tab f (n-1) (Cons (f n, acc))\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    tab (fun i -> lo + i) (hi - lo) Nil\nend"
+        },
+        {
+            "description": "Use a helper function to swap a and b if necessary, then a standard increasing recursion.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec generate_integers (a: int) (b: int) : list int =\n    if a > b then generate_integers b a else\n      if a > b then Nil else Cons(a, generate_integers (a+1) b)\nend"
+        },
+        {
+            "description": "Build the list backwards using a while loop, then reverse the list at the end.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec reverse l acc = match l with Nil -> acc | Cons (x, xs) -> reverse xs (Cons (x, acc))\n  let generate_integers (a: int) (b: int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    let rec build i acc = if i < lo then acc else build (i-1) (Cons(i, acc)) in\n    build hi Nil\nend"
+        },
+        {
+            "description": "Use pattern matching and recursion to handle the base case when a == b separately.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec generate_integers (a: int) (b: int) : list int =\n    if a = b then Cons(a, Nil)\n    else if a < b then Cons(a, generate_integers (a+1) b)\n    else generate_integers b a\nend"
+        },
+        {
+            "description": "Use an accumulator list and pass it through recursive calls, then reverse the accumulator at the end.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec build lo hi acc = if hi < lo then acc else build lo (hi-1) (Cons(hi, acc))\n  let rec reverse l acc = match l with Nil -> acc | Cons(x, xs) -> reverse xs (Cons(x, acc))\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = if a < b then a else b in let hi = if a > b then a else b in build lo hi Nil\nend"
+        },
+        {
+            "description": "Construct the list using the fold pattern, folding from lo to hi.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec foldi f acc i hi = if i > hi then acc else foldi f (f acc i) (i+1) hi\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    reverse (foldi (fun acc x -> Cons(x, acc)) Nil lo hi) Nil\nend"
+        },
+        {
+            "description": "Implement using mutual recursion: one function to order the bounds, one to build the list.",
+            "implementation": "module HumanEval163\n  use import int.Int\n  use import list.List\n  let rec build lo hi = if lo > hi then Nil else Cons(lo, build (lo+1) hi)\n  let generate_integers (a:int) (b:int) : list int =\n    let lo = if a < b then a else b in\n    let hi = if a > b then a else b in\n    build lo hi\nend"
+        }
+    ]
+}

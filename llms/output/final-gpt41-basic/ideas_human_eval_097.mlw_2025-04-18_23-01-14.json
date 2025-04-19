@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract the unit digit of each input using modulo 10, multiply them, and return the result.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let ua = abs a mod 10 in\n    let ub = abs b mod 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use division by 10 to repeatedly reduce numbers until the unit digit is obtained, then multiply those digits.",
+            "implementation": "module HumanEval097\n  let rec unit_digit (x: int) : int =\n    if abs x < 10 then abs x else unit_digit (x / 10)\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Convert negative numbers to positive, extract last digit with modulo, multiply, and return.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let ua = if a < 0 then -a else a in\n    let ub = if b < 0 then -b else b in\n    (ua mod 10) * (ub mod 10)\nend"
+        },
+        {
+            "description": "Handle zeros as a special case: if any number ends with 0, return 0 directly; otherwise, multiply unit digits.",
+            "implementation": "module HumanEval097\n  let multiply (a: int) (b: int) : int =\n    let ua = abs a mod 10 in\n    let ub = abs b mod 10 in\n    if ua = 0 || ub = 0 then 0 else ua * ub\nend"
+        },
+        {
+            "description": "Extract both unit digits with modulo and use a helper function to multiply them.",
+            "implementation": "module HumanEval097\n  let unit_digit (x: int) : int = abs x mod 10\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching to handle negative and positive inputs for unit digit extraction.",
+            "implementation": "module HumanEval097\n  let rec abs_int (x: int) : int = if x < 0 then -x else x\n  let multiply (a: int) (b: int) : int =\n    match (a, b) with\n    | (_, _) -> (abs_int a mod 10) * (abs_int b mod 10)\nend"
+        },
+        {
+            "description": "Decompose the input integers into digit lists, pick the last digit, and multiply them.",
+            "implementation": "module HumanEval097\n  let rec last_digit (n: int) : int =\n    if n < 0 then last_digit (-n) else if n < 10 then n else last_digit (n / 10)\n  let multiply (a: int) (b: int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Compute absolute values first, then extract unit digits via subtraction after dividing by 10.",
+            "implementation": "module HumanEval097\n  let unit_digit (x: int) : int =\n    let absx = if x < 0 then -x else x in\n    absx - 10 * (absx / 10)\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use recursive extraction of unit digits, without using modulo or division operators directly in multiply.",
+            "implementation": "module HumanEval097\n  let rec get_unit_digit (x: int) : int =\n    if x < 0 then get_unit_digit (-x) else if x < 10 then x else get_unit_digit (x - 10)\n  let multiply (a: int) (b: int) : int =\n    get_unit_digit a * get_unit_digit b\nend"
+        },
+        {
+            "description": "Use an auxiliary function to normalize input to non-negative, extract unit digits using modulo, and multiply.",
+            "implementation": "module HumanEval097\n  let norm (x: int) : int = if x < 0 then -x else x\n  let multiply (a: int) (b: int) : int =\n    (norm a mod 10) * (norm b mod 10)\nend"
+        }
+    ]
+}

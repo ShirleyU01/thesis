@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive approach: process the list element by element, inserting the delimiter between elements except after the last.",
+            "implementation": "theory HumanEval005\n  use list.List\n  use int.Int\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive version: use an accumulator to collect the result, reverse at the end.",
+            "implementation": "theory HumanEval005\n  use list.List\n  use list.Reverse\n  use int.Int\n  let rec intersperse_aux (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x xs -> intersperse_aux xs n (Cons n (Cons x acc))\n    end\n  let intersperse (l : list int) (n : int) : list int =\n    Reverse.reverse (intersperse_aux l n Nil)\nend"
+        },
+        {
+            "description": "Recursive pattern matching with explicit handling for singleton lists and empty lists.",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n    end\nend"
+        },
+        {
+            "description": "Use a helper function to process the list, inserting the delimiter before every element except the first.",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse_helper (l : list int) (n : int) (first : bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if first then Cons x (intersperse_helper xs n false)\n        else Cons n (Cons x (intersperse_helper xs n false))\n    end\n  let intersperse (l : list int) (n : int) : list int =\n    intersperse_helper l n true\nend"
+        },
+        {
+            "description": "Use list append to build the resulting list recursively (with explicit append operator).",
+            "implementation": "theory HumanEval005\n  use list.List\n  use list.Append\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Iterative approach using explicit recursion and list reversal to construct the result in forward order.",
+            "implementation": "theory HumanEval005\n  use list.List\n  use list.Reverse\n  use int.Int\n  let rec intersperse_iter (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x xs -> intersperse_iter xs n (Cons n (Cons x acc))\n    end\n  let intersperse (l : list int) (n : int) : list int =\n    Reverse.reverse (intersperse_iter l n Nil)\nend"
+        },
+        {
+            "description": "Recursive approach using a counter to track position and avoid inserting delimiter before the first element.",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse_pos (l : list int) (n : int) (pos : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if pos = 0 then Cons x (intersperse_pos xs n (pos+1))\n        else Cons n (Cons x (intersperse_pos xs n (pos+1)))\n    end\n  let intersperse (l : list int) (n : int) : list int =\n    intersperse_pos l n 0\nend"
+        },
+        {
+            "description": "Recursive approach splitting into head and tail and joining with delimiter (handling list size explicitly).",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Recursive approach with a helper to detect if more elements exist, to avoid trailing delimiter.",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\nend"
+        },
+        {
+            "description": "Recursive approach that uses a flag to control whether to insert delimiter before the current element (skipping before the first).",
+            "implementation": "theory HumanEval005\n  use list.List\n  let rec intersperse_flag (l : list int) (n : int) (first : bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if first then Cons x (intersperse_flag xs n false)\n        else Cons n (Cons x (intersperse_flag xs n false))\n    end\n  let intersperse (l : list int) (n : int) : list int =\n    intersperse_flag l n true\nend"
+        }
+    ]
+}

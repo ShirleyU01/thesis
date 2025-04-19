@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative approach using two nested loops: the outer loop runs from n down to 1, and the inner loop computes the factorial. All calculations are performed using integer arithmetic.",
+            "implementation": "module HumanEval139\n\nlet rec fact (k: int) : int =\n  if k <= 1 then 1 else k * fact (k - 1)\n\nlet special_factorial (n: int) : int =\n  let rec loop (i: int) (acc: int) : int =\n    if i = 0 then acc else loop (i - 1) (acc * fact i)\n  in loop n 1\nend"
+        },
+        {
+            "description": "Recursive approach: recursively compute the product of factorials from n down to 1.",
+            "implementation": "module HumanEval139\n\nlet rec fact (k: int) : int = if k <= 1 then 1 else k * fact (k-1)\n\nlet rec special_factorial (n: int) : int =\n  if n <= 1 then 1 else fact n * special_factorial (n-1)\nend"
+        },
+        {
+            "description": "Using an auxiliary function for the product of a sequence where each element is the factorial of its index. The product is computed recursively.",
+            "implementation": "module HumanEval139\n\nlet rec prod_fact (i: int) : int =\n  if i = 0 then 1 else (prod_fact (i - 1)) * (let rec fact (k: int) : int = if k <= 1 then 1 else k * fact (k-1) in fact i)\n\nlet special_factorial (n: int) : int = prod_fact n\nend"
+        },
+        {
+            "description": "Using a helper function that simultaneously computes factorial and the special factorial in one pass, accumulating both values.",
+            "implementation": "module HumanEval139\n\nlet special_factorial (n: int) : int =\n  let rec aux (i: int) (acc: int) (curr_fact: int) : int =\n    if i = 0 then acc else aux (i - 1) (acc * curr_fact) (curr_fact * i)\n  in aux n 1 1\nend"
+        },
+        {
+            "description": "Using a loop to build an array containing all factorials from 1 to n, then multiplying them together.",
+            "implementation": "module HumanEval139\n\nuse import int.Int\nuse import array.Array\n\nlet special_factorial (n: int) : int =\n  let a = Array.make (n+1) 1 in\n  let rec fill (i: int) : unit =\n    if i > n then () else (a[i] <- a[i-1] * i; fill (i+1))\n  in\n  if n = 0 then 1 else (\n    a[0] <- 1;\n    fill 1;\n    let rec prod (i: int) (acc: int) : int =\n      if i = 0 then acc else prod (i-1) (acc * a[i])\n    in prod n 1)\nend"
+        },
+        {
+            "description": "Tail-recursive variant: computes the factorial of each i on the fly during the iteration to avoid stack overflows.",
+            "implementation": "module HumanEval139\n\nlet rec fact (k: int) : int = if k <= 1 then 1 else k * fact (k-1)\n\nlet special_factorial (n: int) : int =\n  let rec aux (i: int) (acc: int) : int =\n    if i = 0 then acc else aux (i - 1) (acc * fact i)\n  in aux n 1\nend"
+        },
+        {
+            "description": "One-pass computation: computes factorials incrementally and multiplies them to get the special factorial in a single iteration.",
+            "implementation": "module HumanEval139\n\nlet special_factorial (n: int) : int =\n  let rec loop (i: int) (fac: int) (acc: int) : int =\n    if i > n then acc\n    else loop (i+1) (fac * i) (acc * (fac * i))\n  in\n  if n = 0 then 1 else loop 1 1 1\nend"
+        },
+        {
+            "description": "Using a mathematical formula: Instead of recomputing factorials, store the current factorial and multiply it into the result in each step.",
+            "implementation": "module HumanEval139\n\nlet special_factorial (n: int) : int =\n  let rec loop (i: int) (curr_fact: int) (result: int) : int =\n    if i > n then result\n    else loop (i+1) (curr_fact * i) (result * (curr_fact * i))\n  in\n  if n = 0 then 1 else loop 1 1 1\nend"
+        },
+        {
+            "description": "Purely functional, using no mutable state or arrays: Use nested recursive functions to compute factorial and the product.",
+            "implementation": "module HumanEval139\n\nlet rec fact (k: int) : int = if k <= 1 then 1 else k * fact (k-1)\n\nlet rec prod (i: int) : int = if i = 0 then 1 else fact i * prod (i-1)\n\nlet special_factorial (n: int) : int = prod n\nend"
+        },
+        {
+            "description": "Iterative, using a loop and a variable for the running factorial, updating both the factorial and the result at each step.",
+            "implementation": "module HumanEval139\n\nlet special_factorial (n: int) : int =\n  let rec loop (i: int) (fac: int) (acc: int) : int =\n    if i > n then acc\n    else loop (i+1) (fac * i) (acc * (fac * i))\n  in\n  if n = 0 then 1 else loop 1 1 1\nend"
+        }
+    ]
+}

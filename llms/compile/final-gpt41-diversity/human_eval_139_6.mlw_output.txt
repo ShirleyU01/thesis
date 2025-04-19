@@ -1,0 +1,5 @@
+=======================human_eval_139_6.mlw=====================
+Warning, file "llms/implementation/final-gpt41-diversity/human_eval_139_6.mlw", line 31, characters 24-49: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/final-gpt41-diversity/human_eval_139_6.mlw", line 55, characters 23-33: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/final-gpt41-diversity/human_eval_139_6.mlw", line 61, characters 16-19:
+Logical symbol map is used in a non-ghost context
