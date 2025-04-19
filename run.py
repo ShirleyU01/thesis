@@ -56,9 +56,9 @@ def replace_function_name(code, module_name, function_name):
 
 
 
-folder_path = "llms/implementation/apr17-gpt41-all"
-compile_folder_path = "llms/compile/apr17-gpt41-all"
-excel_output_path = 'llms/compile/apr17-gpt41-all/info.csv'
+folder_path = "llms/implementation/apr18-gpt41-mini-all-v3"
+compile_folder_path = "llms/compile/apr18-gpt41-mini-all-v3"
+excel_output_path = 'llms/compile/apr18-gpt41-mini-all-v3/info.csv'
 data = []
 os.makedirs(compile_folder_path, exist_ok=True)
 
@@ -68,12 +68,17 @@ for filename in os.listdir(folder_path):
     file_path = os.path.join(folder_path, filename)
     output_file_path = os.path.join(compile_folder_path, f"{filename}_output.txt") 
     module_name = parse_string(filename)
-    result = subprocess.run(
-        ['why3', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
-        #['./thesis/script.sh', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
-        capture_output=True,
-        text=True
-    )
+    try:
+      result = subprocess.run(
+          ['why3', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
+          #['./thesis/script.sh', '-L', 'human_eval_test', 'execute', file_path, f'--use=Test{module_name}', 'test()'],
+          capture_output=True,
+          text=True,
+	  timeout=10
+      )
+    except subprocess.TimeoutExpired:
+      output_text += f"======================={filename}=====================\n" + "TIMEOUT"
+      continue
     output_text += f"======================={filename}=====================\n" + result.stderr
     if not result.stderr:
         continue

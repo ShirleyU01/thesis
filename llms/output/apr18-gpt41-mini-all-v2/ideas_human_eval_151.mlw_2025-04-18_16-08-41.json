@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching filtering odd positive integers and summing their squares directly.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        if x >= 0 && (mod x 1) = 0 && (mod x 2) = 1 then\n          x * x + double_the_difference xs\n        else\n          double_the_difference xs\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator to sum squares of odd non-negative integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  let rec helper (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      begin\n        if x >= 0 && (mod x 2) = 1 then\n          helper xs (acc + x * x)\n        else\n          helper xs acc\n      end\n    end\n\n  let double_the_difference (l : list int) : int = helper l 0\nend"
+        },
+        {
+            "description": "Iterative approach using a while loop and nth_my function to traverse list and sum squares of odd positive integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let double_the_difference (l : list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref sum = 0 in\n    while i < n do\n      let x = nth_my i l in\n      if x >= 0 && (mod x 2) = 1 then sum <- sum + x * x;\n      i <- i + 1\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive pattern matching using if-then-else for condition checks within the match.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if x >= 0 && (mod x 2) = 1 then\n        x * x + double_the_difference xs\n      else\n        double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Mapping and filtering by recreating list of squares of valid odd numbers, then summing recursively.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec filter_odd_nonneg (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if x >= 0 && (mod x 2) = 1 then Cons x (filter_odd_nonneg xs)\n      else filter_odd_nonneg xs\n    end\n\n  let rec map_square (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x * x) (map_square xs)\n    end\n\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let double_the_difference (l : list int) : int =\n    sum_list (map_square (filter_odd_nonneg l))\nend"
+        },
+        {
+            "description": "Single recursive function using nested if-else for conditions combined with pattern matching on the list.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        if x < 0 then double_the_difference xs\n        else if (mod x 2) = 0 then double_the_difference xs\n        else x * x + double_the_difference xs\n      end\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive function with explicit accumulator and pattern matching, ignoring negative and even numbers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n\n  let rec helper (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      if x >= 0 && (mod x 2) = 1 then\n        helper xs (acc + x * x)\n      else\n        helper xs acc\n    end\n\n  let double_the_difference (l : list int) : int = helper l 0\nend"
+        },
+        {
+            "description": "Recursive approach with nested pattern matching and explicit checks for integer positivity and oddness using Euclidean mod.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  use int.EuclideanDivision\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        if x >= 0 && (mod x 2) = 1 then x * x + double_the_difference xs\n        else double_the_difference xs\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive function that explicitly checks integer property is always true for int type, focusing on sign and oddness.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        if x >= 0 then\n          if (mod x 2) = 1 then x * x + double_the_difference xs\n          else double_the_difference xs\n        else double_the_difference xs\n      end\n    end\nend"
+        },
+        {
+            "description": "Iterative approach with a reference, using a recursive helper to traverse list and update sum for odd positive integers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let double_the_difference (l : list int) : int =\n    let n = length l in\n    let ref i = 0 in\n    let ref sum = 0 in\n    while i < n do\n      let x = nth_my i l in\n      if x >= 0 && (mod x 2) = 1 then sum <- sum + x * x;\n      i <- i + 1\n    done;\n    sum\nend"
+        }
+    ]
+}

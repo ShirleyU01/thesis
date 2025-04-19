@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using for-loop to iterate through the list and keep track of the maximum value found so far.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.MinMax\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref max_so_far = nth_my 0 l in\n  let ref result = Cons max_so_far Nil in\n  for i = 1 to n - 1 do\n    let current = nth_my i l in\n    max_so_far <- max max_so_far current;\n    result <- result ++ Cons max_so_far Nil\n  done;\n  result\nend"
+        },
+        {
+            "description": "Recursive approach with an accumulator to maintain the maximum value found so far.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec rolling_max_acc (l : list int) (acc : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let new_acc = max acc x in\n    Cons new_acc (rolling_max_acc xs new_acc)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> rolling_max_acc xs x\n  end\nend"
+        },
+        {
+            "description": "Using pattern matching to iterate through the list, updating the maximum value as a new list is built.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let rec helper (l : list int) (max_so_far : int) : list int =\n      match l with\n      | Nil -> Nil\n      | Cons y ys ->\n        let new_max = max max_so_far y in\n        Cons new_max (helper ys new_max)\n      end\n    in\n    Cons x (helper xs x)\n  end\nend"
+        },
+        {
+            "description": "Using a while-loop to compute rolling max values iteratively.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.MinMax\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref i = 1 in\n  let ref max_so_far = nth_my 0 l in\n  let ref result = Cons max_so_far Nil in\n  while i < n do\n    let current = nth_my i l in\n    max_so_far <- max max_so_far current;\n    result <- result ++ Cons max_so_far Nil;\n    i <- i + 1\n  done;\n  result\nend"
+        },
+        {
+            "description": "Recursive approach without an explicit accumulator, updating the maximum value in each recursive call.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let rec helper (l : list int) (max_so_far : int) : list int =\n      match l with\n      | Nil -> Nil\n      | Cons y ys ->\n        let new_max = max max_so_far y in\n        Cons new_max (helper ys new_max)\n      end\n    in\n    helper xs x\n  end\nend"
+        },
+        {
+            "description": "Using fold-like recursion to achieve the rolling max through a tuple return of max and list.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec rolling_max_fold (l : list int) (max_so_far : int) : (int, list int) =\n  match l with\n  | Nil -> (max_so_far, Nil)\n  | Cons x xs ->\n    let new_max = max max_so_far x in\n    let (final_max, tail_result) = rolling_max_fold xs new_max in\n    (final_max, Cons final_max tail_result)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let (_, result) = rolling_max_fold xs x in\n    Cons x result\n  end\nend"
+        },
+        {
+            "description": "Using a helper function to initiate the maximum value and recursively compute the rolling max.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec helper (l : list int) (max_so_far : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let new_max = max max_so_far x in\n    Cons new_max (helper xs new_max)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> helper xs x\n  end\nend"
+        },
+        {
+            "description": "Using pattern matching and a mutable reference to update and store the maximum value found so far.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let ref max_so_far = x in\n    let rec helper (l : list int) : list int =\n      match l with\n      | Nil -> Nil\n      | Cons y ys ->\n        max_so_far <- max max_so_far y;\n        Cons max_so_far (helper ys)\n      end\n    in\n    Cons x (helper xs)\n  end\nend"
+        },
+        {
+            "description": "Using a recursive approach with a separate function to compute the maximum and build the resulting list.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse int.MinMax\n\nlet rec compute_max (l : list int) (max_so_far : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    let new_max = max max_so_far x in\n    Cons new_max (compute_max xs new_max)\n  end\n\nlet rolling_max (l : list int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> compute_max xs x\n  end\nend"
+        },
+        {
+            "description": "Using an iterative approach with a reference to store the list being built and the maximum value.",
+            "implementation": "module HumanEval009\n\nuse int.Int\nuse list.List\nuse list.Length\nuse int.MinMax\n\nlet rolling_max (l : list int) : list int =\n  let n = length l in\n  let ref max_so_far = nth_my 0 l in\n  let ref result = Cons max_so_far Nil in\n  for i = 1 to n - 1 do\n    let current = nth_my i l in\n    max_so_far <- max max_so_far current;\n    result <- result ++ Cons max_so_far Nil\n  done;\n  result\nend"
+        }
+    ]
+}

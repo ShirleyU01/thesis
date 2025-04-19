@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion with pattern matching, compute sum and product by processing head and tail separately.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs -> \n      let sp = sum_product xs in\n      match sp with\n      | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n      | _ -> Nil\n      end\n    end\nend"
+        },
+        {
+            "description": "Using an auxiliary tail-recursive helper function with accumulators for sum and product, then returning the result as a list.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec aux (l : list int) (acc_sum : int) (acc_prod : int) : list int =\n    match l with\n    | Nil -> Cons acc_sum (Cons acc_prod Nil)\n    | Cons x xs -> aux xs (acc_sum + x) (acc_prod * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    aux l 0 1\nend"
+        },
+        {
+            "description": "Using explicit recursion with if-then-else branching instead of pattern matching to compute sum and product.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    if l = Nil then Cons 0 (Cons 1 Nil) else\n      let Cons x xs = l in\n      let sp = sum_product xs in\n      let Cons s (Cons p Nil) = sp in\n      Cons (x + s) (Cons (x * p) Nil)\nend"
+        },
+        {
+            "description": "Using a recursive function that returns a pair (tuple) of sum and product, then converts it to the required list output.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_prod_pair (l : list int) : (int, int) =\n    match l with\n    | Nil -> (0, 1)\n    | Cons x xs ->\n      let (s, p) = sum_prod_pair xs in\n      (x + s, x * p)\n    end\n\n  let sum_product (l : list int) : list int =\n    let (s, p) = sum_prod_pair l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Using a higher-order style by defining two separate recursive functions: one for sum and one for product, then combining results into a list.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let rec prod_list (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * prod_list xs\n    end\n\n  let sum_product (l : list int) : list int =\n    Cons (sum_list l) (Cons (prod_list l) Nil)\nend"
+        },
+        {
+            "description": "Using an iterative style with explicit references and a while loop to accumulate sum and product, then returning the result as a list.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let sum_product (l : list int) : list int =\n    let n = length l in\n    let ref i = 0 in\n    let ref s = 0 in\n    let ref p = 1 in\n    while i < n do\n      s <- s + nth_my i l;\n      p <- p * nth_my i l;\n      i <- i + 1\n    done;\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Using pattern matching with nested matches to unwrap the sum and product from recursive calls, ensuring explicit structure.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      match sum_product xs with\n      | Cons s rest ->\n        match rest with\n        | Cons p Nil -> Cons (x + s) (Cons (x * p) Nil)\n        | _ -> Nil\n        end\n      end\n    end\nend"
+        },
+        {
+            "description": "Using a recursive helper function that returns sum and product as a record type, then converts to list in the main function.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  type sp_record = { sum : int; product : int }\n\n  let rec aux (l : list int) : sp_record =\n    match l with\n    | Nil -> { sum = 0; product = 1 }\n    | Cons x xs ->\n      let r = aux xs in\n      { sum = x + r.sum; product = x * r.product }\n    end\n\n  let sum_product (l : list int) : list int =\n    let r = aux l in\n    Cons r.sum (Cons r.product Nil)\nend"
+        },
+        {
+            "description": "Using explicit destructuring of the list into head and tail and combining results with inlined let bindings without nested matches.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let sp = sum_product xs in\n      let s = match sp with Cons s _ -> s | _ -> 0 end in\n      let p = match sp with Cons _ (Cons p _) -> p | _ -> 1 end in\n      Cons (x + s) (Cons (x * p) Nil)\n    end\nend"
+        },
+        {
+            "description": "Using a recursive function with explicit accumulator parameters for sum and product, then calling with initial values and returning as list.",
+            "implementation": "module HumanEval008\n\n  use int.Int\n  use list.List\n\n  let rec aux (l : list int) (acc_s : int) (acc_p : int) : (int * int) =\n    match l with\n    | Nil -> (acc_s, acc_p)\n    | Cons x xs -> aux xs (acc_s + x) (acc_p * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    let (s, p) = aux l 0 1 in\n    Cons s (Cons p Nil)\nend"
+        }
+    ]
+}

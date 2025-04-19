@@ -1,0 +1,292 @@
+filename,description,function name,module name,signature,pre-condition,post-condition
+human_eval_000.mlw,"def has_close_elements(numbers: list real, threshold: real) : bool:
+    """""" Check if in given list of numbers, are any two numbers closer to each other than
+    given threshold.
+    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+    False
+    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+    True
+    """"""",has_close_element,HumanEval000,"has_close_elements(numbers: list real, threshold: real) : bool",,ensures { result <-> exists x. (mem x numbers) /\ (exists y. (mem y numbers) /\ ((x -. y) <. threshold)) }
+human_eval_002.mlw,"def truncate_number(number: real) : real:
+    """""" Given a positive floating point number, it can be decomposed into
+    and integer part (largest integer smaller than given number) and decimals
+    (leftover part always smaller than 1).
+
+    Return the decimal part of the number.
+    >>> truncate_number(3.5)
+    0.5
+    """"""",truncate_number,HumanEval002,truncate_number(number: real) : real,,ensures { 0.0 <= result < 1.0 /\ (result = number -. (from_int (floor number))) }
+human_eval_003.mlw,"def below_zero(operations: List[int]) -> bool:
+    """""" You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """"""",below_zero,HumanEval003,below_zero(operations: list int) : bool,,
+human_eval_004.mlw,"def mean_absolute_deviation(numbers: real list) : real:
+    """""" For a given list of input numbers, calculate Mean Absolute Deviation
+    around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each
+    element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """"""",mean_absolute_deviation,HumanEval004,mean_absolute_deviation(numbers: real list) : real,,
+human_eval_005.mlw,"def intersperse(numbers: List[int], delimiter: int) -> List[int]:
+    """""" Insert a number 'delimiter' between every two consecutive elements of input list `numbers'
+    >>> intersperse([], 4)
+    []
+    >>> intersperse([1, 2, 3], 4)
+    [1, 4, 2, 4, 3]
+    """"""",intersperse,HumanEval005,intersperse (l : list int) (n : int) : int,,"        ensures { length l <= 1 -> length result = length l /\ forall x. mem x l -> mem x result}
+        ensures { length l > 1 -> 
+            length result = 2 * length l - 1 /\
+            forall i: int. 0 <= i < length result ->
+            if mod i 2 = 0 then nth i result = nth (div i 2) l
+            else nth i result = n
+        }"
+human_eval_008.mlw,"def sum_product(numbers: List[int]) -> list [int]:
+    """""" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+    Empty sum should be equal to 0 and empty product should be equal to 1.
+    >>> sum_product([])
+    [0, 1]
+    >>> sum_product([1, 2, 3, 4])
+    [10, 24]
+    """"""",sum_product,HumanEval008,sum_product (l : list int) : list int,,"predicate product (l : list int) (q : int)
+    axiom product_base: forall l'. length l' = 0 <-> product l' 1
+    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')
+
+ensures { nth 0 result = sum l }
+ensures { product l (nth 1 result) }"
+human_eval_009.mlw,"def rolling_max(numbers: List[int]) -> List[int]:
+    """""" From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence. Assume that all values in the given list is larger than -1000
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """"""",rolling_max,HumanEval009,rolling_max (l : list int) : list int,,"ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+        ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }"
+human_eval_013.mlw,"def greatest_common_divisor(a: int, b: int) : int:
+    """""" Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5)
+    1
+    >>> greatest_common_divisor(25, 15)
+    5
+    """"""",greatest_common_divisor,HumanEval013,"greatest_common_divisor(a: int, b: int) : int",,"ensures { forall d . (mod d a = 0 /\ mod d b = 0) -> mod d result = 0 }
+        ensures { mod result a = 0 /\ mod result b = 0 }
+        ensures { result >= 1 }"
+human_eval_20.mlw,"def find_closest_elements(numbers: int list) : int list :
+    """""" From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    [2.0, 2.2]
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    [2.0, 2.0]
+    """"""",find_closest_elements,HumanEval020,find_closest_elements(numbers: int list) : int list,requires { length l >= 2 },"ensures { length result = 2 }
+        ensures { forall x, y . (mem x l /\ mem y l) -> abs (x-y) <= abs (nth 0 result - nth 1 result) }"
+human_eval_030.mlw,"def get_positive(l: list):
+    """"""Return only positive numbers in the list.
+    >>> get_positive([-1, 2, -4, 5, 6])
+    [2, 5, 6]
+    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    [5, 3, 2, 3, 9, 123, 1]
+    """"""",get_positive,HumanEval030,get_positive (l : list int) : list int,,"ensures { length l >= length result }
+        ensures { forall x . (mem x l /\ x > 0) -> mem x result }
+        ensures { forall x . mem x result -> x > 0 }"
+human_eval_031.mlw,"def is_prime(n):
+    """"""Return true if a given number is prime, and false otherwise.
+    >>> is_prime(6)
+    False
+    >>> is_prime(101)
+    True
+    >>> is_prime(11)
+    True
+    >>> is_prime(13441)
+    True
+    >>> is_prime(61)
+    True
+    >>> is_prime(4)
+    False
+    >>> is_prime(1)
+    False
+    """"""",is_prime,HumanEval031,is_prime (n : int) : bool,,ensures { result <-> (n >= 2 /\ forall d: int. 2 <= d /\ d < n -> not (mod n d = 0)) }
+human_eval_035.mlw,"def max_element(l: list):
+    """"""Return maximum element in the list.
+    >>> max_element([1, 2, 3])
+    3
+    >>> max_element([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    123
+    """""" ",max_element,HumanEval035,max_element (t : list int) : int,requires { length t > 0 },"ensures { forall j. 0 <= j < length t -> result >= nth j t }
+    ensures { exists j. 0 <= j < length t /\ result = nth j t } "
+human_eval_042.mlw,"def incr_list(l: list):
+    """"""Return list with elements incremented by 1.
+    >>> incr_list([1, 2, 3])
+    [2, 3, 4]
+    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
+    [6, 4, 6, 3, 4, 4, 10, 1, 124]
+    """"""",incr_list,HumanEval042,incr_list (l : list int) : list int,," ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }
+        ensures { length result = length l }"
+human_eval_052.mlw,"def below_threshold(l: list, t: int):
+    """"""Return True if all numbers in the list l are below threshold t.
+    >>> below_threshold([1, 2, 4, 10], 100)
+    True
+    >>> below_threshold([1, 20, 4, 10], 5)
+    False
+    """"""",below_threshold,HumanEval052,below_threshold(l : list int) (t: int) : bool,,ensures { result <-> (forall x. mem x l -> x < t) }
+human_eval_053.mlw,"def add(x: int, y: int):
+    """"""Add two numbers x and y
+    >>> add(2, 3)
+    5
+    >>> add(5, 7)
+    12
+    """"""",add,HumanEval053,add (x : int) (y : int) : int,,ensures { result = x + y }
+human_eval_057.mlw,"def monotonic(l: list):
+    """"""Return True is list elements are monotonically increasing or decreasing.
+    >>> monotonic([1, 2, 4, 20])
+    True
+    >>> monotonic([1, 20, 4, 10])
+    False
+    >>> monotonic([4, 1, 0, -10])
+    True
+    """"""",monotonic,HumanEval057,monotonic (l : list int) : bool,," ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }"
+human_eval_060.mlw,"def sum_to_n(n: int):
+    """"""sum_to_n is a function that sums numbers from 1 to n.
+    >>> sum_to_n(30)
+    465
+    >>> sum_to_n(100)
+    5050
+    >>> sum_to_n(5)
+    15
+    >>> sum_to_n(10)
+    55
+    >>> sum_to_n(1)
+    1",sum_to_n,HumanEval060,sum_to_n (n : int) : int,,"    predicate sum (n : int) (a : int)
+    axiom sum_zero :
+        forall a. sum 0 a <-> a = 0
+    axiom sum_ind :
+        forall a n . sum n a <-> exists b. sum (n-1) b /\ a = b + n 
+
+ensures { sum n result }"
+human_eval_085.mlw,"def add(lst):
+    """"""Given a non-empty list of integers lst. add the even elements that are at odd indices..
+
+
+    Examples:
+        add([4, 2, 6, 7]) ==> 2
+    """"""",add,HumanEval085,add (l : list int) : int,,
+human_eval_097.mlw,"def multiply(a, b):
+    """"""Complete the function that takes two integers and returns
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
+    """"""",multiply,HumanEval097,multiply (a : int) (b : int) : int,, ensures { result = mod (abs a) 10 * mod (abs b) 10 }
+human_eval_138.mlw,"def is_equal_to_sum_even(n):
+    """"""Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+    Example
+    is_equal_to_sum_even(4) == False
+    is_equal_to_sum_even(6) == False
+    is_equal_to_sum_even(8) == True
+    """"""",is_equal_to_sum,HumanEval138,is_equal_to_sum_even (n : int) : bool,,ensures { result <-> (mod n 2 = 0) /\ (n >= 8) }
+human_eval_139.mlw,"def special_factorial(n):
+    """"""The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """"""",special_factorial,HumanEval139,special_factorial (n : int) : int,requires { n > 0 }," predicate spec_fact (n : int) (a : int)
+    axiom spec_fact_base :
+        forall a. spec_fact 1 a <-> a = 1
+    axiom spec_fact_ind :
+        forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\ a = b * fact n
+
+ensures { spec_fact n result } "
+human_eval_151.mlw,"def double_the_difference(lst):
+    '''
+    Given a list of numbers, return the sum of squares of the numbers
+    in the list that are odd. Ignore numbers that are negative or not integers.
+
+    double_the_difference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10
+    double_the_difference([-1, -2, 0]) == 0
+    double_the_difference([9, -2]) == 81
+    double_the_difference([0]) == 0
+
+    If the input list is empty, return 0.
+    '''",double_the_dfference,HumanEval151,double_the_difference (l : list int) : int,,ensures {result = sum (map (fun x -> if x >= 0 /\ mod x 2 = 1 then x * x else 0) l)}
+human_eval_152.mlw,"def compare(game,guess):
+    """"""I think we all remember that feeling when the result of some long-awaited
+    event is finally known. The feelings and thoughts you have at that moment are
+    definitely worth noting down and comparing.
+    Your task is to determine if a person correctly guessed the results of a number of matches.
+    You are given two arrays of scores and guesses of equal length, where each index shows a match.
+    Return an array of the same length denoting how far off each guess was. If they have guessed correctly,
+    the value is 0, and if not, the value is the absolute difference between the guess and the score.
+
+
+    example:
+
+    compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]
+    compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]
+    """"""",compare,HumanEval152,compare (l1 : list int) (l2 : list int) : list int,,"ensures { length result = length l1 }
+        ensures { length l1 = length l2 }
+        ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2)}"
+human_eval_159.mlw,"def eat(number, need, remaining):
+    """"""
+    You're a hungry rabbit, and you already have eaten a certain number of carrots,
+    but now you need to eat more carrots to complete the day's meals.
+    you should return an array of [ total number of eaten carrots after your meals,
+                                    the number of carrots left after your meals ]
+    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
+
+    Example:
+    * eat(5, 6, 10) -> [11, 4]
+    * eat(4, 8, 9) -> [12, 1]
+    * eat(1, 10, 10) -> [11, 0]
+    * eat(2, 11, 5) -> [7, 0]
+
+    Variables:
+    @number : integer
+        the number of carrots that you have eaten.
+    @need : integer
+        the number of carrots that you need to eat.
+    @remaining : integer
+        the number of remaining carrots thet exist in stock
+
+    Constrain:
+    * 0 <= number <= 1000
+    * 0 <= need <= 1000
+    * 0 <= remaining <= 1000
+
+    Have fun :)
+    """"""",eat,HumanEval159,eat (number : int) (need : int) (remaining : int) : list int,"requires { 0 <= number <= 1000 }
+        requires { 0 <= need <= 1000 }
+        requires { 0 <= remaining <= 1000 }","ensures {
+        let total_eaten = if need <= remaining then number + need else number + remaining in
+        let carrots_left = if need <= remaining then remaining - need else 0 in
+        result = Cons total_eaten (Cons carrots_left Nil)
+        }"
+human_eval_163.mlw,"def generate_integers(a, b):
+    """"""
+    Given two positive integers a and b, return the digits between a
+    and b, in ascending order.
+
+    For example:
+    generate_integers(2, 8) => [2, 3, 4, 5, 6, 7, 8]
+    generate_integers(8, 2) => [2, 3, 4, 5, 6, 7, 8]
+    generate_integers(10, 14) => [10, 11, 12, 13, 14]
+    """"""",generate_integers,HumanEval163,"generate_integers(a : int, b : int) : list int",requires { a > 0 /\ b > 0 },"ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}"

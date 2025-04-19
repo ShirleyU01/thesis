@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching inserting the delimiter between each pair of elements, returning the list as is if empty or with one element.",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n    end\n\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator to build the result list in a tail-recursive manner, reversing at the end to maintain order.",
+            "implementation": "module HumanEval005\n\n  use list.List\n  use list.Reverse\n\n  let rec intersperse_aux (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x (Cons y ys) -> intersperse_aux (Cons y ys) n (Cons n (Cons x acc))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    let rev_res = intersperse_aux l n Nil in\n    reverse rev_res\n\nend"
+        },
+        {
+            "description": "Recursive definition using an inner function that inserts delimiter before the recursive call, avoiding explicit pattern on two elements.",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> Cons x (Cons n (intersperse xs n))\n    end\n\nend"
+        },
+        {
+            "description": "Using a helper function that takes the last element separately to avoid trailing delimiter at the end, building list by recursion.",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse_help (l : list int) (n : int) (last : int) : list int =\n    match l with\n    | Nil -> Cons last Nil\n    | Cons x xs -> Cons last (Cons n (intersperse_help xs n x))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> intersperse_help xs n x\n    end\n\nend"
+        },
+        {
+            "description": "Using an explicit integer index and a custom nth_my function to build the result list by iterating over indices recursively.",
+            "implementation": "module HumanEval005\n\n  use list.List\n  use list.Length\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec build (l: list int) (n: int) (len: int) : list int =\n    if n >= len then Nil\n    else if n = len - 1 then Cons (nth_my n l) Nil\n    else Cons (nth_my n l) (Cons n (build l (n + 1) len))\n\n  let intersperse (l: list int) (n: int) : list int =\n    let len = length l in\n    build l 0 len\n\nend"
+        },
+        {
+            "description": "Recursive function using a boolean flag to know when to insert delimiter, starting with no delimiter before first element.",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse_flag (l : list int) (n : int) (first : bool) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if first then Cons x (intersperse_flag xs n false)\n      else Cons n (Cons x (intersperse_flag xs n false))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    intersperse_flag l n true\n\nend"
+        },
+        {
+            "description": "Building the result list in reverse order by a helper recursive function with accumulator, then reversing at the end to maintain order.",
+            "implementation": "module HumanEval005\n\n  use list.List\n  use list.Reverse\n\n  let rec intersperse_rev (l : list int) (n : int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x Nil -> Cons x acc\n    | Cons x (Cons y ys) -> intersperse_rev (Cons y ys) n (Cons n (Cons x acc))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    reverse (intersperse_rev l n Nil)\n\nend"
+        },
+        {
+            "description": "Using pattern matching with nested matches to explicitly handle lists with zero, one, two or more elements for clarity.",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      match xs with\n      | Nil -> Cons x Nil\n      | Cons y ys -> Cons x (Cons n (intersperse xs n))\n      end\n    end\n\nend"
+        },
+        {
+            "description": "Recursive function that always adds the delimiter after the head and then removes the last delimiter after full construction (by a separate function).",
+            "implementation": "module HumanEval005\n\n  use list.List\n\n  let rec intersperse_delim (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons x (Cons n (intersperse_delim xs n))\n    end\n\n  let rec remove_last_delim (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x (Cons y ys) -> Cons x (remove_last_delim (Cons y ys))\n    end\n\n  let intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | _ -> remove_last_delim (intersperse_delim l n)\n    end\n\nend"
+        },
+        {
+            "description": "Using a fold-like recursive approach by defining a function that appends the delimiter and the current element to the partial result built so far.",
+            "implementation": "module HumanEval005\n\n  use list.List\n  use list.Append\n\n  let rec intersperse (l : list int) (n : int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs ->\n      let rest = intersperse xs n in\n      Cons x (Cons n rest)\n    end\n\nend"
+        }
+    ]
+}

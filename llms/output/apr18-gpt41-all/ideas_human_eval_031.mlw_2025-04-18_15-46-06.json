@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Trial division up to sqrt(n), using a while loop. This is the classic efficient method: for n > 1, check divisibility by all numbers from 2 up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref i = 2 in\n    let ref res = true in\n    while i * i <= n && res do\n      if mod n i = 0 then res <- false;\n      i <- i + 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Naive trial division up to n-1, using a for loop. Checks divisibility for every number from 2 to n-1.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref res = true in\n    for i = 2 to n-1 do\n      if mod n i = 0 then res <- false\n    done;\n    res\nend"
+        },
+        {
+            "description": "Recursive check with early exit: recursively check if n is divisible by any number from 2 up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n\n  let rec is_prime_aux (n: int) (i: int) : bool =\n    if i * i > n then true\n    else if mod n i = 0 then false\n    else is_prime_aux n (i + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else is_prime_aux n 2\nend"
+        },
+        {
+            "description": "Recursive trial division up to n/2. Check if n is divisible by any number between 2 and n/2.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div (n: int) (i: int) : bool =\n    if i > n div 2 then true\n    else if mod n i = 0 then false\n    else check_div n (i + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else check_div n 2\nend"
+        },
+        {
+            "description": "Special-case even numbers and run a for loop only for odd divisors, skipping even divisors after 2.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n = 2 then true else\n    if mod n 2 = 0 then false else\n      let ref res = true in\n      let ref i = 3 in\n      while i * i <= n && res do\n        if mod n i = 0 then res <- false;\n        i <- i + 2\n      done;\n      res\nend"
+        },
+        {
+            "description": "Count number of divisors using a for loop and return true if there are exactly two divisors.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let ref count = 0 in\n    for i = 1 to n do\n      if mod n i = 0 then count <- count + 1\n    done;\n    count = 2\nend"
+        },
+        {
+            "description": "Use a recursive function checking divisibility from n-1 down to 2, returning false if any divisor is found.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_prime_rec (n: int) (i: int) : bool =\n    if i = 1 then true\n    else if i = n then is_prime_rec n (i - 1)\n    else if mod n i = 0 then false\n    else is_prime_rec n (i - 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else is_prime_rec n n\nend"
+        },
+        {
+            "description": "Check divisibility only by 2 and 3, then for all numbers of the form 6k \u00b1 1 up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n = 2 || n = 3 then true else\n    if mod n 2 = 0 || mod n 3 = 0 then false else\n      let ref i = 5 in\n      let ref res = true in\n      while i * i <= n && res do\n        if mod n i = 0 || mod n (i + 2) = 0 then res <- false;\n        i <- i + 6\n      done;\n      res\nend"
+        },
+        {
+            "description": "Use a helper function to generate a list of all possible divisors and check with a for loop over that list.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec make_divisors (a: int) (b: int) : list int =\n    if a > b then Nil else Cons a (make_divisors (a+1) b)\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let divs = make_divisors 2 (n-1) in\n    let len = length divs in\n    let ref res = true in\n    for i = 0 to len-1 do\n      if mod n (nth_my i divs) = 0 then res <- false\n    done;\n    res\nend"
+        },
+        {
+            "description": "Check for trivial cases, then use pattern matching on the value, and check divisibility up to sqrt(n) using a for loop.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n\n  let is_prime (n: int) : bool =\n    match n with\n    | 2 -> true\n    | _ ->\n      if n <= 1 || mod n 2 = 0 then false\n      else\n        let ref res = true in\n        for i = 3 to (min (n-1) (n div 2)) do\n          if mod n i = 0 then res <- false\n          else ()\n        done;\n        res\n    end\nend"
+        }
+    ]
+}

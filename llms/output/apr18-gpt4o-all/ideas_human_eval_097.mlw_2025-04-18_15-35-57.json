@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using basic arithmetic operations to extract unit digits and calculate the product.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let unit_a = mod a 10 in\n    let unit_b = mod b 10 in\n    unit_a * unit_b\nend"
+        },
+        {
+            "description": "Using pattern matching to separate the process of extracting unit digits.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let extract_unit x = match mod x 10 with\n    | x when x < 0 -> -x\n    | x -> x\n    end in\n    (extract_unit a) * (extract_unit b)\nend"
+        },
+        {
+            "description": "Using recursion to repeatedly divide by 10 until reaching the last digit.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let rec last_digit (x:int) : int =\n    if x < 10 && x > -10 then x else last_digit (div x 10)\n\n  let multiply (a:int) (b:int) : int =\n    (abs (last_digit a)) * (abs (last_digit b))\nend"
+        },
+        {
+            "description": "Using conditional branching to ensure positive unit digits before multiplication.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let ua = mod a 10 in\n    let ub = mod b 10 in\n    let ua_pos = if ua < 0 then -ua else ua in\n    let ub_pos = if ub < 0 then -ub else ub in\n    ua_pos * ub_pos\nend"
+        },
+        {
+            "description": "Using helper function to encapsulate unit digit extraction.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let unit_digit (x:int) : int = mod x 10\n\n  let multiply (a:int) (b:int) : int =\n    (abs (unit_digit a)) * (abs (unit_digit b))\nend"
+        },
+        {
+            "description": "Using a loop to iteratively compute the unit digit product.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let ref result = 0 in\n    for i = 0 to 0 do\n      let ua = mod a 10 in\n      let ub = mod b 10 in\n      result <- (abs ua) * (abs ub)\n    done;\n    result\nend"
+        },
+        {
+            "description": "Using absolute values to directly handle negative unit digits.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  use int.Abs\n  let multiply (a:int) (b:int) : int =\n    let ua = abs (mod a 10) in\n    let ub = abs (mod b 10) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Using a tuple to store unit digits and calculate the product.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let (ua, ub) = (abs (mod a 10), abs (mod b 10)) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Using nested functions to encapsulate digit extraction and multiplication.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let unit x = abs (mod x 10) in\n    let product x y = x * y in\n    product (unit a) (unit b)\nend"
+        },
+        {
+            "description": "Using a match expression to separately handle positive and negative numbers.",
+            "implementation": "module HumanEval097\n  use int.EuclideanDivision\n  let multiply (a:int) (b:int) : int =\n    let ua = match mod a 10 with | n when n < 0 -> -n | n -> n end in\n    let ub = match mod b 10 with | n when n < 0 -> -n | n -> n end in\n    ua * ub\nend"
+        }
+    ]
+}

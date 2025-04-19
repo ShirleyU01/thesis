@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use of the Euclidean algorithm with recursion",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n    \n    let rec greatest_common_divisor (a: int) (b: int) : int =\n        if b = 0 then a else greatest_common_divisor b (mod a b)\n\nend"
+        },
+        {
+            "description": "Iterative approach using a while-loop",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n    \n    let greatest_common_divisor (a: int) (b: int) : int =\n        let ref x = a in\n        let ref y = b in\n        while y <> 0 do\n            let temp = y in\n            y <- mod x y;\n            x <- temp\n        done;\n        x\n\nend"
+        },
+        {
+            "description": "Iterative approach using a for-loop to simulate Euclidean algorithm",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n\n    let greatest_common_divisor (a: int) (b: int) : int =\n        let ref x = a in\n        let ref y = b in\n        let ref gcd = 0 in\n        for i = 0 to max x y do\n            if y = 0 then gcd <- x\n            else\n                begin\n                    let temp = y in\n                    y <- mod x y;\n                    x <- temp\n                end\n        done;\n        gcd\n\nend"
+        },
+        {
+            "description": "Recursive approach with pattern matching",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n\n    let rec greatest_common_divisor (a: int) (b: int) : int =\n        match b with\n        | 0 -> a\n        | _ -> greatest_common_divisor b (mod a b)\n        end\n\nend"
+        },
+        {
+            "description": "Use of subtraction method iteratively",
+            "implementation": "module HumanEval013\n\n    let greatest_common_divisor (a: int) (b: int) : int =\n        let ref x = a in\n        let ref y = b in\n        while x <> y do\n            if x > y then x <- x - y\n            else y <- y - x\n        done;\n        x\n\nend"
+        },
+        {
+            "description": "Use of subtraction method recursively",
+            "implementation": "module HumanEval013\n\n    let rec greatest_common_divisor (a: int) (b: int) : int =\n        if a = b then a\n        else if a > b then greatest_common_divisor (a - b) b\n        else greatest_common_divisor a (b - a)\n\nend"
+        },
+        {
+            "description": "Use pattern matching with subtraction method",
+            "implementation": "module HumanEval013\n\n    let rec greatest_common_divisor (a: int) (b: int) : int =\n        match a, b with\n        | x, y when x = y -> x\n        | x, y when x > y -> greatest_common_divisor (x - y) y\n        | x, y -> greatest_common_divisor x (y - x)\n        end\n\nend"
+        },
+        {
+            "description": "Use of modulo operator within an iterative loop",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n\n    let greatest_common_divisor (a: int) (b: int) : int =\n        let ref x = a in\n        let ref y = b in\n        while y <> 0 do\n            x <- mod x y;\n            if x = 0 then x <- y\n        done;\n        x\n\nend"
+        },
+        {
+            "description": "Using minimum and maximum for gcd calculation",
+            "implementation": "module HumanEval013\n\n    use int.MinMax\n\n    let rec greatest_common_divisor (a: int) (b: int) : int =\n        let x = min a b in\n        let y = max a b in\n        if y mod x = 0 then x\n        else greatest_common_divisor x (y mod x)\n\nend"
+        },
+        {
+            "description": "Use of helper function to compute gcd iteratively",
+            "implementation": "module HumanEval013\n\n    use int.EuclideanDivision\n\n    let rec gcd_helper (x: int) (y: int) : int =\n        if y = 0 then x else gcd_helper y (mod x y)\n\n    let greatest_common_divisor (a: int) (b: int) : int =\n        gcd_helper a b\n\nend"
+        }
+    ]
+}

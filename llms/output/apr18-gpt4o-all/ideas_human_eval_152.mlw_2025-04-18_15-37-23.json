@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using simple list recursion and pattern matching",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    end\nend"
+        },
+        {
+            "description": "Using accumulator within recursion",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\n\nlet rec compare_acc (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> acc\n    | Cons x xs, Cons y ys -> compare_acc xs ys (Cons (abs (x - y)) acc)\n    end\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    compare_acc l1 l2 Nil\nend"
+        },
+        {
+            "description": "Using a helper function with index tracking",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\nuse list.Length\n\nlet rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\nlet rec compare_helper (l1 : list int) (l2 : list int) (i : int) : list int =\n    requires { length l1 = length l2 }\n    requires { 0 <= i /\\ i <= length l1 }\n    variant { length l1 - i }\n    ensures { length result = length l1 }\n    if i = length l1 then Nil\n    else Cons (abs (nth_my i l1 - nth_my i l2)) (compare_helper l1 l2 (i + 1))\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    compare_helper l1 l2 0\nend"
+        },
+        {
+            "description": "Using pattern matching and branching",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1 with\n    | Nil -> Nil\n    | Cons x xs -> match l2 with\n                   | Nil -> Nil\n                   | Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n                   end\n    end\nend"
+        },
+        {
+            "description": "Using a reverse and map approach",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\nuse list.Reverse\nuse list.Map\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    let reversed_l1 = reverse l1 in\n    let reversed_l2 = reverse l2 in\n    map (fun (pair : (int, int)) -> abs (fst pair - snd pair)) (combine reversed_l1 reversed_l2)\nend"
+        },
+        {
+            "description": "Using a fold_right approach",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\nuse list.FoldRight\n\nlet compare_fold (l1 : list int) (l2 : list int) : list int =\n    fold_right (fun (x : int) (y : int) (acc : list int) -> Cons (abs (x - y)) acc) l1 l2 Nil\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    compare_fold l1 l2\nend"
+        },
+        {
+            "description": "Using recursive function with tail recursion",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\n\nlet rec compare_tail (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> reverse acc\n    | Cons x xs, Cons y ys -> compare_tail xs ys (Cons (abs (x - y)) acc)\n    end\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    compare_tail l1 l2 Nil\nend"
+        },
+        {
+            "description": "Using map with combine",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\nuse list.Map\nuse list.Combine\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    map (fun (pair : (int, int)) -> abs (fst pair - snd pair)) (combine l1 l2)\nend"
+        },
+        {
+            "description": "Using recursion with cons pattern",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\n\nlet rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Using while-loop simulation through recursion",
+            "implementation": "module HumanEval152\n\nuse list.List\nuse int.Abs\nuse list.Length\n\nlet rec compare_while (l1 : list int) (l2 : list int) (i : int) : list int =\n    requires { length l1 = length l2 }\n    requires { 0 <= i /\\ i <= length l1 }\n    variant { length l1 - i }\n    if i = length l1 then Nil\n    else Cons (abs (nth_my i l1 - nth_my i l2)) (compare_while l1 l2 (i + 1))\n\nlet compare (l1 : list int) (l2 : list int) : list int =\n    compare_while l1 l2 0\nend"
+        }
+    ]
+}

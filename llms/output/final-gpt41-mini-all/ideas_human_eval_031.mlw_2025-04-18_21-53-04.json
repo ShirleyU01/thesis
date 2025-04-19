@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Basic recursive trial division up to n-1: Check divisibility of n by all numbers from 2 to n-1 recursively.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_divisible (n: int) (d: int) : bool =\n    if d >= n then false else\n    if mod n d = 0 then true else is_divisible n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    not (is_divisible n 2)\nend"
+        },
+        {
+            "description": "Recursive trial division up to sqrt(n): Only check divisibility up to the integer square root of n.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n\n  let rec is_divisible_upto (n: int) (d: int) (max_d: int) : bool =\n    if d > max_d then false else\n    if mod n d = 0 then true else is_divisible_upto n (d + 1) max_d\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let max_d = int_of_float (sqrt (float_of_int n)) in\n    not (is_divisible_upto n 2 max_d)\nend"
+        },
+        {
+            "description": "Iterative simulation using tail-recursive helper to check divisibility up to n-1.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div (n: int) (d: int) : bool =\n    if d >= n then true else\n    if mod n d = 0 then false else check_div n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else check_div n 2\nend"
+        },
+        {
+            "description": "Check divisibility by all odd numbers after checking 2 separately, up to sqrt(n), using recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_odd_div (n: int) (d: int) (max_d: int) : bool =\n    if d > max_d then true else\n    if mod n d = 0 then false else check_odd_div n (d + 2) max_d\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n = 2 then true else\n    if mod n 2 = 0 then false else\n    let max_d = int_of_float (sqrt (float_of_int n)) in\n    check_odd_div n 3 max_d\nend"
+        },
+        {
+            "description": "Using a recursive helper with accumulator boolean to simulate checking divisibility without early return.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div_acc (n: int) (d: int) (max_d: int) (acc: bool) : bool =\n    if d > max_d then acc else\n    let acc2 = acc && (mod n d <> 0) in\n    check_div_acc n (d + 1) max_d acc2\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    check_div_acc n 2 (int_of_float (sqrt (float_of_int n))) true\nend"
+        },
+        {
+            "description": "Using pattern matching on natural numbers for divisors with recursive checks up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div_match (n: int) (d: int) (max_d: int) : bool =\n    match d <= max_d with\n    | False -> true\n    | True -> if mod n d = 0 then false else check_div_match n (d + 1) max_d\n    end\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    let max_d = int_of_float (sqrt (float_of_int n)) in\n    check_div_match n 2 max_d\nend"
+        },
+        {
+            "description": "Using a tail-recursive helper function with an explicit loop style and boolean flag to check primality.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec loop (n: int) (d: int) (max_d: int) (is_prime_flag: bool) : bool =\n    if not is_prime_flag then false else\n    if d > max_d then true else\n    if mod n d = 0 then false else loop n (d + 1) max_d true\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    loop n 2 (int_of_float (sqrt (float_of_int n))) true\nend"
+        },
+        {
+            "description": "Check divisibility by 2 and then use recursion to check only odd numbers up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_odd (n: int) (d: int) (max_d: int) : bool =\n    if d > max_d then true else\n    if mod n d = 0 then false else check_odd n (d + 2) max_d\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n = 2 then true else\n    if mod n 2 = 0 then false else\n    let max_d = int_of_float (sqrt (float_of_int n)) in\n    check_odd n 3 max_d\nend"
+        },
+        {
+            "description": "Use a recursive helper that attempts to divide n by numbers starting from 2 up to n/2 (less efficient).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div_half (n: int) (d: int) : bool =\n    if d > n div 2 then true else\n    if mod n d = 0 then false else check_div_half n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else check_div_half n 2\nend"
+        },
+        {
+            "description": "Check divisibility recursively by skipping multiples of 2 and 3 using 6k \u00b1 1 optimization up to sqrt(n).",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_6k (n: int) (i: int) (max_d: int) : bool =\n    if i > max_d then true else\n    if mod n i = 0 || mod n (i + 2) = 0 then false else check_6k n (i + 6) max_d\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false else\n    if n <= 3 then true else\n    if mod n 2 = 0 || mod n 3 = 0 then false else\n    let max_d = int_of_float (sqrt (float_of_int n)) in\n    check_6k n 5 max_d\nend"
+        }
+    ]
+}

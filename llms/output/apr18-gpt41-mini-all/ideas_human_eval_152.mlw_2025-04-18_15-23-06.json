@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive solution directly pattern matching on both lists simultaneously, computing absolute differences, building the result list recursively.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    end\nend"
+        },
+        {
+            "description": "Recursive solution with helper function that uses pattern matching and an accumulator to build the result list in reverse, then reverses it at the end.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Reverse\n  use int.Abs\n\n  let rec compare_aux (l1: list int) (l2: list int) (acc: list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> reverse acc\n    | Cons x xs, Cons y ys -> compare_aux xs ys (Cons (abs (x - y)) acc)\n    end\n\n  let compare (l1: list int) (l2: list int) : list int =\n    compare_aux l1 l2 Nil\nend"
+        },
+        {
+            "description": "Recursive solution that uses separate pattern matching for each list and nested if-then-else to compute absolute difference manually without abs function.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let rec abs_diff (a: int) (b: int) : int =\n    let diff = a - b in\n    if diff >= 0 then diff else -diff\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1 with\n    | Nil -> Nil\n    | Cons x xs ->\n      match l2 with\n      | Nil -> Nil\n      | Cons y ys -> Cons (abs_diff x y) (compare xs ys)\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive solution with explicit length check and index-based access using custom nth_my function to access elements by index and build result list via recursion over index.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Length\n  use int.Abs\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec build_result (i: int) (len: int) (l1: list int) (l2: list int) : list int =\n    if i = len then Nil else\n      let diff = abs (nth_my i l1 - nth_my i l2) in\n      Cons diff (build_result (i + 1) len l1 l2)\n\n  let compare (l1: list int) (l2: list int) : list int =\n    let len1 = length l1 in\n    let len2 = length l2 in\n    if len1 = len2 then build_result 0 len1 l1 l2 else Nil\nend"
+        },
+        {
+            "description": "Recursive solution using a mutual recursion style: one function to handle matching, another helper to compute absolute difference, emphasizing modularity.",
+            "implementation": "module HumanEval152\n  use list.List\n\n  let abs_diff (a: int) (b: int) : int =\n    let d = a - b in\n    if d < 0 then -d else d\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs_diff x y) (compare xs ys)\n    end\nend"
+        },
+        {
+            "description": "Recursive solution that merges the lists into a list of pairs first, then recursively processes the combined list computing absolute differences.",
+            "implementation": "module HumanEval152\n  use list.List\n  use list.Combine\n  use int.Abs\n\n  let rec compare_pairs (l: list (int, int)) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons (a, b) xs -> Cons (abs (a - b)) (compare_pairs xs)\n    end\n\n  let compare (l1: list int) (l2: list int) : list int =\n    compare_pairs (combine l1 l2)\nend"
+        },
+        {
+            "description": "Recursive solution with explicit if statements checking if difference is zero to place 0 or absolute difference, showing conditional branching explicitly.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n      let d = x - y in\n      if d = 0 then Cons 0 (compare xs ys) else Cons (abs d) (compare xs ys)\n    end\nend"
+        },
+        {
+            "description": "Recursive solution that uses pattern matching with nested matches inside, and uses let bindings for clarity in difference computation.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1 with\n    | Nil -> Nil\n    | Cons x xs ->\n      match l2 with\n      | Nil -> Nil\n      | Cons y ys ->\n        let diff = abs (x - y) in\n        Cons diff (compare xs ys)\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive solution that computes difference, then uses if-then-else expression inline to decide result, demonstrating concise expression usage.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n\n  let rec compare (l1: list int) (l2: list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n      let diff = abs (x - y) in\n      Cons (if diff = 0 then 0 else diff) (compare xs ys)\n    end\nend"
+        },
+        {
+            "description": "Recursive solution that uses an inner helper function with explicit variant annotation for termination and explicit requires clauses for input lists having the same length.",
+            "implementation": "module HumanEval152\n  use list.List\n  use int.Abs\n  use list.Length\n\n  let rec compare_aux (l1: list int) (l2: list int) : list int =\n    requires { length l1 = length l2 }\n    variant { length l1 }\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare_aux xs ys)\n    end\n\n  let compare (l1: list int) (l2: list int) : list int =\n    compare_aux l1 l2\nend"
+        }
+    ]
+}

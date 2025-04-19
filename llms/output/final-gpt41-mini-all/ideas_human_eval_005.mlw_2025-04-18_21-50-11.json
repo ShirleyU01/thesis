@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching inserts delimiter between elements by matching on list structure and concatenating.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x xs -> Cons x (Cons n (intersperse xs n))\n  end\nend"
+        },
+        {
+            "description": "Helper recursive function with accumulator builds the result list in reverse order, then reverses it at the end for efficiency.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\nuse list.Reverse\n\nlet rec intersperse_helper (l : list int) (n : int) (acc : list int) : list int =\n  match l with\n  | Nil -> acc\n  | Cons x Nil -> Cons x acc\n  | Cons x xs -> intersperse_helper xs n (Cons n (Cons x acc))\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  reverse (intersperse_helper l n Nil)\n\nend"
+        },
+        {
+            "description": "Iterative approach using mutable references and while loop, building the list by prepending elements and then reversing at the end.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Reverse\n\nlet intersperse (l : list int) (n : int) : list int =\n  let len = length l in\n  if len = 0 then Nil else\n  let ref i = len - 1 in\n  let ref res = Nil in\n  let rec nth_my (idx:int) (ll:list int) : int =\n    match ll with\n    | Cons x xs -> if idx = 0 then x else nth_my (idx - 1) xs\n    end\n  in\n  while !i > 0 do\n    res <- Cons (nth_my !i l) (Cons n !res);\n    i := !i - 1\n  done;\n  res <- Cons (nth_my 0 l) !res;\n  res\n\nend"
+        },
+        {
+            "description": "Uses two mutually recursive functions: one to insert delimiter before each element except the first, another to start the process.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec intersperse_aux (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> Cons n (Cons x (intersperse_aux xs n))\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs -> Cons x (intersperse_aux xs n)\n  end\n\nend"
+        },
+        {
+            "description": "Define a function to append an element to the end of a list, then use recursion to build the interspersed list by appending delimiter and elements at the end.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec append_elem (l : list int) (x : int) : list int =\n  match l with\n  | Nil -> Cons x Nil\n  | Cons y ys -> Cons y (append_elem ys x)\n  end\n\nlet rec intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x xs -> append_elem (Cons x (Cons n Nil)) (head (intersperse xs n)) ++ (match xs with | Cons _ xt -> intersperse xt n | Nil -> Nil end)\n  end\n\nlet head (l : list int) : int =\n  match l with\n  | Cons x _ -> x\n  | Nil -> 0 (* dummy, won't be called *)\n  end\n\nend"
+        },
+        {
+            "description": "Use an explicit index-based recursion with a custom nth_my function to build the interspersed list by iterating over input list indices.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Length\nuse list.Append\n\nlet rec nth_my (n : int) (l : list int) : int =\n  match l with\n  | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n  | Nil -> 0 (* dummy, should not happen *)\n  end\n\nlet rec build (l : list int) (n_delim : int) (idx : int) (len : int) : list int =\n  if idx >= len then Nil\n  else if idx = len - 1 then Cons (nth_my idx l) Nil\n  else Cons (nth_my idx l) (Cons n_delim (build l n_delim (idx + 1) len))\n\nlet intersperse (l : list int) (n : int) : list int =\n  build l n 0 (length l)\n\nend"
+        },
+        {
+            "description": "Define intersperse using fold-like recursion by defining a recursive function that carries the previous element and builds the list with delimiters.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec intersperse_fold (l : list int) (n : int) (prev : option int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x xs ->\n    match prev with\n    | None -> Cons x (intersperse_fold xs n (Some x))\n    | Some _ -> Cons n (Cons x (intersperse_fold xs n (Some x)))\n    end\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  intersperse_fold l n None\n\nend"
+        },
+        {
+            "description": "Use tail recursion with an explicit accumulator and a boolean flag to control insertion of delimiter only between elements.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Reverse\n\nlet rec intersperse_tail (l : list int) (n : int) (acc : list int) (first : bool) : list int =\n  match l with\n  | Nil -> reverse acc\n  | Cons x xs ->\n    if first then intersperse_tail xs n (Cons x acc) false\n    else intersperse_tail xs n (Cons x (Cons n acc)) false\n  end\n\nlet intersperse (l : list int) (n : int) : list int =\n  intersperse_tail l n Nil true\n\nend"
+        },
+        {
+            "description": "Use pattern matching with guards to distinguish between single element, empty, and multiple elements, recursively building the list with delimiters.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x xs when xs <> Nil -> Cons x (Cons n (intersperse xs n))\n  end\n\nend"
+        },
+        {
+            "description": "Use explicit pattern matching on list prefixes to handle cases where list has at least two elements, inserting delimiter between first two and recursing.",
+            "implementation": "module HumanEval005\n\nuse int.Int\nuse list.List\nuse list.Append\n\nlet rec intersperse (l : list int) (n : int) : list int =\n  match l with\n  | Nil -> Nil\n  | Cons x Nil -> Cons x Nil\n  | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n  end\n\nend"
+        }
+    ]
+}

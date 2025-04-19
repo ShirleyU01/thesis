@@ -25,5 +25,3 @@ fact,Fact,int -> int,Computes the factorial of an integer.,use int.Fact
 iter,Iter,('a -> 'a) -> int -> 'a -> 'a,"Applies a function repeatedly, a specified number of times.",use int.Iter
 add,IntInf,t -> t -> t,"Adds two elements, with support for infinite values.",use int.IntInf
 fib,Fibonacci,int -> int,Computes the Fibonacci number for a given integer.,use int.Fibonacci
-p,SimpleInduction,int -> bool,Induction principle for nonnegative integers.,use int.SimpleInduction
-p,Induction,int -> bool,General induction principle with a customizable lower bound.,use int.Induction

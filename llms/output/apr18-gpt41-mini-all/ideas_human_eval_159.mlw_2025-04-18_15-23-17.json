@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using simple conditional branching to calculate eaten and remaining carrots by comparing need with remaining.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    if need <= remaining then\n      Cons (number + need) (Cons (remaining - need) Nil)\n    else\n      Cons (number + remaining) (Cons 0 Nil)\nend"
+        },
+        {
+            "description": "Using let-bindings to compute the actual carrots eaten as minimum of need and remaining, then return updated counts.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let eaten = min need remaining in\n    let new_number = number + eaten in\n    let new_remaining = remaining - eaten in\n    Cons new_number (Cons new_remaining Nil)\nend"
+        },
+        {
+            "description": "Using pattern matching on need and remaining with multiple match cases to decide eating behavior.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    match (need, remaining) with\n    | (0, r) -> Cons number (Cons r Nil)\n    | (n, 0) -> Cons number (Cons 0 Nil)\n    | (n, r) -> if n <= r then Cons (number + n) (Cons (r - n) Nil) else Cons (number + r) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Using recursion to simulate eating one carrot at a time reducing need and remaining until done or depleted.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec eat_helper (number : int) (need : int) (remaining : int) : (int * int) =\n    if need = 0 || remaining = 0 then (number, remaining)\n    else eat_helper (number + 1) (need - 1) (remaining - 1)\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let (new_number, new_remaining) = eat_helper number need remaining in\n    Cons new_number (Cons new_remaining Nil)\nend"
+        },
+        {
+            "description": "Using a while loop with mutable references to simulate eating carrots until need or remaining is exhausted.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let ref n = number in\n    let ref need_ref = need in\n    let ref rem = remaining in\n    while !need_ref > 0 && !rem > 0 do\n      n <- !n + 1;\n      need_ref <- !need_ref - 1;\n      rem <- !rem - 1;\n    done;\n    Cons !n (Cons !rem Nil)\nend"
+        },
+        {
+            "description": "Using arithmetic expressions directly without any branching: eaten is min(need, remaining), then compute results.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let eaten = min need remaining in\n    Cons (number + eaten) (Cons (remaining - eaten) Nil)\nend"
+        },
+        {
+            "description": "Using nested if-then-else expressions inside a begin-end block for clarity of branching logic.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    begin\n      if need <= remaining then\n        Cons (number + need) (Cons (remaining - need) Nil)\n      else\n        Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Using a single match on boolean condition to decide between eating all needed or all remaining carrots.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    match need <= remaining with\n    | True -> Cons (number + need) (Cons (remaining - need) Nil)\n    | False -> Cons (number + remaining) (Cons 0 Nil)\n    end\nend"
+        },
+        {
+            "description": "Using recursive pattern matching on need and remaining to decrease both until one reaches zero, accumulating eaten carrots.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec eat_rec (number : int) (need : int) (remaining : int) : (int * int) =\n    match need with\n    | 0 -> (number, remaining)\n    | _ -> match remaining with\n      | 0 -> (number, 0)\n      | _ -> eat_rec (number + 1) (need - 1) (remaining - 1)\n    end\n  end\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let (new_number, new_remaining) = eat_rec number need remaining in\n    Cons new_number (Cons new_remaining Nil)\nend"
+        },
+        {
+            "description": "Using arithmetic with max and min to compute eaten carrots without explicit if-else, then form resulting list.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let eat (number : int) (need : int) (remaining : int) : list int =\n    let eaten = min need remaining in\n    let left = max 0 (remaining - need) in\n    Cons (number + eaten) (Cons left Nil)\nend"
+        }
+    ]
+}

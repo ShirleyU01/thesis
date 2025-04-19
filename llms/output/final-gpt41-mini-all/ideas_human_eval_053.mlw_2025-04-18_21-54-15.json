@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple direct addition using the built-in '+' operator from int.Int module",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    x + y\nend"
+        },
+        {
+            "description": "Recursive addition using decrement and increment: decrement y until zero, incrementing accumulator",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Recursive addition using pattern matching on y zero or positive/negative with base case",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x\n    else if y > 0 then add (x + 1) (y - 1)\n    else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Addition by converting y to absolute and adjusting sign with recursion",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.Abs\n\n  let rec add_abs (x : int) (y : int) (sign : int) : int =\n    if y = 0 then x\n    else add_abs (x + sign) (y - 1) sign\n\n  let add (x : int) (y : int) : int =\n    if y >= 0 then add_abs x y 1 else add_abs x (abs y) (-1)\nend"
+        },
+        {
+            "description": "Addition using iteration with a while loop to add y times to x",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    let ref result = x in\n    let ref count = y in\n    if y >= 0 then begin\n      while count > 0 do\n        result <- result + 1;\n        count <- count - 1\n      done;\n      result\n    end else begin\n      while count < 0 do\n        result <- result - 1;\n        count <- count + 1\n      done;\n      result\n    end\nend"
+        },
+        {
+            "description": "Addition using pattern matching only on y = 0 or non-zero branch, recursive with branching",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add (x : int) (y : int) : int =\n    match y with\n    | 0 -> x\n    | _ -> if y > 0 then add (x + 1) (y - 1) else add (x - 1) (y + 1)\n    end\nend"
+        },
+        {
+            "description": "Addition implemented by converting y to list of 1 or -1 and summing iteratively",
+            "implementation": "module HumanEval053\n  use int.Int\n  use list.List\n  use list.Length\n\n  type step = One | MinusOne\n\n  let rec make_steps (n : int) : list step =\n    if n = 0 then Nil\n    else if n > 0 then Cons One (make_steps (n - 1))\n    else Cons MinusOne (make_steps (n + 1))\n    end\n\n  let rec apply_steps (x : int) (l : list step) : int =\n    match l with\n    | Nil -> x\n    | Cons s tl -> match s with\n      | One -> apply_steps (x + 1) tl\n      | MinusOne -> apply_steps (x - 1) tl\n      end\n    end\n\n  let add (x : int) (y : int) : int =\n    apply_steps x (make_steps y)\nend"
+        },
+        {
+            "description": "Addition by using mathematical identity: add(x, y) = x - (-y), using negation and subtraction",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let add (x : int) (y : int) : int =\n    x - (- y)\nend"
+        },
+        {
+            "description": "Addition implemented using a helper recursive function with accumulator to sum x and y",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let rec add_acc (x : int) (y : int) (acc : int) : int =\n    if y = 0 then acc\n    else if y > 0 then add_acc x (y - 1) (acc + 1)\n    else add_acc x (y + 1) (acc - 1)\n\n  let add (x : int) (y : int) : int =\n    add_acc x y x\nend"
+        },
+        {
+            "description": "Addition using repeated application of successor and predecessor functions abstracted as local functions",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  let succ (n : int) : int = n + 1\n  let pred (n : int) : int = n - 1\n\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x\n    else if y > 0 then add (succ x) (y - 1)\n    else add (pred x) (y + 1)\nend"
+        }
+    ]
+}

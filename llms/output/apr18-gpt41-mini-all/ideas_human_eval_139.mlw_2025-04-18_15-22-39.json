@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive computation using a helper function to calculate factorial and then recursively multiply factorials from n down to 1.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n : int) : int =\n    if n = 1 then 1 else (fact n) * (special_factorial (n - 1))\nend"
+        },
+        {
+            "description": "Iterative approach using a loop to multiply all factorials from 1! up to n! using an auxiliary factorial function.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (k: int) : int =\n    if k <= 1 then 1 else k * fact (k - 1)\n\n  let special_factorial (n : int) : int =\n    let ref acc = 1 in\n    for i = 1 to n do\n      acc <- acc * (fact i)\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Use nested recursion: outer recursion over n, inner recursive factorial function, with pattern matching for clarity.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (k : int) : int =\n    match k with\n    | 0 -> 1\n    | _ -> k * fact (k - 1)\n    end\n\n  let rec special_factorial (n : int) : int =\n    match n with\n    | 1 -> 1\n    | _ -> (fact n) * special_factorial (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive factorial function and tail-recursive special_factorial function using accumulators for efficiency.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact_aux (k : int) (acc : int) : int =\n    if k <= 1 then acc else fact_aux (k - 1) (acc * k)\n\n  let fact (k : int) : int = fact_aux k 1\n\n  let rec special_factorial_aux (n : int) (acc : int) : int =\n    if n = 0 then acc else special_factorial_aux (n - 1) (acc * fact n)\n\n  let special_factorial (n : int) : int = special_factorial_aux n 1\nend"
+        },
+        {
+            "description": "Generate a list of integers from 1 to n, then recursively multiply all factorials of elements in the list using a helper factorial function.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Append\n\n  let rec fact (k : int) : int =\n    if k <= 1 then 1 else k * fact (k - 1)\n\n  let rec range (start: int) (stop: int) : list int =\n    if start > stop then Nil else Cons start (range (start + 1) stop)\n\n  let rec product_factorials (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> (fact x) * (product_factorials xs)\n    end\n\n  let special_factorial (n : int) : int =\n    product_factorials (range 1 n)\nend"
+        },
+        {
+            "description": "Use an explicit while-loop to iteratively multiply factorials from 1 to n, maintaining references for loop variables and accumulator.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (k : int) : int =\n    if k <= 1 then 1 else k * fact (k - 1)\n\n  let special_factorial (n : int) : int =\n    let ref i = 1 in\n    let ref acc = 1 in\n    while !i <= n do\n      acc <- acc * (fact !i);\n      i <- !i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Implement factorial with memoization using a map (dictionary) and compute special factorial recursively using memoized factorials.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n  use map.Map\n\n  let rec fact_memo (k : int) (m : map int int) : (int, map int int) =\n    if k <= 1 then (1, m) else\n      match Map.get m (k) with\n      | Some v -> (v, m)\n      | None -> \n          let (res1, m1) = fact_memo (k - 1) m in\n          let res = k * res1 in\n          (res, Map.add m1 k res)\n      end\n\n  let rec special_factorial_memo (n : int) (m : map int int) : (int, map int int) =\n    if n = 0 then (1, m) else\n      let (f, m1) = fact_memo n m in\n      let (sf, m2) = special_factorial_memo (n - 1) m1 in\n      (f * sf, m2)\n\n  let special_factorial (n : int) : int =\n    let (res, _) = special_factorial_memo n Map.empty in\n    res\nend"
+        },
+        {
+            "description": "Use an iterative approach with a single accumulator and compute factorial incrementally inside the loop to avoid repeated factorial calculations.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let special_factorial (n : int) : int =\n    let ref acc = 1 in\n    let ref fact_acc = 1 in\n    for i = 1 to n do\n      fact_acc <- fact_acc * i;\n      acc <- acc * fact_acc\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Use a recursive helper that computes factorial and special_factorial simultaneously in one recursive call to improve efficiency.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec special_fact_helper (n : int) : (int, int) =\n    if n = 0 then (1, 1) else\n      let (fact_prev, sf_prev) = special_fact_helper (n - 1) in\n      let fact_n = n * fact_prev in\n      (fact_n, fact_n * sf_prev)\n\n  let special_factorial (n : int) : int =\n    let (_, res) = special_fact_helper n in\n    res\nend"
+        },
+        {
+            "description": "Use pattern matching in recursive factorial and special_factorial functions, with explicit branching for the base case and recursive case.",
+            "implementation": "module HumanEval139\n\n  use int.Int\n\n  let rec fact (k : int) : int =\n    match k with\n    | 0 -> 1\n    | _ -> k * fact (k - 1)\n    end\n\n  let rec special_factorial (n : int) : int =\n    match n with\n    | 0 -> 1\n    | _ -> (fact n) * (special_factorial (n - 1))\n    end\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Directly zip through both lists recursively, calculating absolute difference for each pair, and constructing the result list.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Iterative (for-loop) approach: Calculate the difference using a for-loop and an auxiliary nth_my function to access elements by index.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let compare (l1 : list int) (l2 : list int) : list int =\n    let n = length l1 in\n    let ref res = Nil in\n    for i = n - 1 downto 0 do\n      let d = abs (nth_my i l1 - nth_my i l2) in\n      res <- Cons d res\n    done ;\n    res\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator: Use a helper function with an accumulator to build the result list and reverse it at the end.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Reverse\n  let rec helper (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> acc\n    | Cons x xs, Cons y ys -> helper xs ys (Cons (abs (x - y)) acc)\n    | _, _ -> acc\n    end\n  let compare (l1 : list int) (l2 : list int) : list int =\n    reverse (helper l1 l2 Nil)\nend"
+        },
+        {
+            "description": "Using map (functional style): Combine both lists into pairs, then map a function over the list of pairs to produce results.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Map\n  use list.Combine\n  let compare (l1 : list int) (l2 : list int) : list int =\n    map (fun (p:(int,int)) -> abs (fst p - snd p)) (combine l1 l2)\nend"
+        },
+        {
+            "description": "Explicit branching for correct guess: Recursively check if guess equals game, then append 0 or absolute difference accordingly.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n        if x = y then Cons 0 (compare xs ys)\n        else Cons (abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Tail-recursive variant: Use a tail-recursive helper to avoid stack overflows on long lists, accumulating the result and reversing at the end.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Reverse\n  let rec compare_aux (l1 : list int) (l2 : list int) (acc : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> acc\n    | Cons x xs, Cons y ys -> compare_aux xs ys (Cons (abs (x - y)) acc)\n    | _, _ -> acc\n    end\n  let compare (l1 : list int) (l2 : list int) : list int =\n    reverse (compare_aux l1 l2 Nil)\nend"
+        },
+        {
+            "description": "Pattern matching with if-then-else in match: Use match to destructure and then an inner if-then-else to append 0 or abs difference.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n        let d = if x = y then 0 else abs (x - y) in\n        Cons d (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Build result via explicit index recursion: Use an integer index to iterate recursively through both lists by their indices, extracting elements using nth_my.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  let rec compare_idx (i : int) (n : int) (l1 : list int) (l2 : list int) : list int =\n    if i >= n then Nil\n    else Cons (abs (nth_my i l1 - nth_my i l2)) (compare_idx (i+1) n l1 l2)\n  let compare (l1 : list int) (l2 : list int) : list int =\n    compare_idx 0 (length l1) l1 l2\nend"
+        },
+        {
+            "description": "Recursive with explicit min/max for difference: Compute the difference using min and max to avoid negative results (instead of abs).",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.MinMax\n  use list.List\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys ->\n        let d = max (x - y) (y - x) in\n        Cons d (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        },
+        {
+            "description": "Recursive branching with guards: Use pattern matching and explicit guards to handle each case (equal or not).",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  let rec compare (l1 : list int) (l2 : list int) : list int =\n    match l1, l2 with\n    | Nil, Nil -> Nil\n    | Cons x xs, Cons y ys when x = y -> Cons 0 (compare xs ys)\n    | Cons x xs, Cons y ys -> Cons (abs (x - y)) (compare xs ys)\n    | _, _ -> Nil\n    end\nend"
+        }
+    ]
+}

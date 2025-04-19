@@ -1,0 +1,7 @@
+=======================human_eval_030_8.mlw=====================
+Warning, file "llms/implementation/apr18-gpt41-mini-all/human_eval_030_8.mlw", line 24, characters 44-61: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr18-gpt41-mini-all/human_eval_030_8.mlw", line 24, characters 67-82: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr18-gpt41-mini-all/human_eval_030_8.mlw", line 41, characters 15-32: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr18-gpt41-mini-all/human_eval_030_8.mlw", line 43, characters 8-23: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/apr18-gpt41-mini-all/human_eval_030_8.mlw", line 47, characters 0-3:
+syntax error

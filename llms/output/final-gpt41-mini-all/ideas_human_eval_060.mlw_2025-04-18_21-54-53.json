@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use a simple recursive function with pattern matching and an if-then-else to sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Implement sum_to_n using an accumulator parameter for tail recursion to avoid stack overflow.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_acc (n: int) (acc: int) : int =\n    if n <= 0 then acc else sum_acc (n - 1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    sum_acc n 0\nend"
+        },
+        {
+            "description": "Implement sum_to_n using the formula n*(n+1)/2 with integer division for efficiency.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let sum_to_n (n : int) : int =\n    (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Use pattern matching on n to explicitly handle base cases 0 and 1, then recursively sum for n > 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | 1 -> 1\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Implement sum_to_n using a local helper function with a while loop simulation using recursion and an index variable.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let rec loop (i : int) (acc : int) : int =\n      if i > n then acc else loop (i + 1) (acc + i)\n    in loop 1 0\nend"
+        },
+        {
+            "description": "Implement sum_to_n by constructing a custom list of integers from 1 to n, then recursively summing the list elements.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  type list_int = list int\n\n  let rec range (start: int) (stop: int) : list_int =\n    if start > stop then Nil else Cons start (range (start + 1) stop)\n\n  let rec sum_list (l: list_int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let sum_to_n (n : int) : int =\n    sum_list (range 1 n)\nend"
+        },
+        {
+            "description": "Use recursion with an if-then-else that stops at zero and sums by decreasing n, returning 0 if n <= 0.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 0 then 0 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Use an iterative approach with a mutable reference and a for loop to accumulate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    for i = 1 to n do\n      acc <- acc + i\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Implement sum_to_n using recursion with max condition to handle negative inputs by returning 0 for n < 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.MinMax\n\n  let rec sum_to_n (n : int) : int =\n    let m = max n 1 in\n    if m = 1 then 1 else m + sum_to_n (m - 1)\nend"
+        },
+        {
+            "description": "Use a divide-and-conquer strategy recursively summing from 1 to n by splitting range into two halves.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_range (low: int) (high: int) : int =\n    if low > high then 0\n    else if low = high then low\n    else\n      let mid = (low + high) / 2 in\n      sum_range low mid + sum_range (mid + 1) high\n\n  let sum_to_n (n : int) : int =\n    sum_range 1 n\nend"
+        }
+    ]
+}

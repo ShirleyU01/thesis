@@ -71,7 +71,8 @@ class IdeasGeneration():
         Given a description of problem, it is possible to implement it in different ways. For instance, consider loops, recursions,
         pattern matching, and different branching conditions. Here is an example of {nb_ideas} different algorithms for one example description:
         `{example}`
-        </instructions-diversity>"""
+        </instructions-diversity>
+        """
         #print(prompt_functionality_brainstorming)
         return prompt_functionality_brainstorming
 
@@ -83,18 +84,42 @@ class IdeasGeneration():
         print(prompt_implementation)
         return prompt_implementation
 
-    def implement(self, int_lib : str, list_lib : str) -> str:
+    def implement(self, int_lib : str, int_function : str, list_lib : str, list_function : str) -> str:
         prompt_implementation = f"""
+        <instructions-library-syntax>
         When implementing code in Why3 ensure that the implementation
         is syntax-error free, clear, and easy to test. Pay attention to correct library usage. For instance,
         if the implementation uses function length from list module, please include it correctly as `use list.Length`.
+        
         To provide a boarder sense of available libraries, functions, and correct way of using them, here are two tables
-        for why3 library List and Int, which summarizes function name, function description, function type, and correct
-        way of import:
+        for why3 library List and Int, which summarizes function name (Function), function module (Module), 
+        function type (Type), function description (Description), and correct way of import (Import Statement):
+        
+        why3 library List information:
         `{list_lib}`
+        
+        why3 library int information:
         `{int_lib}`
+        
+        Consider the min line in the library int:
+        min,MinMax,int -> int -> int,Returns the smaller of two integers.,use int.MinMax        
+        How to read this line is as follows: 
+        min - function name that you can use in your program
+        MinMax - module where the function exists
+        int -> int -> int - this function takes as input two integers and returns an integer
+        Returns the smaller of two integers. - description of what the function does
+        use int.MinMax - import you must use if you want to use the min function in your program
+
+        When importing the corresponding modules you should only use the following list functions:
+        `{list_function}
+
+        When importing the corresponding modules you should only use the following int functions:
+        `{int_function}
+
         Remove unnecessary comments and don't implement specification. The implementation should focus on
-        achieving the high-level behavior described."""
+        achieving the high-level behavior described.
+        </instructions-library-syntax>
+        """
         return prompt_implementation
 
     def _create_user_prompt(self, description : str, example : str, function_name: str, module_name: str, signature: str, nb_ideas: int) -> str:
@@ -108,7 +133,8 @@ class IdeasGeneration():
         The function to be implemented must be called `{function_name}` and must be inside of a module called `{module_name}`.
         Note that the signature of the function `{function_name}` is `{signature}`.
         You must use either this signature of their recursive version.
-        </instructions-implementation>"""
+        </instructions-implementation>
+        """
         
         prompt_json_instructions = f"""
         <instructions-json>
@@ -121,19 +147,26 @@ class IdeasGeneration():
         </instructions-json>
         """
 
+        unique_int_functions = set()
         int_lib_file = open('../prompt/lib_summary_int.csv', 'r')
         int_lib = csv.reader(int_lib_file)
         int_lib_str = ''
         for row in int_lib:
             int_lib_str += ', '.join(row) + '\n'
+            unique_int_functions.add(row[0])
 
+        unique_list_functions = set()
         list_lib_file = open('../prompt/lib_summary_list.csv', 'r')
         list_lib = csv.reader(list_lib_file)
         list_lib_str = ''
         for row in list_lib:
             list_lib_str += ', '.join(row) + '\n'
+            unique_list_functions.add(row[0])
+  
+        int_functions = ",".join(sorted(unique_int_functions))   
+        list_functions = ",".join(sorted(unique_list_functions))   
 
-        prompt_library = self.implement(int_lib_str, list_lib_str)
+        prompt_library = self.implement(int_lib_str, int_functions, list_lib_str, list_functions)
         
         syntax_example_file = open('../prompt/syntax.txt', 'r')
         syntax_example = syntax_example_file.read()

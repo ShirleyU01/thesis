@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple direct addition using the built-in integer addition operator",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x : int) (y : int) : int = x + y\nend"
+        },
+        {
+            "description": "Recursive addition by incrementing x and decrementing y until y is zero",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x : int) (y : int) : int =\n    if y = 0 then x else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Recursive addition using pattern matching with branching on y positive or negative",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x : int) (y : int) : int =\n    begin\n      if y = 0 then x\n      else if y > 0 then add (x + 1) (y - 1)\n      else add (x - 1) (y + 1)\n    end\nend"
+        },
+        {
+            "description": "Addition implemented by converting numbers to lists of ones and concatenating, then counting length",
+            "implementation": "module HumanEval053\n  use int.Int\n  use list.List\n  use list.Length\n  \n  let rec make_ones (n : int) : list int =\n    if n <= 0 then Nil else Cons 1 (make_ones (n - 1))\n  \n  let add (x : int) (y : int) : int =\n    let l1 = make_ones x in\n    let l2 = make_ones y in\n    let rec concat (a : list int) (b : list int) : list int =\n      match a with\n      | Nil -> b\n      | Cons h t -> Cons h (concat t b)\n      end\n    in\n    length (concat l1 l2)\nend"
+        },
+        {
+            "description": "Addition implemented using tail-recursive helper function to accumulate result",
+            "implementation": "module HumanEval053\n  use int.Int\n  \n  let rec add_helper (x : int) (y : int) (acc : int) : int =\n    if y = 0 then acc\n    else add_helper x (y - 1) (acc + 1)\n  \n  let add (x : int) (y : int) : int = add_helper x y x\nend"
+        },
+        {
+            "description": "Addition using repeated increment and decrement with a while-loop style using refs",
+            "implementation": "module HumanEval053\n  use int.Int\n  \n  let add (x : int) (y : int) : int =\n    let ref a = x in\n    let ref b = y in\n    while !b > 0 do\n      a := !a + 1;\n      b := !b - 1\n    done;\n    while !b < 0 do\n      a := !a - 1;\n      b := !b + 1\n    done;\n    !a\nend"
+        },
+        {
+            "description": "Addition by using subtraction and negation: add(x,y) = x - (-y)",
+            "implementation": "module HumanEval053\n  use int.Int\n  \n  let add (x : int) (y : int) : int = x - (- y)\nend"
+        },
+        {
+            "description": "Addition implemented using Euclidean division and modulus (trivial usage just to show diversity)",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.EuclideanDivision\n  \n  let add (x : int) (y : int) : int =\n    let sum = x + y in\n    let _ = div sum 1 in  (* dummy div to show use *)\n    let _ = mod sum 1 in  (* dummy mod to show use *)\n    sum\nend"
+        },
+        {
+            "description": "Addition implemented by computing the sum as multiplication by 1 plus the other number (demonstrating arithmetic identity)",
+            "implementation": "module HumanEval053\n  use int.Int\n  \n  let add (x : int) (y : int) : int = (x * 1) + y\nend"
+        },
+        {
+            "description": "Recursive addition using pattern matching and a helper function that adds by incrementing accumulator until y becomes zero",
+            "implementation": "module HumanEval053\n  use int.Int\n  \n  let rec add_rec (x : int) (y : int) (acc : int) : int =\n    match y with\n    | 0 -> acc\n    | _ -> if y > 0 then add_rec x (y - 1) (acc + 1) else add_rec x (y + 1) (acc - 1)\n  \n  let add (x : int) (y : int) : int = add_rec x y x\nend"
+        }
+    ]
+}

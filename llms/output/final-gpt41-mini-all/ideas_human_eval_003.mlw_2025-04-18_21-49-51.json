@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive traversal with accumulator tracking current balance, returning true immediately when balance falls below zero.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec below_zero_acc (ops: list int) (balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero_acc xs new_balance\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_acc operations 0\nend"
+        },
+        {
+            "description": "Recursive pattern matching without accumulator, computing balance on the fly by summing prefix elements and checking if any prefix sum is negative.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Sum\n\n  let rec prefix_sums_neg (ops: list int) (acc: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_acc = acc + x in\n      if new_acc < 0 then true else prefix_sums_neg xs new_acc\n    end\n\n  let below_zero (operations: list int) : bool =\n    prefix_sums_neg operations 0\nend"
+        },
+        {
+            "description": "Iterative style using a ref variable to track balance and a while loop to traverse list converted to array (manually), returning true if balance drops below zero.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let below_zero (operations: list int) : bool =\n    let n = length operations in\n    let ref balance = 0 in\n    let ref i = 0 in\n    let ref fallen = false in\n    while i < n && not fallen do\n      balance <- balance + nth_my i operations;\n      if balance < 0 then fallen <- true;\n      i <- i + 1\n    done;\n    fallen\nend"
+        },
+        {
+            "description": "Recursive pattern matching with explicit branching: if list is empty return false else update balance and check condition.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero (operations: list int) (balance: int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero xs new_balance\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero operations 0\nend"
+        },
+        {
+            "description": "Using an auxiliary recursive function that uses an accumulator to track balance and returns early with true once negative balance detected.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec aux (ops: list int) (balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else aux xs new_balance\n    end\n\n  let below_zero (operations: list int) : bool =\n    aux operations 0\nend"
+        },
+        {
+            "description": "Recursive implementation that keeps track of minimum prefix sum seen so far and returns true if minimum prefix sum is less than zero.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use int.MinMax\n\n  let rec below_zero_min_prefix (ops: list int) (balance: int) (min_balance: int) : bool =\n    match ops with\n    | Nil -> min_balance < 0\n    | Cons x xs ->\n      let new_balance = balance + x in\n      let new_min = min min_balance new_balance in\n      if new_min < 0 then true else below_zero_min_prefix xs new_balance new_min\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_min_prefix operations 0 0\nend"
+        },
+        {
+            "description": "Recursive call with pattern matching and nested if-then-else to decide early termination on negative balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero (ops: list int) (current_balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = current_balance + x in\n      begin\n        if new_balance < 0 then true\n        else below_zero xs new_balance\n      end\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero operations 0\nend"
+        },
+        {
+            "description": "Tail-recursive function with accumulator for balance that returns true immediately if balance negative, false otherwise.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero_aux (ops: list int) (balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero_aux xs new_balance\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero_aux operations 0\nend"
+        },
+        {
+            "description": "Recursive function that uses an inner helper with explicit match and if-else branches to detect negative balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec helper (ops: list int) (balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else helper xs new_balance\n    end\n\n  let below_zero (operations: list int) : bool =\n    helper operations 0\nend"
+        },
+        {
+            "description": "Recursive function with pattern matching and using begin-end block for conditional logic to check if balance negative at any point.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero (ops: list int) (balance: int) : bool =\n    match ops with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      begin\n        if new_balance < 0 then true\n        else below_zero xs new_balance\n      end\n    end\n\n  let below_zero (operations: list int) : bool =\n    below_zero operations 0\nend"
+        }
+    ]
+}

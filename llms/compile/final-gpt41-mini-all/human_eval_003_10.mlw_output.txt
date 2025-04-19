@@ -1,0 +1,5 @@
+=======================human_eval_003_10.mlw=====================
+Warning, file "llms/implementation/apr18-gpt41-mini-all-v3/human_eval_003_10.mlw", line 57, characters 13-38: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "llms/implementation/apr18-gpt41-mini-all-v3/human_eval_003_10.mlw", line 62, characters 4-27: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+File "llms/implementation/apr18-gpt41-mini-all-v3/human_eval_003_10.mlw", line 61, characters 6-16:
+Symbol below_zero'vc is already defined in the current scope

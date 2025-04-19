@@ -1,29 +1,18 @@
 Function,Module,Type,Description,Import Statement
 is_nil,List,list 'a -> bool,Checks if a list is empty (Nil).,use list.List
 length,Length,list 'a -> int,Computes the length of a list.,use list.Length
-mem (predicate),Mem,a -> list 'a -> bool,Checks if an element is in the list.,use list.Mem
+mem,Mem,a -> list 'a -> bool,Checks if an element is in the list.,use list.Mem
 mem,Quant,('a -> 'a -> bool) -> 'a -> list 'a -> bool,"Checks if an element, based on a custom equality, is in the list.",use list.Quant
 for_all,Quant,('a -> bool) -> list 'a -> bool,Returns true if all elements satisfy a predicate.,use list.Quant
 for_some,Quant,('a -> bool) -> list 'a -> bool,Returns true if any element satisfies a predicate.,use list.Quant
 elements,Elements,list 'a -> fset 'a,Returns a set of all elements in the list.,use list.Elements
 nth,Nth,int -> list 'a -> option 'a,"Retrieves the nth element, returns None if out of bounds.",use list.Nth
-nth,NthNoOpt,int -> list 'a -> 'a,Retrieves the nth element without optional handling.,use list.NthNoOpt
 hd,HdTl,list 'a -> option 'a,"Gets the first element, returns None if empty.",use list.HdTl
-hd,HdTlNoOpt,list 'a -> 'a,Gets the first element without optional handling.,use list.HdTlNoOpt
 tl,HdTl,list 'a -> option (list 'a),"Returns the tail of the list, returns None if empty.",use list.HdTl
-tl,HdTlNoOpt,list 'a -> list 'a,Returns the tail without optional handling.,use list.HdTlNoOpt
-++(Append),Append,list 'a -> list 'a -> list 'a,Concatenates two lists.,use list.Append
+++,Append,list 'a -> list 'a -> list 'a,Concatenates two lists.,use list.Append
 reverse,Reverse,list 'a -> list 'a,Reverses the order of elements in a list.,use list.Reverse
 rev_append,RevAppend,list 'a -> list 'a -> list 'a,Efficiently reverses the first list and appends to the second.,use list.RevAppend
 combine,Combine,"list 'a -> list 'b -> list ('a, 'b)",Zips two lists into a list of pairs.,use list.Combine
-sorted,Sorted,list t -> bool,Checks if a list is sorted by a generic order.,use list.Sorted
-sorted,SortedInt,list int -> bool,Checks if a list of integers is sorted in ascending order.,use list.SortedInt
-sorted,RevSorted,list t -> bool,Checks if a list is sorted by a reverse (decreasing) order.,use list.RevSorted
-num_occ,NumOcc,a -> list 'a -> int,Counts occurrences of an element in the list.,use list.NumOcc
 permut,Permut,list 'a -> list 'a -> bool,Checks if two lists are permutations of each other.,use list.Permut
-distinct,Distinct,list 'a -> bool,Checks if all elements in the list are unique.,use list.Distinct
 prefix,Prefix,int -> list 'a -> list 'a,Returns the first n elements of a list.,use list.Prefix
 sum,Sum,list int -> int,Sums all integer elements in the list.,use list.Sum
-map,Map,('a -> 'b) -> list 'a -> list 'b,Applies a function to each element in the list.,use list.Map
-fold_left,FoldLeft,('b -> 'a -> 'b) -> 'b -> list 'a -> 'b,Aggregates list elements from left to right.,use list.FoldLeft
-fold_right,FoldRight,('a -> 'b -> 'b) -> list 'a -> 'b -> 'b,Aggregates list elements from right to left.,use list.FoldRight

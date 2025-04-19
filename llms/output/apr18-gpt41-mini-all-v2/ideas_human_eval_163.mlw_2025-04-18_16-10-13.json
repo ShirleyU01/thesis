@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use recursion with pattern matching, swapping inputs if a > b, then build the list from a to b by prepending using Cons.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec generate_integers (a : int) (b : int) : list int =\n    if a > b then generate_integers b a\n    else begin\n      if a = b then Cons a Nil\n      else Cons a (generate_integers (a + 1) b)\n    end\nend"
+        },
+        {
+            "description": "Normalize input by swapping if a > b, then use a helper tail-recursive function with accumulator to build the list, finally reverse it before returning.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let generate_integers (a : int) (b : int) : list int =\n    let rec aux (current : int) (end_ : int) (acc : list int) : list int =\n      if current > end_ then acc\n      else aux (current + 1) end_ (Cons current acc)\n    in\n    let start = min a b in\n    let stop = max a b in\n    Reverse.reverse (aux start stop Nil)\nend"
+        },
+        {
+            "description": "Use a for-loop from min to max with a mutable reference to accumulate the list by appending at the end each integer using ++ operator.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.Append\n\n  let generate_integers (a : int) (b : int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    let ref result = Nil in\n    for i = start to stop do\n      result <- result ++ (Cons i Nil)\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Use explicit while-loop with mutable references for current index and result list, accumulating by appending Cons current Nil, from min(a,b) to max(a,b).",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a : int) (b : int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    let ref current = start in\n    let ref result = Nil in\n    while !current <= stop do\n      result <- result ++ (Cons !current Nil);\n      current <- !current + 1\n    done;\n    !result\nend"
+        },
+        {
+            "description": "Use recursion with an accumulator parameter, swapping inputs if needed, accumulating the list in ascending order without reversing at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec aux (current : int) (end_ : int) (acc : list int) : list int =\n    if current > end_ then acc\n    else aux (current + 1) end_ (acc ++ (Cons current Nil))\n\n  let generate_integers (a : int) (b : int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    aux start stop Nil\nend"
+        },
+        {
+            "description": "Use recursion with pattern matching and if-then-else, swapping inputs if a > b, building the list from b down to a and then reversing it to get ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec generate_descending (start : int) (stop : int) : list int =\n    if start < stop then Nil\n    else Cons start (generate_descending (start - 1) stop)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let start = max a b in\n    let stop = min a b in\n    Reverse.reverse (generate_descending start stop)\nend"
+        },
+        {
+            "description": "Use a recursive helper function with explicit pattern matching on list constructors to build the list, swapping inputs if a > b, no accumulator, direct recursion.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec generate_integers (a : int) (b : int) : list int =\n    match a <= b with\n    | True -> if a = b then Cons a Nil else Cons a (generate_integers (a + 1) b)\n    | False -> generate_integers b a\n    end\nend"
+        },
+        {
+            "description": "Use nested if-then-else branches to handle all cases explicitly (a < b, a = b, a > b), recursively building list in ascending order with no helper functions.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec generate_integers (a : int) (b : int) : list int =\n    if a < b then Cons a (generate_integers (a + 1) b)\n    else if a = b then Cons a Nil\n    else generate_integers b a\nend"
+        },
+        {
+            "description": "Use a tail-recursive helper with accumulator that builds the list in reverse order, swapping a and b if needed, and then reverse the final accumulated list.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec aux (current : int) (stop : int) (acc : list int) : list int =\n    if current > stop then acc\n    else aux (current + 1) stop (Cons current acc)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    Reverse.reverse (aux start stop Nil)\nend"
+        },
+        {
+            "description": "Use a single recursive function that first computes min and max, then uses pattern matching on the difference (b - a) to build the list by incrementing from a to b.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec generate_integers (a : int) (b : int) : list int =\n    let start = min a b in\n    let stop = max a b in\n    match stop - start with\n    | 0 -> Cons start Nil\n    | n -> Cons start (generate_integers (start + 1) stop)\n    end\nend"
+        }
+    ]
+}

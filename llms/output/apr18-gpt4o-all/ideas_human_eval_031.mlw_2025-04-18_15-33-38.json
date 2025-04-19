@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using iterative approach with for-loop.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else\n    let ref is_prime = true in\n    for i = 2 to n - 1 do\n      if mod n i = 0 then is_prime <- false\n    done;\n    is_prime\nend"
+        },
+        {
+            "description": "Using iterative approach with while-loop.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else\n    let ref i = 2 in\n    let ref is_prime = true in\n    while i * i <= n && is_prime do\n      if mod n i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\nend"
+        },
+        {
+            "description": "Recursive approach with pattern matching.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet rec is_prime_rec (n : int) (i : int) : bool =\n  if i * i > n then true\n  else if mod n i = 0 then false\n  else is_prime_rec n (i + 1)\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else is_prime_rec n 2\nend"
+        },
+        {
+            "description": "Recursive approach with accumulator for divisors.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet rec check_divisor (n : int) (i : int) : bool =\n  if i * i > n then true\n  else if mod n i = 0 then false\n  else check_divisor n (i + 1)\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else check_divisor n 2\nend"
+        },
+        {
+            "description": "Using a helper function to determine primality.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet rec is_prime_helper (n : int) (i : int) : bool =\n  if i >= n then true\n  else if mod n i = 0 then false\n  else is_prime_helper n (i + 1)\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else is_prime_helper n 2\nend"
+        },
+        {
+            "description": "Iterative approach with break condition.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else\n    let ref is_prime = true in\n    let ref i = 2 in\n    while i < n && is_prime do\n      if mod n i = 0 then is_prime <- false;\n      i <- i + 1\n    done;\n    is_prime\nend"
+        },
+        {
+            "description": "Using pattern matching to check base cases.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  match n with\n  | 0 | 1 -> false\n  | _ ->\n      let rec check_factor i =\n        if i * i > n then true\n        else if mod n i = 0 then false\n        else check_factor (i + 1)\n      in check_factor 2\nend"
+        },
+        {
+            "description": "Using a reverse loop from n-1 to 2.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else\n    let ref is_prime = true in\n    for i = n - 1 downto 2 do\n      if mod n i = 0 then is_prime <- false\n    done;\n    is_prime\nend"
+        },
+        {
+            "description": "Using a function to filter out non-prime numbers.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet rec filter_non_prime (n : int) (i : int) : bool =\n  if i * i > n then true\n  else if mod n i = 0 then false\n  else filter_non_prime n (i + 1)\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else filter_non_prime n 2\nend"
+        },
+        {
+            "description": "Using a for-loop to check up to the square root of n.",
+            "implementation": "module HumanEval031\n\nuse int.Int\nuse int.EuclideanDivision\n\nlet is_prime (n : int) : bool =\n  if n <= 1 then false else\n    let ref is_prime = true in\n    for i = 2 to n-1 do\n      if i * i > n then break;\n      if mod n i = 0 then is_prime <- false\n    done;\n    is_prime\nend"
+        }
+    ]
+}

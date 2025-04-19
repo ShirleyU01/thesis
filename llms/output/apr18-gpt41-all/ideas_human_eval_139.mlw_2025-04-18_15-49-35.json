@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Use a for-loop to multiply factorials from n down to 1, using the built-in fact function.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n: int) : int =\n    let ref product = 1 in\n    for i = n downto 1 do\n      product <- product * fact i\n    done;\n    product\nend"
+        },
+        {
+            "description": "Use a while-loop to compute the product, decrementing from n to 1, and multiplying fact(i) in each iteration.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n: int) : int =\n    let ref res = 1 in\n    let ref i = n in\n    while i >= 1 do\n      res <- res * fact i;\n      i <- i - 1\n    done;\n    res\nend"
+        },
+        {
+            "description": "Use recursion to calculate the product of factorials from n to 1 (special_factorial(n) = fact(n) * special_factorial(n-1)).",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n: int) : int =\n    if n = 1 then fact 1\n    else fact n * special_factorial (n - 1)\nend"
+        },
+        {
+            "description": "Use recursion with an accumulator to calculate the special factorial efficiently.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial_aux (n: int) (acc: int) : int =\n    if n = 0 then acc\n    else special_factorial_aux (n - 1) (acc * fact n)\n\n  let special_factorial (n: int) : int =\n    special_factorial_aux n 1\nend"
+        },
+        {
+            "description": "Construct a list of integers from 1 to n, map fact over the list, then multiply all results (using recursion for the product).",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use list.List\n  use list.Length\n  use list.Map\n  use list.NthNoOpt\n\n  let rec range (a: int) (b: int) : list int =\n    if a > b then Nil\n    else Cons a (range (a+1) b)\n\n  let rec product (l: list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * product xs\n    end\n\n  let special_factorial (n: int) : int =\n    let l = range 1 n in\n    let fl = map fact l in\n    product fl\nend"
+        },
+        {
+            "description": "Iteratively compute the product, but cache previous factorial computations in an array to avoid repeated fact(i) calls.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use array.Array\n\n  let special_factorial (n: int) : int =\n    let arr = Array.make (n+1) 1 in\n    let ref i = 1 in\n    while i <= n do\n      arr[i] <- arr[i-1] * i;\n      i <- i + 1\n    done;\n    let ref prod = 1 in\n    let ref j = 1 in\n    while j <= n do\n      prod <- prod * arr[j];\n      j <- j + 1\n    done;\n    prod\nend"
+        },
+        {
+            "description": "Use pattern matching on n to perform recursive multiplication, handling the base case for n = 1.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let rec special_factorial (n: int) : int =\n    match n with\n    | 1 -> fact 1\n    | _ -> fact n * special_factorial (n-1)\n    end\nend"
+        },
+        {
+            "description": "Iterate from 1 to n using a for-loop, multiplying fact(i) in increasing order.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  let special_factorial (n: int) : int =\n    let ref product = 1 in\n    for i = 1 to n do\n      product <- product * fact i\n    done;\n    product\nend"
+        },
+        {
+            "description": "Compute the product of factorials from n to 1 using int.Iter to iterate a function, updating the product each time.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use int.Iter\n\n  let special_factorial (n: int) : int =\n    let f (p: (int, int)) : (int, int) =\n      let (i, acc) = p in\n      (i - 1, acc * fact i)\n    in\n    let (i, acc) = iter f n (n, 1) in\n    acc\nend"
+        },
+        {
+            "description": "Use int.Sum to sum over log(fact(i)), then exponentiate the result to get the product, assuming int.Power is available.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n  use int.Sum\n  use int.Power\n\n  let rec log_fact (n: int) : int =\n    if n <= 1 then 0 else log_fact (n - 1) + 1\n\n  let special_factorial (n: int) : int =\n    let rec prod (i: int) (acc: int) : int =\n      if i = 0 then acc else prod (i - 1) (acc * fact i)\n    in prod n 1\nend"
+        }
+    ]
+}

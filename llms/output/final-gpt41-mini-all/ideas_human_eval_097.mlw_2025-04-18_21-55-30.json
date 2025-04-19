@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract the unit digit of each integer using modulus operation and multiply them directly.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ua = mod a 10 in\n    let ub = mod b 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract the unit digit by converting negative numbers to positive using absolute value before modulus, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let multiply (a : int) (b : int) : int =\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use recursive function to get the last digit of integer by dividing until less than 10, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec last_digit (x : int) : int =\n    if x < 10 && x >= 0 then x else last_digit (mod x 10)\n\n  let multiply (a : int) (b : int) : int =\n    let ua = last_digit (if a < 0 then -a else a) in\n    let ub = last_digit (if b < 0 then -b else b) in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use pattern matching on negative or positive to handle absolute value, then modulus and multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let unit_digit (x : int) : int =\n    match x with\n    | _ when x < 0 -> mod (-x) 10\n    | _ -> mod x 10\n    end\n\n  let multiply (a : int) (b : int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use conditional branching to first normalize inputs to positive (if negative, negate), then compute modulus and multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let a_pos = if a < 0 then -a else a in\n    let b_pos = if b < 0 then -b else b in\n    let ua = mod a_pos 10 in\n    let ub = mod b_pos 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use a helper function that extracts the last digit with recursion by dividing by 10 until less than 10, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec get_last_digit (x : int) : int =\n    if x < 0 then get_last_digit (-x) else\n    if x < 10 then x else get_last_digit (mod x 10)\n\n  let multiply (a : int) (b : int) : int =\n    (get_last_digit a) * (get_last_digit b)\nend"
+        },
+        {
+            "description": "Use integer division and multiplication to extract the last digit: last digit = x - ((x div 10) * 10), then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let last_digit (x : int) : int =\n    let x_abs = if x < 0 then -x else x in\n    x_abs - (div x_abs 10) * 10\n\n  let multiply (a : int) (b : int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching on sign of the number to get absolute value, then use mod to get unit digit, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let abs_mod_10 (x : int) : int =\n    match x with\n    | _ when x < 0 -> mod (-x) 10\n    | _ -> mod x 10\n    end\n\n  let multiply (a : int) (b : int) : int =\n    abs_mod_10 a * abs_mod_10 b\nend"
+        },
+        {
+            "description": "Use a nested if-then-else to handle negative and positive values separately, extract unit digits with mod, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let multiply (a : int) (b : int) : int =\n    let ua = if a < 0 then mod (-a) 10 else mod a 10 in\n    let ub = if b < 0 then mod (-b) 10 else mod b 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use subtraction and division to compute last digit without mod: last digit = x - 10 * (x div 10), with absolute value, then multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n\n  let last_digit (x : int) : int =\n    let x_abs = if x < 0 then -x else x in\n    let q = div x_abs 10 in\n    x_abs - q * 10\n\n  let multiply (a : int) (b : int) : int =\n    last_digit a * last_digit b\nend"
+        }
+    ]
+}

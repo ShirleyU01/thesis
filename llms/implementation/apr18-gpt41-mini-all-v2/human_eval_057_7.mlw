@@ -1,0 +1,174 @@
+(*
+def monotonic(l: list):
+    """Return True is list elements are monotonically increasing or decreasing.
+    >>> monotonic([1, 2, 4, 20])
+    True
+    >>> monotonic([1, 20, 4, 10])
+    False
+    >>> monotonic([4, 1, 0, -10])
+    True
+    """
+ *)
+
+module HumanEval057Goal
+    
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    
+      let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let rec helper (l : list int) (acc : int) (increasing : bool) : bool =
+        match l with 
+        | Nil -> true
+        | Cons x xs -> if increasing 
+                       then if x < acc then false else helper xs x increasing
+                       else if x > acc then false else helper xs x increasing
+        end
+
+    let monotonic (l : list int) : bool =
+        ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+        if length l <= 1 then true
+        else helper l (nth_1 0 l) (nth_1 0 l < nth_1 1 l)
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval057
+
+  use int.Int
+  use list.List
+
+  let rec helper (l: list int) (prev: int) (inc: bool) (dec: bool) : bool =
+    match l with
+    | Nil -> inc || dec
+    | Cons x xs ->
+        let inc' = inc && (prev <= x) in
+        let dec' = dec && (prev >= x) in
+        if not inc' && not dec' then false else helper xs x inc' dec'
+    end
+
+  let monotonic (l: list int) : bool =
+    match l with
+    | Nil -> true
+    | Cons x xs -> helper xs x true true
+    end
+end
+
+module TestHumanEval057
+
+    use int.Int
+    use list.List
+    use HumanEval057
+
+    let test1 () : bool =
+        monotonic (Cons 1 (Cons 2 (Cons 4 (Cons 20 Nil))))
+
+    let test1_output () : (list int, bool, bool) =
+        (Cons 1 (Cons 2 (Cons 4 (Cons 20 Nil))), monotonic (Cons 1 (Cons 2 (Cons 4 (Cons 20 Nil)))), true)
+
+    let test2 () : bool =
+        not monotonic (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil))))
+
+    let test2_output () : (list int, bool, bool) =
+        (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil))), monotonic (Cons 1 (Cons 20 (Cons 4 (Cons 10 Nil)))), false)
+
+    let test3 () : bool =
+        monotonic (Cons 4 (Cons 1 (Cons 0 (Cons (-10) Nil))))
+
+    let test3_output () : (list int, bool, bool) =
+        (Cons 4 (Cons 1 (Cons 0 (Cons (-10) Nil))), monotonic (Cons 4 (Cons 1 (Cons 0 (Cons (-10) Nil)))), true)
+
+    let test4 () : bool =
+        monotonic (Cons 5 Nil)
+
+    let test4_output () : (list int, bool, bool) =
+        (Cons 5 Nil, monotonic (Cons 5 Nil), true)
+
+    let test5 () : bool =
+        monotonic (Cons (-1) (Cons (-2) (Cons (-3) Nil)))
+
+    let test5_output () : (list int, bool, bool) =
+        (Cons (-1) (Cons (-2) (Cons (-3) Nil)), monotonic (Cons (-1) (Cons (-2) (Cons (-3) Nil))), true)
+
+    let test6 () : bool =
+        not monotonic (Cons 1 (Cons 3 (Cons 2 Nil)))
+
+    let test6_output () : (list int, bool, bool) =
+        (Cons 1 (Cons 3 (Cons 2 Nil)), monotonic (Cons 1 (Cons 3 (Cons 2 Nil))), false)
+
+    let test7 () : bool =
+        monotonic (Cons 0 (Cons 0 (Cons 0 Nil)))
+
+    let test7_output () : (list int, bool, bool) =
+        (Cons 0 (Cons 0 (Cons 0 Nil)), monotonic (Cons 0 (Cons 0 (Cons 0 Nil))), true)
+
+    let test8 () : bool =
+        monotonic (Cons (-5) (Cons (-3) (Cons 0 (Cons 2 (Cons 4 Nil)))))
+
+    let test8_output () : (list int, bool, bool) =
+        (Cons (-5) (Cons (-3) (Cons 0 (Cons 2 (Cons 4 Nil)))), monotonic (Cons (-5) (Cons (-3) (Cons 0 (Cons 2 (Cons 4 Nil))))), true)
+
+    let test9 () : bool =
+        not monotonic (Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 Nil)))))
+
+    let test9_output () : (list int, bool, bool) =
+        (Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 Nil)))), monotonic (Cons 10 (Cons 5 (Cons 15 (Cons 2 (Cons 20 Nil))))), false)
+
+    let test10 () : bool =
+        monotonic (Cons 100 (Cons 50 (Cons 50 (Cons 25 Nil))))
+
+    let test10_output () : (list int, bool, bool) =
+        (Cons 100 (Cons 50 (Cons 50 (Cons 25 Nil))), monotonic (Cons 100 (Cons 50 (Cons 50 (Cons 25 Nil)))), true)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+
+    let runtest (x : int) : (list int, bool, bool) =
+        let ref res = (Nil, false, false) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, bool, bool) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, bool, bool) =
+        let l = testfail () in
+        failoutput l
+
+end

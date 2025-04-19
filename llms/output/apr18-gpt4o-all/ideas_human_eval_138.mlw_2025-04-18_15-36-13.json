@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using direct conditional checks to determine if n can be expressed as a sum of four positive even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool = \n    if n < 8 then false\n    else n mod 2 = 0\nend"
+        },
+        {
+            "description": "Using pattern matching on a list of even numbers to check the sum condition.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use list.List\n  let is_equal_to_sum (n: int) : bool =\n    match n with\n    | 2 | 4 | 6 -> false\n    | _ -> n mod 2 = 0\n    end\nend"
+        },
+        {
+            "description": "Recursive approach to sum up four even numbers and check if it equals n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec sum_of_evens (n: int) (count: int): bool =\n    if count = 4 then n = 0\n    else n > 0 && sum_of_evens (n - 2) (count + 1)\n  let is_equal_to_sum (n: int) : bool =\n    n >= 8 && sum_of_evens n 0\nend"
+        },
+        {
+            "description": "Using a loop to iterate potential sums of four even numbers to see if they match n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool =\n    if n < 8 || n mod 2 <> 0 then false\n    else\n      let ref i = 0 in\n      let ref is_possible = false in\n      while i <= n / 4 do\n        if n = 2 * (i + i + i + i) then is_possible <- true;\n        i <- i + 1\n      done;\n      is_possible\nend"
+        },
+        {
+            "description": "Using integer division and remainder checks to deduce if n can be split into four even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Using an accumulator pattern in a recursive function to determine the sum condition.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec accumulate_evens (n: int) (acc: int): bool =\n    if acc = 4 then n = 0\n    else n > 0 && accumulate_evens (n - 2) (acc + 1)\n  let is_equal_to_sum (n: int) : bool =\n    n >= 8 && accumulate_evens n 0\nend"
+        },
+        {
+            "description": "Using a nested loop to explore combinations of even numbers that sum to n.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool =\n    if n < 8 || n mod 2 <> 0 then false\n    else\n      let ref is_possible = false in\n      for i = 2 to n / 2 do\n        for j = 2 to n / 2 do\n          for k = 2 to n / 2 do\n            let l = n - (i + j + k) in\n            if i mod 2 = 0 && j mod 2 = 0 && k mod 2 = 0 && l mod 2 = 0 && i + j + k + l = n then\n              is_possible <- true\n          done\n        done\n      done;\n      is_possible\nend"
+        },
+        {
+            "description": "Using an iterative check with a counter to simulate choosing four even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool =\n    if n < 8 || n mod 2 <> 0 then false\n    else\n      let ref count = 0 in\n      let ref sum = 0 in\n      while count < 4 && sum < n do\n        sum <- sum + 2;\n        count <- count + 1\n      done;\n      sum = n\nend"
+        },
+        {
+            "description": "Using a mathematical approach to directly calculate if n can be expressed as a sum of four positive even numbers.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let is_equal_to_sum (n: int) : bool =\n    n >= 8 && n mod 2 = 0\nend"
+        },
+        {
+            "description": "Using recursive calls with decreasing n by 2 to check if four such operations can result in n equaling zero.",
+            "implementation": "module HumanEval138\n  use int.Int\n  let rec check_evens (n: int) (steps: int) : bool =\n    if steps = 0 then n = 0\n    else n > 0 && check_evens (n - 2) (steps - 1)\n  let is_equal_to_sum (n: int) : bool =\n    n >= 8 && check_evens n 4\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using recursion with pattern matching and list concatenation",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse (l : list int) (n : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x Nil -> Cons x Nil\n        | Cons x xs -> Cons x (Cons n (intersperse xs n))\n        end\nend"
+        },
+        {
+            "description": "Using a helper function to build the list recursively",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse_helper (l : list int) (n : int) (acc: list int) : list int =\n        match l with\n        | Nil -> acc\n        | Cons x Nil -> Cons x acc\n        | Cons x xs -> intersperse_helper xs n (Cons n (Cons x acc))\n        end\n\n    let intersperse (l : list int) (n : int) : list int =\n        intersperse_helper (reverse l) n Nil\nend"
+        },
+        {
+            "description": "Using iteration with a reference list to accumulate results",
+            "implementation": "module HumanEval005\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        ensures { nth n l = result }\n        match l with \n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let intersperse (l : list int) (n : int) : list int =\n        let len = length l in\n        let ref result = Nil in\n        for i = len - 1 downto 0 do\n            result <- Cons (nth_my i l) result;\n            if i > 0 then result <- Cons n result\n        done;\n        result\nend"
+        },
+        {
+            "description": "Using a tail-recursive function with an accumulator to build the result",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse_acc (l : list int) (n : int) (acc : list int) : list int =\n        match l with\n        | Nil -> reverse acc\n        | Cons x Nil -> reverse (Cons x acc)\n        | Cons x xs -> intersperse_acc xs n (Cons n (Cons x acc))\n        end\n\n    let intersperse (l : list int) (n : int) : list int =\n        intersperse_acc l n Nil\nend"
+        },
+        {
+            "description": "Using a while loop with a mutable list to accumulate results",
+            "implementation": "module HumanEval005\n\n    use list.List\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        ensures { nth n l = result }\n        match l with \n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let intersperse (l : list int) (n : int) : list int =\n        let len = length l in\n        let ref i = 0 in\n        let ref result = Nil in\n        while i < len do\n            result <- Cons (nth_my i l) result;\n            if i < len - 1 then result <- Cons n result;\n            i <- i + 1\n        done;\n        reverse result\nend"
+        },
+        {
+            "description": "Using pattern matching directly in recursion without helper functions",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse (l : list int) (n : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x Nil -> Cons x Nil\n        | Cons x (Cons y ys) -> Cons x (Cons n (intersperse (Cons y ys) n))\n        end\nend"
+        },
+        {
+            "description": "Using iterative approach with pattern matching and list reversal",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse (l : list int) (n : int) : list int =\n        let rec helper (l : list int) (acc : list int) : list int =\n            match l with\n            | Nil -> reverse acc\n            | Cons x Nil -> reverse (Cons x acc)\n            | Cons x xs -> helper xs (Cons n (Cons x acc))\n            end\n        in helper l Nil\nend"
+        },
+        {
+            "description": "Using mutual recursion to handle the interspersing logic",
+            "implementation": "module HumanEval005\n\n    use list.List\n\n    let rec intersperse_inner (l : list int) (n : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> Cons x (intersperse_outer xs n)\n        end\n    \n    and intersperse_outer (l : list int) (n : int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> Cons n (intersperse_inner xs n)\n        end\n\n    let intersperse (l : list int) (n : int) : list int =\n        intersperse_inner l n\nend"
+        },
+        {
+            "description": "Using fold to accumulate results and insert delimiters",
+            "implementation": "module HumanEval005\n\n    use list.List\n    use list.FoldLeft\n\n    let intersperse (l : list int) (n : int) : list int =\n        let fold_fn (acc : list int) (x : int) : list int =\n            match acc with\n            | Nil -> Cons x Nil\n            | _ -> Cons x (Cons n acc)\n            end\n        in reverse (fold_left fold_fn Nil l)\nend"
+        },
+        {
+            "description": "Using map with an index check to insert delimiters",
+            "implementation": "module HumanEval005\n\n    use list.List\n    use list.Map\n\n    let intersperse (l : list int) (n : int) : list int =\n        let rec map_with_index (l : list int) (i : int) : list int =\n            match l with\n            | Nil -> Nil\n            | Cons x xs ->\n                if i > 0 then Cons n (Cons x (map_with_index xs (i + 1)))\n                else Cons x (map_with_index xs (i + 1))\n            end\n        in map_with_index l 0\nend"
+        }
+    ]
+}

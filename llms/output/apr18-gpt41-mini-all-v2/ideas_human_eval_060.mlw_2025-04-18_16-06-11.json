@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a simple recursive function that sums from n down to 1 by calling sum_to_n(n-1) until n is 0.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    if n <= 0 then 0 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using tail recursion with an accumulator parameter to efficiently sum numbers from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n_aux (n : int) (acc : int) : int =\n    if n <= 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n\n  let sum_to_n (n : int) : int =\n    sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Using the closed-form formula n*(n+1)/2 for constant time calculation of sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n\n  let sum_to_n (n : int) : int =\n    if n <= 0 then 0 else (n * (n + 1)) div 2\nend"
+        },
+        {
+            "description": "Using an iterative loop with a mutable reference to accumulate the sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    let ref i = 1 in\n    while i <= n do\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using pattern matching on integer n with base case 0 and recursive case adding n + sum_to_n(n-1).",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using a helper function with an explicit range list (constructed recursively) and summing all elements recursively.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  let rec make_list (start : int) (end_ : int) : list int =\n    if start > end_ then Nil else Cons start (make_list (start + 1) end_)\n\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let sum_to_n (n : int) : int =\n    if n <= 0 then 0 else sum_list (make_list 1 n)\nend"
+        },
+        {
+            "description": "Using an accumulator and pattern matching on n, counting up from 1 to n via a helper function with current counter.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n_aux (current : int) (n : int) (acc : int) : int =\n    if current > n then acc else sum_to_n_aux (current + 1) n (acc + current)\n\n  let sum_to_n (n : int) : int =\n    sum_to_n_aux 1 n 0\nend"
+        },
+        {
+            "description": "Using a decreasing loop with a mutable reference, counting down from n to 1, accumulating the sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    let ref i = n in\n    while i > 0 do\n      acc <- acc + i;\n      i <- i - 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using recursion with explicit if-then-else branching for base case when n=1 and recursive case otherwise.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  let rec sum_to_n (n : int) : int =\n    begin\n      if n <= 1 then n else n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using list range and fold implemented as recursive summation function to simulate fold_left behavior for summing list of 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use list.List\n\n  let rec make_list (start : int) (end_ : int) : list int =\n    if start > end_ then Nil else Cons start (make_list (start + 1) end_)\n\n  let rec fold_left_sum (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs -> fold_left_sum xs (acc + x)\n    end\n\n  let sum_to_n (n : int) : int =\n    if n <= 0 then 0 else fold_left_sum (make_list 1 n) 0\nend"
+        }
+    ]
+}

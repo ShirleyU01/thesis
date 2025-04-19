@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Direct addition using the + operator. This is the most straightforward implementation, leveraging Why3's native integer addition.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    x + y\nend"
+        },
+        {
+            "description": "Addition via recursion: increment x and decrement y until y is zero. This mimics the process of adding y to x by repeated incrementation.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    if y = 0 then x else add (x + 1) (y - 1)\nend"
+        },
+        {
+            "description": "Addition via recursion: decrement x and increment y until x is zero. This is a symmetric version of the previous recursive approach.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    if x = 0 then y else add (x - 1) (y + 1)\nend"
+        },
+        {
+            "description": "Addition using a for loop to increment a reference variable starting from x, y times. This simulates adding y to x by repeated incrementation.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    let ref res = x in\n    for i = 1 to y do res <- res + 1 done;\n    res\nend"
+        },
+        {
+            "description": "Addition using a while loop to add 1 to x until y decrements to zero, using only increments and a counter.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let add (x: int) (y: int) : int =\n    let ref a = x in\n    let ref b = y in\n    while b > 0 do\n      a <- a + 1;\n      b <- b - 1\n    done;\n    a\nend"
+        },
+        {
+            "description": "Addition using the max and min functions: calculate the sum as twice the max minus the absolute difference. This is a creative algebraic rearrangement.",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.Abs\n  use int.MinMax\n  let add (x: int) (y: int) : int =\n    2 * max x y - abs (x - y)\nend"
+        },
+        {
+            "description": "Addition using Euclidean division: sum x and y by splitting x into q*1 + r and adding y, exploiting mod and div. (A roundabout way for demonstration.)",
+            "implementation": "module HumanEval053\n  use int.Int\n  use int.EuclideanDivision\n  let add (x: int) (y: int) : int =\n    let q = div x 1 in\n    let r = mod x 1 in\n    q + r + y\nend"
+        },
+        {
+            "description": "Addition by summing a list of the two numbers using the list.Sum library. This uses a list to aggregate the two numbers.",
+            "implementation": "module HumanEval053\n  use int.Int\n  use list.List\n  use list.Sum\n  let add (x: int) (y: int) : int =\n    sum (Cons x (Cons y Nil))\nend"
+        },
+        {
+            "description": "Addition using pattern matching on signs: if y is negative, subtract 1 repeatedly; if positive, add 1 repeatedly. Handles both positive and negative y.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    match y with\n    | 0 -> x\n    | _ when y > 0 -> add (x + 1) (y - 1)\n    | _ -> add (x - 1) (y + 1)\n    end\nend"
+        },
+        {
+            "description": "Addition using a helper function that accumulates the result, starting from x and counting up y times. Demonstrates accumulator-style recursion.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add_acc (res: int) (count: int) : int =\n    if count = 0 then res else add_acc (res + 1) (count - 1)\n  let add (x: int) (y: int) : int =\n    add_acc x y\nend"
+        }
+    ]
+}

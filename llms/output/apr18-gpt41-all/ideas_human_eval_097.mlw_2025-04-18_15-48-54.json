@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Extract the unit digits using EuclideanDivision.mod and multiply directly, using a simple let-binding for clarity.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Define a helper function to get the unit digit, then call it for both a and b before multiplying. This encapsulates the digit extraction logic.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let unit_digit (x: int) : int = mod (abs x) 10\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching on the signs of a and b to ensure both are positive before extracting unit digits. Demonstrates branching before digit extraction.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let pa = if a < 0 then -a else a in\n    let pb = if b < 0 then -b else b in\n    let da = mod pa 10 in\n    let db = mod pb 10 in\n    da * db\nend"
+        },
+        {
+            "description": "Extract unit digits using recursion: define a recursive function to peel off digits until the last one is found.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec last_digit (x: int) : int =\n    if x < 0 then last_digit (-x)\n    else if x < 10 then x\n    else last_digit (x - 10)\n  let multiply (a: int) (b: int) : int =\n    last_digit a * last_digit b\nend"
+        },
+        {
+            "description": "Use division and subtraction to find the unit digit: compute the quotient and subtract to get the remainder (unit digit).",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let ua = abs a - 10 * div (abs a) 10 in\n    let ub = abs b - 10 * div (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Use a loop to simulate extraction of the unit digit by repeated subtraction of 10, showing an imperative style.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let get_unit_digit (x: int) : int =\n    let ref y = if x < 0 then -x else x in\n    while y >= 10 do y <- y - 10 done ;\n    y\n  let multiply (a: int) (b: int) : int =\n    get_unit_digit a * get_unit_digit b\nend"
+        },
+        {
+            "description": "Use pattern matching on a and b being zero to handle zero cases early, otherwise extract and multiply the unit digits.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    match (a = 0, b = 0) with\n    | (True, _) | (_, True) -> 0\n    | _ -> let ua = mod (abs a) 10 in let ub = mod (abs b) 10 in ua * ub\n    end\nend"
+        },
+        {
+            "description": "Use a helper function that works recursively to extract the unit digit using pattern matching, emphasizing recursion and pattern style.",
+            "implementation": "module HumanEval097\n  use int.Int\n  let rec unit_digit (x: int) : int =\n    match x < 0 with\n    | True -> unit_digit (-x)\n    | False -> match x < 10 with\n               | True -> x\n               | False -> unit_digit (x - 10)\n               end\n    end\n  let multiply (a: int) (b: int) : int =\n    unit_digit a * unit_digit b\nend"
+        },
+        {
+            "description": "Use the abs function and EuclideanDivision.mod function together, showing explicit import and stepwise computation.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n  let multiply (a: int) (b: int) : int =\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\nend"
+        },
+        {
+            "description": "Extract digits as a list using recursion, then take the head as unit digit. Demonstrates list construction and pattern matching.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use list.List\n  let rec digits (x: int) : list int =\n    if x < 0 then digits (-x)\n    else if x < 10 then Cons x Nil\n    else Cons (x - 10 * (x / 10)) (digits (x / 10))\n  let get_unit (x: int) : int =\n    match digits x with\n    | Cons h _ -> h\n    | Nil -> 0\n    end\n  let multiply (a: int) (b: int) : int =\n    get_unit a * get_unit b\nend"
+        }
+    ]
+}

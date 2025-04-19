@@ -1,0 +1,207 @@
+(* modified
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence. Assume that all values in the given list is larger than -1000
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+*)
+
+module HumanEval009Goal
+    use int.Int
+    use list.List
+    use list.Length
+    use list.NthNoOpt
+    
+    let rec helper (l : list int) (acc : int) : list int =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> if x > acc 
+                       then Cons x (helper xs x) 
+                       else Cons acc (helper xs acc)
+        end
+    
+    let rolling_max (l : list int) : list int =
+        ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+        ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+        helper l (-1000)
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval009
+
+use int.Int
+use int.MinMax
+use list.List
+
+let rec rolling_max (l: list int) : list int =
+  match l with
+  | Nil -> Nil
+  | Cons x Nil -> Cons x Nil
+  | Cons x xs ->
+      let rest = rolling_max xs in
+      match rest with
+      | Nil -> Cons x Nil
+      | Cons y ys ->
+          let h = max x y in
+          Cons h (Cons y ys)
+      end
+  end
+end
+
+module TestHumanEval009
+    use int.Int
+    use list.List
+    use list.NthNoOpt
+    use list.Length
+    use HumanEval009
+
+    let rec nth_1 (n : int) (l : list int) : int =
+        requires { length l > 0 }
+        requires { 0 <= n /\ n < length l }
+        variant { n }
+        ensures { nth n l = result }
+        match l with 
+        | Cons x r -> if n = 0 then x else nth_1 (n - 1) r
+        end 
+
+    let list_eq (l1 : list int) (l2 : list int) : bool =
+        requires {length l1 = length l2}
+        ensures { result -> forall i. 0 <= i < length l1 -> nth i l1 = nth i l2 }
+        let n = length l1 in
+        let ref res = true in
+        for i = 0 to (n-1) do
+            invariant {res = false \/ forall j. 0 <= j < i -> nth j l1 = nth j l2 }
+            if not (nth_1 i l1 = nth_1 i l2)
+            then res <- false
+        done;
+        res
+
+   let test1 () : bool =
+        list_eq (rolling_max (Nil : list int)) Nil
+
+    let test1_output () : (list int, list int, list int) =
+        (Nil, rolling_max (Nil : list int), Nil)
+
+    let test2 () : bool =
+        list_eq (rolling_max (Cons 1 Nil)) (Cons 1 Nil)
+
+    let test2_output () : (list int, list int, list int) =
+        (Cons 1 Nil, rolling_max (Cons 1 Nil), Cons 1 Nil)
+
+    let test3 () : bool =
+        list_eq (rolling_max (Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 Nil)))))))) 
+                (Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 Nil)))))))
+
+    let test3_output () : (list int, list int, list int) =
+        (Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 Nil)))))),
+         rolling_max (Cons 1 (Cons 2 (Cons 3 (Cons 2 (Cons 3 (Cons 4 (Cons 2 Nil))))))),
+         Cons 1 (Cons 2 (Cons 3 (Cons 3 (Cons 3 (Cons 4 (Cons 4 Nil)))))))
+
+    let test4 () : bool =
+        list_eq (rolling_max (Cons 5 (Cons 3 (Cons 1 (Cons 4 (Cons 2 Nil))))))
+                (Cons 5 (Cons 5 (Cons 5 (Cons 5 (Cons 5 Nil)))))
+
+    let test4_output () : (list int, list int, list int) =
+        (Cons 5 (Cons 3 (Cons 1 (Cons 4 (Cons 2 Nil)))),
+         rolling_max (Cons 5 (Cons 3 (Cons 1 (Cons 4 (Cons 2 Nil))))),
+         Cons 5 (Cons 5 (Cons 5 (Cons 5 (Cons 5 Nil)))))
+
+    let test5 () : bool =
+        list_eq (rolling_max (Cons (-1) (Cons (-2) (Cons (-3) Nil))))
+                (Cons (-1) (Cons (-1) (Cons (-1) Nil)))
+
+    let test5_output () : (list int, list int, list int) =
+        (Cons (-1) (Cons (-2) (Cons (-3) Nil)),
+         rolling_max (Cons (-1) (Cons (-2) (Cons (-3) Nil))),
+         Cons (-1) (Cons (-1) (Cons (-1) Nil)))
+
+    let test6 () : bool =
+        list_eq (rolling_max (Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 Nil)))))))
+                (Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 Nil))))))
+
+    let test6_output () : (list int, list int, list int) =
+        (Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 Nil)))))),
+         rolling_max (Cons 1 (Cons 3 (Cons 2 (Cons 5 (Cons 4 (Cons 6 Nil)))))),
+         Cons 1 (Cons 3 (Cons 3 (Cons 5 (Cons 5 (Cons 6 Nil)))))
+
+    let test7 () : bool =
+        list_eq (rolling_max (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil)))))
+                (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil))))
+
+    let test7_output () : (list int, list int, list int) =
+        (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil)))),
+         rolling_max (Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil)))),
+         Cons 0 (Cons 0 (Cons 0 (Cons 0 Nil)))
+
+    let test8 () : bool =
+        list_eq (rolling_max (Cons 3 (Cons 1 (Cons 3 (Cons 1 (Cons 3 Nil))))))
+                (Cons 3 (Cons 3 (Cons 3 (Cons 3 (Cons 3 Nil)))))
+
+    let test8_output () : (list int, list int, list int) =
+        (Cons 3 (Cons 1 (Cons 3 (Cons 1 (Cons 3 Nil))))),
+         rolling_max (Cons 3 (Cons 1 (Cons 3 (Cons 1 (Cons 3 Nil))))),
+         Cons 3 (Cons 3 (Cons 3 (Cons 3 (Cons 3 Nil))))
+
+    let test9 () : bool =
+        list_eq (rolling_max (Cons 10 (Cons 5 (Cons 20 (Cons 15 Nil)))))
+                (Cons 10 (Cons 10 (Cons 20 (Cons 20 Nil))))
+
+    let test9_output () : (list int, list int, list int) =
+        (Cons 10 (Cons 5 (Cons 20 (Cons 15 Nil))),
+         rolling_max (Cons 10 (Cons 5 (Cons 20 (Cons 15 Nil)))),
+         Cons 10 (Cons 10 (Cons 20 (Cons 20 Nil))))
+
+    let test10 () : bool =
+        list_eq (rolling_max (Cons (-5) (Cons 0 (Cons (-10) (Cons 5 Nil)))))
+                (Cons (-5) (Cons 0 (Cons 0 (Cons 5 Nil))))
+
+    let test10_output () : (list int, list int, list int) =
+        (Cons (-5) (Cons 0 (Cons (-10) (Cons 5 Nil))),
+         rolling_max (Cons (-5) (Cons 0 (Cons (-10) (Cons 5 Nil)))),
+         Cons (-5) (Cons 0 (Cons 0 (Cons 5 Nil))))
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : (list int, list int, list int) =
+        let ref res = (Nil, Nil, Nil) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, list int, list int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, list int, list int) =
+        let l = testfail () in
+        failoutput l
+        
+end

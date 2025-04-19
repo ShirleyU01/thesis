@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using pattern matching with a helper function to filter and sum squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Length\nuse int.Int\nuse int.Power\n\nlet rec is_odd (n: int) : bool =\n  n mod 2 = 1\n\nlet rec square_odd_sum (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if x >= 0 && is_odd x then (power x 2) + square_odd_sum xs else square_odd_sum xs\n  end\n\nlet double_the_difference (l: list int) : int =\n  square_odd_sum l\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate over the list and accumulate the sum of squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Length\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l: list int) : int =\n  let n = length l in\n  let ref i = 0 in\n  let ref sum = 0 in\n  while i < n do\n    let x = nth_my i l in\n    if x >= 0 && x mod 2 = 1 then sum <- sum + power x 2;\n    i <- i + 1\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator to compute the sum of squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse int.Int\nuse int.Power\n\nlet rec square_odd_sum_acc (l: list int) (acc: int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> if x >= 0 && x mod 2 = 1 then square_odd_sum_acc xs (acc + power x 2) else square_odd_sum_acc xs acc\n  end\n\nlet double_the_difference (l: list int) : int =\n  square_odd_sum_acc l 0\nend"
+        },
+        {
+            "description": "Using a for-loop to iterate through the list and sum the squares of odd numbers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Length\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l: list int) : int =\n  let n = length l in\n  let ref sum = 0 in\n  for i = 0 to n - 1 do\n    let x = nth_my i l in\n    if x >= 0 && x mod 2 = 1 then sum <- sum + power x 2\n  done;\n  sum\nend"
+        },
+        {
+            "description": "Using map to transform the list and then summing the results of a function applied to each element.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Map\nuse list.Sum\nuse int.Int\nuse int.Power\n\nlet square_if_odd (x: int) : int =\n  if x >= 0 && x mod 2 = 1 then power x 2 else 0\n\nlet double_the_difference (l: list int) : int =\n  sum (map square_if_odd l)\nend"
+        },
+        {
+            "description": "Using a fold function to aggregate the sum of squares of odd integers within the list.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse int.Int\nuse int.Power\n\nlet rec fold_sum (f: int -> int) (acc: int) (l: list int) : int =\n  match l with\n  | Nil -> acc\n  | Cons x xs -> fold_sum f (acc + f x) xs\n  end\n\nlet square_if_odd (x: int) : int =\n  if x >= 0 && x mod 2 = 1 then power x 2 else 0\n\nlet double_the_difference (l: list int) : int =\n  fold_sum square_if_odd 0 l\nend"
+        },
+        {
+            "description": "Using recursion with branching conditions to filter and sum squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse int.Int\nuse int.Power\n\nlet rec double_the_difference (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs -> if x >= 0 && x mod 2 = 1 then power x 2 + double_the_difference xs else double_the_difference xs\n  end\nend"
+        },
+        {
+            "description": "Using pattern matching with guards to filter and sum squares of odd integers.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse int.Int\nuse int.Power\n\nlet rec double_the_difference (l: list int) : int =\n  match l with\n  | Nil -> 0\n  | Cons x xs when x >= 0 && x mod 2 = 1 -> power x 2 + double_the_difference xs\n  | Cons _ xs -> double_the_difference xs\n  end\nend"
+        },
+        {
+            "description": "Using an iterative approach with a list reversal to handle elements from end to start.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Reverse\nuse int.Int\nuse int.Power\n\nlet double_the_difference (l: list int) : int =\n  let reversed = reverse l in\n  let rec sum_squares (lst: list int) (acc: int) : int =\n    match lst with\n    | Nil -> acc\n    | Cons x xs -> if x >= 0 && x mod 2 = 1 then sum_squares xs (acc + power x 2) else sum_squares xs acc\n    end\n  in\n  sum_squares reversed 0\nend"
+        },
+        {
+            "description": "Using map and filter functions to transform the list and then summing the results.",
+            "implementation": "module HumanEval151\n\nuse list.List\nuse list.Map\nuse list.Sum\nuse int.Int\nuse int.Power\n\nlet square (x: int) : int = power x 2\n\nlet double_the_difference (l: list int) : int =\n  let odds = filter (fun x -> x >= 0 && x mod 2 = 1) l in\n  sum (map square odds)\nend"
+        }
+    ]
+}

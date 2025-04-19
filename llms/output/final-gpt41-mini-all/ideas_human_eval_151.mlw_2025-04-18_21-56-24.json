@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching that accumulates sum by checking each element if it's a positive odd integer, summing its square if so.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = double_the_difference xs in\n        begin\n          if x >= 0 && mod x 1 = 0 && mod x 2 = 1 then x * x + rest else rest\n        end\n    end\nend"
+        },
+        {
+            "description": "Recursive helper with an accumulator parameter to sum squares of positive odd integers, tail-recursive style.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec helper (l : list int) (acc : int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if x >= 0 && mod x 2 = 1 then acc + x * x else acc in\n        helper xs acc'\n    end\n\n  let double_the_difference (l : list int) : int =\n    helper l 0\nend"
+        },
+        {
+            "description": "Use an inner local function to perform recursion with pattern matching and accumulate the sum, explicitly ignoring negative and even numbers.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let double_the_difference (l : list int) : int =\n    let rec aux (lst : list int) (sum : int) : int =\n      match lst with\n      | Nil -> sum\n      | Cons x xs ->\n          let new_sum = if x >= 0 && mod x 2 = 1 then sum + x * x else sum in\n          aux xs new_sum\n      end\n    in aux l 0\nend"
+        },
+        {
+            "description": "Pattern matching with explicit check for empty list and recursive call without accumulator, summing squares of positive odd integers only.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x >= 0 && mod x 2 = 1 then x * x + double_the_difference xs\n        else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Using an auxiliary function to filter the list for positive odd integers and then recursively sum their squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec filter_positive_odd (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x >= 0 && mod x 2 = 1 then Cons x (filter_positive_odd xs)\n        else filter_positive_odd xs\n    end\n\n  let rec sum_squares (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x * x + sum_squares xs\n    end\n\n  let double_the_difference (l : list int) : int =\n    sum_squares (filter_positive_odd l)\nend"
+        },
+        {
+            "description": "Use a recursive function with pattern matching and if-then-else branching inside the match to decide to include square or not.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> begin\n        if x >= 0 then\n          if mod x 2 = 1 then x * x + double_the_difference xs else double_the_difference xs\n        else\n          double_the_difference xs\n        end\n    end\nend"
+        },
+        {
+            "description": "Using a let-binding inside pattern matching to simplify conditions and sum squares of positive odd integers recursively.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let is_valid = x >= 0 && mod x 2 = 1 in\n        if is_valid then x * x + double_the_difference xs else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Recursive implementation that uses a nested if to first check positivity and then oddness, summing squares accordingly.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if x < 0 then double_the_difference xs else\n        if mod x 2 = 1 then x * x + double_the_difference xs else double_the_difference xs\n    end\nend"
+        },
+        {
+            "description": "Use a helper recursive function that explicitly matches on Nil and Cons, summing the square only if element is non-negative and odd.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec helper (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        let rest = helper xs in\n        if x >= 0 && mod x 2 = 1 then x * x + rest else rest\n    end\n\n  let double_the_difference (l : list int) : int = helper l\nend"
+        },
+        {
+            "description": "Recursive implementation with explicit guards using pattern matching that checks non-negativity and oddness before summing squares.",
+            "implementation": "module HumanEval151\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec double_the_difference (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs when x >= 0 && mod x 2 = 1 -> x * x + double_the_difference xs\n    | Cons _ xs -> double_the_difference xs\n    end\nend"
+        }
+    ]
+}

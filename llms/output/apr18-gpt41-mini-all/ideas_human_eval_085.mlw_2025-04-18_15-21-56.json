@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive function with explicit index tracking to add even elements at odd indices",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  \n  let rec add_aux (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        if (mod i 2) = 1 && (mod x 2) = 0 then x + add_aux xs (i + 1) else add_aux xs (i + 1)\n      end\n  \n  let add (l: list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Recursive pattern matching with a boolean flag to indicate odd index and accumulate sum",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  \n  let rec add_flag (l: list int) (odd: bool) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        let sum_rest = add_flag xs (not odd) in\n        if odd && (mod x 2) = 0 then x + sum_rest else sum_rest\n      end\n  \n  let add (l: list int) : int =\n    add_flag l false\nend"
+        },
+        {
+            "description": "Define a recursive function that drops the first element and processes every second element to sum even numbers",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  \n  let rec add_skip (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n      begin\n        let s = if (mod y 2) = 0 then y else 0 in\n        s + add_skip ys\n      end\n  \n  let add (l: list int) : int =\n    add_skip l\nend"
+        },
+        {
+            "description": "Use an accumulator with a helper function that recursively processes list elements with index tracking",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  \n  let rec add_acc (l: list int) (i: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      let acc' =\n        begin\n          if (mod i 2) = 1 && (mod x 2) = 0 then acc + x else acc\n        end in\n      add_acc xs (i + 1) acc'\n  \n  let add (l: list int) : int =\n    add_acc l 0 0\nend"
+        },
+        {
+            "description": "Reverse the list first and then use recursive pattern matching to process from the end, summing even elements at odd indices",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Reverse\n  \n  let rec add_rev_aux (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      begin\n        let s = if (mod i 2) = 1 && (mod x 2) = 0 then x else 0 in\n        s + add_rev_aux xs (i + 1)\n      end\n  \n  let add (l: list int) : int =\n    let rl = reverse l in\n    add_rev_aux rl 0\nend"
+        },
+        {
+            "description": "Define custom nth_my function and iterate indices with recursion to sum even elements at odd indices",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n  \n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec add_idx (l: list int) (i: int) (len: int) : int =\n    if i >= len then 0 else\n      let x = nth_my i l in\n      let sum_rest = add_idx l (i + 1) len in\n      if (mod i 2) = 1 && (mod x 2) = 0 then x + sum_rest else sum_rest\n\n  let add (l: list int) : int =\n    add_idx l 0 (length l)\nend"
+        },
+        {
+            "description": "Process the list by pairing elements with their indices using a recursive helper and sum elements satisfying conditions",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  \n  type pair = (int, int)\n\n  let rec zip_with_index (l: list int) (i: int) : list pair =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (i, x) (zip_with_index xs (i + 1))\n\n  let rec sum_even_odd_indices (l: list pair) : int =\n    match l with\n    | Nil -> 0\n    | Cons (idx, val_) xs ->\n      let s = if (mod idx 2) = 1 && (mod val_ 2) = 0 then val_ else 0 in\n      s + sum_even_odd_indices xs\n\n  let add (l: list int) : int =\n    let indexed = zip_with_index l 0 in\n    sum_even_odd_indices indexed\nend"
+        },
+        {
+            "description": "Use a recursive function that processes two elements at a time: skip one (even index), and check the next (odd index) for evenness",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec add_two_step (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n      let s = if (mod y 2) = 0 then y else 0 in\n      s + add_two_step ys\n\n  let add (l: list int) : int =\n    add_two_step l\nend"
+        },
+        {
+            "description": "Use recursion with pattern matching and an auxiliary function that accumulates sum while toggling a boolean for odd index",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  let rec helper (l: list int) (is_odd: bool) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      let acc' = if is_odd && (mod x 2) = 0 then acc + x else acc in\n      helper xs (not is_odd) acc'\n\n  let add (l: list int) : int =\n    helper l false 0\nend"
+        },
+        {
+            "description": "Define a function that uses a pattern matching on the list and calls a recursive helper to sum even elements at odd indices using index arithmetic",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Length\n\n  let rec add_with_index (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      let s = if (mod i 2) = 1 && (mod x 2) = 0 then x else 0 in\n      s + add_with_index xs (i + 1)\n\n  let add (l: list int) : int =\n    add_with_index l 0\nend"
+        }
+    ]
+}

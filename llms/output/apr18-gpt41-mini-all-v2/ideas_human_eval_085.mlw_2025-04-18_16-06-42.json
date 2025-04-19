@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive helper with index tracking: Use a recursive function that traverses the list carrying the current index as a parameter, summing even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use list.List\n  use list.Length\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec add_aux (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if (mod idx 2) = 1 && (mod x 2) = 0 then x + add_aux xs (idx + 1) else add_aux xs (idx + 1)\n    end\n\n  let add (l: list int) : int =\n    add_aux l 0\nend"
+        },
+        {
+            "description": "Recursive pattern matching with accumulator: Use a recursive function with an accumulator for the sum and current index, updating sum only for even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec add_acc (l: list int) (idx: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      let new_acc = if (mod idx 2) = 1 && (mod x 2) = 0 then acc + x else acc in\n      add_acc xs (idx + 1) new_acc\n    end\n\n  let add (l: list int) : int =\n    add_acc l 0 0\nend"
+        },
+        {
+            "description": "Using custom nth_my function and for-loop: Define a safe nth_my function to access elements by index and iterate over indices with a for-loop to sum qualifying elements.",
+            "implementation": "module HumanEval085\n  use list.List\n  use list.Length\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec nth_my (n: int) (l: list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n               n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let add (l: list int) : int =\n    let n = length l in\n    let ref sum = 0 in\n    for i = 0 to n - 1 do\n      let x = nth_my i l in\n      if (mod i 2) = 1 && (mod x 2) = 0 then sum <- sum + x\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Tail recursion with pattern matching and index: Define a tail-recursive function carrying index and sum accumulator, adding even elements at odd indices.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec add_tail (l: list int) (idx: int) (acc: int) : int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n      let acc' = if (mod idx 2) = 1 && (mod x 2) = 0 then acc + x else acc in\n      add_tail xs (idx + 1) acc'\n    end\n\n  let add (l: list int) : int =\n    add_tail l 0 0\nend"
+        },
+        {
+            "description": "Recursive pattern matching without index parameter: Use a helper function that tracks odd/even index via boolean flag toggled at each recursion, summing even elements at odd positions.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec add_flag (l: list int) (is_odd: bool) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      let sum_rest = add_flag xs (not is_odd) in\n      if is_odd && (mod x 2) = 0 then x + sum_rest else sum_rest\n    end\n\n  let add (l: list int) : int =\n    add_flag l false\nend"
+        },
+        {
+            "description": "Iterative while-loop with explicit index and manual list traversal: Use a while-loop to traverse list by deconstructing each Cons cell, manually advancing index and summing qualifying elements.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let add (l: list int) : int =\n    let ref sum = 0 in\n    let ref idx = 0 in\n    let ref cur = l in\n    while not (List.is_nil cur) do\n      match cur with\n      | Cons x xs ->\n        if (mod idx 2) = 1 && (mod x 2) = 0 then sum <- sum + x;\n        cur <- xs;\n        idx <- idx + 1\n      end\n    done;\n    sum\nend"
+        },
+        {
+            "description": "Recursive with pattern matching and nested if-then-else: Use explicit if-then-else to check index parity and element evenness, summing accordingly in recursive manner with index parameter.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec add (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if (mod idx 2) = 1 then\n        if (mod x 2) = 0 then x + add xs (idx + 1) else add xs (idx + 1)\n      else add xs (idx + 1)\n    end\n\n  let add (l: list int) : int = add l 0\nend"
+        },
+        {
+            "description": "Using separate functions to check index and element conditions: Define functions is_odd_index and is_even_element, then recursively sum elements where both conditions hold.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_odd_index (i: int) : bool = (mod i 2) = 1\n  let is_even_element (x: int) : bool = (mod x 2) = 0\n\n  let rec add (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      if is_odd_index idx && is_even_element x then x + add xs (idx + 1) else add xs (idx + 1)\n    end\n\n  let add (l: list int) : int = add l 0\nend"
+        },
+        {
+            "description": "Sum elements using filter and map style recursion: Recursively create a list of elements that are even and at odd indices, then sum that list.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec filter_even_odd (l: list int) (idx: int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if (mod idx 2) = 1 && (mod x 2) = 0 then Cons x (filter_even_odd xs (idx + 1)) else filter_even_odd xs (idx + 1)\n    end\n\n  let rec sum_list (l: list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let add (l: list int) : int =\n    sum_list (filter_even_odd l 0)\nend"
+        },
+        {
+            "description": "Reverse list and use index from end: Reverse the list and sum elements which correspond to odd indices from the original by calculating index from end, summing even elements accordingly.",
+            "implementation": "module HumanEval085\n  use list.List\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec reverse (l: list int) : list int =\n    let rec rev_acc (l: list int) (acc: list int) : list int =\n      match l with\n      | Nil -> acc\n      | Cons x xs -> rev_acc xs (Cons x acc)\n      end\n    in rev_acc l Nil\n\n  let rec add_rev (l: list int) (idx: int) (length: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n      let orig_idx = length - 1 - idx in\n      if (mod orig_idx 2) = 1 && (mod x 2) = 0 then x + add_rev xs (idx + 1) length else add_rev xs (idx + 1) length\n    end\n\n  let add (l: list int) : int =\n    let rl = reverse l in\n    let len = length l in\n    add_rev rl 0 len\nend"
+        }
+    ]
+}

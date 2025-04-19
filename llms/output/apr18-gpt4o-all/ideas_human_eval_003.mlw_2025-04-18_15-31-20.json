@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a for-loop to iterate through the list and track balance changes.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let below_zero (operations : list int) : bool =\n    let n = length operations in\n    let ref balance = 0 in\n    for i = 0 to n-1 do\n      balance <- balance + nth_my i operations;\n      if balance < 0 then return true\n    done;\n    false\nend"
+        },
+        {
+            "description": "Using a while-loop to iterate through the list and check for negative balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let below_zero (operations : list int) : bool =\n    let n = length operations in\n    let ref i = 0 in\n    let ref balance = 0 in\n    while i < n do\n      balance <- balance + nth_my i operations;\n      if balance < 0 then return true;\n      i <- i + 1\n    done;\n    false\nend"
+        },
+        {
+            "description": "Using recursion with pattern matching to detect below zero balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero_helper (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero_helper xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    below_zero_helper operations 0\nend"
+        },
+        {
+            "description": "Using fold-like recursion to accumulate balance and check for negativity.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero_fold (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero_fold xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    below_zero_fold operations 0\nend"
+        },
+        {
+            "description": "Using pattern matching and an accumulator to track balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero_acc (operations : list int) (acc : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_acc = acc + x in\n      if new_acc < 0 then true else below_zero_acc xs new_acc\n    end\n\n  let below_zero (operations : list int) : bool =\n    below_zero_acc operations 0\nend"
+        },
+        {
+            "description": "Using recursive branching to determine if the balance falls below zero.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec below_zero_recursive (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else below_zero_recursive xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    below_zero_recursive operations 0\nend"
+        },
+        {
+            "description": "Using a reverse list approach and then checking for the first negative balance.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec check_balance (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else check_balance xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    let reversed_ops = reverse operations in\n    check_balance reversed_ops 0\nend"
+        },
+        {
+            "description": "Using a custom iterative function with explicit balance tracking.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    ensures { nth n l = result }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let below_zero (operations : list int) : bool =\n    let n = length operations in\n    let rec iterate (i : int) (balance : int) : bool =\n      if i >= n then false\n      else let new_balance = balance + nth_my i operations in\n           if new_balance < 0 then true else iterate (i + 1) new_balance\n    in iterate 0 0\nend"
+        },
+        {
+            "description": "Using a manual tail recursion to simulate iteration.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec tail_recursive_check (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else tail_recursive_check xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    tail_recursive_check operations 0\nend"
+        },
+        {
+            "description": "Using a helper function to track balance changes and detect negative balances.",
+            "implementation": "module HumanEval003\n\n  use int.Int\n  use list.List\n\n  let rec balance_helper (operations : list int) (balance : int) : bool =\n    match operations with\n    | Nil -> false\n    | Cons x xs ->\n      let new_balance = balance + x in\n      if new_balance < 0 then true else balance_helper xs new_balance\n    end\n\n  let below_zero (operations : list int) : bool =\n    balance_helper operations 0\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using pattern matching and recursion to filter positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n\n    let rec get_positive (l : list int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n        end\n\nend"
+        },
+        {
+            "description": "Using a helper function with recursion and an accumulator to build the list of positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n\n    let rec get_positive_acc (l : list int) (acc : list int) : list int =\n        match l with\n        | Nil -> acc\n        | Cons x xs -> if x > 0 then get_positive_acc xs (Cons x acc) else get_positive_acc xs acc\n        end\n\n    let get_positive (l : list int) : list int =\n        reverse (get_positive_acc l Nil)\n\nend"
+        },
+        {
+            "description": "Using pattern matching with list concatenation to filter positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n    use list.Append\n\n    let rec get_positive (l : list int) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n        end\n\nend"
+        },
+        {
+            "description": "Using a loop to iterate over the list and collect positive numbers using a reference list.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        ensures { nth n l = result }\n        match l with\n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let get_positive (l : list int) : list int =\n        let n = length l in\n        let ref result = Nil in\n        for i = 0 to n - 1 do\n            if nth_my i l > 0 then result <- Cons (nth_my i l) result\n        done;\n        reverse result\n\nend"
+        },
+        {
+            "description": "Using a fold-like recursion to accumulate positive numbers in a new list.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n\n    let rec fold_get_positive (l : list int) (acc : list int) : list int =\n        match l with\n        | Nil -> reverse acc\n        | Cons x xs -> if x > 0 then fold_get_positive xs (Cons x acc) else fold_get_positive xs acc\n        end\n\n    let get_positive (l : list int) : list int =\n        fold_get_positive l Nil\n\nend"
+        },
+        {
+            "description": "Using a while-loop to filter positive numbers from the list.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n    use list.Length\n    use list.NthNoOpt\n\n    let rec nth_my (n : int) (l : list int) : int =\n        requires { length l > 0 }\n        requires { 0 <= n /\\ n < length l }\n        variant { n }\n        ensures { nth n l = result }\n        match l with\n        | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n        end\n\n    let get_positive (l : list int) : list int =\n        let n = length l in\n        let ref i = 0 in\n        let ref result = Nil in\n        while i < n do\n            let x = nth_my i l in\n            if x > 0 then result <- Cons x result;\n            i <- i + 1\n        done;\n        reverse result\n\nend"
+        },
+        {
+            "description": "Using filtering with a custom predicate function to collect positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n    use list.Map\n\n    let rec filter_positive (l : list int) (pred : int -> bool) : list int =\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if pred x then Cons x (filter_positive xs pred) else filter_positive xs pred\n        end\n\n    let get_positive (l : list int) : list int =\n        filter_positive l (fun x -> x > 0)\n\nend"
+        },
+        {
+            "description": "Using a recursive function with a decreasing variant to collect positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n\n    let rec get_positive (l : list int) : list int =\n        variant { l }\n        match l with\n        | Nil -> Nil\n        | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n        end\n\nend"
+        },
+        {
+            "description": "Using a reverse approach to first reverse the list and then filter positive numbers.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n    use list.Reverse\n\n    let rec get_positive (l : list int) : list int =\n        let rev_l = reverse l in\n        let rec filter_positive (l : list int) : list int =\n            match l with\n            | Nil -> Nil\n            | Cons x xs -> if x > 0 then Cons x (filter_positive xs) else filter_positive xs\n            end\n        in\n        reverse (filter_positive rev_l)\n\nend"
+        },
+        {
+            "description": "Using recursion with an inline condition to collect positive numbers without explicit pattern matching.",
+            "implementation": "module HumanEval030\n\n    use list.List\n    use int.Int\n\n    let rec get_positive (l : list int) : list int =\n        if is_nil l then Nil\n        else let Cons x xs = l in\n             if x > 0 then Cons x (get_positive xs) else get_positive xs\n\nend"
+        }
+    ]
+}

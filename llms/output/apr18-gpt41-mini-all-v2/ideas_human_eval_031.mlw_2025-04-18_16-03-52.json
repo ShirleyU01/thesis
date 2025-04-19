@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Simple trial division checking all numbers from 2 up to n-1 to find a divisor.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_divisor (n: int) (d: int) : bool =\n    if d >= n then true\n    else if mod n d = 0 then false\n    else check_divisor n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_divisor n 2\nend"
+        },
+        {
+            "description": "Trial division up to the square root of n using integer division to reduce checks for factors.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_divisor (n: int) (d: int) (limit: int) : bool =\n    if d > limit then true\n    else if mod n d = 0 then false\n    else check_divisor n (d + 1) limit\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else\n      let limit = (n div 2) in\n      check_divisor n 2 limit\nend"
+        },
+        {
+            "description": "Trial division only checking odd numbers after handling even number 2, reducing number of checks.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_odd_divisor (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else check_odd_divisor n (d + 2)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if mod n 2 = 0 then false\n    else check_odd_divisor n 3\nend"
+        },
+        {
+            "description": "Recursive approach that tests divisibility starting from n-1 down to 2 using pattern matching.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_divisible_from (n: int) (d: int) : bool =\n    if d <= 1 then true\n    else if mod n d = 0 then false\n    else is_divisible_from n (d - 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else is_divisible_from n (n - 1)\nend"
+        },
+        {
+            "description": "Using an accumulator helper function that iterates from 2 to sqrt(n) with an early exit for non-prime detection.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec helper (n: int) (current: int) (limit: int) : bool =\n    if current > limit then true\n    else if mod n current = 0 then false\n    else helper n (current + 1) limit\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else helper n 2 (n div 2)\nend"
+        },
+        {
+            "description": "Check divisibility by 2 separately and then check only odd divisors up to n div 3 for efficiency.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_odd (n: int) (d: int) : bool =\n    if d > (n div 3) then true\n    else if mod n d = 0 then false\n    else check_odd n (d + 2)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if mod n 2 = 0 then false\n    else check_odd n 3\nend"
+        },
+        {
+            "description": "Recursive approach with pattern matching and branching, checking from 2 up to n-1 for divisibility.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check (n: int) (d: int) : bool =\n    if d = n then true\n    else if mod n d = 0 then false\n    else check n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check n 2\nend"
+        },
+        {
+            "description": "Using a helper function with tail recursion to check divisors from 2 to sqrt(n) using multiplication for limit check.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_tail (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else check_tail n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_tail n 2\nend"
+        },
+        {
+            "description": "Iterate divisor from 2 to n div 2 with an early return false on first divisor found using recursion.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_div (n: int) (d: int) : bool =\n    if d > (n div 2) then true\n    else if mod n d = 0 then false\n    else check_div n (d + 1)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else check_div n 2\nend"
+        },
+        {
+            "description": "Check evenness first then recursively check odd divisors up to square root of n using explicit multiplication limit.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec check_odd_div (n: int) (d: int) : bool =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else check_odd_div n (d + 2)\n\n  let is_prime (n: int) : bool =\n    if n <= 1 then false\n    else if n = 2 then true\n    else if mod n 2 = 0 then false\n    else check_odd_div n 3\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Iterative solution using a for loop and accumulator: iterate from min(a, b) to max(a, b), building the list by continually cons'ing to an accumulator then reversing at the end.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.Reverse\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref acc = Nil in\n    for i = hi downto lo do\n      acc <- Cons i acc\n    done ;\n    acc\nend"
+        },
+        {
+            "description": "Recursive solution using pattern matching: recursively construct the list from lo to hi, cons'ing each value.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec build (i:int) (hi:int) : list int =\n    if i > hi then Nil else Cons i (build (i+1) hi)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    build lo hi\nend"
+        },
+        {
+            "description": "Iterative solution using while loop: repeatedly append numbers from lo to hi into an accumulator, then reverse for correct order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref acc = Nil in\n    let ref i = hi in\n    while i >= lo do\n      acc <- Cons i acc;\n      i <- i - 1\n    done ;\n    acc\nend"
+        },
+        {
+            "description": "Tail-recursive helper with accumulator: build the list in reverse using decrement, then reverse to obtain ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec build_acc (i:int) (hi:int) (acc:list int) : list int =\n    if i > hi then acc else build_acc (i+1) hi (Cons i acc)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    Reverse.reverse (build_acc lo hi Nil)\nend"
+        },
+        {
+            "description": "Explicitly handle a == b as a special case, otherwise build the range recursively.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec build (lo:int) (hi:int) : list int =\n    if lo > hi then Nil else Cons lo (build (lo+1) hi)\n\n  let generate_integers (a : int) (b : int) : list int =\n    if a = b then Cons a Nil else\n      let lo = min a b in\n      let hi = max a b in\n      build lo hi\nend"
+        },
+        {
+            "description": "Use a recursive approach that decrements from hi to lo and then reverses the list for ascending order.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n\n  let rec build_rev (hi:int) (lo:int) : list int =\n    if hi < lo then Nil else Cons hi (build_rev (hi-1) lo)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    Reverse.reverse (build_rev hi lo)\nend"
+        },
+        {
+            "description": "Use a for loop from lo up to hi, constructing the list by appending at the end each time (less efficient).",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Append\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let ref acc = Nil in\n    for i = lo to hi do\n      acc <- acc ++ (Cons i Nil)\n    done ;\n    acc\nend"
+        },
+        {
+            "description": "Recursive build using difference between hi and lo, using an offset in the recursive call.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let rec build (len:int) (lo:int) : list int =\n    if len < 0 then Nil else Cons (lo + len) (build (len-1) lo)\n\n  let generate_integers (a : int) (b : int) : list int =\n    let lo = min a b in\n    let hi = max a b in\n    let l = hi - lo in\n    let rev = build l lo in\n    let rec rev_list (l:list int) (acc:list int) : list int =\n      match l with | Nil -> acc | Cons x xs -> rev_list xs (Cons x acc) end\n    in rev_list rev Nil\nend"
+        },
+        {
+            "description": "Recursive solution using pattern matching and direct branching for a > b or b > a, to show symmetry.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n\n  let rec generate_integers (a:int) (b:int) : list int =\n    if a = b then Cons a Nil\n    else if a < b then Cons a (generate_integers (a+1) b)\n    else Cons b (generate_integers (b+1) a)\nend"
+        },
+        {
+            "description": "Iterative solution using two for loops for the two cases (a <= b and a > b), building the list from lo to hi.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let generate_integers (a:int) (b:int) : list int =\n    let ref acc = Nil in\n    if a <= b then\n      for i = b downto a do\n        acc <- Cons i acc\n      done ;\n    else\n      for i = a downto b do\n        acc <- Cons i acc\n      done ;\n    acc\nend"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive pattern matching: Traverse the list recursively, calculating sum and product by pattern matching on head and tail.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let res = sum_product xs in\n      match res with\n      | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n      | _ -> Nil\n      end\n    end\nend"
+        },
+        {
+            "description": "Recursive helper with accumulator parameters for sum and product, accumulating results during recursion and returning final list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product_acc (l : list int) (s_acc : int) (p_acc : int) : list int =\n    match l with\n    | Nil -> Cons s_acc (Cons p_acc Nil)\n    | Cons x xs -> sum_product_acc xs (s_acc + x) (p_acc * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    sum_product_acc l 0 1\nend"
+        },
+        {
+            "description": "Iterative style using mutable references and a while loop to traverse the list by repeatedly taking head and tail, updating sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let sum_product (l : list int) : list int =\n    let ref sum = 0 in\n    let ref prod = 1 in\n    let ref curr = l in\n    while (match !curr with | Nil -> false | _ -> true) do\n      match !curr with\n      | Cons x xs ->\n        sum <- !sum + x;\n        prod <- !prod * x;\n        curr <- xs\n      | Nil -> ()\n      end\n    done;\n    Cons !sum (Cons !prod Nil)\nend"
+        },
+        {
+            "description": "Using an inner tail-recursive helper function that returns a tuple of sum and product, then converts it to the required list format.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product_helper (l : list int) (s : int) (p : int) : (int, int) =\n    match l with\n    | Nil -> (s, p)\n    | Cons x xs -> sum_product_helper xs (s + x) (p * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    let (s, p) = sum_product_helper l 0 1 in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Use of explicit pattern matching with nested matches to handle empty and non-empty cases separately without accumulators.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      match sum_product xs with\n      | Cons s (Cons p Nil) -> Cons (x + s) (Cons (x * p) Nil)\n      | _ -> Nil\n      end\n    end\nend"
+        },
+        {
+            "description": "Using two separate recursive functions: one to sum the list and another to compute the product, then combine results into a list.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_list (l : list int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs -> x + sum_list xs\n    end\n\n  let rec prod_list (l : list int) : int =\n    match l with\n    | Nil -> 1\n    | Cons x xs -> x * prod_list xs\n    end\n\n  let sum_product (l : list int) : list int =\n    Cons (sum_list l) (Cons (prod_list l) Nil)\nend"
+        },
+        {
+            "description": "Using a recursive function that returns a pair (tuple) and then converts the tuple to list, emphasizing explicit tuple handling.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product_pair (l : list int) : (int, int) =\n    match l with\n    | Nil -> (0, 1)\n    | Cons x xs ->\n      let (s, p) = sum_product_pair xs in\n      (x + s, x * p)\n    end\n\n  let sum_product (l : list int) : list int =\n    let (s, p) = sum_product_pair l in\n    Cons s (Cons p Nil)\nend"
+        },
+        {
+            "description": "Reverse the list first, then recursively accumulate sum and product from the reversed list, demonstrating list reversal usage.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec sum_product_rev (l : list int) (s : int) (p : int) : list int =\n    match l with\n    | Nil -> Cons s (Cons p Nil)\n    | Cons x xs -> sum_product_rev xs (s + x) (p * x)\n    end\n\n  let sum_product (l : list int) : list int =\n    let rev_l = reverse l in\n    sum_product_rev rev_l 0 1\nend"
+        },
+        {
+            "description": "Use pattern matching and local let bindings to destructure head and tail, computing sum and product by adding and multiplying head with recursive results.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n\n  let rec sum_product (l : list int) : list int =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n      let tail_res = sum_product xs in\n      match tail_res with\n      | Cons s (Cons p Nil) ->\n        let sum_res = x + s in\n        let prod_res = x * p in\n        Cons sum_res (Cons prod_res Nil)\n      | _ -> Nil\n      end\n    end\nend"
+        },
+        {
+            "description": "Use an explicit loop simulated by a recursive function using an index and a custom nth_my function to accumulate sum and product.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Length\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let rec loop (l : list int) (i : int) (len : int) (s : int) (p : int) : list int =\n    if i >= len then Cons s (Cons p Nil)\n    else let x = nth_my i l in\n         loop l (i + 1) len (s + x) (p * x)\n\n  let sum_product (l : list int) : list int =\n    let len = length l in\n    loop l 0 len 0 1\nend"
+        }
+    ]
+}

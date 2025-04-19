@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using two passes: check both increasing and decreasing separately.",
+            "implementation": "module HumanEval057\n\nuse list.List\nuse list.Length\n\nlet rec is_increasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then is_increasing (Cons y ys) else false\n    end\n\nlet rec is_decreasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x >= y then is_decreasing (Cons y ys) else false\n    end\n\nlet monotonic (l : list int) : bool =\n    is_increasing l || is_decreasing l\n\nend"
+        },
+        {
+            "description": "Using a single traversal with flags for both increasing and decreasing.",
+            "implementation": "module HumanEval057\n\nuse list.List\nuse list.Length\n\nlet monotonic (l : list int) : bool =\n    let rec check (l : list int) (inc : bool) (dec : bool) : bool =\n        match l with\n        | Nil -> true\n        | Cons x Nil -> true\n        | Cons x (Cons y ys) ->\n            let inc' = inc && x <= y in\n            let dec' = dec && x >= y in\n            if not inc' && not dec' then false else check (Cons y ys) inc' dec'\n        end\n    in check l true true\n\nend"
+        },
+        {
+            "description": "Using a recursive strategy with pattern matching to determine monotonicity.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec monotonic (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> (x <= y && monotonic (Cons y ys)) || (x >= y && monotonic (Cons y ys))\n    end\n\nend"
+        },
+        {
+            "description": "Using helper functions for both increasing and decreasing sequences.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec inc_helper (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then inc_helper (Cons y ys) else false\n    end\n\nlet rec dec_helper (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x >= y then dec_helper (Cons y ys) else false\n    end\n\nlet monotonic (l : list int) : bool =\n    inc_helper l || dec_helper l\n\nend"
+        },
+        {
+            "description": "Using a flag to determine the direction of monotonicity as the list is traversed.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet monotonic (l : list int) : bool =\n    let rec helper (l : list int) (dir : int) : bool =\n        match l with\n        | Nil -> true\n        | Cons x Nil -> true\n        | Cons x (Cons y ys) ->\n            let dir' = if x < y then 1 else if x > y then -1 else dir in\n            if dir != 0 && dir != dir' then false else helper (Cons y ys) dir'\n        end\n    in helper l 0\n\nend"
+        },
+        {
+            "description": "Using a single function that determines the direction of monotonicity dynamically.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet monotonic (l : list int) : bool =\n    let rec check (l : list int) (direction : int) : bool =\n        match l with\n        | Nil -> true\n        | Cons x Nil -> true\n        | Cons x (Cons y ys) ->\n            let new_dir = if x < y then 1 else if x > y then -1 else 0 in\n            if direction != 0 && new_dir != 0 && new_dir != direction then false\n            else check (Cons y ys) (if direction == 0 then new_dir else direction)\n        end\n    in check l 0\n\nend"
+        },
+        {
+            "description": "Checking if list is sorted in non-decreasing or non-increasing order using pattern matching.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec monotonic (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) ->\n        if x < y then match ys with\n                      | Nil -> true\n                      | Cons z zs -> if y <= z then monotonic (Cons y ys) else false\n                      end\n        else if x > y then match ys with\n                          | Nil -> true\n                          | Cons z zs -> if y >= z then monotonic (Cons y ys) else false\n                          end\n        else monotonic (Cons y ys)\n    end\n\nend"
+        },
+        {
+            "description": "Using recursive helper functions to check strictly increasing or decreasing sequences.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec strictly_increasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x < y then strictly_increasing (Cons y ys) else false\n    end\n\nlet rec strictly_decreasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x > y then strictly_decreasing (Cons y ys) else false\n    end\n\nlet monotonic (l : list int) : bool =\n    strictly_increasing l || strictly_decreasing l\n\nend"
+        },
+        {
+            "description": "Using two separate recursive functions for increasing and decreasing sequences.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec increasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x <= y then increasing (Cons y ys) else false\n    end\n\nlet rec decreasing (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if x >= y then decreasing (Cons y ys) else false\n    end\n\nlet monotonic (l : list int) : bool =\n    increasing l || decreasing l\n\nend"
+        },
+        {
+            "description": "Using a recursive function with early exit when non-monotonic behavior is detected.",
+            "implementation": "module HumanEval057\n\nuse list.List\n\nlet rec monotonic (l : list int) : bool =\n    match l with\n    | Nil -> true\n    | Cons x Nil -> true\n    | Cons x (Cons y ys) -> if (x <= y && monotonic (Cons y ys)) || (x >= y && monotonic (Cons y ys)) then true else false\n    end\n\nend"
+        }
+    ]
+}

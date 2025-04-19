@@ -1,0 +1,158 @@
+(*
+def double_the_difference(lst):
+    '''
+    Given a list of numbers, return the sum of squares of the numbers
+    in the list that are odd. Ignore numbers that are negative or not integers.
+
+    double_the_difference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10
+    double_the_difference([-1, -2, 0]) == 0
+    double_the_difference([9, -2]) == 81
+    double_the_difference([0]) == 0
+
+    If the input list is empty, return 0.
+    '''
+ *)
+
+module HumanEval151Goal
+
+    use int.Int
+    use list.List
+    use int.EuclideanDivision
+    use list.Sum
+    use list.Map
+
+    let rec double_the_difference (l : list int) : int = 
+        ensures {result = sum (map (fun x -> if x >= 0 /\ mod x 2 = 1 then x * x else 0) l)}
+        match l with
+        | Nil -> 0
+        | Cons x xs -> if mod x 2 = 1 && x > 0
+                       then (x * x) + double_the_difference xs
+                       else double_the_difference xs
+        end
+
+end
+
+(* INSERT_CHATGPT_CODE *)
+
+module HumanEval151
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+
+  let rec double_the_difference (l : list int) : int =
+    match l with
+    | Nil -> 0
+    | Cons x xs ->
+        if x < 0 then double_the_difference xs else
+        if mod x 2 = 1 then x * x + double_the_difference xs else double_the_difference xs
+    end
+end
+
+module TestHumanEval151
+
+    use int.Int
+    use list.List
+    use HumanEval151
+
+    let test1 () : bool =
+        double_the_difference (Cons 1 (Cons 3 (Cons 2 (Cons 0 Nil)))) = 10  (* 1^2 + 3^2 = 10 *)
+
+    let test1_output () : (list int, int, int) =
+        (Cons 1 (Cons 3 (Cons 2 (Cons 0 Nil))), double_the_difference (Cons 1 (Cons 3 (Cons 2 (Cons 0 Nil)))), 10)
+
+    let test2 () : bool =
+        double_the_difference (Cons (-1) (Cons (-2) (Cons 0 Nil))) = 0  (* All negative or zero, result is 0 *)
+
+    let test2_output () : (list int, int, int) =
+        (Cons (-1) (Cons (-2) (Cons 0 Nil)), double_the_difference (Cons (-1) (Cons (-2) (Cons 0 Nil))), 0)
+
+    let test3 () : bool =
+        double_the_difference (Cons 9 (Cons (-2) Nil)) = 81  (* 9^2 = 81 *)
+
+    let test3_output () : (list int, int, int) =
+        (Cons 9 (Cons (-2) Nil), double_the_difference (Cons 9 (Cons (-2) Nil)), 81)
+
+    let test4 () : bool =
+        double_the_difference (Cons 0 Nil) = 0  (* Only zero, result is 0 *)
+
+    let test4_output () : (list int, int, int) =
+        (Cons 0 Nil, double_the_difference (Cons 0 Nil), 0)
+
+    let test5 () : bool =
+        double_the_difference Nil = 0  (* Empty list, result is 0 *)
+
+    let test5_output () : (list int, int, int) =
+        (Nil, double_the_difference Nil, 0)
+
+    let test6 () : bool =
+        double_the_difference (Cons 5 (Cons 6 (Cons 7 Nil))) = 74  (* 5^2 + 7^2 = 25 + 49 = 74 *)
+
+    let test6_output () : (list int, int, int) =
+        (Cons 5 (Cons 6 (Cons 7 Nil)), double_the_difference (Cons 5 (Cons 6 (Cons 7 Nil))), 74)
+
+    let test7 () : bool =
+        double_the_difference (Cons (-3) (Cons 1 (Cons 4 (Cons 3 Nil)))) = 10  (* Only positive odds count, 1^2 + 3^2 = 10 *)
+
+    let test7_output () : (list int, int, int) =
+        (Cons (-3) (Cons 1 (Cons 4 (Cons 3 Nil))), double_the_difference (Cons (-3) (Cons 1 (Cons 4 (Cons 3 Nil)))), 10)
+
+    let test8 () : bool =
+        double_the_difference (Cons 2 (Cons 4 (Cons 6 (Cons 8 Nil)))) = 0  (* All even numbers, result is 0 *)
+
+    let test8_output () : (list int, int, int) =
+        (Cons 2 (Cons 4 (Cons 6 (Cons 8 Nil))), double_the_difference (Cons 2 (Cons 4 (Cons 6 (Cons 8 Nil)))), 0)
+
+    let test9 () : bool =
+        double_the_difference (Cons 7 (Cons 0 (Cons 7 (Cons (-7) (Cons 7 Nil))))) = 147  (* 7^2 + 7^2 + 7^2 = 147 *)
+
+    let test9_output () : (list int, int, int) =
+        (Cons 7 (Cons 0 (Cons 7 (Cons (-7) (Cons 7 Nil)))), double_the_difference (Cons 7 (Cons 0 (Cons 7 (Cons (-7) (Cons 7 Nil))))), 147)
+
+    let test10 () : bool =
+        double_the_difference (Cons 11 (Cons 3 (Cons (-5) (Cons 3 (Cons 2 Nil))))) = 139  (* 11^2 + 3^2 + 3^2 = 139 *)
+
+    let test10_output () : (list int, int, int) =
+        (Cons 11 (Cons 3 (Cons (-5) (Cons 3 (Cons 2 Nil)))), double_the_difference (Cons 11 (Cons 3 (Cons (-5) (Cons 3 (Cons 2 Nil))))), 139)
+
+    let testall () : bool = 
+        test1() && test2() && test3() && test4() && test5() && test6() && test7() && test8() && test9() && test10()
+
+    let testfail () : list int =
+        let ref res = Nil in 
+        if not test1() then res <- Cons 1 res;
+        if not test2() then res <- Cons 2 res;
+        if not test3() then res <- Cons 3 res;
+        if not test4() then res <- Cons 4 res;
+        if not test5() then res <- Cons 5 res;
+        if not test6() then res <- Cons 6 res;
+        if not test7() then res <- Cons 7 res;
+        if not test8() then res <- Cons 8 res;
+        if not test9() then res <- Cons 9 res;
+        if not test10() then res <- Cons 10 res;
+        res
+    
+    let runtest (x : int) : (list int, int, int) =
+        let ref res = (Nil, (-1), (-1)) in
+        if x = 1 then res <- test1_output();
+        if x = 2 then res <- test2_output();
+        if x = 3 then res <- test3_output();
+        if x = 4 then res <- test4_output();
+        if x = 5 then res <- test5_output();
+        if x = 6 then res <- test6_output();
+        if x = 7 then res <- test7_output();
+        if x = 8 then res <- test8_output();
+        if x = 9 then res <- test9_output();
+        if x = 10 then res <- test10_output();
+        res
+    
+    let rec failoutput (l : list int) : list (list int, int, int) =
+        match l with
+        | Nil -> Nil
+        | Cons x xs -> Cons (runtest x) (failoutput xs)
+        end
+    
+    let test() : list (list int, int, int) =
+        let l = testfail () in
+        failoutput l
+
+end

@@ -1,21 +1,4 @@
 filename,description,function name,module name,signature,pre-condition,post-condition
-human_eval_000.mlw,"def has_close_elements(numbers: list real, threshold: real) : bool:
-    """""" Check if in given list of numbers, are any two numbers closer to each other than
-    given threshold.
-    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
-    False
-    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
-    True
-    """"""",has_close_element,HumanEval000,"has_close_elements(numbers: list real, threshold: real) : bool",,ensures { result <-> exists x. (mem x numbers) /\ (exists y. (mem y numbers) /\ ((x -. y) <. threshold)) }
-human_eval_002.mlw,"def truncate_number(number: real) : real:
-    """""" Given a positive floating point number, it can be decomposed into
-    and integer part (largest integer smaller than given number) and decimals
-    (leftover part always smaller than 1).
-
-    Return the decimal part of the number.
-    >>> truncate_number(3.5)
-    0.5
-    """"""",truncate_number,HumanEval002,truncate_number(number: real) : real,,ensures { 0.0 <= result < 1.0 /\ (result = number -. (from_int (floor number))) }
 human_eval_003.mlw,"def below_zero(operations: List[int]) -> bool:
     """""" You're given a list of deposit and withdrawal operations on a bank account that starts with
     zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
@@ -25,15 +8,6 @@ human_eval_003.mlw,"def below_zero(operations: List[int]) -> bool:
     >>> below_zero([1, 2, -4, 5])
     True
     """"""",below_zero,HumanEval003,below_zero(operations: list int) : bool,,
-human_eval_004.mlw,"def mean_absolute_deviation(numbers: real list) : real:
-    """""" For a given list of input numbers, calculate Mean Absolute Deviation
-    around the mean of this dataset.
-    Mean Absolute Deviation is the average absolute difference between each
-    element and a centerpoint (mean in this case):
-    MAD = average | x - x_mean |
-    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
-    1.0
-    """"""",mean_absolute_deviation,HumanEval004,mean_absolute_deviation(numbers: real list) : real,,
 human_eval_005.mlw,"def intersperse(numbers: List[int], delimiter: int) -> List[int]:
     """""" Insert a number 'delimiter' between every two consecutive elements of input list `numbers'
     >>> intersperse([], 4)

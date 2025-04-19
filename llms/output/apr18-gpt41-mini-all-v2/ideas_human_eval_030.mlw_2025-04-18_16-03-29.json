@@ -1,0 +1,40 @@
+{
+    "ideas": [
+        {
+            "description": "Recursive filtering using pattern matching: Traverse the list with recursion, include head if positive, skip otherwise.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        begin\n          if x > 0 then Cons x (get_positive xs) else get_positive xs\n        end\n    end\nend"
+        },
+        {
+            "description": "Recursive filtering with an accumulator to collect positive numbers in reverse order, then reverse at the end.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        begin\n          if x > 0 then aux xs (Cons x acc) else aux xs acc\n        end\n    end\n\n  let get_positive (l : list int) : list int =\n    reverse (aux l Nil)\nend"
+        },
+        {
+            "description": "Use tail recursion with an explicit helper function and an accumulator, building list in order by appending at the end.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Append\n\n  let rec aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        begin\n          if x > 0 then aux xs (acc ++ Cons x Nil) else aux xs acc\n        end\n    end\n\n  let get_positive (l : list int) : list int =\n    aux l Nil\nend"
+        },
+        {
+            "description": "Iterative approach using a mutable reference and while-loop to collect positives, then reverse the result to maintain order.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Reverse\n\n  let get_positive (l : list int) : list int =\n    let n = length l in\n    let ref acc = Nil in\n    let ref i = 0 in\n    while i < n do\n      let x = nth_1 i l in\n      if x > 0 then acc <- Cons x !acc;\n      i <- i + 1\n    done;\n    reverse !acc\n\n  and rec nth_1 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\n      n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_1 (n - 1) r\n    end\nend"
+        },
+        {
+            "description": "Filter using a recursive function that counts length and uses an index to traverse the list, building result with an accumulator.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.RevAppend\n\n  let rec aux (l : list int) (idx : int) (acc : list int) : list int =\n    if idx >= length l then acc\n    else\n      let x = nth_1 idx l in\n      if x > 0 then aux l (idx + 1) (Cons x acc) else aux l (idx + 1) acc\n\n  let get_positive (l : list int) : list int =\n    rev_append (aux l 0 Nil) Nil\n\n  and rec nth_1 (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_1 (n - 1) r\n    end\nend"
+        },
+        {
+            "description": "Recursive approach with an explicit if-then-else branching without pattern match nesting to decide inclusion of head element.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x > 0 then Cons x (get_positive xs) else get_positive xs\n    end\nend"
+        },
+        {
+            "description": "Use explicit pattern matching returning Nil for empty and building list incrementally for positive elements only.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        match x > 0 with\n        | True -> Cons x (get_positive xs)\n        | False -> get_positive xs\n        end\n    end\nend"
+        },
+        {
+            "description": "Use a helper function with an accumulator and pattern matching that accumulates positive elements in reverse order and reverses at end.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Reverse\n\n  let rec aux (l : list int) (acc : list int) : list int =\n    match l with\n    | Nil -> reverse acc\n    | Cons x xs ->\n        if x > 0 then aux xs (Cons x acc) else aux xs acc\n    end\n\n  let get_positive (l : list int) : list int =\n    aux l Nil\nend"
+        },
+        {
+            "description": "Use a recursive approach that concatenates lists for each positive element, building the result list by appending singleton positive lists.",
+            "implementation": "module HumanEval030\n\n  use int.Int\n  use list.List\n  use list.Append\n\n  let rec get_positive (l : list int) : list int =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n        if x > 0 then Cons x Nil ++ get_positive xs else get_positive xs\n    end\nend"
+        }
+    ]
+}

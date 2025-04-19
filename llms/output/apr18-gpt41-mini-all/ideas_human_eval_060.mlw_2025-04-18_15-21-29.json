@@ -1,0 +1,44 @@
+{
+    "ideas": [
+        {
+            "description": "Using a simple recursive function that sums n with the result of sum_to_n(n-1), with base case 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    if n <= 1 then 1 else n + sum_to_n (n - 1)\nend"
+        },
+        {
+            "description": "Using tail-recursive helper function with accumulator for efficient recursion without growing the call stack.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_aux (n : int) (acc : int) : int =\n    if n <= 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n  let sum_to_n (n : int) : int = sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Using the arithmetic formula n * (n + 1) / 2 to calculate the sum in constant time.",
+            "implementation": "module HumanEval060\n  use int.Int\n  use int.EuclideanDivision\n  let sum_to_n (n : int) : int =\n    n * (n + 1) div 2\nend"
+        },
+        {
+            "description": "Using a match pattern on n with base cases for 0 and 1, and recursive case for n > 1.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    match n with\n    | 0 -> 0\n    | 1 -> 1\n    | _ -> n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using iteration with a for-loop to sum numbers from 1 to n with a mutable accumulator.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    for i = 1 to n do acc <- acc + i done;\n    acc\nend"
+        },
+        {
+            "description": "Using a while-loop with a mutable index and accumulator to sum from 1 to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let ref acc = 0 in\n    let ref i = 1 in\n    while i <= n do\n      acc <- acc + i;\n      i <- i + 1\n    done;\n    acc\nend"
+        },
+        {
+            "description": "Using recursion with an accumulator parameter and pattern matching on n, treating zero and negatives as zero sum.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n_aux (n : int) (acc : int) : int =\n    match n with\n    | 0 -> acc\n    | _ when n < 0 -> acc\n    | _ -> sum_to_n_aux (n - 1) (acc + n)\n    end\n  let sum_to_n (n : int) : int = sum_to_n_aux n 0\nend"
+        },
+        {
+            "description": "Using a recursive function with if-then-else for base case n=0 and recursive case n>0, returning 0 for negative inputs.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    begin\n      if n <= 0 then 0 else n + sum_to_n (n - 1)\n    end\nend"
+        },
+        {
+            "description": "Using a recursive function that calls itself twice: sum_to_n(n-1) + n, with base case n=1, demonstrating naive recursion pattern.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let rec sum_to_n (n : int) : int =\n    if n = 1 then 1 else sum_to_n (n - 1) + n\nend"
+        },
+        {
+            "description": "Using an inner recursive function with pattern matching on n, with explicit cases and an accumulator to sum to n.",
+            "implementation": "module HumanEval060\n  use int.Int\n  let sum_to_n (n : int) : int =\n    let rec aux n acc =\n      match n with\n      | 0 -> acc\n      | _ -> aux (n - 1) (acc + n)\n      end\n    in aux n 0\nend"
+        }
+    ]
+}

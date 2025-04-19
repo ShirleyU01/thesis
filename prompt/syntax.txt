@@ -38,5 +38,44 @@
     not --> not
     || --> or
 
+(6) fold_left and fold_right cannot be used in a non-ghost context, i.e. it cannot be used in the implementation of programs
 
+(7) The most common use of mod is the one in the Euclidean Division module that you can import using:
+	use int.EuclideanDivision
+
+Note that mod takes as input two integers and returns an integer. For instance:
+	mod a b
+
+Use this syntax if you want to use mod in your programs.
+
+(8) The most common use of division is with the operator div in the Euclidean Division module that you can import using:
+	use int.EuclideanDivision
+
+Note that div takes as input two integers and returns an integer. For instance:
+	div a b
+
+Use this syntax if you want to use div in your programs.
+
+(9) Minimum and Maximum functions can be used by importing the following module:
+	use int.MinMax
+
+Note that min and max are functions that take as input two integers and returns an integer. For instance:
+	min a b
+	max a b
+
+Use this syntax if you want to use min or max in your programs.
+
+(10) If you need to use any arithmetic operator such as =, -, +, *, <, >, >= or <= you will need to import the following module:
+    use int.Int
+
+(11) There is no / operator. Never use / in your programs. If you want to use division, use div instead.
+
+(12) There is no append function. If you want to append two lists you can use the ++ operator. You will need to import the following module:
+    use list.Append
+
+Note that ++ should be used as follows:
+    let c = a ++ b
+Where a and b are lists
+
+If you want to append an element to a list you must use the function Cons instead.
 

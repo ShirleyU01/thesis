@@ -1,0 +1,3 @@
+=======================human_eval_060_3.mlw=====================
+File "llms/implementation/apr18-gpt41-mini-all/human_eval_060_3.mlw", line 42, characters 8-15:
+This expression has type int -> int -> int, but is applied to 3 arguments
