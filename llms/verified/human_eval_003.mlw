@@ -1,0 +1,39 @@
+module HumanEval003
+  use list.List
+  use list.Length
+  use int.Int
+  use list.Prefix
+  use list.Sum
+
+  predicate ever_below_zero (init : int) (ops : list int) =
+    exists k:int. 0 <= k <= length ops /\ init + sum (prefix k ops) < 0
+
+  lemma ever_head:
+    forall bal x xs. bal + x < 0 -> ever_below_zero bal (Cons x xs)
+  
+  lemma ever_nil :
+    forall bal:int. ever_below_zero bal Nil <-> bal < 0
+  
+
+  let rec below_zero_acc (ops : list int) (bal : int) : bool
+    requires { bal >= 0 }
+    variant { length ops }
+    ensures { result <->  ever_below_zero bal ops }
+
+  =
+    match ops with
+    | Nil -> false
+    | Cons x xs ->
+        let bal2 = bal + x in
+        if bal2 < 0 then begin
+          assert { ever_below_zero bal (Cons x xs) };
+          true             
+        end else
+          below_zero_acc xs bal2
+    end
+
+  let below_zero (ops : list int) : bool
+    ensures { result <-> ever_below_zero 0 ops }
+  = below_zero_acc ops 0
+end
+
