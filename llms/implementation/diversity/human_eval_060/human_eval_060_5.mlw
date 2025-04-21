@@ -1,0 +1,12 @@
+
+module HumanEval060
+  use int.Int
+  let sum_to_n (n: int) : int =
+    let ref sum = 0 in
+    for i = 1 to n do
+      sum <- sum + i
+    done;
+    sum
+end
+
+

@@ -1,0 +1,31 @@
+
+module HumanEval005
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+  let intersperse (l : list int) (d : int) : list int =
+    let n = length l in
+    let ref i = 0 in
+    let ref acc = Nil in
+    while i < n do
+      acc <- Cons (nth_my i l) acc;
+      if i < n - 1 then acc <- Cons d acc;
+      i <- i + 1
+    done;
+    let rec reverse (l : list int) (acc : list int) : list int =
+      match l with
+      | Nil -> acc
+      | Cons x xs -> reverse xs (Cons x acc)
+      end in
+    reverse acc Nil
+end
+
+

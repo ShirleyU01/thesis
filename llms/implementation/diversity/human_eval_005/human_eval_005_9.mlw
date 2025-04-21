@@ -1,0 +1,14 @@
+
+module HumanEval005
+  use int.Int
+  use list.List
+  let rec intersperse (l : list int) (d : int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x Nil -> Cons x Nil
+    | Cons x xs -> let rec prepend (e : int) (l2 : list int) : list int = Cons e l2 in
+                   Cons x (Cons d (intersperse xs d))
+    end
+end
+
+

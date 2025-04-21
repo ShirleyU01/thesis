@@ -1,0 +1,16 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  let rec compare (l1 : list int) (l2 : list int) : list int =
+    match l1, l2 with
+    | Nil, Nil -> Nil
+    | Cons x xs, Cons y ys ->
+        if x = y then Cons 0 (compare xs ys)
+        else Cons (abs (x - y)) (compare xs ys)
+    | _, _ -> Nil
+    end
+  end
+
+

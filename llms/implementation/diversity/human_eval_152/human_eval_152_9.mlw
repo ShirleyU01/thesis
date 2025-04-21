@@ -1,0 +1,21 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  let rec zip (l1 : list int) (l2 : list int) : list (int, int) =
+    match l1, l2 with
+    | Nil, Nil -> Nil
+    | Cons x xs, Cons y ys -> Cons (x, y) (zip xs ys)
+    | _, _ -> Nil
+    end
+  let rec compare_zip (zl : list (int, int)) : list int =
+    match zl with
+    | Nil -> Nil
+    | Cons (a, b) zs -> Cons (if a = b then 0 else abs (a - b)) (compare_zip zs)
+    end
+  let compare (l1 : list int) (l2 : list int) : list int =
+    compare_zip (zip l1 l2)
+  end
+
+

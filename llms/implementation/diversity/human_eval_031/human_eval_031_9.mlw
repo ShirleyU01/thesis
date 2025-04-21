@@ -1,0 +1,17 @@
+
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+  let is_prime (n: int) : bool =
+    if n <= 1 then false else
+    let ref found = false in
+    let ref d = n - 1 in
+    while d >= 2 && not found do
+      if mod n d = 0 then found <- true;
+      d <- d - 1
+    done;
+    not found
+end
+
+
+

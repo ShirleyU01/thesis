@@ -1,0 +1,15 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  let absdiff (a:int) (b:int) : int = if a = b then 0 else abs (a - b)
+  let rec compare (l1 : list int) (l2 : list int) : list int =
+    match l1, l2 with
+    | Nil, Nil -> Nil
+    | Cons x xs, Cons y ys -> Cons (absdiff x y) (compare xs ys)
+    | _, _ -> Nil
+    end
+  end
+
+

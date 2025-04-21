@@ -1,0 +1,18 @@
+
+module HumanEval003
+  use list.List
+  use int.Int
+
+  let rec below_zero_acc (operations: list int) (bal: int) : bool =
+    match operations with
+    | Nil -> false
+    | Cons x xs -> 
+      let bal2 = bal + x in
+      if bal2 < 0 then true else below_zero_acc xs bal2
+    end
+
+  let below_zero (operations: list int) : bool =
+    below_zero_acc operations 0
+end
+
+

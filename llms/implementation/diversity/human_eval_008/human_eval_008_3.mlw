@@ -1,0 +1,16 @@
+
+module HumanEval008
+  use int.Int
+  use list.List
+
+  let rec helper (l: list int) (s: int) (p: int) : list int =
+    match l with
+    | Nil -> Cons s (Cons p Nil)
+    | Cons x xs -> helper xs (s + x) (p * x)
+    end
+
+  let sum_product (l: list int) : list int =
+    helper l 0 1
+end
+
+

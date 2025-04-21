@@ -1,0 +1,8 @@
+
+module HumanEval053
+  use int.Int
+  let rec add (x: int) (y: int) : int =
+    if y = 0 then x else add (x + 1) (y - 1)
+end
+
+

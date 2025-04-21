@@ -1,0 +1,11 @@
+
+module HumanEval163
+  use int.Int
+  use list.List
+  let rec aux (s:int) (e:int) : list int =
+    if s > e then Nil else Cons s (aux (s + 1) e)
+  let generate_integers (a:int) (b:int) : list int =
+    if a <= b then aux a b else aux b a
+end
+
+

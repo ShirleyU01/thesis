@@ -1,0 +1,10 @@
+
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Quant
+  let below_threshold (l : list int) (t: int) : bool =
+    for_all (fun x -> x < t) l
+end
+
+

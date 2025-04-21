@@ -1,0 +1,14 @@
+
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+  let rec is_prime_rec (n: int) (d: int) : bool =
+    if d = n then true
+    else if mod n d = 0 then false
+    else is_prime_rec n (d + 1)
+  let is_prime (n: int) : bool =
+    if n <= 1 then false else is_prime_rec n 2
+end
+
+
+

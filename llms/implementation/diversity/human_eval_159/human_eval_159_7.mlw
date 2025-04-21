@@ -1,0 +1,12 @@
+
+module HumanEval159
+  use int.Int
+  use int.MinMax
+  use list.List
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    let eaten = min need remaining in
+    let left = max 0 (remaining - need) in
+    Cons (number + eaten) (Cons left Nil)
+end
+
+

@@ -1,0 +1,26 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+  let compare (l1 : list int) (l2 : list int) : list int =
+    let n = length l1 in
+    let ref res = Nil : list int in
+    for i = n - 1 downto 0 do
+      let a = nth_my i l1 in
+      let b = nth_my i l2 in
+      res <- Cons (if a = b then 0 else abs (a - b)) res
+    done;
+    res
+  end
+
+

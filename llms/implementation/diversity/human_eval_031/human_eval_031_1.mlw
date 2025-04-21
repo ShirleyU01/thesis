@@ -1,0 +1,18 @@
+
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+  use int.MinMax
+  let is_prime (n: int) : bool =
+    if n <= 1 then false else
+    let ref res = true in
+    let ref d = 2 in
+    while d * d <= n && res do
+      if mod n d = 0 then res <- false;
+      d <- d + 1
+    done;
+    res
+end
+
+
+

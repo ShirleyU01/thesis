@@ -1,0 +1,16 @@
+
+module HumanEval005
+  use int.Int
+  use list.List
+  let rec intersperse_helper (l : list int) (d : int) (first : bool) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      if first then Cons x (intersperse_helper xs d false)
+      else Cons d (Cons x (intersperse_helper xs d false))
+    end
+  let intersperse (l : list int) (d : int) : list int =
+    intersperse_helper l d true
+end
+
+

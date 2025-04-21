@@ -1,0 +1,39 @@
+
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+
+  (* Insertion sort for list int *)
+  let rec insert (x:int) (l:list int) : list int =
+    match l with
+    | Nil -> Cons x Nil
+    | Cons y ys -> if x < y then Cons x l else Cons y (insert x ys)
+    end
+
+  let rec sort (l:list int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> insert x (sort xs)
+    end
+
+  let rec closest_adjacent (l:list int) (min_diff: int) (a:int) (b:int) : (int, int) =
+    match l with
+    | Cons x (Cons y ys) ->
+      let d = abs (x - y) in
+      if d < min_diff then closest_adjacent (Cons y ys) d x y else closest_adjacent (Cons y ys) min_diff a b
+    | _ -> (a, b)
+    end
+
+  let find_closest_elements (numbers: list int) : list int =
+    match sort numbers with
+    | Cons x (Cons y xs) ->
+      let (a, b) = closest_adjacent (Cons x (Cons y xs)) (abs (x - y)) x y in
+      Cons a (Cons b Nil)
+    | _ -> Nil
+    end
+end
+
+

@@ -1,0 +1,22 @@
+
+module HumanEval085
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+  use list.Quant
+
+  let rec add_flag (l : list int) (odd : bool) : int =
+    match l with
+    | Nil -> 0
+    | Cons x xs ->
+        if odd then
+          (if mod x 2 = 0 then x else 0) + add_flag xs (not odd)
+        else
+          add_flag xs (not odd)
+    end
+
+  let add (l : list int) : int =
+    add_flag l false
+end
+
+

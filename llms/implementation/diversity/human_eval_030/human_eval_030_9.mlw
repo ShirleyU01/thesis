@@ -1,0 +1,14 @@
+
+module HumanEval030
+  use int.Int
+  use list.List
+  let rec filter_pos (f: int -> bool) (l: list int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> if f x then Cons x (filter_pos f xs) else filter_pos f xs
+    end
+  let get_positive (l: list int) : list int =
+    filter_pos (fun x -> x > 0) l
+end
+
+

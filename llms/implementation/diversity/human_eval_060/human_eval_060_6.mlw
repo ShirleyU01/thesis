@@ -1,0 +1,12 @@
+
+module HumanEval060
+  use int.Int
+  use list.List
+  use list.Sum
+  let rec make_list (a: int) (b: int) : list int =
+    if a > b then Nil else Cons a (make_list (a + 1) b)
+  let sum_to_n (n: int) : int =
+    sum (make_list 1 n)
+end
+
+

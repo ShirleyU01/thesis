@@ -1,0 +1,9 @@
+
+module HumanEval139
+  use int.Int
+  use int.Fact
+  let rec special_factorial (n: int) : int =
+    if n = 0 then 1 else fact n * special_factorial (n-1)
+end
+
+

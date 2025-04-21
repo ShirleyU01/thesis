@@ -1,0 +1,14 @@
+
+module HumanEval097
+  use int.Int
+  use int.Abs
+
+  let rec unit_digit_iter (x : int) : int =
+    let ax = abs x in
+    if ax < 10 then ax else unit_digit_iter (ax - 10)
+
+  let multiply (a : int) (b : int) : int =
+    unit_digit_iter a * unit_digit_iter b
+end
+
+

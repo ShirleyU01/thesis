@@ -1,0 +1,15 @@
+
+module HumanEval097
+  use int.Int
+  use int.Abs
+
+  let unit_digit_loop (x : int) : int =
+    let ref y = abs x in
+    while y >= 10 do y <- y - 10 done ;
+    y
+
+  let multiply (a : int) (b : int) : int =
+    unit_digit_loop a * unit_digit_loop b
+end
+
+

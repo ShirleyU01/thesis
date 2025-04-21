@@ -1,0 +1,19 @@
+
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+  let is_prime (n: int) : bool =
+    if n <= 1 then false else
+    if n <= 3 then true else
+    if mod n 2 = 0 || mod n 3 = 0 then false else
+    let ref i = 5 in
+    let ref res = true in
+    while i * i <= n && res do
+      if mod n i = 0 || mod n (i + 2) = 0 then res <- false;
+      i <- i + 6
+    done;
+    res
+end
+
+
+

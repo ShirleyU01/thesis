@@ -1,0 +1,15 @@
+
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  let rec generate_integers (a:int) (b:int) : list int =
+    let start = min a b in
+    let finish = max a b in
+    let rec aux (x:int) : list int =
+      if x > finish then Nil else Cons x (aux (x + 1))
+    in
+    aux start
+end
+
+

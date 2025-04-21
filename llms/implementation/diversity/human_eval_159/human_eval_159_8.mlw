@@ -1,0 +1,17 @@
+
+module HumanEval159
+  use int.Int
+  use list.List
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    let ref n = number in
+    let ref nd = need in
+    let ref rem = remaining in
+    while nd > 0 && rem > 0 do
+      n <- n + 1;
+      nd <- nd - 1;
+      rem <- rem - 1
+    done;
+    Cons n (Cons rem Nil)
+end
+
+

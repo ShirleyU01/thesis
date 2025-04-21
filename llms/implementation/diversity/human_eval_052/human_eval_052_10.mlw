@@ -1,0 +1,14 @@
+
+module HumanEval052
+  use int.Int
+  use list.List
+  let rec aux (l : list int) (t: int) : bool =
+    match l with
+    | Nil -> true
+    | Cons x xs -> if x >= t then false else aux xs t
+    end
+  let below_threshold (l : list int) (t: int) : bool =
+    aux l t
+end
+
+

@@ -1,0 +1,12 @@
+
+module HumanEval030
+  use int.Int
+  use list.List
+  let rec get_positive (l : list int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs
+    end
+end
+
+

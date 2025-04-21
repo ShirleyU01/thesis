@@ -1,0 +1,30 @@
+
+module HumanEval008
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let sum_product (l: list int) : list int =
+    let n = length l in
+    let ref i = 0 in
+    let ref s = 0 in
+    let ref p = 1 in
+    while i < n do
+      let v = nth_my i l in
+      s <- s + v;
+      p <- p * v;
+      i <- i + 1
+    done;
+    Cons s (Cons p Nil)
+end
+
+

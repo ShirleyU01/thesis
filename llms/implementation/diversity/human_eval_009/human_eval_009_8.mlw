@@ -1,0 +1,21 @@
+
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  let rec rolling_max_explicit (l: list int) (cur: int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      let m = max cur x in
+      Cons m (rolling_max_explicit xs m)
+    end
+
+  let rolling_max (l: list int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> Cons x (rolling_max_explicit xs x)
+    end
+end
+
+

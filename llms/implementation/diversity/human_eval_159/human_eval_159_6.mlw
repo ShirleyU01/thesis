@@ -1,0 +1,12 @@
+
+module HumanEval159
+  use int.Int
+  use list.List
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    if need = 0 then Cons number (Cons remaining Nil)
+    else if remaining = 0 then Cons number (Cons 0 Nil)
+    else if remaining >= need then Cons (number + need) (Cons (remaining - need) Nil)
+    else Cons (number + remaining) (Cons 0 Nil)
+end
+
+

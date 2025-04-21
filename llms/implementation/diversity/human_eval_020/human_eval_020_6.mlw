@@ -1,0 +1,49 @@
+
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+
+  let rec nth_my (n:int) (l:list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n-1) r
+    end
+
+  let rec all_pairs (numbers: list int) (i: int) (n: int) : list (int, int, int) =
+    if i >= n-1 then Nil
+    else
+      let rec aux (j: int) : list (int, int, int) =
+        if j >= n then Nil
+        else
+          let x = nth_my i numbers in
+          let y = nth_my j numbers in
+          let d = abs (x - y) in
+          Cons (d, x, y) (aux (j+1))
+      in
+      aux (i+1) ++ all_pairs numbers (i+1) n
+
+  let rec min_pair (l: list (int, int, int)) (min_d:int) (a:int) (b:int) : (int, int) =
+    match l with
+    | Nil -> (a, b)
+    | Cons (d, x, y) xs ->
+      if d < min_d then min_pair xs d (min x y) (max x y)
+      else min_pair xs min_d a b
+    end
+
+  let find_closest_elements (numbers: list int) : list int =
+    let n = length numbers in
+    let x0 = nth_my 0 numbers in
+    let x1 = nth_my 1 numbers in
+    let pairs = all_pairs numbers 0 n in
+    let (a, b) = min_pair pairs (abs (x0 - x1)) (min x0 x1) (max x0 x1) in
+    Cons a (Cons b Nil)
+end
+
+

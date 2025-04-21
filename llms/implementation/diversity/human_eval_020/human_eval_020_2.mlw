@@ -1,0 +1,35 @@
+
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+
+  let rec find_closest_helper (l: list int) (current: int) (best: int) (a: int) (b: int) : (int, int, int) =
+    match l with
+    | Nil -> (best, a, b)
+    | Cons x xs ->
+      let d = abs (x - current) in
+      if d < best then find_closest_helper xs current d (min x current) (max x current)
+      else find_closest_helper xs current best a b
+    end
+
+  let rec aux (l: list int) (best: int) (a: int) (b: int) : (int, int) =
+    match l with
+    | Nil -> (a, b)
+    | Cons x xs ->
+      let (new_best, new_a, new_b) = find_closest_helper xs x best a b in
+      aux xs new_best new_a new_b
+    end
+
+  let find_closest_elements (numbers: list int) : list int =
+    match numbers with
+    | Cons x (Cons y xs) ->
+      let first_diff = abs (x - y) in
+      let (a, b) = aux numbers first_diff (min x y) (max x y) in
+      Cons a (Cons b Nil)
+    | _ -> Nil
+    end
+end
+
+

@@ -1,0 +1,17 @@
+
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  let generate_integers (a:int) (b:int) : list int =
+    let start = min a b in
+    let finish = max a b in
+    let ref acc = Nil in
+    for i = finish downto start do
+      acc <- Cons i acc
+    done;
+    acc
+end
+
+

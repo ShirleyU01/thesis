@@ -1,0 +1,11 @@
+
+module HumanEval139
+  use int.Int
+  use int.Fact
+  let rec prod_facts (a: int) (b: int) : int =
+    if a > b then 1 else fact b * prod_facts a (b-1)
+  let special_factorial (n: int) : int =
+    prod_facts 1 n
+end
+
+

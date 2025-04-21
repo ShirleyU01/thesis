@@ -1,0 +1,16 @@
+
+module HumanEval138
+  use int.Int
+  use int.EuclideanDivision
+  let rec helper (n: int) (k: int) : bool =
+    if k = 1 then n >= 2 && mod n 2 = 0 else
+      let rec try_a (a: int) : bool =
+        if a > n - 2 * (k - 1) then false
+        else if mod a 2 = 0 && helper (n - a) (k - 1) then true
+        else try_a (a + 2)
+      in try_a 2
+  let is_equal_to_sum_even (n: int) : bool =
+    helper n 4
+end
+
+

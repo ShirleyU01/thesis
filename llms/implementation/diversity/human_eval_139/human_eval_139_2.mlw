@@ -1,0 +1,13 @@
+
+module HumanEval139
+  use int.Int
+  use int.Fact
+  let special_factorial (n: int) : int =
+    let ref res = 1 in
+    for i = 1 to n do
+      res <- res * fact i
+    done;
+    res
+end
+
+

@@ -1,0 +1,17 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  use list.Reverse
+  let rec compare_acc (l1 : list int) (l2 : list int) (acc : list int) : list int =
+    match l1, l2 with
+    | Nil, Nil -> reverse acc
+    | Cons x xs, Cons y ys -> compare_acc xs ys (Cons (if x = y then 0 else abs (x - y)) acc)
+    | _, _ -> reverse acc
+    end
+  let compare (l1 : list int) (l2 : list int) : list int =
+    compare_acc l1 l2 Nil
+  end
+
+

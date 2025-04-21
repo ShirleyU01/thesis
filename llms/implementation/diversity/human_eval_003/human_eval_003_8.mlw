@@ -1,0 +1,27 @@
+
+module HumanEval003
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use int.Int
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end 
+
+  let below_zero (operations: list int) : bool =
+    let n = length operations in
+    let ref bal = 0 in
+    let ref answer = false in
+    for i = 0 to n - 1 do
+      bal <- bal + nth_my i operations;
+      if bal < 0 then answer <- true
+    done ;
+    answer
+end
+
+

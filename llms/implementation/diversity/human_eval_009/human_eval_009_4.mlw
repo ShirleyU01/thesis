@@ -1,0 +1,33 @@
+
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n-1) r
+    end
+
+  let rolling_max (l: list int) : list int =
+    let n = length l in
+    if n = 0 then Nil else
+    let ref res = Nil in
+    let ref i = 0 in
+    let ref cur = nth_my 0 l in
+    while i < n do
+      let v = nth_my i l in
+      cur <- max cur v;
+      res <- res ++ (Cons cur Nil);
+      i <- i + 1
+    done;
+    res
+end
+
+

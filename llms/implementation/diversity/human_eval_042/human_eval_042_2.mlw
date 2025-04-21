@@ -1,0 +1,24 @@
+
+module HumanEval042
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end 
+  let incr_list (l: list int) : list int =
+    let n = length l in
+    let ref acc = Nil in
+    for i = n - 1 downto 0 do
+      acc <- Cons (nth_my i l + 1) acc
+    done ;
+    acc
+end
+
+

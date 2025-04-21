@@ -1,0 +1,15 @@
+
+module HumanEval159
+  use int.Int
+  use int.MinMax
+  use list.List
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    let to_eat = min need remaining in
+    let l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) in
+    match l with
+    | Cons a (Cons b Nil) -> Cons b (Cons a Nil)
+    | _ -> Nil
+    end
+end
+
+

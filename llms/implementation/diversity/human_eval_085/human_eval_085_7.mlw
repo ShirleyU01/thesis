@@ -1,0 +1,25 @@
+
+module HumanEval085
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+
+  let rec zip_index (l : list int) (i : int) : list (int, int) =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> Cons (i, x) (zip_index xs (i + 1))
+    end
+
+  let rec add_zip (l : list (int, int)) : int =
+    match l with
+    | Nil -> 0
+    | Cons (i, x) xs ->
+        let s = add_zip xs in
+        if mod i 2 = 1 && mod x 2 = 0 then x + s else s
+    end
+
+  let add (l : list int) : int =
+    add_zip (zip_index l 0)
+end
+
+

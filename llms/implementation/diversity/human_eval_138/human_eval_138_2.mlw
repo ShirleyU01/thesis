@@ -1,0 +1,13 @@
+
+module HumanEval138
+  use int.Int
+  use int.EuclideanDivision
+  let is_equal_to_sum_even (n: int) : bool =
+    let min_sum = 8 in
+    if n < min_sum then false
+    else
+      let remain = n - min_sum in
+      if mod remain 2 = 0 then true else false
+end
+
+

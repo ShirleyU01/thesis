@@ -1,0 +1,14 @@
+
+module HumanEval060
+  use int.Int
+  let sum_to_n (n: int) : int =
+    let ref sum = 0 in
+    let ref i = n in
+    while i >= 1 do
+      sum <- sum + i;
+      i <- i - 1
+    done;
+    sum
+end
+
+

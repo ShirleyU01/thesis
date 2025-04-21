@@ -1,0 +1,26 @@
+
+module HumanEval008
+  use int.Int
+  use list.List
+
+  let sum_product (l: list int) : list int =
+    match l with
+    | Nil -> Cons 0 (Cons 1 Nil)
+    | Cons x xs ->
+        let ref s = x in
+        let ref p = x in
+        let ref rest = xs in
+        while match rest with Nil -> false | Cons _ _ -> true end do
+          match rest with
+          | Nil -> ()
+          | Cons y ys ->
+              s <- s + y;
+              p <- p * y;
+              rest <- ys
+          end
+        done;
+        Cons s (Cons p Nil)
+    end
+end
+
+

@@ -1,0 +1,17 @@
+
+module HumanEval085
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+
+  let rec add (l : list int) : int =
+    match l with
+    | Nil -> 0
+    | Cons _ Nil -> 0
+    | Cons _ (Cons y ys) ->
+        let to_add = if mod y 2 = 0 then y else 0 in
+        to_add + add ys
+    end
+end
+
+
