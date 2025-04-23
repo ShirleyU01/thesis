@@ -1,0 +1,30 @@
+module HumanEval003
+  use list.List
+  use int.Int
+  use list.Length
+  use list.Prefix
+  use list.Sum
+
+  predicate ever_below_zero (init : int) (ops : list int) =
+    exists k:int. 0 <= k <= length ops /\ init + sum (prefix k ops) < 0
+
+  let rec detect (ops: list int) (bal: int) (flag: bool) : bool
+    requires { true }
+    variant { length ops }
+    ensures {
+      (* The result is true iff at any point while traversing 'ops',
+         the balance after applying the prefix is < 0, or 'flag' was already true *)
+      result <-> (flag \/ ever_below_zero bal ops)
+    }
+  =
+    match ops with
+    | Nil -> flag
+    | Cons x xs ->
+      let bal2 = bal + x in
+      if bal2 < 0 then true else detect xs bal2 flag
+    end
+
+  let below_zero (operations: list int) : bool =
+    ensures { result <-> ever_below_zero 0 operations }
+    detect operations 0 false
+end

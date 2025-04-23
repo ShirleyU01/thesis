@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to sum_to_n_aux to prove termination, and specify pre/postconditions to sum_to_n_aux to relate it to the sum predicate. This enables automatic verification of the contract of sum_to_n.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  predicate sum (n : int) (a : int)\n    axiom sum_zero :\n        forall a. sum 0 a <-> a = 0\n    axiom sum_ind :\n        forall a n . sum n a <-> exists b. sum (n-1) b /\\ a = b + n \n\n  let rec sum_to_n_aux (n: int) (acc: int) : int\n    requires { n >= 0 }\n    ensures  { sum n (result) }\n    variant  { n }\n  =\n    if n = 0 then acc else sum_to_n_aux (n - 1) (acc + n)\n\n  let sum_to_n (n: int) : int =\n    ensures { sum n result }\n    requires { n >= 0 }\n    sum_to_n_aux n 0\nend\n"
+        }
+    ]
+}

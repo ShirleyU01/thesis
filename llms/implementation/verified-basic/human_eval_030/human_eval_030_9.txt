@@ -1,0 +1,57 @@
+=== Creating Why3 session for human_eval_030_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 14, characters 38-55: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 14, characters 61-76: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 17, characters 4-33: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_030_9) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 14, characters 38-55: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 14, characters 61-76: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9.mlw", line 17, characters 4-33: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 35/1/0                       Progress: 34/2/0                       Progress: 33/3/0                       Progress: 32/4/0                       Progress: 31/5/0                       Progress: 30/6/0                       Progress: 30/0/2                       Progress: 29/1/2                       Progress: 28/2/2                       Progress: 27/3/2                       Progress: 26/4/2                       Progress: 26/1/2                       Progress: 25/2/2                       Progress: 24/3/2                       Progress: 23/4/2                       Progress: 23/1/2                       Progress: 22/2/2                       Progress: 21/3/2                       Progress: 20/4/2                       Progress: 20/1/2                       Progress: 19/2/2                       Progress: 18/3/2                       Progress: 17/4/2                       Progress: 17/1/2                       Progress: 16/2/2                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/0/1                       Progress: 13/1/1                       Progress: 12/2/1                       Progress: 11/3/1                       Progress: 10/4/1                       Progress: 9/5/1                       Progress: 9/3/2                       Progress: 8/4/2                       Progress: 8/1/2                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/0/0                       Progress: 4/1/0                       Progress: 3/2/0                       Progress: 2/3/0                       Progress: 1/4/0                       Progress: 0/5/0                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_030/human_eval_030_9
+
+== Number of root goals ==
+  total: 2  proved: 0
+
+== Number of sub goals ==
+  total: 36  proved: 21
+
+== Goals not proved ==
+  +-- file [../human_eval_030_9.mlw]
+    +-- theory HumanEval030
+      +-- goal filter_pos'vc
+        +-- transformation split_vc
+          +-- goal filter_pos'vc.3
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.3.0
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.3.0.0
+          +-- goal filter_pos'vc.6
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.6.0
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.6.0.0
+          +-- goal filter_pos'vc.7
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.7.0
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.7.0.0
+          +-- goal filter_pos'vc.9
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.9.0
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.9.0.0
+      +-- goal get_positive'vc
+        +-- transformation split_vc
+          +-- goal get_positive'vc.0
+            +-- transformation split_vc
+              +-- goal get_positive'vc.0.0
+                +-- transformation split_vc
+                  +-- goal get_positive'vc.0.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 38 proof goals.
+=== Done ===

@@ -1,0 +1,13 @@
+
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Quant
+  use list.Mem
+
+  let below_threshold (l : list int) (t: int) : bool =
+    ensures { result <-> (forall x. mem x l -> x < t) }  
+    not (for_some (fun x -> x >= t) l)
+end
+
+

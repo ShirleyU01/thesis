@@ -1,0 +1,62 @@
+module HumanEval008
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Sum
+  use list.Mem
+
+  predicate product (l : list int) (q : int)
+    axiom product_base: forall l'. length l' = 0 <-> product l' 1
+    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')
+
+  let rec function prod (l: list int) : int =
+    variant { l }
+    match l with
+    | Nil -> 1
+    | Cons x r -> x * prod r
+    end
+    
+    let rec function take (n: int) (l: list int) : list int =
+    requires { n >= 0 }
+    ensures  { length result <= n }
+    ensures  { length result <= length l }
+    ensures  { forall i. 0 <= i < length result -> nth i result = nth i l }
+    variant  { n, l }
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      if n = 0 then Nil
+      else Cons x (take (n - 1) xs)
+    end
+
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures { result = nth n l }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let sum_product (l: list int) : list int =
+    ensures { nth 0 result = sum l }
+    ensures { product l (nth 1 result) }
+    let n = length l in
+    let ref i = 0 in
+    let ref s = 0 in
+    let ref p = 1 in
+    while i < n do
+      invariant { 0 <= i <= n }
+      invariant { s = sum (take i l) }
+      invariant { p = prod (take i l) }
+      invariant { length l = n }
+      let v = nth_my i l in
+      s <- s + v;
+      p <- p * v;
+      i <- i + 1
+    done;
+    Cons s (Cons p Nil)
+end

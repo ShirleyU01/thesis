@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_009_2.mlw"/>
+<theory name="HumanEval009">
+ <goal name="rolling_max_aux&#39;vc" expl="VC for rolling_max_aux">
+ <transf name="split_vc" >
+  <goal name="rolling_max_aux&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max_aux&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006932" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.020384" steps="3400"/></proof>
+    <proof prover="2"><result status="valid" time="0.009893" steps="13724"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max_aux&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006558" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.023314" steps="3475"/></proof>
+    <proof prover="2"><result status="valid" time="0.012027" steps="13801"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max_aux&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max_aux&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006225" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.016081" steps="2717"/></proof>
+    <proof prover="2"><result status="valid" time="0.008936" steps="3028"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max_aux&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007873" steps="37"/></proof>
+    <proof prover="1"><result status="valid" time="0.025316" steps="4668"/></proof>
+    <proof prover="2"><result status="valid" time="0.011981" steps="19532"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max_aux&#39;vc.2" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max_aux&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008217" steps="29"/></proof>
+    <proof prover="1"><result status="valid" time="0.020310" steps="3522"/></proof>
+    <proof prover="2"><result status="valid" time="0.010040" steps="8584"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max_aux&#39;vc.2.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max_aux&#39;vc.2.1.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="124930"/></proof>
+    <proof prover="1"><result status="unknown" time="0.054195" steps="9343"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="109013240"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max_aux&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max_aux&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006114" steps="9"/></proof>
+    <proof prover="1"><result status="valid" time="0.015432" steps="3375"/></proof>
+    <proof prover="2"><result status="valid" time="0.007878" steps="3996"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max_aux&#39;vc.3.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.3.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.013358" steps="193"/></proof>
+    <proof prover="1"><result status="valid" time="0.029057" steps="6136"/></proof>
+    <proof prover="2"><result status="valid" time="0.011390" steps="22070"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max_aux&#39;vc.4" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max_aux&#39;vc.4.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max_aux&#39;vc.4.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007628" steps="17"/></proof>
+    <proof prover="1"><result status="valid" time="0.017795" steps="3918"/></proof>
+    <proof prover="2"><result status="valid" time="0.009036" steps="8259"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max_aux&#39;vc.4.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max_aux&#39;vc.4.1.0" expl="postcondition">
+    <proof prover="0"><result status="highfailure" time="8.724848"/></proof>
+    <proof prover="1"><result status="unknown" time="0.047837" steps="9457"/></proof>
+    <proof prover="2"><result status="highfailure" time="7.894863"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="rolling_max&#39;vc" expl="VC for rolling_max">
+ <transf name="split_vc" >
+  <goal name="rolling_max&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006140" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.013587" steps="2972"/></proof>
+    <proof prover="2"><result status="valid" time="0.006977" steps="3396"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max&#39;vc.0.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.0.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.009188" steps="80"/></proof>
+    <proof prover="1"><result status="valid" time="0.027436" steps="5243"/></proof>
+    <proof prover="2"><result status="valid" time="0.011904" steps="19072"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.1" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008498" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.023781" steps="3438"/></proof>
+    <proof prover="2"><result status="valid" time="0.008647" steps="6980"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max&#39;vc.1.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.1.1.0" expl="postcondition">
+    <proof prover="0"><result status="highfailure" time="7.369530"/></proof>
+    <proof prover="1"><result status="unknown" time="0.043044" steps="8291"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="120641081"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

@@ -1,0 +1,34 @@
+=== Creating Why3 session for human_eval_139_10.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_139/human_eval_139_10, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_139/human_eval_139_10.mlw
+Session created successfully
+=== Benchmarking session (human_eval_139_10) ===
+Progress: 8/1/0                       Progress: 7/2/0                       Progress: 6/3/0                       Progress: 5/4/0                       Progress: 4/5/0                       Progress: 3/6/0                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/2/2                       Progress: 1/3/2                       Progress: 0/4/2                       Progress: 0/3/2                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_139/human_eval_139_10
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 9  proved: 3
+
+== Goals not proved ==
+  +-- file [../human_eval_139_10.mlw]
+    +-- theory HumanEval139
+      +-- goal special_factorial'vc
+        +-- transformation split_vc
+          +-- goal special_factorial'vc.1
+            +-- transformation split_vc
+              +-- goal special_factorial'vc.1.0
+                +-- transformation split_vc
+                  +-- goal special_factorial'vc.1.0.0
+          +-- goal special_factorial'vc.2
+            +-- transformation split_vc
+              +-- goal special_factorial'vc.2.0
+                +-- transformation split_vc
+                  +-- goal special_factorial'vc.2.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 10 proof goals.
+=== Done ===

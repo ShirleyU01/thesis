@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_009_2.mlw"/>
+<theory name="HumanEval009">
+ <goal name="rolling_max_aux&#39;vc" expl="VC for rolling_max_aux">
+ <transf name="split_vc" >
+  <goal name="rolling_max_aux&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="rolling_max_aux&#39;vc.0.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="rolling_max_aux&#39;vc.0.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="389336"/></proof>
+    <proof prover="1"><result status="unknown" time="0.019782" steps="3176"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="162836580"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="rolling_max&#39;vc" expl="VC for rolling_max">
+ <transf name="split_vc" >
+  <goal name="rolling_max&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005358" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.012044" steps="2953"/></proof>
+    <proof prover="2"><result status="valid" time="0.006493" steps="3370"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005654" steps="9"/></proof>
+    <proof prover="1"><result status="valid" time="0.014936" steps="3410"/></proof>
+    <proof prover="2"><result status="valid" time="0.007141" steps="6954"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.2" expl="termination">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.2.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.2.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="391894"/></proof>
+    <proof prover="1"><result status="unknown" time="0.015609" steps="3175"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="171562577"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.3" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.3.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.3.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="574538"/></proof>
+    <proof prover="1"><result status="unknown" time="0.022168" steps="5524"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="172590531"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.4" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.4.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.4.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="59306"/></proof>
+    <proof prover="1"><result status="unknown" time="0.024789" steps="6349"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="173552750"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

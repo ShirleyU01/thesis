@@ -1,0 +1,18 @@
+
+module HumanEval030
+  use int.Int
+  use list.List
+  use list.Length
+  use list.Mem
+
+  let rec get_positive (l : list int) : list int =
+    ensures { length l >= length result }
+    ensures { forall x . (mem x l /\ x > 0) -> mem x result }
+    ensures { forall x . mem x result -> x > 0 }
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs
+    end
+end
+
+

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_139_2.mlw"/>
+<theory name="HumanEval139">
+ <goal name="special_factorial&#39;vc" expl="VC for special_factorial">
+ <transf name="split_vc" >
+  <goal name="special_factorial&#39;vc.0" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.0.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.0.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005220" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.008143" steps="347"/></proof>
+    <proof prover="2"><result status="valid" time="0.006251" steps="170"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.0.1" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.0.1.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005209" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.008174" steps="342"/></proof>
+    <proof prover="2"><result status="valid" time="0.006331" steps="174"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.0.2" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.0.2.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005531" steps="17"/></proof>
+    <proof prover="1"><result status="unknown" time="0.009114" steps="493"/></proof>
+    <proof prover="2"><result status="valid" time="0.008653" steps="8263"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.1" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.1.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.1.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005366" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.008796" steps="465"/></proof>
+    <proof prover="2"><result status="valid" time="0.007250" steps="3021"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.2" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.2.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.2.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.005531" steps="15"/></proof>
+    <proof prover="1"><result status="valid" time="0.008937" steps="506"/></proof>
+    <proof prover="2"><result status="valid" time="0.007537" steps="3388"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.2.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.2.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.005599" steps="15"/></proof>
+    <proof prover="1"><result status="valid" time="0.008427" steps="476"/></proof>
+    <proof prover="2"><result status="valid" time="0.006231" steps="226"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.2.2" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.2.2.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.014087" steps="387"/></proof>
+    <proof prover="1"><result status="valid" time="0.010516" steps="1029"/></proof>
+    <proof prover="2"><result status="valid" time="0.007485" steps="3955"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005498" steps="9"/></proof>
+    <proof prover="1"><result status="valid" time="0.008547" steps="380"/></proof>
+    <proof prover="2"><result status="valid" time="0.006274" steps="205"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.4" expl="VC for special_factorial">
+  <transf name="split_vc" >
+   <goal name="special_factorial&#39;vc.4.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="special_factorial&#39;vc.4.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="60996"/></proof>
+    <proof prover="1"><result status="unknown" time="0.009431" steps="481"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="113153295"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

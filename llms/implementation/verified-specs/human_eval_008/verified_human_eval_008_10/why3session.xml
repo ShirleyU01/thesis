@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_008_10.mlw"/>
+<theory name="HumanEval008">
+ <goal name="sum_product&#39;vc" expl="VC for sum_product">
+ <transf name="split_vc" >
+  <goal name="sum_product&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006723" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.019177" steps="4618"/></proof>
+    <proof prover="2"><result status="valid" time="0.010203" steps="22826"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008247" steps="56"/></proof>
+    <proof prover="1"><result status="valid" time="0.022432" steps="5220"/></proof>
+    <proof prover="2"><result status="valid" time="0.010668" steps="24235"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.2" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.2.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.2.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.006564" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.020097" steps="4409"/></proof>
+    <proof prover="2"><result status="valid" time="0.010233" steps="20887"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.3" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.3.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.3.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="182615"/></proof>
+    <proof prover="1"><result status="valid" time="0.029045" steps="7299"/></proof>
+    <proof prover="2"><result status="valid" time="0.378163" steps="5661813"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.4" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.4.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.4.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.006872" steps="24"/></proof>
+    <proof prover="1"><result status="valid" time="0.021013" steps="4964"/></proof>
+    <proof prover="2"><result status="valid" time="0.010628" steps="24108"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.5" expl="loop variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.5.0" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.5.0.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006566" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015296" steps="4491"/></proof>
+    <proof prover="2"><result status="valid" time="0.006893" steps="1807"/></proof>
+    </goal>
+    <goal name="sum_product&#39;vc.5.0.1" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006755" steps="21"/></proof>
+    <proof prover="1"><result status="valid" time="0.015098" steps="4500"/></proof>
+    <proof prover="2"><result status="valid" time="0.006862" steps="1820"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.5.1" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.5.1.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006540" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.014943" steps="4498"/></proof>
+    <proof prover="2"><result status="valid" time="0.006689" steps="1807"/></proof>
+    </goal>
+    <goal name="sum_product&#39;vc.5.1.1" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.007630" steps="58"/></proof>
+    <proof prover="1"><result status="valid" time="0.019069" steps="4951"/></proof>
+    <proof prover="2"><result status="valid" time="0.009958" steps="26351"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.6" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.6.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.6.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006518" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.016058" steps="4491"/></proof>
+    <proof prover="2"><result status="valid" time="0.006888" steps="1807"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.6.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.6.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006537" steps="21"/></proof>
+    <proof prover="1"><result status="valid" time="0.015127" steps="4500"/></proof>
+    <proof prover="2"><result status="valid" time="0.007089" steps="1828"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.7" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.7.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.7.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006702" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015399" steps="4623"/></proof>
+    <proof prover="2"><result status="valid" time="0.006768" steps="1808"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.7.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.7.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.007805" steps="48"/></proof>
+    <proof prover="1"><result status="valid" time="0.019579" steps="5142"/></proof>
+    <proof prover="2"><result status="valid" time="0.010126" steps="27513"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.8" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.8.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.8.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.007051" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.016568" steps="4579"/></proof>
+    <proof prover="2"><result status="valid" time="0.007154" steps="1812"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.8.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.8.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006813" steps="28"/></proof>
+    <proof prover="1"><result status="valid" time="0.015368" steps="4588"/></proof>
+    <proof prover="2"><result status="valid" time="0.006917" steps="1871"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.9" expl="loop variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.9.0" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.9.0.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006800" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015283" steps="4568"/></proof>
+    <proof prover="2"><result status="valid" time="0.006855" steps="1809"/></proof>
+    </goal>
+    <goal name="sum_product&#39;vc.9.0.1" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006934" steps="29"/></proof>
+    <proof prover="1"><result status="valid" time="0.015018" steps="4406"/></proof>
+    <proof prover="2"><result status="valid" time="0.006814" steps="1819"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.9.1" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.9.1.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006516" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015328" steps="4593"/></proof>
+    <proof prover="2"><result status="valid" time="0.006783" steps="1809"/></proof>
+    </goal>
+    <goal name="sum_product&#39;vc.9.1.1" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.008632" steps="177"/></proof>
+    <proof prover="1"><result status="valid" time="0.022871" steps="5664"/></proof>
+    <proof prover="2"><result status="valid" time="0.010157" steps="27128"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.10" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.10.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.10.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006673" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015652" steps="4598"/></proof>
+    <proof prover="2"><result status="valid" time="0.006771" steps="1809"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.10.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.10.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.008504" steps="124"/></proof>
+    <proof prover="1"><result status="valid" time="0.023878" steps="5681"/></proof>
+    <proof prover="2"><result status="valid" time="0.011598" steps="36556"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.11" expl="loop invariant preservation">
+  <transf name="split_vc" >
+   <goal name="sum_product&#39;vc.11.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.11.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006854" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.015961" steps="4728"/></proof>
+    <proof prover="2"><result status="valid" time="0.007001" steps="1810"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.11.1" expl="loop invariant preservation">
+   <transf name="split_vc" >
+    <goal name="sum_product&#39;vc.11.1.0" expl="loop invariant preservation">
+    <proof prover="0"><result status="highfailure" time="5.764970"/></proof>
+    <proof prover="1"><result status="timeout" time="1.455902" steps="266955"/></proof>
+    <proof prover="2"><result status="highfailure" time="8.528800"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.12" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.12.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.12.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.008299" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.018968" steps="4695"/></proof>
+    <proof prover="2"><result status="valid" time="0.008642" steps="1814"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.12.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.12.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.009683" steps="162"/></proof>
+    <proof prover="1"><result status="valid" time="0.030204" steps="5770"/></proof>
+    <proof prover="2"><result status="valid" time="0.011438" steps="29537"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.13" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.13.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.13.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008021" steps="50"/></proof>
+    <proof prover="1"><result status="valid" time="0.026010" steps="5890"/></proof>
+    <proof prover="2"><result status="valid" time="0.011399" steps="26246"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.13.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.13.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006996" steps="18"/></proof>
+    <proof prover="1"><result status="valid" time="0.017294" steps="4483"/></proof>
+    <proof prover="2"><result status="valid" time="0.007789" steps="937"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.14" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.14.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.14.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008062" steps="66"/></proof>
+    <proof prover="1"><result status="valid" time="0.025146" steps="5889"/></proof>
+    <proof prover="2"><result status="valid" time="0.010893" steps="27681"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_product&#39;vc.14.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.14.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007996" steps="18"/></proof>
+    <proof prover="1"><result status="valid" time="0.017539" steps="4499"/></proof>
+    <proof prover="2"><result status="valid" time="0.007783" steps="938"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

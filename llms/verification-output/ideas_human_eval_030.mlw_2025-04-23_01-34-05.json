@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and variants to the while loop in get_positive to help SMT solvers verify correctness. The invariants guarantee preservation of the result's length, membership, and positivity properties at each step, and the variant ensures termination.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Mem\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    ensures  { nth n l = result }\n    ensures  { mem result l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let get_positive (l : list int) : list int =\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n    let n = length l in\n    let ref i = 0 in\n    let ref res = Nil in\n    while i < n do\n      invariant { 0 <= i /\\ i <= n }\n      invariant { length l = n }\n      invariant { length res <= i }\n      invariant { forall k. 0 <= k < i /\\ nth_my k l > 0 -> mem (nth_my k l) res }\n      invariant { forall x. mem x res -> x > 0 }\n      variant { n - i }\n      let v = nth_my i l in\n      if v > 0 then res <- Cons v res;\n      i <- i + 1\n    done;\n\n    let rec rev (l: list int) (acc: list int) : list int =\n      variant { length l }\n      match l with | Nil -> acc | Cons x xs -> rev xs (Cons x acc) end\n    in rev res Nil\nend\n"
+        }
+    ]
+}

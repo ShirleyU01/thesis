@@ -1,0 +1,29 @@
+
+module HumanEval139
+  use int.Int
+  use int.Fact
+  use list.List
+  use list.Length
+
+ predicate spec_fact (n : int) (a : int)
+    axiom spec_fact_base :
+        forall a. spec_fact 1 a <-> a = 1
+    axiom spec_fact_ind :
+        forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\ a = b * fact n
+
+  let rec build_list (a: int) (b: int) : list int =
+    if a > b then Nil else Cons a (build_list (a+1) b)
+
+  let rec product (l: list int) : int =
+    match l with | Nil -> 1 | Cons x xs -> x * product xs end
+
+  let rec map_fact (l: list int) : list int =
+    match l with | Nil -> Nil | Cons x xs -> Cons (fact x) (map_fact xs) end
+
+  let special_factorial (n: int) : int =
+    ensures { spec_fact n result } 
+    let l = build_list 1 n in
+    product (map_fact l)
+end
+
+

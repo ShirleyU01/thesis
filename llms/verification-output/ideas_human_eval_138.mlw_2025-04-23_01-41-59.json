@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The code is correct as written, but to help SMT solvers prove the postcondition, we add a lemma characterizing the decomposition of n as the sum of four positive even numbers. This lemma is used to bridge the gap between the arithmetic property in the ensures clause and the combinatorial property expressed in the docstring. The rest of the code is unchanged.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  (* Lemma: n can be written as the sum of exactly 4 positive even numbers\n     iff n is even and n >= 8 *)\n  lemma sum_of_four_positive_even_numbers:\n    forall n:int. (exists a b c d:int. a > 0 /\\ b > 0 /\\ c > 0 /\\ d > 0 /\\ mod a 2 = 0 /\\ mod b 2 = 0 /\\ mod c 2 = 0 /\\ mod d 2 = 0 /\\ n = a + b + c + d)\n      <-> (mod n 2 = 0 /\\ n >= 8)\n\n  let is_equal_to_sum_even (n: int) : bool =\n    ensures { result <-> (mod n 2 = 0) /\\ (n >= 8) }\n    if mod n 2 = 0 && div n 2 >= 4 then true else false\nend\n"
+        }
+    ]
+}

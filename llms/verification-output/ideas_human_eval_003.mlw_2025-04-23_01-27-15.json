@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive helper function to prove termination and strengthen the contract with pre- and postconditions on helper to relate its result to the ever_below_zero predicate. The helper's contract expresses that if it returns true, then ever_below_zero holds for the current balance and remaining operations, and if false, then it does not. This allows the ensures clause on below_zero to be verified automatically.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n  use list.Length\n  use list.Prefix\n  use list.Sum\n\n  predicate ever_below_zero (init : int) (ops : list int) =\n    exists k:int. 0 <= k <= length ops /\\ init + sum (prefix k ops) < 0  \n\n  let rec helper (l: list int) (bal: int) : bool\n    requires { true }\n    ensures { result <-> ever_below_zero bal l }\n    variant { length l }\n  =\n    match l with\n    | Nil -> false\n    | Cons x xs ->\n      let bal2 = bal + x in\n      if bal2 < 0 then true else helper xs bal2\n    end\n\n  let below_zero (operations: list int) : bool =\n    ensures { result <-> ever_below_zero 0 operations }\n    in helper operations 0\nend\n"
+        }
+    ]
+}

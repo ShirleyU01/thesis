@@ -1,0 +1,44 @@
+=== Creating Why3 session for verified_human_eval_008_5.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_5, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_5.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_008_5) ===
+Progress: 41/1/0                       Progress: 40/2/0                       Progress: 39/3/0                       Progress: 38/4/0                       Progress: 37/5/0                       Progress: 36/6/0                       Progress: 36/0/1                       Progress: 35/1/1                       Progress: 34/2/1                       Progress: 33/3/1                       Progress: 32/4/1                       Progress: 31/5/1                       Progress: 31/4/2                       Progress: 31/3/2                       Progress: 30/4/2                       Progress: 30/0/2                       Progress: 29/1/2                       Progress: 28/2/2                       Progress: 27/3/2                       Progress: 26/4/2                       Progress: 26/2/2                       Progress: 25/3/2                       Progress: 24/4/2                       Progress: 24/0/1                       Progress: 23/1/1                       Progress: 22/2/1                       Progress: 21/3/1                       Progress: 20/4/1                       Progress: 19/5/1                       Progress: 19/0/1                       Progress: 18/1/1                       Progress: 17/2/1                       Progress: 16/3/1                       Progress: 15/4/1                       Progress: 14/5/1                       Progress: 14/0/1                       Progress: 13/1/1                       Progress: 12/2/1                       Progress: 11/3/1                       Progress: 10/4/1                       Progress: 9/5/1                       Progress: 9/2/2                       Progress: 8/3/2                       Progress: 7/4/2                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/3/2                       Progress: 4/4/2                       Progress: 4/3/2                       Progress: 3/4/2                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/0/2                       Progress: 1/1/2                       Progress: 0/2/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_5
+
+== Number of root goals ==
+  total: 5  proved: 4
+
+== Number of sub goals ==
+  total: 35  proved: 29
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_008_5.mlw]
+    +-- theory HumanEval008
+      +-- goal product_charac
+        +-- transformation split_vc
+          +-- goal product_charac.0
+            +-- transformation split_vc
+              +-- goal product_charac.0.0
+                +-- transformation split_vc
+                  +-- goal product_charac.0.0.0
+          +-- goal product_charac.1
+            +-- transformation split_vc
+              +-- goal product_charac.1.0
+                +-- transformation split_vc
+                  +-- goal product_charac.1.0.0
+  
+== Goals proved by only one prover ==
+  +-- file [../verified_human_eval_008_5.mlw]
+    +-- theory HumanEval008
+      +-- goal fold_sum_prod'vc
+        +-- transformation split_vc
+          +-- goal fold_sum_prod'vc.2
+            +-- transformation split_vc
+              +-- goal fold_sum_prod'vc.2.1
+                +-- transformation split_vc
+                  +-- goal fold_sum_prod'vc.2.1.0: Z3 4.8.6
+                  +-- goal fold_sum_prod'vc.2.1.1: Z3 4.8.6
+  
+1 session(s) read, with a total of 40 proof goals.
+=== Done ===

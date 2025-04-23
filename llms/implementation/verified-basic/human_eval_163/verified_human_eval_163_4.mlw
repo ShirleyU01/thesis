@@ -1,0 +1,31 @@
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Reverse
+  use list.NthNoOpt
+  use list.Length
+
+  let generate_integers (a:int) (b:int) : list int =
+    ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}
+    let start = min a b in
+    let finish = max a b in
+    let ref acc = Nil in
+    let ref i = start in
+    while i <= finish do
+      invariant { start <= i <= finish + 1 }
+      invariant { length acc = i - start }
+      invariant {
+        forall k:int. 0 <= k < length acc -> nth k acc = finish - (i - start) + k
+      }
+      variant { finish - i + 1 }
+      acc <- Cons i acc;
+      i <- i + 1
+    done;
+    reverse acc
+end

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'compare' to prove termination, as well as strengthen the precondition to require input lists to be of equal length, which is already assumed in the ensures clauses. No additional lemmas or ghost code are necessary, as the proof obligations (including the main postcondition relating nth elements of result to abs(nth l1 - nth l2)) are within the power of SMT solvers for this function. The code is otherwise unchanged.",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare (l1 : list int) (l2 : list int) : list int\n    requires { length l1 = length l2 }\n    ensures { length result = length l1 }\n    ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2) }\n    variant { length l1 }\n    = match l1, l2 with\n      | Cons x xs, Cons y ys -> Cons (if x = y then 0 else abs (x - y)) (compare xs ys)\n      | Nil, Nil -> Nil\n      | _, _ -> Nil (* unreachable due to precondition, but included for exhaustiveness *)\n      end\nend\n"
+        }
+    ]
+}

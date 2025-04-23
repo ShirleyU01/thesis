@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and a variant to the while loop in is_prime to enable automatic verification of the contract. The invariants capture that: (1) If res is true, then all odd divisors d' in [3, d) do not divide n; (2) d is always odd and >= 3; (3) If res is false, then a divisor was found. The variant ensures termination.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else\n    if n = 2 then true else\n    if mod n 2 = 0 then false else\n    let ref res = true in\n    let ref d = 3 in\n    while d * d <= n && res do\n      invariant { 3 <= d /\\ (d mod 2 = 1) }\n      invariant {\n        res -> forall d': int. 3 <= d' < d /\\ d' mod 2 = 1 -> not (mod n d' = 0)\n      }\n      invariant {\n        not res -> exists d' : int. 3 <= d' < d /\\ d' mod 2 = 1 /\\ mod n d' = 0\n      }\n      variant { n - d }\n      if mod n d = 0 then res <- false;\n      d <- d + 2\n    done;\n    res\nend\n"
+        }
+    ]
+}

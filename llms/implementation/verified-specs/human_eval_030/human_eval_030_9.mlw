@@ -1,0 +1,20 @@
+
+module HumanEval030
+  use int.Int
+  use list.List
+  use list.Length
+  use list.Mem
+
+  let rec filter_pos (f: int -> bool) (l: list int) : list int =
+    ensures { length l >= length result }
+    ensures { forall x . (mem x l /\ x > 0) -> mem x result }
+    ensures { forall x . mem x result -> x > 0 }
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> if f x then Cons x (filter_pos f xs) else filter_pos f xs
+    end
+  let get_positive (l: list int) : list int =
+    filter_pos (fun x -> x > 0) l
+end
+
+

@@ -1,0 +1,22 @@
+
+module HumanEval085
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+
+  function spec_add (l : list int) : int =
+    match l with
+    | Cons _ (Cons y ys) ->
+        (if mod y 2 = 0 then y else 0) + spec_add ys
+    | _ -> 0
+    end  
+
+  let rec add (l : list int) : int =
+    ensures { result = spec_add l }
+    match l with
+    | Cons _ (Cons y ys) -> (if mod y 2 = 0 then y else 0) + add ys
+    | _ -> 0
+    end
+end
+
+

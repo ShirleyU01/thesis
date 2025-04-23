@@ -1,0 +1,27 @@
+module HumanEval005
+  use int.Int
+  use list.List
+  use list.Length
+  use list.Append
+  use list.Mem
+  use int.EuclideanDivision
+  use list.NthNoOpt
+
+  (* Lemma for length of append, required for postcondition reasoning *)
+  lemma length_append: forall (l1 l2: list int). length (l1 ++ l2) = length l1 + length l2
+
+  let rec intersperse (l : list int) (d : int) : list int
+    ensures { length l <= 1 -> length result = length l /\ forall x. mem x l -> mem x result}
+    ensures { length l > 1 -> 
+              length result = 2 * length l - 1 /\
+              forall i: int. 0 <= i < length result ->
+                if mod i 2 = 0 then nth i result = nth (div i 2) l
+                else nth i result = d
+            }
+    variant { length l }
+  = match l with
+    | Nil -> Nil
+    | Cons x Nil -> Cons x Nil
+    | Cons x xs -> (Cons x Nil) ++ (Cons d (intersperse xs d))
+    end
+end

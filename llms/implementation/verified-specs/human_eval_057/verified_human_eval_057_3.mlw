@@ -1,0 +1,67 @@
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  (* Auxiliary predicate for monotonic increasing *)
+  predicate mono_incr (l: list int) =
+    forall i:int. 0 <= i < length l - 1 -> nth i l < nth (i + 1) l
+
+  (* Auxiliary predicate for monotonic decreasing *)
+  predicate mono_decr (l: list int) =
+    forall i:int. 0 <= i < length l - 1 -> nth i l > nth (i + 1) l
+
+  (* Predicate for monotonic in either direction *)
+  predicate mono (l: list int) = mono_incr l \/ mono_decr l
+
+  let rec check_dir (l: list int) (dir: int) : bool
+    variant { length l }
+    ensures {
+      result ->
+        match l with
+        | Nil -> true
+        | Cons _ Nil -> true
+        | _ ->
+            (
+              (dir = 1 -> mono_incr l) /\
+              (dir = -1 -> mono_decr l) /\
+              (dir = 0 -> mono l)
+            )
+        end
+    }
+    ensures {
+      match l with
+      | Nil -> result = true
+      | Cons _ Nil -> result = true
+      | _ -> true
+      end
+    }
+  =
+    match l with
+    | Nil -> true
+    | Cons _ Nil -> true
+    | Cons x (Cons y r) ->
+      if dir = 0 then
+        if x < y then check_dir (Cons y r) 1
+        else if x > y then check_dir (Cons y r) (-1)
+        else check_dir (Cons y r) 0
+      else if dir = 1 then
+        if x <= y then check_dir (Cons y r) 1 else false
+      else
+        if x >= y then check_dir (Cons y r) (-1) else false
+    end
+
+  (* Lemmas to connect check_dir result with monotonicity predicates *)
+  (*lemma check_dir_0_mono:
+    forall l: list int. check_dir l 0 = true -> mono l
+
+  lemma mono_check_dir_0:
+    forall l: list int. mono l -> check_dir l 0 = true
+*)
+
+  let monotonic (l: list int) : bool =
+    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    check_dir l 0
+end

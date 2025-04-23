@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'add' to prove termination. No further invariants or lemmas are required since the code structure and the ensures clause match, and the function strictly decreases the list argument at each step.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  function spec_add (l : list int) : int =\n    match l with\n    | Cons _ (Cons y ys) ->\n        (if mod y 2 = 0 then y else 0) + spec_add ys\n    | _ -> 0\n    end  \n\n  let rec add (l : list int) : int\n    ensures { result = spec_add l }\n    variant { l }\n    =\n    match l with\n    | Cons _ (Cons y ys) -> (if mod y 2 = 0 then y else 0) + add ys\n    | _ -> 0\n    end\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.Mem
+  use list.NthNoOpt
+  
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  predicate pair_distance (numbers: list int) (i j: int) (d: int) =
+    0 <= i < length numbers /\ 0 <= j < length numbers /\ i <> j /\ d = abs (nth i numbers - nth j numbers)
+
+  (* All pairs (i, j) with i < j, and their distances *)
+ let rec aux_j (numbers: list int) (i j n: int) (curr: int) : int
+  requires { 0 <= i < n }
+  requires { i + 1 <= j <= n }
+  requires { n = length numbers }
+  variant  { n - j }
+= 
+  if j >= n then curr
+  else
+    let d = abs (nth_my i numbers - nth_my j numbers) in
+    aux_j numbers i (j + 1) n (if d < curr then d else curr)
+
+let rec aux (numbers: list int) (i n: int) (curr: int) : int
+  requires { 0 <= i < n }
+  requires { n = length numbers }
+  variant { n - i }
+=
+  if i >= n - 1 then curr
+  else
+    let curr' = aux_j numbers i (i + 1) n curr in
+    aux numbers (i + 1) n curr'
+
+let min_pair_distance (numbers: list int) : int
+  requires { length numbers >= 2 }
+=
+  let n = length numbers in
+  let d = abs (nth_my 0 numbers - nth_my 1 numbers) in
+  aux numbers 0 n d
+
+  (* scan_j: find the closest pair for a fixed i, j runs from i+1 to n-1 *)
+  let rec scan_j (numbers: list int) (i: int) (j: int) (n: int) (min_diff: int) (a: int) (b: int) : (int, int, int) =
+    requires { length numbers >= 2 }
+    requires { 0 <= i < n }
+    requires { i+1 <= j <= n }
+    requires { n = length numbers }
+    requires { 0 <= a <= b }
+    requires { forall k1 k2:int. 0 <= k1 < n /\ i < k2 < j /\ k1 = i /\ k1 <> k2 -> abs (nth i numbers - nth k2 numbers) >= min_diff }
+    ensures  { let (d, aa, bb) = result in
+                d <= min_diff /\
+                0 <= aa <= bb /\
+                exists k:int. i < k < n /\ d = abs (nth i numbers - nth k numbers) /\
+                aa = min (nth i numbers) (nth k numbers) /\
+                bb = max (nth i numbers) (nth k numbers) /\
+                forall k2:int. i < k2 < n -> abs (nth i numbers - nth k2 numbers) >= d }
+    variant { n - j }
+    if j >= n then (min_diff, a, b)
+    else
+      let x = nth_my i numbers in
+      let y = nth_my j numbers in
+      let d = abs (x - y) in
+      if d < min_diff then scan_j numbers i (j+1) n d (min x y) (max x y)
+      else scan_j numbers i (j+1) n min_diff a b
+
+  (* scan_i: find the globally closest pair *)
+  let rec scan_i (numbers: list int) (i: int) (n: int) (min_diff: int) (a: int) (b: int) : (int, int) =
+    requires { length numbers >= 2 }
+    requires { 0 <= i <= n-1 }
+    requires { n = length numbers }
+    requires { 0 <= a <= b }
+    requires { forall k1 k2:int. 0 <= k1 < i /\ k1 < k2 < n -> abs (nth k1 numbers - nth k2 numbers) >= min_diff }
+    ensures  { let (aa, bb) = result in
+                exists i1 i2:int. 0 <= i1 < n /\ 0 <= i2 < n /\ i1 <> i2 /\ aa = min (nth i1 numbers) (nth i2 numbers) /\ bb = max (nth i1 numbers) (nth i2 numbers) /\
+                forall k1 k2:int. 0 <= k1 < n /\ 0 <= k2 < n /\ k1 <> k2 -> abs (nth k1 numbers - nth k2 numbers) >= abs (aa - bb) }
+    variant { n - i }
+    if i >= n-1 then (a, b)
+    else
+      let (new_min, new_a, new_b) = scan_j numbers i (i+1) n min_diff a b in
+      scan_i numbers (i+1) n new_min new_a new_b
+
+  let find_closest_elements (numbers: list int) : list int =
+    requires { length numbers >= 2 }
+    ensures {
+      match result with
+      | Cons a (Cons b Nil) ->
+          a <= b /\ mem a numbers /\ mem b numbers /\
+          (exists i j:int. 0 <= i < length numbers /\ 0 <= j < length numbers /\ i <> j /\
+            a = min (nth i numbers) (nth j numbers) /\ b = max (nth i numbers) (nth j numbers) /\
+            forall k1 k2:int. 0 <= k1 < length numbers /\ 0 <= k2 < length numbers /\ k1 <> k2 -> abs (nth k1 numbers - nth k2 numbers) >= abs (a - b))
+      | _ -> false
+      end
+    }
+    let n = length numbers in
+    let x0 = nth_my 0 numbers in
+    let x1 = nth_my 1 numbers in
+    let (a, b) = scan_i numbers 0 n (abs (x0 - x1)) (min x0 x1) (max x0 x1) in
+    Cons a (Cons b Nil)
+end

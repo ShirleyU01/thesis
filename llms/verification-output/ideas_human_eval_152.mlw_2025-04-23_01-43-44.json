@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function `compare` to prove termination. No other lemmas or invariants are necessary since the ensures clauses are directly implied by the structure of the function and the use of `nth` is only for indices in range (enforced by the ensures clause).",
+            "implementation": "module HumanEval152\n  use int.Int\n  use int.Abs\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let rec compare (l1 : list int) (l2 : list int) : list int\n    ensures { length result = length l1 }\n    ensures { length l1 = length l2 }\n    ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2)}\n    variant { length l1 }\n    match l1 with\n    | Nil -> Nil\n    | Cons x xs -> match l2 with\n        | Nil -> Nil\n        | Cons y ys -> Cons (if x = y then 0 else abs (x - y)) (compare xs ys)\n      end\n    end\n  end\n"
+        }
+    ]
+}

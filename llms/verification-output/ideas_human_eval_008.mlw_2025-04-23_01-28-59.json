@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Fully verified Why3 code for sum_product: adds necessary loop invariants and a variant to the while loop to ensure correctness and termination. The invariants capture the running sum and product, as well as the relationship between the traversed and remaining list, ensuring the postconditions hold.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Sum\n\n  predicate product (l : list int) (q : int)\n    axiom product_base: forall l'. length l' = 0 <-> product l' 1\n    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')\n\n  let sum_product (l: list int) : list int =\n    ensures { nth 0 result = sum l }\n    ensures { product l (nth 1 result) }\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x xs ->\n        let ref s = x in\n        let ref p = x in\n        let ref rest = xs in\n        invariant { sum l = s + sum rest }\n        invariant { exists l1 l2. l = l1 ++ rest /\\ length l1 + length rest = length l /\\ sum l1 = s /\\ product l1 p }\n        invariant { length rest >= 0 }\n        variant { length rest }\n        while match rest with Nil -> false | Cons _ _ -> true end do\n          match rest with\n          | Nil -> ()\n          | Cons y ys ->\n              s <- s + y;\n              p <- p * y;\n              rest <- ys\n          end\n        done;\n        Cons s (Cons p Nil)\n    end\nend\n"
+        }
+    ]
+}

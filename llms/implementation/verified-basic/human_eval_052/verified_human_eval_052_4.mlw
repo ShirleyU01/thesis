@@ -1,0 +1,18 @@
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Quant
+  use list.Mem
+
+  (* Add a postcondition to for_all to relate its result to mem and universal quantification *)
+  function for_all (p: 'a -> bool) (l: list 'a) : bool
+    ensures { result <-> (forall x. mem x l -> p x) }
+  = match l with
+    | Nil -> True
+    | Cons h t -> p h && for_all p t
+    end
+
+  let below_threshold (l : list int) (t: int) : bool =
+    ensures { result <-> (forall x. mem x l -> x < t) }
+    for_all (fun x -> x < t) l
+end

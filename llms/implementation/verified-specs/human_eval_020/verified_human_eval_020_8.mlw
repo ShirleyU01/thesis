@@ -1,0 +1,102 @@
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.Mem
+  use list.NthNoOpt
+  use list.Append
+  use ref.Ref
+
+inductive sorted (l: list int) =
+  | Sorted_nil:
+      sorted Nil
+  | Sorted_one:
+      forall x: int. sorted (Cons x Nil)
+  | Sorted_cons:
+      forall x y: int, t: list int.
+        x <= y -> sorted (Cons y t) -> sorted (Cons x (Cons y t))
+
+
+
+  predicate sublist (l1: list int) (l2: list int) =
+    forall x: int. mem x l1 -> mem x l2 /\ length l1 = length l2
+
+inductive adjacent_pair (l: list int) (a: int) (b: int) =
+  | AP_head:
+      forall x y: int, xs: list int.
+        adjacent_pair (Cons x (Cons y xs)) x y
+  | AP_tail:
+      forall x: int, ys: list int, a b: int.
+        adjacent_pair ys a b ->
+        adjacent_pair (Cons x ys) a b
+
+
+
+
+  (* insert x into sorted l *)
+  let rec insert (x:int) (l:list int) : list int
+    ensures { sorted l -> sorted result }
+    ensures { mem x result }
+    ensures { forall y:int. mem y l -> mem y result }
+    ensures { length result = length l + 1 }
+  =
+    match l with
+    | Nil -> Cons x Nil
+    | Cons y ys -> if x < y then Cons x l else Cons y (insert x ys)
+    end
+
+  (* sort returns the sorted permutation of l *)
+  let rec sort (l:list int) : list int
+    ensures { sorted result }
+    ensures { forall x:int. mem x l <-> mem x result }
+    ensures { length result = length l }
+  =
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> insert x (sort xs)
+    end
+
+  (* Find adjacent pair with minimal difference *)
+  let rec adjacent_min (l: list int) (min_diff: int) (a: int) (b: int) : (int, int)
+    requires { sorted l }
+    requires { length l >= 2 }
+    requires { adjacent_pair l a b }
+    variant { length l }
+    ensures { let (x, y) = result in
+      adjacent_pair l x y /\ abs (x - y) <= min_diff /\
+      forall i: int, j: int. 0 <= i < length l - 1 /\ 0 <= j < length l - 1 ->
+        abs (nth i l - nth (i+1) l) >= abs (x - y)
+    }
+  =
+    match l with
+    | Cons x (Cons y xs) ->
+      let d = abs (x - y) in
+      if d < min_diff then adjacent_min (Cons y xs) d x y else adjacent_min (Cons y xs) min_diff a b
+    | _ -> (a, b)
+    end
+
+  (* Main function: find the closest elements *)
+  let find_closest_elements (numbers: list int) : list int
+    requires { length numbers >= 2 }
+    ensures {
+      match result with
+      | Cons a (Cons b Nil) ->
+          a <= b /\
+          mem a numbers /\ mem b numbers /\
+          forall x: int, y: int. mem x numbers /\ mem y numbers /\ x <> y ->
+            abs (x - y) >= abs (a - b)
+      | Nil -> true
+      | _ -> false
+      end
+    }
+  =
+    match sort numbers with
+    | Cons x (Cons y xs) ->
+      let (a, b) = adjacent_min (Cons x (Cons y xs)) (abs (x - y)) x y in
+      if a <= b then Cons a (Cons b Nil) else Cons b (Cons a Nil)
+    | _ -> Nil
+    end
+
+end

@@ -1,0 +1,28 @@
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+
+  (*
+     check_div n d returns true if there is no divisor in [d, sqrt(n)], false otherwise.
+     We specify that for n >= 2, d >= 2, d*d <= n, check_div n d = true <-> (forall k. d <= k < n -> mod n k <> 0)
+  *)
+  let rec check_div (n: int) (d: int) : bool
+    requires { n >= 2 }
+    requires { d >= 2 }
+    variant  { n - d }
+    ensures  {
+      if d * d > n then result = true else
+      result <-> (forall k: int. d <= k < n -> mod n k <> 0)
+    }
+  = if d * d > n then true
+    else if mod n d = 0 then false
+    else check_div n (d + 1)
+
+predicate no_divisor_in_range (n d: int) =
+  forall k: int. d <= k < n -> mod n k <> 0
+
+
+  let is_prime (n: int) : bool =
+    ensures { result <-> (n >= 2 /\ forall d: int. 2 <= d /\ d < n -> not (mod n d = 0)) }
+    if n <= 1 then false else check_div n 2
+end

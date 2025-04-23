@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_052_2.mlw"/>
+<theory name="HumanEval052">
+ <goal name="below_threshold&#39;vc" expl="VC for below_threshold">
+ <transf name="split_vc" >
+  <goal name="below_threshold&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_threshold&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005136" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.011859" steps="2104"/></proof>
+    <proof prover="2"><result status="valid" time="0.007675" steps="10199"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_threshold&#39;vc.1" expl="termination">
+  <transf name="split_vc" >
+   <goal name="below_threshold&#39;vc.1.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="below_threshold&#39;vc.1.0.0" expl="termination">
+    <proof prover="0"><result status="unknown" time="0.020304" steps="837"/></proof>
+    <proof prover="1"><result status="unknown" time="0.012254" steps="1720"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="178600301"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_threshold&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_threshold&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005716" steps="18"/></proof>
+    <proof prover="1"><result status="valid" time="0.014127" steps="2519"/></proof>
+    <proof prover="2"><result status="valid" time="0.194801" steps="2640966"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_threshold&#39;vc.2.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.2.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007846" steps="78"/></proof>
+    <proof prover="1"><result status="unknown" time="0.013330" steps="2243"/></proof>
+    <proof prover="2"><result status="valid" time="0.018527" steps="109957"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_threshold&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_threshold&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005543" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.011188" steps="2044"/></proof>
+    <proof prover="2"><result status="valid" time="0.006199" steps="421"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_threshold&#39;vc.3.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.3.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.010851" steps="73"/></proof>
+    <proof prover="1"><result status="unknown" time="0.016420" steps="2205"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="178865678"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

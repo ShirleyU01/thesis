@@ -1,0 +1,48 @@
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+  use list.Mem
+  use list.Map
+  use list.FoldLeft
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+    
+ let rec function iota (start: int) (count: int) : list int =
+  variant { count } 
+  if count <= 0 then Nil
+  else Cons start (iota (start + 1) (count - 1))   
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    let n = length l in
+    if n = 0 then Nil else
+    let ref result = Nil in
+    let ref current_max = nth_my 0 l in
+    for i = 0 to n-1 do
+      invariant { 0 <= i <= n }
+      invariant { length result = i }
+      invariant { forall j. 0 <= j < i ->
+         let m = fold_left max (nth 0 l) (map (fun k -> nth k l) (iota 1 j)) in
+         nth j result = fold_left max (nth 0 l) (map (fun k -> nth k l) (iota 1 j)) }
+      invariant { forall k. 0 <= k < i -> nth k result >= nth k l }
+      invariant { forall k. 0 <= k < i -> exists j. 0 <= j <= k /\ nth k result = nth j l }
+      invariant { i > 0 -> current_max = fold_left max (nth_my 0 l) (map (fun k -> nth k l) (iota 1 i)) }
+      let v = nth_my i l in
+      current_max <- max current_max v;
+      result <- result ++ (Cons current_max Nil)
+    done ;
+    result
+end

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a postcondition to unit_digit_loop specifying that it returns the unit digit of the absolute value of its argument, loop invariants and variant for the while loop to prove correctness and termination. This allows automatic verification of the postcondition of multiply.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n\n  let unit_digit_loop (x : int) : int\n    ensures { result = mod (abs x) 10 }\n  =\n    let ref y = abs x in\n    while y >= 10 do\n      invariant { y >= 0 }\n      invariant { mod y 10 = mod (abs x) 10 }\n      variant   { y }\n      y <- y - 10\n    done ;\n    y\n\n  let multiply (a : int) (b : int) : int =\n    ensures { result = mod (abs a) 10 * mod (abs b) 10 }\n    unit_digit_loop a * unit_digit_loop b\nend\n"
+        }
+    ]
+}

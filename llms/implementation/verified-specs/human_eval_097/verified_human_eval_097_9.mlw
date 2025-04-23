@@ -1,0 +1,21 @@
+module HumanEval097
+  use int.Int
+  use int.Abs
+  use int.EuclideanDivision
+
+  let unit_digit_loop (x : int) : int
+    ensures { result = mod (abs x) 10 }
+  =
+    let ref y = abs x in
+    while y >= 10 do
+      invariant { y >= 0 }
+      invariant { mod y 10 = mod (abs x) 10 }
+      variant   { y }
+      y <- y - 10
+    done ;
+    y
+
+  let multiply (a : int) (b : int) : int =
+    ensures { result = mod (abs a) 10 * mod (abs b) 10 }
+    unit_digit_loop a * unit_digit_loop b
+end

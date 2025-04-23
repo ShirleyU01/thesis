@@ -1,0 +1,23 @@
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.NthNoOpt
+  use list.Length
+
+  let rec aux (s:int) (e:int) : list int
+    variant { e - s + 1 }
+    ensures { if s > e then result = Nil else length result = e - s + 1 /\
+      forall i:int. 0 <= i < length result -> nth i result = s + i }
+  =
+    if s > e then Nil else Cons s (aux (s + 1) e)
+  
+  let generate_integers (a:int) (b:int) : list int =
+    ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}
+    if a <= b then aux a b else aux b a
+end

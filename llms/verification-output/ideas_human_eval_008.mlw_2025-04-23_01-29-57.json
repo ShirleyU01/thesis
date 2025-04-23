@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Verified sum_product with a variant for termination and auxiliary lemma for product predicate, using Why3 specification language.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Sum\n\n  predicate product (l : list int) (q : int)\n    axiom product_base: forall l'. length l' = 0 <-> product l' 1\n    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')\n\n  (* Auxiliary lemma to connect product predicate and the implementation *)\n  lemma product_nil: product Nil 1\n  lemma product_cons: forall x l q. product l q -> product (Cons x l) (x * q)\n\n  let rec sum_product (l: list int) : list int\n    variant { length l }\n    ensures { nth 0 result = sum l }\n    ensures { product l (nth 1 result) }\n  =\n    match l with\n    | Nil -> Cons 0 (Cons 1 Nil)\n    | Cons x Nil -> Cons x (Cons x Nil)\n    | Cons x xs ->\n        let Cons s (Cons p Nil) = sum_product xs in\n        Cons (x + s) (Cons (x * p) Nil)\n    end\nend\n"
+        }
+    ]
+}

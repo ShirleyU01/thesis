@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function incr_list to ensure automatic termination proof. No other specification changes are necessary since the ensures clauses can be verified automatically given the simple structure of the code and the available list library lemmas.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use list.NthNoOpt\n  use list.Length\n\n  let inc_one (x: int) : int = x + 1\n  \n  let rec incr_list (l: list int) : list int\n    ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }\n    ensures { length result = length l }\n    variant { l }\n  =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (inc_one x) (incr_list xs)\n    end\nend\n"
+        }
+    ]
+}

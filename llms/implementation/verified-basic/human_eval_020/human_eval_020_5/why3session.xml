@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_020_5.mlw"/>
+<theory name="HumanEval020">
+ <goal name="closest_pair&#39;vc" expl="VC for closest_pair">
+ <transf name="split_vc" >
+  <goal name="closest_pair&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="closest_pair&#39;vc.0.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="closest_pair&#39;vc.0.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="75850"/></proof>
+    <proof prover="1"><result status="unknown" time="0.016685" steps="3564"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="173386526"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="closest_pair&#39;vc.1" expl="termination">
+  <transf name="split_vc" >
+   <goal name="closest_pair&#39;vc.1.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="closest_pair&#39;vc.1.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="77750"/></proof>
+    <proof prover="1"><result status="unknown" time="0.016717" steps="3564"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="172063589"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="closest_pair&#39;vc.2" expl="termination">
+  <transf name="split_vc" >
+   <goal name="closest_pair&#39;vc.2.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="closest_pair&#39;vc.2.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="390506"/></proof>
+    <proof prover="1"><result status="unknown" time="0.015509" steps="3178"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="165062378"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="closest_pair&#39;vc.3" expl="termination">
+  <transf name="split_vc" >
+   <goal name="closest_pair&#39;vc.3.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="closest_pair&#39;vc.3.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="389339"/></proof>
+    <proof prover="1"><result status="unknown" time="0.019552" steps="3178"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="165428407"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="find_closest_elements&#39;vc" expl="VC for find_closest_elements">
+ <transf name="split_vc" >
+  <goal name="find_closest_elements&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.0.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.0.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="385739"/></proof>
+    <proof prover="1"><result status="unknown" time="0.015395" steps="3183"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="169189022"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

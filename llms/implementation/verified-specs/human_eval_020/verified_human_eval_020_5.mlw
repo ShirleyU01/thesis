@@ -1,0 +1,102 @@
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.Mem
+  use list.NthNoOpt  
+
+  (*
+    closest_pair returns a triple (min_diff, a, b):
+    - min_diff is the minimum difference of any two elements in the original list l0
+    - (a, b) is a pair of elements in l0 with |a - b| = min_diff and a <= b
+    - min_diff is initially abs(x - y), a = min x y, b = max x y, for some x, y from input list
+    Pre: length l0 >= 2
+  *)
+  let rec closest_pair (l: list int) (min_diff: int) (a: int) (b: int) : (int, int, int)
+    requires { match l with Nil -> false | Cons _ Nil -> false | _ -> true end }
+    variant { length l }
+    ensures {
+      let orig_l = l in
+      let (md, aa, bb) = result in
+      (* 1. The returned pair (aa, bb) are members of the original list *)
+      mem aa orig_l && mem bb orig_l &&
+      (* 2. aa <= bb *)
+      aa <= bb &&
+      (* 3. md = abs(aa - bb) *)
+      md = abs (aa - bb) &&
+      (* 4. md is minimal difference of any two distinct elements of orig_l *)
+      (forall i j: int. 0 <= i < length orig_l /\ 0 <= j < length orig_l /\ i <> j ->
+        abs (nth i orig_l - nth j orig_l) >= md) &&
+      (* 5. There exists i, j such that aa = nth orig_l i, bb = nth orig_l j, i <> j *)
+      (exists i j: int. 0 <= i < length orig_l /\ 0 <= j < length orig_l /\ i <> j /\
+        ((nth i orig_l = aa /\ nth j orig_l = bb) 
+        || (nth i orig_l = bb /\ nth j orig_l = aa)))
+    }
+  =
+    match l with
+    | Cons x xs ->
+      let rec aux (ys: list int) (min_diff: int) (a: int) (b: int) : (int, int, int)
+        requires { true }
+        variant { length ys }
+        ensures {
+          let (md, aa, bb) = result in
+          (* 1. (aa, bb) are either the incoming (a, b) or a pair with x and y in ys, whichever is closer *)
+          (* 2. md = abs(aa - bb) *)
+          md = abs (aa - bb) &&
+          aa <= bb &&
+          (* 3. md <= min_diff *)
+          md <= min_diff &&
+          (* 4. aa, bb in (Cons x ys) *)
+          mem aa (Cons x ys) && mem bb (Cons x ys)
+        }
+      =
+        match ys with
+        | Nil -> (min_diff, a, b)
+        | Cons y ys' ->
+          let d = abs (x - y) in
+          if d < min_diff then aux ys' d (min x y) (max x y)
+          else aux ys' min_diff a b
+        end
+      in
+      let (new_min, new_a, new_b) = aux xs min_diff a b in
+      closest_pair xs new_min new_a new_b
+    | Nil -> (min_diff, a, b)
+    end
+
+  (*
+    Returns [smaller, larger] pair of closest elements of input.
+    Pre: length numbers >= 2
+    Post: result = [smaller, larger],
+      - both are in input
+      - smaller <= larger
+      - their abs diff is minimal among all pairs in input
+  *)
+  let find_closest_elements (numbers: list int) : list int
+    requires { match numbers with Cons _ (Cons _ _) -> true | _ -> false end }
+    ensures {
+      match numbers with
+      | Cons _ (Cons _ _) ->
+        match result with
+        | Cons a (Cons b Nil) ->
+          a <= b /\
+          mem a numbers /\ mem b numbers /\
+          (forall i j: int. 0 <= i < length numbers /\ 0 <= j < length numbers /\ i <> j ->
+            abs (nth i numbers - nth j numbers) >= abs (a - b)) /\
+          (exists i j: int. 0 <= i < length numbers /\ 0 <= j < length numbers /\ i <> j /\
+            ((nth i numbers = a /\ nth j numbers = b) 
+            || (nth i numbers = b /\ nth j numbers = a)))
+        | _ -> false
+        end
+      | _ -> result = Nil
+      end
+    }
+  =
+    match numbers with
+    | Cons x (Cons y xs) ->
+      let (a, b, c) = closest_pair (Cons x (Cons y xs)) (abs (x - y)) (min x y) (max x y) in
+      Cons b (Cons c Nil)
+    | _ -> Nil
+    end
+end

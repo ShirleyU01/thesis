@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The code for `eat` is not recursive and does not have any loops, so no variants or loop invariants are needed. The only verification necessary is to ensure that the code satisfies its postcondition for all input values in the allowed range. The ensures clause is already present and matches the desired contract. To strengthen the contract and help the SMT solver, we add preconditions reflecting the input constraints (0 <= number, need, remaining <= 1000). This ensures all possible values are within the domain and assists in proof. No additional lemmas or ghost code are necessary.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    ensures {\n      let total_eaten = if need <= remaining then number + need else number + remaining in\n      let carrots_left = if need <= remaining then remaining - need else 0 in\n      result = Cons total_eaten (Cons carrots_left Nil)\n    }\n    let enough = remaining >= need in\n    let eaten = if enough then need else remaining in\n    let total = number + eaten in\n    let left = if enough then remaining - need else 0 in\n    Cons total (Cons left Nil)\nend\n"
+        }
+    ]
+}

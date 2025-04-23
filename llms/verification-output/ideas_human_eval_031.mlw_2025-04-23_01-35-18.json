@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function is_prime_helper to prove termination, and add pre- and postconditions to is_prime_helper to facilitate the proof of is_prime's contract. The postcondition for is_prime_helper reflects the property that, if it returns true, then for all divisors d in [current_d, n-1], n is not divisible by d. No changes are made to the implementation or the postcondition of is_prime.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_prime_helper (n: int) (d: int) : bool\n    variant { n - d }\n    requires { n >= 2 }\n    requires { d >= 2 }\n    ensures {\n      result <-> (forall k: int. d <= k /\\ k < n -> not (mod n k = 0))\n    }\n  =\n    if d * d > n then true\n    else if mod n d = 0 then false\n    else is_prime_helper n (d + 1)\n  \n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else is_prime_helper n 2\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+module HumanEval005
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Mem
+  use int.EuclideanDivision
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let intersperse (l : list int) (d : int) : list int =
+    ensures { length l <= 1 -> length result = length l /\ forall x. mem x l -> mem x result}
+    ensures { length l > 1 -> 
+              length result = 2 * length l - 1 /\
+              forall i: int. 0 <= i < length result ->
+              if mod i 2 = 0 then nth i result = nth (div i 2) l
+              else nth i result = d
+            }
+    let n = length l in
+    let ref i = 0 in
+    let ref acc = Nil in
+    while i < n do
+      invariant { 0 <= i <= n }
+      invariant { length acc =
+                  if i = 0 then 0 else 2 * i - (if i = n then 1 else 0) }
+      invariant { forall j: int. 0 <= j < i ->
+                    let k = length acc in
+                    let pos = k - 1 - 2*j in
+                    0 <= pos < length acc ->
+                    nth pos acc = nth_my j l }
+      invariant { forall j: int. 0 <= j < i-1 ->
+                    let k = length acc in
+                    let pos = k - 2*j - 2 in
+                    0 <= pos < length acc ->
+                    nth pos acc = d }
+      variant { n - i }
+      acc <- Cons (nth_my i l) acc;
+      if i < n - 1 then acc <- Cons d acc;
+      i <- i + 1
+    done;
+    let rec reverse (l : list int) (acc : list int) : list int =
+      variant { length l }
+      match l with
+      | Nil -> acc
+      | Cons x xs -> reverse xs (Cons x acc)
+      end in
+    reverse acc Nil
+end

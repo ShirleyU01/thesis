@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add pre- and postconditions to helper, including a variant for termination, and relate its result to the desired property. This ensures that the result of below_threshold matches the ensures clause, and that helper is called with the correct initial accumulator.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Mem\n\n  (* Helper: acc = true means we are still checking, acc = false means a previous element failed. *)\n  let rec helper (l : list int) (t: int) (acc: bool) : bool\n    variant { length l }\n    ensures {\n      acc -> (result <-> (forall x. mem x l -> x < t))\n    }\n    ensures {\n      not acc -> (result = false)\n    }\n  = match l with\n    | Nil -> acc\n    | Cons x xs -> if acc && x < t then helper xs t true else false\n    end\n\n  let below_threshold (l : list int) (t: int) : bool =\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    helper l t true\nend\n"
+        }
+    ]
+}

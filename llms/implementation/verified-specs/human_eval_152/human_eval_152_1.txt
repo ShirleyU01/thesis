@@ -1,0 +1,41 @@
+=== Creating Why3 session for human_eval_152_1.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_152/human_eval_152_1, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_152/human_eval_152_1.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_152/human_eval_152_1.mlw", line 15, characters 70-85: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_152_1) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_152/human_eval_152_1.mlw", line 15, characters 70-85: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 47/1/0                       Progress: 46/2/0                       Progress: 45/3/0                       Progress: 44/4/0                       Progress: 43/5/0                       Progress: 42/6/0                       Progress: 42/0/2                       Progress: 41/1/2                       Progress: 40/2/2                       Progress: 39/3/2                       Progress: 38/4/2                       Progress: 38/0/1                       Progress: 37/1/1                       Progress: 36/2/1                       Progress: 35/3/1                       Progress: 34/4/1                       Progress: 33/5/1                       Progress: 33/0/0                       Progress: 32/1/0                       Progress: 31/2/0                       Progress: 30/3/0                       Progress: 29/4/0                       Progress: 28/5/0                       Progress: 27/6/0                       Progress: 27/0/0                       Progress: 26/1/0                       Progress: 25/2/0                       Progress: 24/3/0                       Progress: 23/4/0                       Progress: 22/5/0                       Progress: 21/6/0                       Progress: 21/0/0                       Progress: 20/1/0                       Progress: 19/2/0                       Progress: 18/3/0                       Progress: 17/4/0                       Progress: 16/5/0                       Progress: 15/6/0                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/0/0                       Progress: 13/1/0                       Progress: 12/2/0                       Progress: 11/3/0                       Progress: 10/4/0                       Progress: 9/5/0                       Progress: 8/6/0                       Progress: 8/1/2                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/0/0                       Progress: 4/1/0                       Progress: 3/2/0                       Progress: 2/3/0                       Progress: 1/4/0                       Progress: 0/5/0                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_152/human_eval_152_1
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 45  proved: 36
+
+== Goals not proved ==
+  +-- file [../human_eval_152_1.mlw]
+    +-- theory HumanEval152
+      +-- goal compare'vc
+        +-- transformation split_vc
+          +-- goal compare'vc.3
+            +-- transformation split_vc
+              +-- goal compare'vc.3.0
+                +-- transformation split_vc
+                  +-- goal compare'vc.3.0.0
+          +-- goal compare'vc.6
+            +-- transformation split_vc
+              +-- goal compare'vc.6.0
+                +-- transformation split_vc
+                  +-- goal compare'vc.6.0.0
+          +-- goal compare'vc.11
+            +-- transformation split_vc
+              +-- goal compare'vc.11.0
+                +-- transformation split_vc
+                  +-- goal compare'vc.11.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 46 proof goals.
+=== Done ===

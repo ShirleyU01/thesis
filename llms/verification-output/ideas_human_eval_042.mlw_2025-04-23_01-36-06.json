@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to incr_list to prove termination, ensuring Why3 can automatically verify the function meets its contract. No further lemmas or invariants are needed, as the standard List library provides all needed properties for nth and length.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use list.Append\n  use list.NthNoOpt\n  use list.Length\n\n  let rec incr_list (l: list int) : list int\n    variant { length l }\n    ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }\n    ensures { length result = length l }\n    =\n    match l with\n    | Nil -> Nil\n    | Cons x xs -> Cons (x + 1) (incr_list xs)\n    end\nend\n"
+        }
+    ]
+}

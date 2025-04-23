@@ -1,0 +1,29 @@
+=== Creating Why3 session for verified_human_eval_052_2.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_052/verified_human_eval_052_2, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_052/verified_human_eval_052_2.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_052_2) ===
+Progress: 17/1/0                       Progress: 16/2/0                       Progress: 15/3/0                       Progress: 14/4/0                       Progress: 13/5/0                       Progress: 12/6/0                       Progress: 12/0/1                       Progress: 11/1/1                       Progress: 10/2/1                       Progress: 9/3/1                       Progress: 8/4/1                       Progress: 7/5/1                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/0/1                       Progress: 4/1/1                       Progress: 3/2/1                       Progress: 2/3/1                       Progress: 1/4/1                       Progress: 0/5/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_052/verified_human_eval_052_2
+
+== Number of root goals ==
+  total: 1  proved: 1
+
+== Number of sub goals ==
+  total: 12  proved: 12
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  +-- file [../verified_human_eval_052_2.mlw]
+    +-- theory HumanEval052
+      +-- goal below_threshold'vc
+        +-- transformation split_vc
+          +-- goal below_threshold'vc.1
+            +-- transformation split_vc
+              +-- goal below_threshold'vc.1.1
+                +-- transformation split_vc
+                  +-- goal below_threshold'vc.1.1.1: Alt-Ergo 2.4.0
+  
+1 session(s) read, with a total of 13 proof goals.
+=== Done ===

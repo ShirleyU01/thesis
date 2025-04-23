@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a loop invariant to the while loop maintaining the correctness of the primality check, and a loop variant to prove termination. The invariant ensures that result is false if a divisor has been found so far, and true if no divisor has been found among 2..d-1. The variant is n-d, which strictly decreases.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else\n    let ref result = true in\n    let ref d = 2 in\n    while d < n && result do\n      invariant { 2 <= d <= n /\\\n                  (result = true <-> (forall k: int. 2 <= k < d -> not (mod n k = 0))) /\\\n                  (result = false -> (exists k: int. 2 <= k < d /\\ mod n k = 0)) }\n      variant { n - d }\n      if mod n d = 0 then result <- false;\n      d <- d + 1\n    done;\n    result\nend\n"
+        }
+    ]
+}

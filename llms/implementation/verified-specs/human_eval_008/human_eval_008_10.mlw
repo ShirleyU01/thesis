@@ -1,0 +1,35 @@
+
+module HumanEval008
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Sum
+
+  predicate product (l : list int) (q : int)
+    axiom product_base: forall l'. length l' = 0 <-> product l' 1
+    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')
+
+  let sum_product (l: list int) : list int =
+    ensures { nth 0 result = sum l }
+    ensures { product l (nth 1 result) }
+    match l with
+    | Nil -> Cons 0 (Cons 1 Nil)
+    | Cons x xs ->
+        let ref s = x in
+        let ref p = x in
+        let ref rest = xs in
+        while match rest with Nil -> false | Cons _ _ -> true end do
+          match rest with
+          | Nil -> ()
+          | Cons y ys ->
+              s <- s + y;
+              p <- p * y;
+              rest <- ys
+          end
+        done;
+        Cons s (Cons p Nil)
+    end
+end
+
+

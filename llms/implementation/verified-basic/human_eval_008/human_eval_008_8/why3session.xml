@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_008_8.mlw"/>
+<theory name="HumanEval008">
+ <goal name="sum_product&#39;vc" expl="VC for sum_product">
+ <transf name="split_vc" >
+  <goal name="sum_product&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005414" steps="19"/></proof>
+    <proof prover="1"><result status="valid" time="0.014718" steps="3128"/></proof>
+    <proof prover="2"><result status="valid" time="0.008309" steps="15463"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006700" steps="56"/></proof>
+    <proof prover="1"><result status="valid" time="0.016569" steps="3677"/></proof>
+    <proof prover="2"><result status="valid" time="0.008613" steps="16349"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006283" steps="36"/></proof>
+    <proof prover="1"><result status="valid" time="0.016949" steps="3490"/></proof>
+    <proof prover="2"><result status="valid" time="0.008748" steps="16454"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="unknown" time="0.052391" steps="3309"/></proof>
+    <proof prover="1"><result status="valid" time="0.018072" steps="4122"/></proof>
+    <proof prover="2"><result status="valid" time="0.008637" steps="16041"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.4" expl="termination">
+  <transf name="split_vc" >
+   <goal name="sum_product&#39;vc.4.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="sum_product&#39;vc.4.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="400780"/></proof>
+    <proof prover="1"><result status="unknown" time="0.014635" steps="2706"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="74774851"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.5" expl="unreachable point">
+  <transf name="split_vc" >
+   <goal name="sum_product&#39;vc.5.0" expl="unreachable point">
+   <transf name="split_vc" >
+    <goal name="sum_product&#39;vc.5.0.0" expl="unreachable point">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="603390"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="518351"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="68190717"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.6" expl="unreachable point" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.6.0" expl="unreachable point" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.6.0.0" expl="unreachable point" proved="true">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="545692"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="614075"/></proof>
+    <proof prover="2"><result status="valid" time="0.016349" steps="70347"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.7" expl="unreachable point">
+  <transf name="split_vc" >
+   <goal name="sum_product&#39;vc.7.0" expl="unreachable point">
+   <transf name="split_vc" >
+    <goal name="sum_product&#39;vc.7.0.0" expl="unreachable point">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="393757"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="505262"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="66966895"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.8" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.8.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.8.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007542" steps="102"/></proof>
+    <proof prover="1"><result status="valid" time="0.021262" steps="4912"/></proof>
+    <proof prover="2"><result status="valid" time="0.009505" steps="22046"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_product&#39;vc.9" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_product&#39;vc.9.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_product&#39;vc.9.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="542233"/></proof>
+    <proof prover="1"><result status="valid" time="0.030182" steps="6752"/></proof>
+    <proof prover="2"><result status="valid" time="0.058026" steps="578800"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

@@ -1,0 +1,73 @@
+=== Creating Why3 session for human_eval_005_6.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 21, characters 27-58: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 22, characters 26-57: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 25, characters 4-31: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_005_6) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 21, characters 27-58: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 22, characters 26-57: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6.mlw", line 25, characters 4-31: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 53/1/0                       Progress: 52/2/0                       Progress: 51/3/0                       Progress: 50/4/0                       Progress: 49/5/0                       Progress: 48/6/0                       Progress: 48/4/2                       Progress: 48/3/2                       Progress: 47/4/2                       Progress: 47/3/2                       Progress: 46/4/2                       Progress: 46/2/2                       Progress: 45/3/2                       Progress: 44/4/2                       Progress: 44/0/1                       Progress: 43/1/1                       Progress: 42/2/1                       Progress: 41/3/1                       Progress: 40/4/1                       Progress: 39/5/1                       Progress: 39/2/2                       Progress: 38/3/2                       Progress: 37/4/2                       Progress: 37/2/2                       Progress: 36/3/2                       Progress: 35/4/2                       Progress: 35/3/2                       Progress: 34/4/2                       Progress: 34/3/2                       Progress: 33/4/2                       Progress: 33/2/2                       Progress: 32/3/2                       Progress: 31/4/2                       Progress: 31/2/2                       Progress: 30/3/2                       Progress: 29/4/2                       Progress: 29/3/2                       Progress: 28/4/2                       
+Saving session... done.
+Progress: 28/3/2                       Progress: 27/4/2                       Progress: 27/2/2                       Progress: 26/3/2                       Progress: 25/4/2                       Progress: 25/2/2                       Progress: 24/3/2                       Progress: 23/4/2                       Progress: 23/0/1                       Progress: 22/1/1                       Progress: 21/2/1                       Progress: 20/3/1                       Progress: 19/4/1                       Progress: 18/5/1                       Progress: 18/2/2                       Progress: 17/3/2                       Progress: 16/4/2                       Progress: 16/3/2                       Progress: 15/4/2                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/2/2                       Progress: 13/3/2                       Progress: 12/4/2                       Progress: 12/0/1                       Progress: 11/1/1                       Progress: 10/2/1                       Progress: 9/3/1                       Progress: 8/4/1                       Progress: 7/5/1                       Progress: 7/0/1                       Progress: 6/1/1                       Progress: 5/2/1                       Progress: 4/3/1                       Progress: 3/4/1                       Progress: 2/5/1                       Progress: 2/0/2                       Progress: 1/1/2                       Progress: 0/2/2                       Progress: 0/1/2                       Progress: 0/0/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_005/human_eval_005_6
+
+== Number of root goals ==
+  total: 2  proved: 0
+
+== Number of sub goals ==
+  total: 45  proved: 21
+
+== Goals not proved ==
+  +-- file [../human_eval_005_6.mlw]
+    +-- theory HumanEval005
+      +-- goal intersperse_helper'vc
+        +-- transformation split_vc
+          +-- goal intersperse_helper'vc.2
+            +-- transformation split_vc
+              +-- goal intersperse_helper'vc.2.0
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.2.0.0
+          +-- goal intersperse_helper'vc.4
+            +-- transformation split_vc
+              +-- goal intersperse_helper'vc.4.0
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.4.0.0
+              +-- goal intersperse_helper'vc.4.1
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.4.1.0
+              +-- goal intersperse_helper'vc.4.2
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.4.2.0
+          +-- goal intersperse_helper'vc.5
+            +-- transformation split_vc
+              +-- goal intersperse_helper'vc.5.0
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.5.0.0
+          +-- goal intersperse_helper'vc.6
+            +-- transformation split_vc
+              +-- goal intersperse_helper'vc.6.0
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.6.0.0
+          +-- goal intersperse_helper'vc.7
+            +-- transformation split_vc
+              +-- goal intersperse_helper'vc.7.1
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.7.1.0
+              +-- goal intersperse_helper'vc.7.2
+                +-- transformation split_vc
+                  +-- goal intersperse_helper'vc.7.2.0
+      +-- goal intersperse'vc
+        +-- transformation split_vc
+          +-- goal intersperse'vc.0
+            +-- transformation split_vc
+              +-- goal intersperse'vc.0.0
+                +-- transformation split_vc
+                  +-- goal intersperse'vc.0.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 47 proof goals.
+=== Done ===

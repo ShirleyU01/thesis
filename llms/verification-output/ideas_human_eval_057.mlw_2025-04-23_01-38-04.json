@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add precise pre- and postconditions to is_increasing and is_decreasing, and add lemmas relating these to the definition in monotonic. Add variants for recursion termination. No change to implementation logic; only specification and proof support for monotonic's contract.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  predicate increasing (l: list int) =\n    forall i: int. 0 <= i < length l - 1 -> nth i l < nth (i+1) l\n  \n  predicate decreasing (l: list int) =\n    forall i: int. 0 <= i < length l - 1 -> nth i l > nth (i+1) l\n\n  let rec is_increasing (l: list int) : bool\n    variant { length l }\n    ensures { result <-> increasing l }\n  = match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y r) -> if x <= y then is_increasing (Cons y r) else false\n    end\n\n  let rec is_decreasing (l: list int) : bool\n    variant { length l }\n    ensures { result <-> decreasing l }\n  = match l with\n    | Nil -> true\n    | Cons _ Nil -> true\n    | Cons x (Cons y r) -> if x >= y then is_decreasing (Cons y r) else false\n    end\n\n  lemma is_increasing_equiv:\n    forall l: list int. is_increasing l <-> increasing l\n\n  lemma is_decreasing_equiv:\n    forall l: list int. is_decreasing l <-> decreasing l\n\n  let monotonic (l: list int) : bool\n    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) \n                                \\/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }\n  = is_increasing l || is_decreasing l\nend\n"
+        }
+    ]
+}

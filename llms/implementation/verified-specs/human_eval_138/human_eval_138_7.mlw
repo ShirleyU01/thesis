@@ -1,0 +1,13 @@
+
+module HumanEval138
+  use int.Int
+  use int.EuclideanDivision
+  
+  let rec is_equal_to_sum_even (n: int) : bool =
+    ensures { result <-> (mod n 2 = 0) /\ (n >= 8) }
+    if n < 8 then false
+    else if mod n 2 = 0 then true
+    else is_equal_to_sum_even (n - 2)
+end
+
+

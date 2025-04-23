@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_139_7.mlw"/>
+<theory name="HumanEval139">
+ <goal name="prod&#39;vc" expl="VC for prod">
+ <transf name="split_vc" >
+  <goal name="prod&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006729" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.011656" steps="391"/></proof>
+    <proof prover="2"><result status="valid" time="0.009663" steps="2565"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="prod&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006950" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.011392" steps="398"/></proof>
+    <proof prover="2"><result status="valid" time="0.008705" steps="230"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="prod&#39;vc.1" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="prod&#39;vc.1.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="prod&#39;vc.1.0.0" expl="precondition">
+    <proof prover="0"><result status="highfailure" time="7.423086"/></proof>
+    <proof prover="1"><result status="unknown" time="0.008701" steps="409"/></proof>
+    <proof prover="2"><result status="highfailure" time="6.672400"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="prod_facts&#39;vc" expl="VC for prod_facts" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="prod_facts&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod_facts&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005793" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.011992" steps="535"/></proof>
+    <proof prover="2"><result status="valid" time="0.008930" steps="3197"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="prod_facts&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006458" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.010346" steps="540"/></proof>
+    <proof prover="2"><result status="valid" time="0.007839" steps="292"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="prod_facts&#39;vc.1" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod_facts&#39;vc.1.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.1.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006064" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.010240" steps="494"/></proof>
+    <proof prover="2"><result status="valid" time="0.007999" steps="240"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="prod_facts&#39;vc.2" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod_facts&#39;vc.2.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.2.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005978" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.011697" steps="626"/></proof>
+    <proof prover="2"><result status="valid" time="0.011368" steps="3634"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="prod_facts&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod_facts&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006157" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.009788" steps="508"/></proof>
+    <proof prover="2"><result status="valid" time="0.008160" steps="246"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="prod_facts&#39;vc.3.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.3.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006677" steps="14"/></proof>
+    <proof prover="1"><result status="valid" time="0.011231" steps="636"/></proof>
+    <proof prover="2"><result status="valid" time="0.008314" steps="318"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="prod_facts&#39;vc.4" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="prod_facts&#39;vc.4.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.4.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006457" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.010844" steps="545"/></proof>
+    <proof prover="2"><result status="valid" time="0.007349" steps="263"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="prod_facts&#39;vc.4.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="prod_facts&#39;vc.4.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.024536" steps="858"/></proof>
+    <proof prover="1"><result status="timeout" time="3.053774" steps="263897"/></proof>
+    <proof prover="2"><result status="valid" time="0.042623" steps="201317"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="prod_spec_fact">
+ <transf name="split_vc" >
+  <goal name="prod_spec_fact.0">
+  <transf name="split_vc" >
+   <goal name="prod_spec_fact.0.0">
+   <transf name="split_vc" >
+    <goal name="prod_spec_fact.0.0.0">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="11380"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="605187"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="202508657"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="special_factorial&#39;vc" expl="VC for special_factorial" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="special_factorial&#39;vc.0" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.0.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.0.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.009165" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.008795" steps="530"/></proof>
+    <proof prover="2"><result status="valid" time="0.006415" steps="244"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007709" steps="23"/></proof>
+    <proof prover="1"><result status="valid" time="0.009751" steps="791"/></proof>
+    <proof prover="2"><result status="valid" time="0.009380" steps="3975"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

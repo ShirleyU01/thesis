@@ -1,0 +1,29 @@
+module HumanEval139
+  use int.Int
+  use int.Fact
+
+  predicate spec_fact (n : int) (a : int)
+    axiom spec_fact_base :
+      forall a. spec_fact 1 a <-> a = 1
+    axiom spec_fact_ind :
+      forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\ a = b * fact n
+
+  let rec aux (i: int) (acc: int) : int
+    requires { i >= 0 }
+    variant  { i }
+    ensures  { forall m. m >= 0 /\ m <= i ->
+                  let res = (
+                    let rec prod (k:int) : int = if k = 0 then 1 else prod (k-1) * fact k in
+                    prod m
+                  ) in
+                  acc * res = aux (i, acc) if m=i else true
+              }
+    ensures  { spec_fact i result }
+  =
+    if i = 0 then acc else aux (i - 1) (acc * fact i)
+
+  let special_factorial (n: int) : int
+    ensures { spec_fact n result }
+  =
+    aux n 1
+end

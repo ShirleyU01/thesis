@@ -1,0 +1,46 @@
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  (*
+    Helper lemma: The nth i of rolling_max_explicit xs cur is always the maximum of nth j xs (0 <= j <= i) and cur.
+    This lemma helps relate the algorithm to the specification in rolling_max.
+  *)
+  lemma nth_rolling_max_explicit:
+    forall l: list int, cur: int, i: int.
+      0 <= i < length l ->
+      nth i (rolling_max_explicit l cur) =
+        max cur (fold_left max (take (i+1) l) cur)
+
+  (*
+    Contract for rolling_max_explicit: For any index i, the ith element of result is >= nth i l (is a maximum so far),
+    and is equal to some element of l or cur.
+    We also add a variant for termination.
+  *)
+  let rec rolling_max_explicit (l: list int) (cur: int) : list int
+    ensures { length result = length l }
+    ensures { forall i. 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i. 0 <= i < length l ->
+                exists j. -1 <= j <= i /\n                  (j = -1 -> nth i result = cur) /\
+                  (j >= 0 -> nth i result = nth j l)
+             }
+    variant { length l }
+  =
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      let m = max cur x in
+      Cons m (rolling_max_explicit xs m)
+    end
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> Cons x (rolling_max_explicit xs x)
+    end
+end

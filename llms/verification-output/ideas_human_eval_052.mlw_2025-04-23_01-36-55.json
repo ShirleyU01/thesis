@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a postcondition to the auxiliary function 'for_some' to relate its result to an existential quantification, thus allowing the SMT solver to link the implementation with the contract of 'below_threshold'. No changes are made to the implementation of 'below_threshold'.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Quant\n  use list.Mem\n\n  predicate exists_mem (l: list int) (p: int -> bool) =\n    exists x. mem x l /\\ p x\n\n  let rec for_some (p: int -> bool) (l: list int) : bool\n    ensures { result <-> exists_mem l p }\n    variant { l }\n  =\n    match l with\n    | Nil -> false\n    | Cons x xs -> if p x then true else for_some p xs\n    end\n\n  let below_threshold (l : list int) (t: int) : bool =\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    not (for_some (fun x -> x >= t) l)\nend\n"
+        }
+    ]
+}

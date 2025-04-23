@@ -1,0 +1,14 @@
+
+module HumanEval097
+  use int.Int
+  use int.EuclideanDivision
+  use int.Abs
+
+  let multiply (a : int) (b : int) : int =
+    ensures { result = mod (abs a) 10 * mod (abs b) 10 }
+    let ua = if a >= 0 then mod a 10 else mod (-a) 10 in
+    let ub = if b >= 0 then mod b 10 else mod (-b) 10 in
+    ua * ub
+end
+
+

@@ -1,0 +1,37 @@
+
+module HumanEval030
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Mem
+  
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let get_positive (l : list int) : list int =
+    ensures { length l >= length result }
+    ensures { forall x . (mem x l /\ x > 0) -> mem x result }
+    ensures { forall x . mem x result -> x > 0 }
+    let n = length l in
+    let ref i = 0 in
+    let ref res = Nil in
+    while i < n do
+      let v = nth_my i l in
+      if v > 0 then res <- Cons v res;
+      i <- i + 1
+    done;
+
+    let rec rev (l: list int) (acc: list int) : list int =
+      match l with | Nil -> acc | Cons x xs -> rev xs (Cons x acc) end
+    in rev res Nil
+end
+
+

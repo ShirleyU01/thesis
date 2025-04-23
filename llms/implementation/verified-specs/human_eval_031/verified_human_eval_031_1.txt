@@ -1,0 +1,32 @@
+=== Creating Why3 session for verified_human_eval_031_1.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_1, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_1.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_031_1) ===
+Progress: 65/1/0                       Progress: 64/2/0                       Progress: 63/3/0                       Progress: 62/4/0                       Progress: 61/5/0                       Progress: 60/6/0                       Progress: 60/4/2                       Progress: 60/3/2                       Progress: 59/4/2                       Progress: 59/2/2                       Progress: 58/3/2                       Progress: 57/4/2                       Progress: 57/1/2                       Progress: 56/2/2                       Progress: 55/3/2                       Progress: 54/4/2                       Progress: 54/0/1                       Progress: 53/1/1                       Progress: 52/2/1                       Progress: 51/3/1                       Progress: 50/4/1                       Progress: 49/5/1                       Progress: 49/3/2                       Progress: 48/4/2                       Progress: 48/1/2                       Progress: 47/2/2                       Progress: 46/3/2                       Progress: 45/4/2                       Progress: 45/1/2                       Progress: 44/2/2                       Progress: 43/3/2                       Progress: 42/4/2                       Progress: 42/0/1                       Progress: 41/1/1                       Progress: 40/2/1                       Progress: 39/3/1                       Progress: 38/4/1                       Progress: 37/5/1                       Progress: 37/3/2                       Progress: 36/4/2                       Progress: 36/1/2                       Progress: 35/2/2                       Progress: 34/3/2                       Progress: 33/4/2                       Progress: 33/0/2                       Progress: 32/1/2                       Progress: 31/2/2                       Progress: 30/3/2                       Progress: 29/4/2                       Progress: 29/2/2                       Progress: 28/3/2                       Progress: 27/4/2                       Progress: 27/0/1                       Progress: 26/1/1                       Progress: 25/2/1                       Progress: 24/3/1                       Progress: 23/4/1                       Progress: 22/5/1                       Progress: 22/0/2                       Progress: 21/1/2                       Progress: 20/2/2                       Progress: 19/3/2                       Progress: 18/4/2                       Progress: 18/0/2                       Progress: 17/1/2                       Progress: 16/2/2                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/0/1                       Progress: 13/1/1                       Progress: 12/2/1                       Progress: 11/3/1                       Progress: 10/4/1                       Progress: 9/5/1                       Progress: 9/0/1                       Progress: 8/1/1                       Progress: 7/2/1                       Progress: 6/3/1                       Progress: 5/4/1                       Progress: 4/5/1                       Progress: 4/0/1                       Progress: 3/1/1                       Progress: 2/2/1                       Progress: 1/3/1                       Progress: 0/4/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_1
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 55  proved: 50
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_031_1.mlw]
+    +-- theory HumanEval031
+      +-- goal is_prime'vc
+        +-- transformation split_vc
+          +-- goal is_prime'vc.10
+            +-- transformation split_vc
+              +-- goal is_prime'vc.10.1
+                +-- transformation split_vc
+                  +-- goal is_prime'vc.10.1.0
+              +-- goal is_prime'vc.10.2
+                +-- transformation split_vc
+                  +-- goal is_prime'vc.10.2.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 56 proof goals.
+=== Done ===

@@ -1,0 +1,36 @@
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Mem
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+  
+  let monotonic (l: list int) : bool =
+    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    let n = length l in
+    if n <= 1 then true else
+    let ref i = 1 in
+    let ref inc = true in
+    let ref dec = true in
+    while i < n do
+      invariant { 1 <= i <= n }
+      invariant { inc <-> (forall j. 1 <= j < i -> nth_my j l >= nth_my (j-1) l) }
+      invariant { dec <-> (forall j. 1 <= j < i -> nth_my j l <= nth_my (j-1) l) }
+      variant { n - i }
+      if nth_my i l < nth_my (i-1) l then inc <- false;
+      if nth_my i l > nth_my (i-1) l then dec <- false;
+      i <- i + 1
+    done;
+    inc || dec
+end

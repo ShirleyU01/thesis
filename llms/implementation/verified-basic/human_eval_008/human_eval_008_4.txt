@@ -1,0 +1,55 @@
+=== Creating Why3 session for human_eval_008_4.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_008/human_eval_008_4, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_008/human_eval_008_4.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_008/human_eval_008_4.mlw", line 31, character 4 to line 36, character 8: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_008_4) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_008/human_eval_008_4.mlw", line 31, character 4 to line 36, character 8: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 47/1/0                       Progress: 46/2/0                       Progress: 45/3/0                       Progress: 44/4/0                       Progress: 43/5/0                       Progress: 42/6/0                       Progress: 42/1/2                       Progress: 41/2/2                       Progress: 40/3/2                       Progress: 39/4/2                       Progress: 39/0/2                       Progress: 38/1/2                       Progress: 37/2/2                       Progress: 36/3/2                       Progress: 35/4/2                       Progress: 35/0/1                       Progress: 34/1/1                       Progress: 33/2/1                       Progress: 32/3/1                       Progress: 31/4/1                       Progress: 30/5/1                       Progress: 30/0/1                       Progress: 29/1/1                       Progress: 28/2/1                       Progress: 27/3/1                       Progress: 26/4/1                       Progress: 25/5/1                       Progress: 25/0/0                       Progress: 24/1/0                       Progress: 23/2/0                       Progress: 22/3/0                       Progress: 21/4/0                       Progress: 20/5/0                       Progress: 19/6/0                       Progress: 19/0/0                       Progress: 18/1/0                       Progress: 17/2/0                       Progress: 16/3/0                       Progress: 15/4/0                       Progress: 14/5/0                       Progress: 13/6/0                       Progress: 13/2/2                       Progress: 12/3/2                       Progress: 11/4/2                       Progress: 11/1/2                       Progress: 10/2/2                       Progress: 9/3/2                       Progress: 8/4/2                       Progress: 8/2/2                       Progress: 7/3/2                       Progress: 6/4/2                       Progress: 6/0/2                       Progress: 5/1/2                       Progress: 4/2/2                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/0/0                       Progress: 1/1/0                       Progress: 0/2/0                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_008/human_eval_008_4
+
+== Number of root goals ==
+  total: 2  proved: 1
+
+== Number of sub goals ==
+  total: 41  proved: 29
+
+== Goals not proved ==
+  +-- file [../human_eval_008_4.mlw]
+    +-- theory HumanEval008
+      +-- goal sum_product'vc
+        +-- transformation split_vc
+          +-- goal sum_product'vc.0
+            +-- transformation split_vc
+              +-- goal sum_product'vc.0.0
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.0.0.0
+          +-- goal sum_product'vc.2
+            +-- transformation split_vc
+              +-- goal sum_product'vc.2.0
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.2.0.0
+          +-- goal sum_product'vc.3
+            +-- transformation split_vc
+              +-- goal sum_product'vc.3.0
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.3.0.0
+          +-- goal sum_product'vc.4
+            +-- transformation split_vc
+              +-- goal sum_product'vc.4.0
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.4.0.0
+  
+== Goals proved by only one prover ==
+  +-- file [../human_eval_008_4.mlw]
+    +-- theory HumanEval008
+      +-- goal sum_product'vc
+        +-- transformation split_vc
+          +-- goal sum_product'vc.1
+            +-- transformation split_vc
+              +-- goal sum_product'vc.1.0
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.1.0.0: Z3 4.8.6
+  
+1 session(s) read, with a total of 43 proof goals.
+=== Done ===

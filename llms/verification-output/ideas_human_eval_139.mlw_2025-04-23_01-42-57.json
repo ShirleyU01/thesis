@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add pre- and postconditions to the prod_facts function, and a variant for termination. Add a lemma to relate prod_facts and spec_fact. This allows the SMT solver to verify that special_factorial satisfies its ensures clause. No changes are made to the implementation.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  predicate spec_fact (n : int) (a : int)\n    axiom spec_fact_base :\n      forall a. spec_fact 1 a <-> a = 1\n    axiom spec_fact_ind :\n      forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\\ a = b * fact n\n\n  let rec prod_facts (a: int) (b: int) : int\n    requires { a >= 1 }\n    variant { b - a + 1 }\n    ensures { if a > b then result = 1 else result = fact b * prod_facts a (b-1) }\n    ensures { b < a -> result = 1 }\n    ensures { b >= a -> result = (\\prod i. a <= i <= b -> fact i) }\n    = if a > b then 1 else fact b * prod_facts a (b-1)\n\n  (* Auxiliary product notation (not executable, just for specs) *)\n  function prod (a b: int) : int = if a > b then 1 else fact b * prod a (b-1)\n\n  lemma prod_facts_equiv: forall a b. a >= 1 -> prod_facts a b = prod a b\n\n  lemma prod_spec_fact: forall n. n >= 1 -> spec_fact n (prod_facts 1 n)\n\n  let special_factorial (n: int) : int\n    ensures { spec_fact n result }\n    requires { n >= 1 }\n    = prod_facts 1 n\nend\n"
+        }
+    ]
+}

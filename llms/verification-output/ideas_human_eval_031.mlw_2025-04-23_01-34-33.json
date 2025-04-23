@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and a variant to ensure correctness and termination of the while loop in is_prime. The invariants express that res is true if and only if no divisor of n in [2,d) divides n, and that d is always at least 2 and at most n+1. The variant guarantees termination, and the invariants together with the postcondition ensure full correctness.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n  use int.MinMax\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else\n    let ref res = true in\n    let ref d = 2 in\n    while d * d <= n && res do\n      invariant { 2 <= d <= n+1 }\n      invariant { res <-> (forall k:int. 2 <= k < d -> not (mod n k = 0)) }\n      variant { n - d }\n      if mod n d = 0 then res <- false;\n      d <- d + 1\n    done;\n    res\nend\n"
+        }
+    ]
+}

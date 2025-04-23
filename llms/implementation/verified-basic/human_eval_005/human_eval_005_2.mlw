@@ -1,0 +1,38 @@
+
+module HumanEval005
+  use int.Int
+  use list.List
+  use list.Length
+  use list.Mem
+  use int.EuclideanDivision
+  use list.NthNoOpt
+  use list.Reverse
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    variant { n }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let intersperse (l : list int) (d : int) : list int =
+    ensures { length l <= 1 -> length result = length l /\ forall x. mem x l -> mem x result}
+    ensures { length l > 1 -> 
+              length result = 2 * length l - 1 /\
+              forall i: int. 0 <= i < length result ->
+              if mod i 2 = 0 then nth i result = nth (div i 2) l
+              else nth i result = d
+            }
+    let n = length l in
+    let ref acc = Nil in
+    for i = n - 1 downto 0 do
+      acc <- Cons (nth_my i l) acc;
+      if i > 0 then acc <- Cons d acc
+    done;
+    acc
+end
+
+

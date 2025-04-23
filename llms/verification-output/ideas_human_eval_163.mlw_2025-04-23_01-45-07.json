@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add sufficient loop invariants to the for loop in generate_integers, so that the ensures clause can be verified automatically by SMT solvers. The invariants describe the length of the accumulator, the mapping between list indices and values, and the relationship between the loop variable and the residual work.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n\n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    (* for i = finish downto start do ... is equivalent to:\n       for i = finish downto start do ... done; *)\n    for i = finish downto start do\n      invariant { (* Number of elements in acc so far: finish - i *)\n        length acc = finish - i\n      }\n      invariant { (* All constructed elements are correct *)\n        forall j:int. 0 <= j < length acc -> nth j acc = (i+1) + j\n      }\n      invariant { (* The total number of elements to build is finish - start + 1 *)\n        length acc + (i - start + 1) = finish - start + 1\n      }\n      acc <- Cons i acc\n    done;\n    acc\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function aux to prove termination. Add appropriate ensures clause to aux to help the SMT solver prove the contract for generate_integers. No changes to main implementation logic or function contracts.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.NthNoOpt\n  use list.Length\n\n  let rec aux (s:int) (e:int) : list int\n    variant { e - s + 1 }\n    ensures { if s > e then result = Nil else length result = e - s + 1 /\\\n      forall i:int. 0 <= i < length result -> nth i result = s + i }\n  =\n    if s > e then Nil else Cons s (aux (s + 1) e)\n  \n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    if a <= b then aux a b else aux b a\nend\n"
+        }
+    ]
+}

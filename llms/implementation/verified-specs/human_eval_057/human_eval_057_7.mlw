@@ -1,0 +1,30 @@
+
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  let rec get_direction (l: list int) : int =
+    match l with
+    | Cons x (Cons y r) ->
+        if x < y then 1 else if x > y then -1 else get_direction (Cons y r)
+    | _ -> 0
+    end
+  
+  let rec check_dir (l: list int) (dir: int) : bool =
+    match l with
+    | Cons x (Cons y r) ->
+        if dir = 1 then (x <= y && check_dir (Cons y r) dir)
+        else if dir = -1 then (x >= y && check_dir (Cons y r) dir)
+        else check_dir (Cons y r) dir
+    | _ -> true
+    end
+  
+  let monotonic (l: list int) : bool =
+    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    check_dir l (get_direction l)
+end
+
+

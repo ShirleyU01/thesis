@@ -1,0 +1,11 @@
+module HumanEval053
+  use int.Int
+  use int.Abs
+  
+  let rec add (x: int) (y: int) : int =
+    ensures { result = x + y }
+    variant { abs y }
+    if y = 0 then x
+    else if y > 0 then add (x + 1) (y - 1)
+    else add (x - 1) (y + 1)
+end

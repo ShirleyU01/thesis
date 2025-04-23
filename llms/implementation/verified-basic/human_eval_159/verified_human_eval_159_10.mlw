@@ -1,0 +1,28 @@
+module HumanEval159
+  use int.Int
+  use int.MinMax
+  use list.List
+
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    requires { 0 <= number <= 1000 }
+    requires { 0 <= need <= 1000 }
+    requires { 0 <= remaining <= 1000 }
+    ensures {
+      let total_eaten = if need <= remaining then number + need else number + remaining in
+      let carrots_left = if need <= remaining then remaining - need else 0 in
+      result = Cons total_eaten (Cons carrots_left Nil)
+    }
+    let to_eat = min need remaining in
+    (* Assert that to_eat equals need if enough remains, else remaining *)
+    assert { to_eat = (if need <= remaining then need else remaining) };
+    let l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) in
+    (* Assert that l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) *)
+    assert { l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) };
+    match l with
+    | Cons a (Cons b Nil) ->
+        (* Assert that a = remaining - to_eat, b = number + to_eat *)
+        assert { a = remaining - to_eat /\ b = number + to_eat };
+        Cons b (Cons a Nil)
+    | _ -> Nil
+    end
+end

@@ -1,0 +1,26 @@
+module HumanEval138
+  use int.Int
+  use int.EuclideanDivision
+
+  let rec helper (n: int) (k: int) : bool
+    requires { k >= 1 }
+    requires { n >= 2*k }
+    variant { k }
+    ensures { result <-> (exists a1 a2 a3 a4: int. a1 >= 2 /\ a2 >= 2 /\ a3 >= 2 /\ a4 >= 2 /\ mod a1 2 = 0 /\ mod a2 2 = 0 /\ mod a3 2 = 0 /\ mod a4 2 = 0 /\ a1 + a2 + a3 + a4 = n)  <-> k = 4 }
+  =
+    if k = 1 then n >= 2 && mod n 2 = 0 else
+      let rec try_a (a: int) : bool
+        requires { a >= 2 }
+        requires { n >= 2*k }
+        variant { n - a }
+      =
+        if a > n - 2 * (k - 1) then false
+        else if mod a 2 = 0 && helper (n - a) (k - 1) then true
+        else try_a (a + 2)
+      in try_a 2
+  
+  let is_equal_to_sum_even (n: int) : bool
+    ensures { result <-> (mod n 2 = 0) /\ (n >= 8) }
+  =
+    helper n 4
+end

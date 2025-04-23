@@ -1,0 +1,14 @@
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Mem
+  use list.Length
+
+  let rec below_threshold (l : list int) (t: int) : bool =
+    variant { length l }
+    ensures { result <-> (forall x. mem x l -> x < t) }
+    match l with
+    | Nil -> true
+    | Cons x xs -> if not (x < t) then false else below_threshold xs t
+    end
+end

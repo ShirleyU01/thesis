@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'intersperse' to prove termination. No other changes are necessary as the postcondition can be discharged automatically with the existing code and Why3's standard libraries.",
+            "implementation": "module HumanEval005\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Mem\n  use int.EuclideanDivision\n  use list.NthNoOpt\n\n  let rec intersperse (l : list int) (d : int) : list int\n    variant { length l }\n    ensures { length l <= 1 -> length result = length l /\\ forall x. mem x l -> mem x result}\n    ensures { length l > 1 -> \n              length result = 2 * length l - 1 /\\\n              forall i: int. 0 <= i < length result ->\n              if mod i 2 = 0 then nth i result = nth (div i 2) l\n              else nth i result = d\n            }\n    =\n    match l with\n    | Nil -> Nil\n    | Cons x Nil -> Cons x Nil\n    | Cons x xs -> let rec prepend (e : int) (l2 : list int) : list int = Cons e l2 in\n                   Cons x (Cons d (intersperse xs d))\n    end\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.Mem
+  use list.NthNoOpt  
+
+  let rec closest_pair (l: list int) (min_diff: int) (a: int) (b: int) : (int, int, int) =
+    match l with
+    | Cons x xs ->
+      let rec aux (ys: list int) (min_diff: int) (a: int) (b: int) : (int, int, int) =
+        match ys with
+        | Nil -> (min_diff, a, b)
+        | Cons y ys' ->
+          let d = abs (x - y) in
+          if d < min_diff then aux ys' d (min x y) (max x y)
+          else aux ys' min_diff a b
+        end
+      in
+      let (new_min, new_a, new_b) = aux xs min_diff a b in
+      closest_pair xs new_min new_a new_b
+    | Nil -> (min_diff, a, b)
+    end
+
+  let find_closest_elements (numbers: list int) : list int =
+    match numbers with
+    | Cons x (Cons y xs) ->
+      let (a, b, c) = closest_pair (Cons x (Cons y xs)) (abs (x - y)) (min x y) (max x y) in
+      Cons b (Cons c Nil)
+    | _ -> Nil
+    end
+end
+
+

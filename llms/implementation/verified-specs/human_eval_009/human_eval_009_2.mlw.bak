@@ -1,0 +1,26 @@
+
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  let rec rolling_max_aux (l: list int) (current: int) : list int =
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      let new_max = max current x in
+      Cons new_max (rolling_max_aux xs new_max)
+    end
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> Cons x (rolling_max_aux xs x)
+    end
+end
+
+

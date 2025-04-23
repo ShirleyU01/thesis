@@ -1,0 +1,49 @@
+module HumanEval008
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Sum
+  use list.Mem
+
+  predicate product (l : list int) (q : int)
+    axiom product_base: forall l'. length l' = 0 <-> product l' 1
+    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures { result = nth n l }
+    ensures  { mem result l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+    
+    
+  (* Helper function to get the prefix of length k of a list *)
+  let function prefix (k: int) (l: list int) : list int =
+    if k <= 0 then Nil
+    else match l with
+      | Nil -> Nil
+      | Cons x r -> Cons x (prefix (k-1) r)
+      end  
+
+  let sum_product (l: list int) : list int =
+    ensures { nth 0 result = sum l }
+    ensures { product l (nth 1 result) }
+    let n = length l in
+    let ref s = 0 in
+    let ref p = 1 in
+    for i = 0 to n - 1 do
+      invariant { 0 <= i <= n }
+      invariant { s = sum (prefix i l) }
+      invariant { product (prefix i l) p }
+      let v = nth_my i l in
+      s <- s + v;
+      p <- p * v
+    done;
+    Cons s (Cons p Nil)
+
+
+end

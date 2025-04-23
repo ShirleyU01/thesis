@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_085_7.mlw"/>
+<theory name="HumanEval085">
+ <goal name="zip_index&#39;vc" expl="VC for zip_index" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="zip_index&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="zip_index&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006228" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.024037" steps="8215"/></proof>
+    <proof prover="2"><result status="valid" time="0.008952" steps="19403"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="zip_index&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006178" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.024238" steps="8301"/></proof>
+    <proof prover="2"><result status="valid" time="0.009010" steps="19527"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="zip_index&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="zip_index&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006638" steps="16"/></proof>
+    <proof prover="1"><result status="valid" time="0.026766" steps="9490"/></proof>
+    <proof prover="2"><result status="valid" time="0.008030" steps="16337"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="zip_index&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008194" steps="65"/></proof>
+    <proof prover="1"><result status="valid" time="0.037398" steps="11771"/></proof>
+    <proof prover="2"><result status="valid" time="0.011151" steps="30708"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="zip_index&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="zip_index&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006196" steps="7"/></proof>
+    <proof prover="1"><result status="valid" time="0.026961" steps="9973"/></proof>
+    <proof prover="2"><result status="valid" time="0.009999" steps="28085"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="zip_index&#39;vc.2.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="zip_index&#39;vc.2.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.009958" steps="11"/></proof>
+    <proof prover="1"><result status="valid" time="0.035307" steps="10475"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="15834906214"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="add_zip&#39;vc" expl="VC for add_zip" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="add_zip&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="add_zip&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006102" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.027068" steps="8987"/></proof>
+    <proof prover="2"><result status="valid" time="0.009822" steps="23851"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add_zip&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006295" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.027022" steps="9073"/></proof>
+    <proof prover="2"><result status="valid" time="0.009463" steps="23975"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add_zip&#39;vc.1" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="add_zip&#39;vc.1.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.1.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005669" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.017589" steps="7169"/></proof>
+    <proof prover="2"><result status="valid" time="0.006582" steps="1798"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add_zip&#39;vc.2" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="add_zip&#39;vc.2.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.2.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006141" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.017691" steps="7292"/></proof>
+    <proof prover="2"><result status="valid" time="0.006581" steps="1807"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add_zip&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="add_zip&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006146" steps="7"/></proof>
+    <proof prover="1"><result status="valid" time="0.023374" steps="8636"/></proof>
+    <proof prover="2"><result status="valid" time="0.007280" steps="8127"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add_zip&#39;vc.3.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add_zip&#39;vc.3.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.010829" steps="181"/></proof>
+    <proof prover="1"><result status="valid" time="0.033609" steps="11078"/></proof>
+    <proof prover="2"><result status="valid" time="0.010176" steps="26681"/></proof>
+    </goal>
+    <goal name="add_zip&#39;vc.3.1.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.011566" steps="186"/></proof>
+    <proof prover="1"><result status="valid" time="0.037555" steps="11737"/></proof>
+    <proof prover="2"><result status="valid" time="0.009825" steps="25870"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="spec_add_zip_index_corr">
+ <transf name="split_vc" >
+  <goal name="spec_add_zip_index_corr.0">
+  <transf name="split_vc" >
+   <goal name="spec_add_zip_index_corr.0.0">
+   <transf name="split_vc" >
+    <goal name="spec_add_zip_index_corr.0.0.0">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="583159"/></proof>
+    <proof prover="1"><result status="unknown" time="0.047140" steps="17781"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="14866652495"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="add&#39;vc" expl="VC for add" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="add&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="add&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006626" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.027656" steps="10047"/></proof>
+    <proof prover="2"><result status="valid" time="0.010268" steps="24322"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

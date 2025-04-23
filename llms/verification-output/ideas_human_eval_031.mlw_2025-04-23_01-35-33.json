@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and a variant to the while loop in is_prime to ensure the code is verified automatically by SMT solvers. The invariants capture that no divisor has been found so far in [2, d), and d is always in bounds. The variant ensures termination.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else\n    let ref found = false in\n    let ref d = 2 in\n    while d < n && not found do\n      invariant { 2 <= d <= n /\\\n                  (forall k: int. 2 <= k < d -> not (mod n k = 0)) /\\\n                  (found <-> exists k: int. 2 <= k < d /\\ mod n k = 0) }\n      variant { n - d }\n      if mod n d = 0 then found <- true;\n      d <- d + 1\n    done;\n    not found\nend\n"
+        }
+    ]
+}

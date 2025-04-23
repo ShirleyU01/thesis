@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The code for 'multiply' is already correct and non-recursive, so no variants are necessary. The ensures clause is provable, but the only subtlety is that the Why3 standard library's Euclidean modulus operator 'mod' always returns a non-negative result for a positive modulus, so mod (abs a) 10 returns the unit digit of abs a as required. No additional lemmas or ghost code are needed to prove the ensures clause. Thus, the code is already automatically verified by SMT solvers.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n\n  let multiply (a : int) (b : int) : int =\n    ensures { result = mod (abs a) 10 * mod (abs b) 10 }\n    let ua = mod (abs a) 10 in\n    let ub = mod (abs b) 10 in\n    ua * ub\nend"
+        }
+    ]
+}

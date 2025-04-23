@@ -1,0 +1,40 @@
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Reverse
+  use list.NthNoOpt
+  use list.Length
+
+  (* Auxiliary lemma: the length of build_rev s e is (e - s + 1) if e >= s, else 0 *)
+ (* lemma build_rev_length:
+    forall s e: int. length (build_rev s e) = (if e < s then 0 else e - s + 1)
+*)
+
+  (* Auxiliary lemma: for all i in 0 .. (e - s), nth i (reverse (build_rev s e)) = s + i *)
+  lemma nth_reverse_build_rev:
+    forall s e i: int.
+      s <= e ->
+      0 <= i < e - s + 1 ->
+      nth i (reverse (build_rev s e)) = s + i
+
+  let rec build_rev (s:int) (e:int) : list int
+    variant { if e < s then 0 else e - s + 1 }
+    ensures {
+      if e < s then result = Nil else
+      (* result = [e; e-1; ...; s] *)
+      length result = e - s + 1 /\
+      forall i:int. 0 <= i < length result -> nth i result = e - i
+    }
+  =
+    if e < s then Nil else Cons e (build_rev s (e - 1))
+
+  let generate_integers (a:int) (b:int) : list int =
+    ensures {
+      let lo = min a b in
+      let hi = max a b in
+      length result = hi - lo + 1 /\
+      forall i: int. 0 <= i < length result ->
+          nth i result = lo + i}
+    reverse (build_rev (min a b) (max a b))
+end

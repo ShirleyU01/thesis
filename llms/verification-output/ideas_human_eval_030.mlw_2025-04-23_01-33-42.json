@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the function get_positive, we add a variant (length l) to guarantee termination of the recursive function. No additional invariants or lemmas are needed, as the postconditions are inductively provable and handled by the SMT solvers for the standard list theory.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Mem\n\n  let rec get_positive (l : list int) : list int\n    variant { length l }\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n    = match l with\n      | Nil -> Nil\n      | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n      end\nend\n"
+        }
+    ]
+}

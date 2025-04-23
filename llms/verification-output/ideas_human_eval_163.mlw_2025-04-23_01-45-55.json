@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The code is verified by strengthening the contract of build_rev to precisely specify its output. This allows SMT solvers to prove the postcondition of generate_integers automatically. A variant is added to build_rev for termination. A supporting lemma states that reversing the result of build_rev yields the required ascending sequence. No changes to generate_integers or its postcondition are needed.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  use list.NthNoOpt\n  use list.Length\n\n  (* Auxiliary lemma: the length of build_rev s e is (e - s + 1) if e >= s, else 0 *)\n  lemma build_rev_length:\n    forall s e: int. length (build_rev s e) = (if e < s then 0 else e - s + 1)\n\n  (* Auxiliary lemma: for all i in 0 .. (e - s), nth i (reverse (build_rev s e)) = s + i *)\n  lemma nth_reverse_build_rev:\n    forall s e i: int.\n      s <= e ->\n      0 <= i < e - s + 1 ->\n      nth i (reverse (build_rev s e)) = s + i\n\n  let rec build_rev (s:int) (e:int) : list int\n    variant { if e < s then 0 else e - s + 1 }\n    ensures {\n      if e < s then result = Nil else\n      (* result = [e; e-1; ...; s] *)\n      length result = e - s + 1 /\\\n      forall i:int. 0 <= i < length result -> nth i result = e - i\n    }\n  =\n    if e < s then Nil else Cons e (build_rev s (e - 1))\n\n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n      let lo = min a b in\n      let hi = max a b in\n      length result = hi - lo + 1 /\\\n      forall i: int. 0 <= i < length result ->\n          nth i result = lo + i}\n    reverse (build_rev (min a b) (max a b))\nend\n"
+        }
+    ]
+}

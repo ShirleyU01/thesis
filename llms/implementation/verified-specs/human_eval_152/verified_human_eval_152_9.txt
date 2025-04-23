@@ -1,0 +1,29 @@
+=== Creating Why3 session for verified_human_eval_152_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_152/verified_human_eval_152_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_152/verified_human_eval_152_9.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_152_9) ===
+Progress: 71/1/0                       Progress: 70/2/0                       Progress: 69/3/0                       Progress: 68/4/0                       Progress: 67/5/0                       Progress: 66/6/0                       Progress: 66/0/0                       Progress: 65/1/0                       Progress: 64/2/0                       Progress: 63/3/0                       Progress: 62/4/0                       Progress: 61/5/0                       Progress: 60/6/0                       Progress: 60/0/0                       Progress: 59/1/0                       Progress: 58/2/0                       Progress: 57/3/0                       Progress: 56/4/0                       Progress: 55/5/0                       Progress: 54/6/0                       Progress: 54/0/0                       Progress: 53/1/0                       Progress: 52/2/0                       Progress: 51/3/0                       Progress: 50/4/0                       Progress: 49/5/0                       Progress: 48/6/0                       Progress: 48/0/0                       Progress: 47/1/0                       Progress: 46/2/0                       Progress: 45/3/0                       Progress: 44/4/0                       Progress: 43/5/0                       Progress: 42/6/0                       Progress: 42/0/0                       Progress: 41/1/0                       Progress: 40/2/0                       Progress: 39/3/0                       Progress: 38/4/0                       Progress: 37/5/0                       Progress: 36/6/0                       Progress: 36/0/0                       Progress: 35/1/0                       Progress: 34/2/0                       Progress: 33/3/0                       Progress: 32/4/0                       Progress: 31/5/0                       Progress: 30/6/0                       Progress: 30/0/0                       Progress: 29/1/0                       Progress: 28/2/0                       Progress: 27/3/0                       Progress: 26/4/0                       Progress: 25/5/0                       Progress: 24/6/0                       Progress: 24/0/0                       Progress: 23/1/0                       Progress: 22/2/0                       Progress: 21/3/0                       Progress: 20/4/0                       Progress: 19/5/0                       Progress: 18/6/0                       Progress: 18/0/0                       Progress: 17/1/0                       Progress: 16/2/0                       Progress: 15/3/0                       Progress: 14/4/0                       Progress: 13/5/0                       Progress: 12/6/0                       Progress: 12/0/0                       Progress: 11/1/0                       Progress: 10/2/0                       Progress: 9/3/0                       Progress: 8/4/0                       Progress: 7/5/0                       Progress: 6/6/0                       Progress: 6/0/0                       Progress: 5/1/0                       Progress: 4/2/0                       Progress: 3/3/0                       Progress: 2/4/0                       Progress: 1/5/0                       Progress: 0/6/0                       Progress: 0/3/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_152/verified_human_eval_152_9
+
+== Number of root goals ==
+  total: 3  proved: 3
+
+== Number of sub goals ==
+  total: 52  proved: 52
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  +-- file [../verified_human_eval_152_9.mlw]
+    +-- theory HumanEval152
+      +-- goal compare'vc
+        +-- transformation split_vc
+          +-- goal compare'vc.3
+            +-- transformation split_vc
+              +-- goal compare'vc.3.0
+                +-- transformation split_vc
+                  +-- goal compare'vc.3.0.0: Z3 4.8.6
+  
+1 session(s) read, with a total of 55 proof goals.
+=== Done ===

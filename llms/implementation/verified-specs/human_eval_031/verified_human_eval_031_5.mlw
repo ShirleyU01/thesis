@@ -1,0 +1,26 @@
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+
+
+let rec function num_of_divisors (n: int) (d: int) : int
+  variant { d }
+=
+  if d = 0 then 0 else num_of_divisors n (d - 1) + (if mod n d = 0 then 1 else 0)
+
+  let is_prime (n: int) : bool
+    ensures { result <-> (n >= 2 /\ forall d: int. 2 <= d /\ d < n -> mod n d <> 0) }
+  =
+    if n <= 1 then false else
+    let ref count = 0 in
+    let ref d = 1 in
+    while d <= n do
+      invariant { 1 <= d <= n + 1 }
+      invariant { 0 <= count <= d - 1 }
+      invariant { count = num_of_divisors n (d - 1) }
+      variant { n - d + 1 }
+      if mod n d = 0 then count <- count + 1;
+      d <- d + 1
+    done;
+    count = 2
+end

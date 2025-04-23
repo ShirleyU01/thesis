@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The verification idea is to add loop invariants and a variant to the while loop in special_factorial. The invariant expresses that at each iteration, the product of all factorials from i+1 up to n is stored in res, and that the loop index is always within the correct bounds. The variant guarantees termination. This allows the proof of the postcondition spec_fact n result to go through automatically.",
+            "implementation": "module HumanEval139\n  use int.Int\n  use int.Fact\n\n  predicate spec_fact (n : int) (a : int)\n    axiom spec_fact_base :\n      forall a. spec_fact 1 a <-> a = 1\n    axiom spec_fact_ind :\n      forall a n . spec_fact n a <-> exists b. spec_fact (n-1) b /\\ a = b * fact n\n\n  let special_factorial (n: int) : int =\n    ensures { spec_fact n result }\n    let ref res = 1 in\n    let ref i = n in\n    while i >= 1 do\n      invariant { 1 <= i+1 <= n+1 /\\\n                  spec_fact i res }\n      variant { i }\n      res <- res * fact i;\n      i <- i - 1\n    done;\n    res\nend\n"
+        }
+    ]
+}

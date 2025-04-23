@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and a loop variant to the while loop in is_prime to ensure correctness and termination. The invariants capture that res is only set to false if a divisor was found, and that for all previously checked values, n is not divisible by those candidates. The variant guarantees loop termination.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else\n    if n <= 3 then true else\n    if mod n 2 = 0 || mod n 3 = 0 then false else\n    let ref i = 5 in\n    let ref res = true in\n    while i * i <= n && res do\n      invariant { 5 <= i /\\ res = (forall d:int. 2 <= d /\\ d < i -> not (mod n d = 0)) }\n      invariant { forall d:int. 2 <= d /\\ d < i -> not (mod n d = 0) }\n      variant { n - i }\n      if mod n i = 0 || mod n (i + 2) = 0 then res <- false;\n      i <- i + 6\n    done;\n    res\nend\n"
+        }
+    ]
+}

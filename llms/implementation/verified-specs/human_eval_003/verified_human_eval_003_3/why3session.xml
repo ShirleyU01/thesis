@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_003_3.mlw"/>
+<theory name="HumanEval003">
+ <goal name="below_zero_rec&#39;vc" expl="VC for below_zero_rec">
+ <transf name="split_vc" >
+  <goal name="below_zero_rec&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_zero_rec&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_zero_rec&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005494" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.014104" steps="2339"/></proof>
+    <proof prover="2"><result status="valid" time="0.008540" steps="12014"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_zero_rec&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_zero_rec&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005659" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.013930" steps="2414"/></proof>
+    <proof prover="2"><result status="valid" time="0.008151" steps="12091"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_zero_rec&#39;vc.1" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="below_zero_rec&#39;vc.1.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="below_zero_rec&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005878" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.012807" steps="2810"/></proof>
+    <proof prover="2"><result status="valid" time="0.006684" steps="1100"/></proof>
+    </goal>
+    <goal name="below_zero_rec&#39;vc.1.0.1" expl="postcondition">
+    <proof prover="0"><result status="highfailure" time="7.650660"/></proof>
+    <proof prover="1"><result status="timeout" time="7.576483" steps="388192"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="168857186"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_zero_rec&#39;vc.1.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="below_zero_rec&#39;vc.1.1.0" expl="postcondition">
+    <proof prover="0"><result status="unknown" time="0.006873" steps="35"/></proof>
+    <proof prover="1"><result status="unknown" time="0.016105" steps="3462"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="165698881"/></proof>
+    </goal>
+    <goal name="below_zero_rec&#39;vc.1.1.1" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="357682"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="1173250"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="below_zero&#39;vc" expl="VC for below_zero" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="below_zero&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_zero&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_zero&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005460" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.011118" steps="2044"/></proof>
+    <proof prover="2"><result status="valid" time="0.006317" steps="790"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_zero&#39;vc.0.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_zero&#39;vc.0.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005457" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.010949" steps="2044"/></proof>
+    <proof prover="2"><result status="valid" time="0.006380" steps="790"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

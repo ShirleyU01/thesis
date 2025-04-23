@@ -1,0 +1,81 @@
+=== Creating Why3 session for verified_human_eval_020_3.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 16, characters 17-19: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 24, characters 15-17: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 35, characters 15-17: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 46, characters 16-19: unused variable xs1
+Session created successfully
+=== Benchmarking session (verified_human_eval_020_3) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 16, characters 17-19: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 24, characters 15-17: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 35, characters 15-17: unused variable ys
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3.mlw", line 46, characters 16-19: unused variable xs1
+Progress: 203/1/0                       Progress: 202/2/0                       Progress: 201/3/0                       Progress: 200/4/0                       Progress: 199/5/0                       Progress: 198/6/0                       Progress: 198/0/1                       Progress: 197/1/1                       Progress: 196/2/1                       Progress: 195/3/1                       Progress: 194/4/1                       Progress: 193/5/1                       Progress: 193/0/2                       Progress: 192/1/2                       Progress: 191/2/2                       Progress: 190/3/2                       Progress: 189/4/2                       Progress: 189/3/2                       Progress: 188/4/2                       Progress: 188/2/2                       Progress: 187/3/2                       Progress: 186/4/2                       Progress: 186/0/2                       Progress: 185/1/2                       Progress: 184/2/2                       Progress: 183/3/2                       Progress: 182/4/2                       Progress: 182/0/1                       Progress: 181/1/1                       Progress: 180/2/1                       Progress: 179/3/1                       Progress: 178/4/1                       Progress: 177/5/1                       Progress: 177/3/2                       Progress: 176/4/2                       Progress: 176/0/2                       Progress: 175/1/2                       Progress: 174/2/2                       Progress: 173/3/2                       Progress: 172/4/2                       Progress: 172/2/2                       Progress: 171/3/2                       Progress: 170/4/2                       Progress: 170/0/0                       Progress: 169/1/0                       Progress: 168/2/0                       Progress: 167/3/0                       Progress: 166/4/0                       Progress: 165/5/0                       Progress: 164/6/0                       Progress: 164/0/0                       Progress: 163/1/0                       Progress: 162/2/0                       Progress: 161/3/0                       Progress: 160/4/0                       Progress: 159/5/0                       Progress: 158/6/0                       Progress: 158/0/1                       Progress: 157/1/1                       Progress: 156/2/1                       Progress: 155/3/1                       Progress: 154/4/1                       Progress: 153/5/1                       Progress: 153/3/2                       Progress: 152/4/2                       Progress: 152/2/2                       Progress: 151/3/2                       Progress: 150/4/2                       Progress: 150/3/2                       Progress: 149/4/2                       Progress: 149/2/2                       Progress: 148/3/2                       Progress: 147/4/2                       Progress: 147/3/2                       Progress: 146/4/2                       Progress: 146/2/2                       Progress: 145/3/2                       Progress: 144/4/2                       Progress: 144/2/2                       Progress: 143/3/2                       Progress: 142/4/2                       Progress: 142/2/2                       Progress: 141/3/2                       Progress: 140/4/2                       Progress: 140/0/1                       Progress: 139/1/1                       Progress: 138/2/1                       Progress: 137/3/1                       Progress: 136/4/1                       Progress: 135/5/1                       Progress: 135/0/2                       Progress: 134/1/2                       Progress: 133/2/2                       Progress: 132/3/2                       Progress: 131/4/2                       Progress: 131/3/2                       Progress: 130/4/2                       Progress: 130/2/2                       Progress: 129/3/2                       Progress: 128/4/2                       Progress: 128/3/2                       Progress: 127/4/2                       Progress: 127/3/2                       Progress: 126/4/2                       Progress: 126/0/1                       Progress: 125/1/1                       Progress: 124/2/1                       Progress: 123/3/1                       Progress: 122/4/1                       Progress: 121/5/1                       Progress: 121/0/1                       Progress: 120/1/1                       Progress: 119/2/1                       Progress: 118/3/1                       Progress: 117/4/1                       Progress: 116/5/1                       Progress: 116/1/2                       Progress: 115/2/2                       Progress: 114/3/2                       Progress: 113/4/2                       Progress: 113/2/2                       Progress: 112/3/2                       Progress: 111/4/2                       Progress: 111/3/2                       Progress: 110/4/2                       Progress: 110/3/2                       Progress: 109/4/2                       Progress: 109/2/2                       Progress: 108/3/2                       Progress: 107/4/2                       Progress: 107/0/1                       Progress: 106/1/1                       Progress: 105/2/1                       Progress: 104/3/1                       Progress: 103/4/1                       Progress: 102/5/1                       Progress: 102/0/2                       Progress: 101/1/2                       Progress: 100/2/2                       Progress: 99/3/2                       Progress: 98/4/2                       Progress: 98/0/0                       Progress: 97/1/0                       Progress: 96/2/0                       Progress: 95/3/0                       Progress: 94/4/0                       Progress: 93/5/0                       Progress: 92/6/0                       Progress: 92/0/0                       Progress: 91/1/0                       Progress: 90/2/0                       Progress: 89/3/0                       Progress: 88/4/0                       Progress: 87/5/0                       Progress: 86/6/0                       Progress: 86/0/0                       Progress: 85/1/0                       Progress: 84/2/0                       Progress: 83/3/0                       Progress: 82/4/0                       Progress: 81/5/0                       Progress: 80/6/0                       Progress: 80/0/1                       Progress: 79/1/1                       Progress: 78/2/1                       Progress: 77/3/1                       Progress: 76/4/1                       Progress: 75/5/1                       Progress: 75/3/2                       Progress: 74/4/2                       Progress: 74/2/2                       Progress: 73/3/2                       Progress: 72/4/2                       Progress: 72/0/1                       Progress: 71/1/1                       Progress: 70/2/1                       Progress: 69/3/1                       Progress: 68/4/1                       Progress: 67/5/1                       Progress: 67/0/2                       Progress: 66/1/2                       Progress: 65/2/2                       Progress: 64/3/2                       Progress: 63/4/2                       Progress: 63/0/1                       Progress: 62/1/1                       Progress: 61/2/1                       Progress: 60/3/1                       Progress: 59/4/1                       Progress: 58/5/1                       Progress: 58/0/2                       Progress: 57/1/2                       Progress: 56/2/2                       Progress: 55/3/2                       Progress: 54/4/2                       Progress: 54/0/1                       Progress: 53/1/1                       Progress: 52/2/1                       Progress: 51/3/1                       Progress: 50/4/1                       Progress: 49/5/1                       Progress: 49/0/2                       Progress: 48/1/2                       Progress: 47/2/2                       Progress: 46/3/2                       Progress: 45/4/2                       Progress: 45/2/2                       Progress: 44/3/2                       Progress: 43/4/2                       Progress: 43/1/2                       Progress: 42/2/2                       Progress: 41/3/2                       Progress: 40/4/2                       Progress: 40/0/1                       Progress: 39/1/1                       Progress: 38/2/1                       Progress: 37/3/1                       Progress: 36/4/1                       Progress: 35/5/1                       Progress: 35/3/2                       Progress: 34/4/2                       Progress: 34/3/2                       Progress: 33/4/2                       Progress: 33/2/2                       Progress: 32/3/2                       Progress: 31/4/2                       Progress: 31/3/2                       Progress: 30/4/2                       Progress: 30/2/2                       Progress: 29/3/2                       Progress: 28/4/2                       Progress: 28/3/2                       Progress: 27/4/2                       Progress: 27/0/2                       Progress: 26/1/2                       Progress: 25/2/2                       Progress: 24/3/2                       Progress: 23/4/2                       Progress: 23/0/0                       Progress: 22/1/0                       Progress: 21/2/0                       Progress: 20/3/0                       Progress: 19/4/0                       Progress: 18/5/0                       Progress: 17/6/0                       Progress: 17/3/2                       Progress: 16/4/2                       
+Saving session... done.
+Progress: 16/1/2                       Progress: 15/2/2                       Progress: 14/3/2                       Progress: 13/4/2                       Progress: 13/0/1                       Progress: 12/1/1                       Progress: 11/2/1                       Progress: 10/3/1                       Progress: 9/4/1                       Progress: 8/5/1                       Progress: 8/0/1                       Progress: 7/1/1                       Progress: 6/2/1                       Progress: 5/3/1                       Progress: 4/4/1                       Progress: 3/5/1                       Progress: 3/0/2                       Progress: 2/1/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_3
+
+== Number of root goals ==
+  total: 4  proved: 0
+
+== Number of sub goals ==
+  total: 134  proved: 109
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_020_3.mlw]
+    +-- theory HumanEval020
+      +-- goal insert'vc
+        +-- transformation split_vc
+          +-- goal insert'vc.1
+            +-- transformation split_vc
+              +-- goal insert'vc.1.1
+                +-- transformation split_vc
+                  +-- goal insert'vc.1.1.1
+      +-- goal sort'vc
+        +-- transformation split_vc
+          +-- goal sort'vc.1
+            +-- transformation split_vc
+              +-- goal sort'vc.1.1
+                +-- transformation split_vc
+                  +-- goal sort'vc.1.1.0
+      +-- goal closest_adjacent'vc
+        +-- transformation split_vc
+          +-- goal closest_adjacent'vc.3
+            +-- transformation split_vc
+              +-- goal closest_adjacent'vc.3.0
+                +-- transformation split_vc
+                  +-- goal closest_adjacent'vc.3.0.0
+          +-- goal closest_adjacent'vc.6
+            +-- transformation split_vc
+              +-- goal closest_adjacent'vc.6.0
+                +-- transformation split_vc
+                  +-- goal closest_adjacent'vc.6.0.0
+          +-- goal closest_adjacent'vc.7
+            +-- transformation split_vc
+              +-- goal closest_adjacent'vc.7.0
+                +-- transformation split_vc
+                  +-- goal closest_adjacent'vc.7.0.0
+          +-- goal closest_adjacent'vc.8
+            +-- transformation split_vc
+              +-- goal closest_adjacent'vc.8.1
+                +-- transformation split_vc
+                  +-- goal closest_adjacent'vc.8.1.0
+      +-- goal find_closest_elements'vc
+        +-- transformation split_vc
+          +-- goal find_closest_elements'vc.4
+            +-- transformation split_vc
+              +-- goal find_closest_elements'vc.4.1
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.1.0
+              +-- goal find_closest_elements'vc.4.2
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.2.0
+              +-- goal find_closest_elements'vc.4.3
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.3.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 138 proof goals.
+=== Done ===

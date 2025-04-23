@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Verification of sum_product by adding variants for termination and helper function contracts. Lemmas are added for sum and product accumulation correctness, enabling automatic proof of postconditions.",
+            "implementation": "module HumanEval008\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Sum\n\n  predicate product (l : list int) (q : int)\n    axiom product_base: forall l'. length l' = 0 <-> product l' 1\n    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')\n\n  (* Helper lemma: sum and product accumulate correctly *)\n  lemma helper_correct :\n    forall l s p. let r = helper l s p in\n      nth 0 r = sum l + s /\\ product l (nth 1 r * p)\n\n  let rec helper (l: list int) (s: int) (p: int) : list int\n    variant { length l }\n    ensures { nth 0 result = sum l + s }\n    ensures { product l (nth 1 result * p) }\n  =\n    match l with\n    | Nil -> Cons s (Cons p Nil)\n    | Cons x xs -> helper xs (s + x) (p * x)\n    end\n\n  let sum_product (l: list int) : list int\n    ensures { nth 0 result = sum l }\n    ensures { product l (nth 1 result) }\n  =\n    helper l 0 1\nend\n"
+        }
+    ]
+}

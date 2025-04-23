@@ -1,0 +1,34 @@
+=== Creating Why3 session for verified_human_eval_030_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_9.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_030_9) ===
+Progress: 38/1/0                       Progress: 37/2/0                       Progress: 36/3/0                       Progress: 35/4/0                       Progress: 34/5/0                       Progress: 33/6/0                       Progress: 33/0/2                       Progress: 32/1/2                       Progress: 31/2/2                       Progress: 30/3/2                       Progress: 29/4/2                       Progress: 29/0/1                       Progress: 28/1/1                       Progress: 27/2/1                       Progress: 26/3/1                       Progress: 25/4/1                       Progress: 24/5/1                       Progress: 24/3/2                       Progress: 23/4/2                       Progress: 23/1/2                       Progress: 22/2/2                       Progress: 21/3/2                       Progress: 20/4/2                       Progress: 20/0/0                       Progress: 19/1/0                       Progress: 18/2/0                       Progress: 17/3/0                       Progress: 16/4/0                       Progress: 15/5/0                       Progress: 14/6/0                       Progress: 14/0/0                       Progress: 13/1/0                       Progress: 12/2/0                       Progress: 11/3/0                       Progress: 10/4/0                       Progress: 9/5/0                       Progress: 8/6/0                       Progress: 8/0/0                       Progress: 7/1/0                       Progress: 6/2/0                       Progress: 5/3/0                       Progress: 4/4/0                       Progress: 3/5/0                       Progress: 2/6/0                       Progress: 2/0/0                       Progress: 1/1/0                       Progress: 0/2/0                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_9
+
+== Number of root goals ==
+  total: 2  proved: 1
+
+== Number of sub goals ==
+  total: 28  proved: 22
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_030_9.mlw]
+    +-- theory HumanEval030
+      +-- goal filter_pos'vc
+        +-- transformation split_vc
+          +-- goal filter_pos'vc.3
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.3.1
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.3.1.1
+          +-- goal filter_pos'vc.4
+            +-- transformation split_vc
+              +-- goal filter_pos'vc.4.1
+                +-- transformation split_vc
+                  +-- goal filter_pos'vc.4.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 30 proof goals.
+=== Done ===

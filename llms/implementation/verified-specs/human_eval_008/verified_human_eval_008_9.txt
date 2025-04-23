@@ -1,0 +1,20 @@
+=== Creating Why3 session for verified_human_eval_008_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_9.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_008_9) ===
+Progress: 29/1/0                       Progress: 28/2/0                       Progress: 27/3/0                       Progress: 26/4/0                       Progress: 25/5/0                       Progress: 24/6/0                       Progress: 24/0/0                       Progress: 23/1/0                       Progress: 22/2/0                       Progress: 21/3/0                       Progress: 20/4/0                       Progress: 19/5/0                       Progress: 18/6/0                       Progress: 18/0/0                       Progress: 17/1/0                       Progress: 16/2/0                       Progress: 15/3/0                       Progress: 14/4/0                       Progress: 13/5/0                       Progress: 12/6/0                       Progress: 12/0/1                       Progress: 11/1/1                       Progress: 10/2/1                       Progress: 9/3/1                       Progress: 8/4/1                       Progress: 7/5/1                       Progress: 7/0/1                       Progress: 6/1/1                       Progress: 5/2/1                       Progress: 4/3/1                       Progress: 3/4/1                       Progress: 2/5/1                       Progress: 2/0/1                       Progress: 1/1/1                       Progress: 0/2/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_9
+
+== Number of root goals ==
+  total: 3  proved: 3
+
+== Number of sub goals ==
+  total: 26  proved: 26
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 29 proof goals.
+=== Done ===

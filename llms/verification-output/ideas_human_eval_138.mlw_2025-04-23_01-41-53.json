@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function is_equal_to_sum_even to ensure automatic termination proof. The code is otherwise unchanged, with no additional lemmas or assertions, since the contract and implementation logic are already sound and SMT-solvable.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec is_equal_to_sum_even (n: int) : bool\n    variant { n }\n    ensures { result <-> (mod n 2 = 0) /\\ (n >= 8) }\n  =\n    if n < 8 then false\n    else if mod n 2 = 0 then true\n    else is_equal_to_sum_even (n - 2)\nend\n"
+        }
+    ]
+}

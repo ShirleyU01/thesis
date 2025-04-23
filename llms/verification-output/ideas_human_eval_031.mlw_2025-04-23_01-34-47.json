@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a postcondition and variant to check_div to prove functional correctness and termination, and add a lemma relating the result of check_div to the primality property for is_prime.",
+            "implementation": "module HumanEval031\n  use int.Int\n  use int.EuclideanDivision\n\n  (*\n     check_div n d returns true if there is no divisor in [d, sqrt(n)], false otherwise.\n     We specify that for n >= 2, d >= 2, d*d <= n, check_div n d = true <-> (forall k. d <= k < n -> mod n k <> 0)\n  *)\n  let rec check_div (n: int) (d: int) : bool\n    requires { n >= 2 }\n    requires { d >= 2 }\n    variant  { n - d }\n    ensures  {\n      if d * d > n then result = true else\n      result <-> (forall k: int. d <= k < n -> mod n k <> 0)\n    }\n  = if d * d > n then true\n    else if mod n d = 0 then false\n    else check_div n (d + 1)\n\n  (*\n    Lemma: For n >= 2, check_div n 2 = true <-> forall d. 2 <= d < n -> mod n d <> 0\n    This connects the check_div logic to the is_prime specification.\n  *)\n  lemma check_div_forall:\n    forall n: int. n >= 2 ->\n      (check_div n 2 = true <-> (forall d: int. 2 <= d < n -> mod n d <> 0))\n\n  let is_prime (n: int) : bool =\n    ensures { result <-> (n >= 2 /\\ forall d: int. 2 <= d /\\ d < n -> not (mod n d = 0)) }\n    if n <= 1 then false else check_div n 2\nend\n"
+        }
+    ]
+}

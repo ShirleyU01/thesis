@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'eat' to ensure termination. The natural variant is the sum of 'need' and 'remaining', since both decrease by at most 1 per recursive call. No other invariants or lemmas are needed as the recursive structure is already correct, and the postcondition is robust. This allows automatic verification by SMT solvers.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let rec eat (number:int) (need:int) (remaining:int) : list int\n    variant { need + remaining }\n    ensures {\n        let total_eaten = if need <= remaining then number + need else number + remaining in\n        let carrots_left = if need <= remaining then remaining - need else 0 in\n        result = Cons total_eaten (Cons carrots_left Nil)\n    }\n    =\n    if need = 0 || remaining = 0 then Cons number (Cons remaining Nil)\n    else eat (number+1) (need-1) (remaining-1)\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+=== Creating Why3 session for verified_human_eval_030_5.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_5, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_5.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_030_5) ===
+Progress: 32/1/0                       Progress: 31/2/0                       Progress: 30/3/0                       Progress: 29/4/0                       Progress: 28/5/0                       Progress: 27/6/0                       Progress: 27/0/0                       Progress: 26/1/0                       Progress: 25/2/0                       Progress: 24/3/0                       Progress: 23/4/0                       Progress: 22/5/0                       Progress: 21/6/0                       Progress: 21/0/0                       Progress: 20/1/0                       Progress: 19/2/0                       Progress: 18/3/0                       Progress: 17/4/0                       Progress: 16/5/0                       Progress: 15/6/0                       Progress: 15/0/1                       Progress: 14/1/1                       Progress: 13/2/1                       Progress: 12/3/1                       Progress: 11/4/1                       Progress: 10/5/1                       Progress: 10/0/1                       Progress: 9/1/1                       Progress: 8/2/1                       Progress: 7/3/1                       Progress: 6/4/1                       Progress: 5/5/1                       Progress: 5/0/1                       Progress: 4/1/1                       Progress: 3/2/1                       Progress: 2/3/1                       Progress: 1/4/1                       Progress: 0/5/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_030/verified_human_eval_030_5
+
+== Number of root goals ==
+  total: 1  proved: 1
+
+== Number of sub goals ==
+  total: 23  proved: 23
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 24 proof goals.
+=== Done ===

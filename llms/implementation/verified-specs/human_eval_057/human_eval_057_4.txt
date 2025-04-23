@@ -1,0 +1,69 @@
+=== Creating Why3 session for human_eval_057_4.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 12, characters 42-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 19, characters 42-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 25, characters 24-40: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 25, characters 4-20: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_057_4) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 12, characters 42-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 19, characters 42-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 25, characters 24-40: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4.mlw", line 25, characters 4-20: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 20/1/0                       Progress: 19/2/0                       Progress: 18/3/0                       Progress: 17/4/0                       Progress: 16/5/0                       Progress: 15/6/0                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/1/2                       Progress: 13/2/2                       Progress: 12/3/2                       Progress: 11/4/2                       Progress: 11/3/2                       Progress: 10/4/2                       Progress: 10/2/2                       Progress: 9/3/2                       Progress: 8/4/2                       Progress: 8/1/2                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/0/2                       Progress: 4/1/2                       Progress: 3/2/2                       Progress: 2/3/2                       Progress: 1/4/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/0/2                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_057/human_eval_057_4
+
+== Number of root goals ==
+  total: 3  proved: 0
+
+== Number of sub goals ==
+  total: 20  proved: 0
+
+== Goals not proved ==
+  +-- file [../human_eval_057_4.mlw]
+    +-- theory HumanEval057
+      +-- goal non_decreasing'vc
+        +-- transformation split_vc
+          +-- goal non_decreasing'vc.0
+            +-- transformation split_vc
+              +-- goal non_decreasing'vc.0.0
+                +-- transformation split_vc
+                  +-- goal non_decreasing'vc.0.0.0
+      +-- goal non_increasing'vc
+        +-- transformation split_vc
+          +-- goal non_increasing'vc.0
+            +-- transformation split_vc
+              +-- goal non_increasing'vc.0.0
+                +-- transformation split_vc
+                  +-- goal non_increasing'vc.0.0.0
+      +-- goal monotonic'vc
+        +-- transformation split_vc
+          +-- goal monotonic'vc.0
+            +-- transformation split_vc
+              +-- goal monotonic'vc.0.0
+                +-- transformation split_vc
+                  +-- goal monotonic'vc.0.0.0
+          +-- goal monotonic'vc.1
+            +-- transformation split_vc
+              +-- goal monotonic'vc.1.0
+                +-- transformation split_vc
+                  +-- goal monotonic'vc.1.0.0
+          +-- goal monotonic'vc.2
+            +-- transformation split_vc
+              +-- goal monotonic'vc.2.0
+                +-- transformation split_vc
+                  +-- goal monotonic'vc.2.0.0
+          +-- goal monotonic'vc.3
+            +-- transformation split_vc
+              +-- goal monotonic'vc.3.0
+                +-- transformation split_vc
+                  +-- goal monotonic'vc.3.0.0
+              +-- goal monotonic'vc.3.1
+                +-- transformation split_vc
+                  +-- goal monotonic'vc.3.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 23 proof goals.
+=== Done ===

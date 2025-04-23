@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Verifying that x - (-y) = x + y using a lemma. This lemma is needed to help SMT solvers prove the ensures clause for the add function, since the implementation uses x - (-y) but the postcondition uses x + y.",
+            "implementation": "module HumanEval053\n  use int.Int\n\n  lemma minus_neg (x y: int) : x - (-y) = x + y\n\n  let add (x: int) (y: int) : int = \n    ensures { result = x + y }\n    x - (-y)\nend\n"
+        }
+    ]
+}

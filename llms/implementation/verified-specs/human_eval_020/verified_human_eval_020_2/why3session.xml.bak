@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_020_2.mlw"/>
+<theory name="HumanEval020">
+ <goal name="find_closest_helper&#39;vc" expl="VC for find_closest_helper">
+ <transf name="split_vc" >
+  <goal name="find_closest_helper&#39;vc.0" expl="variant decrease">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.0.0" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.0.0.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_helper&#39;vc.0.1" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.0.1.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.1" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.1.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.1.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.2" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.2.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.2.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.3" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.3.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.3.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.4" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.4.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.4.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.5" expl="variant decrease">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.5.0" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.5.0.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_helper&#39;vc.5.1" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.5.1.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.6" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.6.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.6.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.7" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.7.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.7.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.8" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.8.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.8.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.9" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.9.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.9.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_helper&#39;vc.10" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_helper&#39;vc.10.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.10.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_helper&#39;vc.10.0.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_helper&#39;vc.10.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.10.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_helper&#39;vc.10.1.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_helper&#39;vc.10.2" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_helper&#39;vc.10.2.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_helper&#39;vc.10.2.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="aux&#39;vc" expl="VC for aux">
+ <transf name="split_vc" >
+  <goal name="aux&#39;vc.0" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.0.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.0.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.1" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.1.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.1.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.2" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.2.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.2.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.3" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.3.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.3.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.4" expl="variant decrease">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.4.0" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.4.0.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="aux&#39;vc.4.1" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.4.1.0" expl="variant decrease">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.5" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.5.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.5.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.6" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.6.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.6.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.7" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.7.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.7.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="aux&#39;vc.8" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="aux&#39;vc.8.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.8.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="aux&#39;vc.8.0.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="aux&#39;vc.8.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="aux&#39;vc.8.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="aux&#39;vc.8.1.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="find_closest_elements&#39;vc" expl="VC for find_closest_elements">
+ <transf name="split_vc" >
+  <goal name="find_closest_elements&#39;vc.0" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.0.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.0.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.1" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.1.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.1.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.2" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.2.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.2.0.0" expl="precondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.3" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.3.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.3.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.3.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.3.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.3.2" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.3.2.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.4" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.4.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.4.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.4.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.4.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.4.2" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.4.2.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.5" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.5.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.5.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.5.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.5.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.5.2" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.5.2.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_closest_elements&#39;vc.6" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="find_closest_elements&#39;vc.6.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.6.0.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_elements&#39;vc.6.0.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_elements&#39;vc.6.0.2" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_closest_elements&#39;vc.6.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="find_closest_elements&#39;vc.6.1.0" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_elements&#39;vc.6.1.1" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+    <goal name="find_closest_elements&#39;vc.6.1.2" expl="postcondition">
+    <proof prover="0"><undone/></proof>
+    <proof prover="1"><undone/></proof>
+    <proof prover="2"><undone/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

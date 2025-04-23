@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_057_9.mlw"/>
+<theory name="HumanEval057">
+ <goal name="fold_monotonic&#39;vc" expl="VC for fold_monotonic" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="fold_monotonic&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="fold_monotonic&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="fold_monotonic&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005716" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.015231" steps="2924"/></proof>
+    <proof prover="2"><result status="valid" time="0.008360" steps="14857"/></proof>
+    </goal>
+    <goal name="fold_monotonic&#39;vc.0.0.1" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005893" steps="11"/></proof>
+    <proof prover="1"><result status="valid" time="0.015426" steps="2905"/></proof>
+    <proof prover="2"><result status="valid" time="0.008527" steps="14842"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="fold_monotonic&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="fold_monotonic&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006194" steps="17"/></proof>
+    <proof prover="1"><result status="valid" time="0.015966" steps="2999"/></proof>
+    <proof prover="2"><result status="valid" time="0.008355" steps="14934"/></proof>
+    </goal>
+    <goal name="fold_monotonic&#39;vc.0.1.1" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006363" steps="16"/></proof>
+    <proof prover="1"><result status="valid" time="0.015683" steps="2980"/></proof>
+    <proof prover="2"><result status="valid" time="0.008682" steps="14919"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="fold_monotonic&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="fold_monotonic&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="fold_monotonic&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006697" steps="30"/></proof>
+    <proof prover="1"><result status="valid" time="0.016815" steps="3727"/></proof>
+    <proof prover="2"><result status="valid" time="0.008958" steps="17920"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="fold_monotonic&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="fold_monotonic&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007180" steps="58"/></proof>
+    <proof prover="1"><result status="valid" time="0.018593" steps="4438"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="175779846"/></proof>
+    </goal>
+    <goal name="fold_monotonic&#39;vc.1.1.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008960" steps="34"/></proof>
+    <proof prover="1"><result status="valid" time="0.021785" steps="4394"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="163624756"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="monotonic&#39;vc" expl="VC for monotonic">
+ <transf name="split_vc" >
+  <goal name="monotonic&#39;vc.0" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="monotonic&#39;vc.0.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="monotonic&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006218" steps="16"/></proof>
+    <proof prover="1"><result status="valid" time="0.014986" steps="3425"/></proof>
+    <proof prover="2"><result status="valid" time="0.008357" steps="16621"/></proof>
+    </goal>
+    <goal name="monotonic&#39;vc.0.0.1" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="578344"/></proof>
+    <proof prover="1"><result status="unknown" time="0.023754" steps="5832"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="184369518"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="monotonic&#39;vc.0.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="monotonic&#39;vc.0.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005311" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.012450" steps="3051"/></proof>
+    <proof prover="2"><result status="valid" time="0.006491" steps="1268"/></proof>
+    </goal>
+    <goal name="monotonic&#39;vc.0.1.1" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="191141"/></proof>
+    <proof prover="1"><result status="unknown" time="0.018893" steps="4524"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="174156941"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

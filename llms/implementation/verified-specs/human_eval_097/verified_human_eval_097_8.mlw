@@ -1,0 +1,16 @@
+module HumanEval097
+  use int.Int
+  use int.Abs
+  use int.EuclideanDivision
+
+  let rec unit_digit_iter (x : int) : int
+    ensures { result = mod (abs x) 10 }
+    variant { abs x }
+  =
+    let ax = abs x in
+    if ax < 10 then ax else unit_digit_iter (ax - 10)
+
+  let multiply (a : int) (b : int) : int =
+    ensures { result = mod (abs a) 10 * mod (abs b) 10 }
+    unit_digit_iter a * unit_digit_iter b
+end

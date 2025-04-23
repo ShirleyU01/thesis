@@ -1,0 +1,28 @@
+
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  let rec is_increasing (l: list int) : bool =
+    match l with
+    | Nil -> true
+    | Cons _ Nil -> true
+    | Cons x (Cons y r) -> if x <= y then is_increasing (Cons y r) else false
+    end
+  
+  let rec is_decreasing (l: list int) : bool =
+    match l with
+    | Nil -> true
+    | Cons _ Nil -> true
+    | Cons x (Cons y r) -> if x >= y then is_decreasing (Cons y r) else false
+    end
+  
+  let monotonic (l: list int) : bool =
+      ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    is_increasing l || is_decreasing l
+end
+
+

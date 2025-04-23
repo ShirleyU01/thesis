@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_060_6.mlw"/>
+<theory name="HumanEval060">
+ <goal name="make_list&#39;vc" expl="VC for make_list" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="make_list&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="make_list&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005349" steps="5"/></proof>
+    <proof prover="1"><result status="valid" time="0.011147" steps="1781"/></proof>
+    <proof prover="2"><result status="valid" time="0.007653" steps="7104"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="make_list&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005817" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.011794" steps="1919"/></proof>
+    <proof prover="2"><result status="valid" time="0.007789" steps="7410"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="make_list&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="make_list&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006850" steps="14"/></proof>
+    <proof prover="1"><result status="valid" time="0.014417" steps="2893"/></proof>
+    <proof prover="2"><result status="valid" time="0.007762" steps="9385"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="make_list&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007743" steps="61"/></proof>
+    <proof prover="1"><result status="valid" time="0.018533" steps="3957"/></proof>
+    <proof prover="2"><result status="valid" time="0.008796" steps="16342"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="make_list&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="make_list&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005616" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.014102" steps="2985"/></proof>
+    <proof prover="2"><result status="valid" time="0.006955" steps="6680"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="make_list&#39;vc.2.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="make_list&#39;vc.2.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.010382" steps="37"/></proof>
+    <proof prover="1"><result status="valid" time="0.019165" steps="3709"/></proof>
+    <proof prover="2"><result status="valid" time="0.009728" steps="16296"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="sum_to_n&#39;vc" expl="VC for sum_to_n">
+ <transf name="split_vc" >
+  <goal name="sum_to_n&#39;vc.0" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="sum_to_n&#39;vc.0.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="sum_to_n&#39;vc.0.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="119332"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="133014"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

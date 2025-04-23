@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'below_threshold' to ensure termination. No lemmas or assertions are needed, as the SMT solvers can verify the contract with the variant. The postcondition is already correct and covers the logical specification.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Mem\n\n  let rec below_threshold (l : list int) (t: int) : bool =\n    variant { length l }\n    ensures { result <-> (forall x. mem x l -> x < t) }  \n    match l with\n    | Nil -> true\n    | Cons x xs -> match x < t with\n      | True -> below_threshold xs t\n      | False -> false\n      end\n    end\nend\n"
+        }
+    ]
+}

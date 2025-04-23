@@ -1,0 +1,25 @@
+
+module HumanEval163
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Reverse
+  use list.NthNoOpt
+  use list.Length
+
+  let generate_integers (a:int) (b:int) : list int =
+    ensures {
+        let lo = min a b in
+        let hi = max a b in
+        length result = hi - lo + 1 /\
+        forall i: int. 0 <= i < length result ->
+            nth i result = lo + i}
+    let start = min a b in
+    let finish = max a b in
+    let rec aux (i:int) (acc:list int) : list int =
+      if i > finish then acc else aux (i + 1) (Cons i acc)
+    in
+    reverse (aux start Nil)
+end
+
+

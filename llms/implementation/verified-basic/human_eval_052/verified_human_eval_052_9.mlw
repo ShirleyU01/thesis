@@ -1,0 +1,22 @@
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Quant
+  use list.Mem
+
+  predicate exists_mem (l: list int) (p: int -> bool) =
+    exists x. mem x l /\ p x
+
+  let rec for_some (p: int -> bool) (l: list int) : bool
+    ensures { result <-> exists_mem l p }
+    variant { l }
+  =
+    match l with
+    | Nil -> false
+    | Cons x xs -> if p x then true else for_some p xs
+    end
+
+  let below_threshold (l : list int) (t: int) : bool =
+    ensures { result <-> (forall x. mem x l -> x < t) }
+    not (for_some (fun x -> x >= t) l)
+end

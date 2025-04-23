@@ -1,0 +1,17 @@
+
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+
+  let rec is_prime_helper (n: int) (d: int) : bool =
+    if d * d > n then true
+    else if mod n d = 0 then false
+    else is_prime_helper n (d + 1)
+  
+  let is_prime (n: int) : bool =
+    ensures { result <-> (n >= 2 /\ forall d: int. 2 <= d /\ d < n -> not (mod n d = 0)) }
+    if n <= 1 then false else is_prime_helper n 2
+end
+
+
+

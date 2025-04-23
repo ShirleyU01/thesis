@@ -1,0 +1,29 @@
+module HumanEval138
+  use int.Int
+  use int.EuclideanDivision
+
+  (* Lemma: n can be written as the sum of four positive even numbers iff n >= 8 and n is even *)
+  lemma sum_of_four_positive_evens:
+    forall n:int. (exists a b c d:int. a > 0 /\ b > 0 /\ c > 0 /\ d > 0 /\
+                                      mod a 2 = 0 /\ mod b 2 = 0 /\ mod c 2 = 0 /\ mod d 2 = 0 /\
+                                      n = a + b + c + d)
+      <-> (n >= 8 /\ mod n 2 = 0)
+
+  let is_equal_to_sum_even (n: int) : bool =
+    ensures { result <-> (mod n 2 = 0) /\ (n >= 8) }
+    let min_sum = 8 in
+    if n < min_sum then (
+      assert { not (exists a b c d:int. a > 0 /\ b > 0 /\ c > 0 /\ d > 0 /\
+                                     mod a 2 = 0 /\ mod b 2 = 0 /\ mod c 2 = 0 /\ mod d 2 = 0 /\
+                                     n = a + b + c + d) };
+      false
+    ) else
+      let remain = n - min_sum in
+      if mod remain 2 = 0 then (
+        assert { n >= 8 /\ mod n 2 = 0 };
+        true
+      ) else (
+        assert { not (mod n 2 = 0) \/ n < 8 };
+        false
+      )
+end

@@ -1,0 +1,26 @@
+module HumanEval159
+  use int.Int
+  use list.List
+
+  let eat (number:int) (need:int) (remaining:int) : list int =
+    ensures {
+        let total_eaten = if need <= remaining then number + need else number + remaining in
+        let carrots_left = if need <= remaining then remaining - need else 0 in
+        result = Cons total_eaten (Cons carrots_left Nil)
+        }
+    let ref n = number in
+    let ref nd = need in
+    let ref rem = remaining in
+    while nd > 0 && rem > 0 do
+      invariant { n = number + (need - nd) }
+      invariant { rem = remaining - (need - nd) }
+      invariant { nd >= 0 }
+      invariant { rem >= 0 }
+      invariant { nd <= need }
+      variant { nd }
+      n <- n + 1;
+      nd <- nd - 1;
+      rem <- rem - 1
+    done;
+    Cons n (Cons rem Nil)
+end

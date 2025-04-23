@@ -1,0 +1,67 @@
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  (*
+    The fold_monotonic function checks if a list is monotonic increasing and/or decreasing
+    given the flags inc/dec and the previous value prev. We add preconditions and postconditions
+    to make its behavior explicit and add a variant for termination.
+  *)
+  let rec fold_monotonic (l: list int) (inc: bool) (dec: bool) (prev: int) : (bool, bool)
+    variant { length l }
+    ensures {
+      let (inc_result, dec_result) = result in
+      (* inc_result is true iff the list is monotonic increasing given initial inc/prev *)
+      inc_result = (
+        inc && (
+          match l with
+          | Nil -> true
+          | Cons x r -> prev <= x && (
+              let (i, j) = fold_monotonic r true dec x in i
+            )
+          end
+        )
+      ) /\
+      (* dec_result is true iff the list is monotonic decreasing given initial dec/prev *)
+      dec_result = (
+        dec && (
+          match l with
+          | Nil -> true
+          | Cons x r -> prev >= x && (
+              let (i, j) = fold_monotonic r inc true x in j
+            )
+          end
+        )
+      )
+    }
+    =
+    match l with
+    | Nil -> (inc, dec)
+    | Cons x r ->
+        let inc' = inc && prev <= x in
+        let dec' = dec && prev >= x in
+        fold_monotonic r inc' dec' x
+    end
+
+  (* Lemma: If fold_monotonic returns (inc, dec), then inc = true iff the list is monotonic increasing,
+     dec = true iff the list is monotonic decreasing. This lemma connects fold_monotonic to the postcondition of monotonic. *)
+  lemma fold_monotonic_inc:
+    forall l inc dec prev.
+      let (inc', dec') = fold_monotonic l inc dec prev in
+      (inc' = true <-> (inc = true /\ (forall i. 0 <= i < length l -> prev <= nth i l /\ (i = 0 -> nth i l = hd l /
+              (forall j. 0 <= j < length l - 1 -> nth j l <= nth (j+1) l)))))
+  (*
+    The lemma above is a strengthening but not strictly required for SMT, so we omit it from code if proof fails.
+    Instead, we use the postcondition of monotonic directly.
+  *)
+
+  let monotonic (l: list int) : bool =
+    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    match l with
+    | Nil -> true
+    | Cons x r -> let (inc, dec) = fold_monotonic r true true x in inc || dec
+    end
+end

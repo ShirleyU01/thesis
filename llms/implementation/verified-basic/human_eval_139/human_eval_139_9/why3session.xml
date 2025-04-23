@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_139_9.mlw"/>
+<theory name="HumanEval139">
+ <goal name="special_factorial&#39;vc" expl="VC for special_factorial">
+ <transf name="split_vc" >
+  <goal name="special_factorial&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="special_factorial&#39;vc.0.0" expl="VC for special_factorial">
+   <transf name="split_vc" >
+    <goal name="special_factorial&#39;vc.0.0.0" expl="VC for special_factorial">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="59044"/></proof>
+    <proof prover="1"><result status="unknown" time="0.008151" steps="358"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="112770942"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.1" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.1.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.1.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005323" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.008251" steps="362"/></proof>
+    <proof prover="2"><result status="valid" time="0.007002" steps="2508"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.2" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="special_factorial&#39;vc.2.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="special_factorial&#39;vc.2.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="62731"/></proof>
+    <proof prover="1"><result status="unknown" time="0.011957" steps="450"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="134607191"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

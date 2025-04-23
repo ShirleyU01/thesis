@@ -1,0 +1,22 @@
+
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  let rec compare (l1 : list int) (l2 : list int) : list int =
+    ensures { length result = length l1 }
+        ensures { length l1 = length l2 }
+        ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2)}
+    match l1, l2 with
+    | Nil, Nil -> Nil
+    | Cons x xs, Cons y ys ->
+        if x = y then Cons 0 (compare xs ys)
+        else Cons (abs (x - y)) (compare xs ys)
+    | _, _ -> Nil
+    end
+  end
+
+

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to below_threshold to prove termination. The existing implementation and contract are otherwise sufficient.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Mem\n\n  let rec below_threshold (l : list int) (t: int) : bool\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    variant { l }\n    = match l with\n      | Nil -> true\n      | Cons x xs -> if x >= t then false else below_threshold xs t\n      end\nend"
+        }
+    ]
+}

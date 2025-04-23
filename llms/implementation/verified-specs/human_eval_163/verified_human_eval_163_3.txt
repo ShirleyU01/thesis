@@ -1,0 +1,32 @@
+=== Creating Why3 session for verified_human_eval_163_3.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_163/verified_human_eval_163_3, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_163/verified_human_eval_163_3.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_163_3) ===
+Progress: 11/1/0                       Progress: 10/2/0                       Progress: 9/3/0                       Progress: 8/4/0                       Progress: 7/5/0                       Progress: 6/6/0                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/3/2                       Progress: 4/4/2                       Progress: 4/2/2                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/0/1                       Progress: 1/1/1                       Progress: 0/2/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_163/verified_human_eval_163_3
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 10  proved: 5
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_163_3.mlw]
+    +-- theory HumanEval163
+      +-- goal generate_integers'vc
+        +-- transformation split_vc
+          +-- goal generate_integers'vc.1
+            +-- transformation split_vc
+              +-- goal generate_integers'vc.1.0
+                +-- transformation split_vc
+                  +-- goal generate_integers'vc.1.0.0
+              +-- goal generate_integers'vc.1.1
+                +-- transformation split_vc
+                  +-- goal generate_integers'vc.1.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 11 proof goals.
+=== Done ===

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add precise contracts to unit_digit_iter to capture that it computes abs(x) mod 10, and add a variant for its recursion. This allows automatic SMT verification of the multiply function's ensures clause.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.Abs\n  use int.EuclideanDivision\n\n  let rec unit_digit_iter (x : int) : int\n    ensures { result = mod (abs x) 10 }\n    variant { abs x }\n  =\n    let ax = abs x in\n    if ax < 10 then ax else unit_digit_iter (ax - 10)\n\n  let multiply (a : int) (b : int) : int =\n    ensures { result = mod (abs a) 10 * mod (abs b) 10 }\n    unit_digit_iter a * unit_digit_iter b\nend\n"
+        }
+    ]
+}

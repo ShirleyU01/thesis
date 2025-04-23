@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The code is verified by adding variants for termination to the recursive functions 'helper' and its inner recursive function 'try_a', and by adding pre- and postconditions for 'helper' to describe its contract. This allows Why3's SMT solvers to automatically prove termination and correctness of the implementation, while preserving the original interface of 'is_equal_to_sum_even'.",
+            "implementation": "module HumanEval138\n  use int.Int\n  use int.EuclideanDivision\n\n  let rec helper (n: int) (k: int) : bool\n    requires { k >= 1 }\n    requires { n >= 2*k }\n    variant { k }\n    ensures { result <-> (exists a1 a2 a3 a4: int. a1 >= 2 /\\ a2 >= 2 /\\ a3 >= 2 /\\ a4 >= 2 /\\ mod a1 2 = 0 /\\ mod a2 2 = 0 /\\ mod a3 2 = 0 /\\ mod a4 2 = 0 /\\ a1 + a2 + a3 + a4 = n)  <-> k = 4 }\n  =\n    if k = 1 then n >= 2 && mod n 2 = 0 else\n      let rec try_a (a: int) : bool\n        requires { a >= 2 }\n        requires { n >= 2*k }\n        variant { n - a }\n      =\n        if a > n - 2 * (k - 1) then false\n        else if mod a 2 = 0 && helper (n - a) (k - 1) then true\n        else try_a (a + 2)\n      in try_a 2\n  \n  let is_equal_to_sum_even (n: int) : bool\n    ensures { result <-> (mod n 2 = 0) /\\ (n >= 8) }\n  =\n    helper n 4\nend\n"
+        }
+    ]
+}

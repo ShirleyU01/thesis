@@ -1,0 +1,52 @@
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  (* Ghost function to get the prefix of a list up to index i (exclusive) *)
+  function prefix (l: list int) (i: int) : list int =
+    if i <= 0 then Nil else
+      match l with
+      | Nil -> Nil
+      | Cons x xs -> Cons x (prefix xs (i-1))
+      end
+
+  (* Contract for rolling_max_aux: result is a list of same length as input;
+     for each i, result[i] is the maximum element in the original prefix up to i *)
+  let rec rolling_max_aux (l: list int) (current: int) : list int
+    variant { length l }
+    ensures { length result = length l }
+    ensures { forall i. 0 <= i < length l ->
+      nth i result = max (current) (fold_left max l i)
+    }
+    ensures { forall i. 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i. 0 <= i < length l ->
+      exists j. 0 <= j <= i /\ nth i result = (if j = 0 then current else nth (j-1) l)
+    }
+  =
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      let new_max = max current x in
+      Cons new_max (rolling_max_aux xs new_max)
+    end
+
+  (* Helper: maximum in prefix of length i of list l, starting with acc *)
+  function fold_left (f: int -> int -> int) (l: list int) (n: int) : int =
+    match l, n with
+    | _, n when n <= 0 -> 0  (* not used, just a stub for max *)
+    | Nil, _ -> 0
+    | Cons x xs, n ->
+      if n = 1 then x else max x (fold_left f xs (n-1))
+    end
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i. 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i. 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    match l with
+    | Nil -> Nil
+    | Cons x xs -> Cons x (rolling_max_aux xs x)
+    end
+end

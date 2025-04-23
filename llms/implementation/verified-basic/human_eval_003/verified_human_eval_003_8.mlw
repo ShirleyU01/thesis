@@ -1,0 +1,36 @@
+module HumanEval003
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use int.Int
+  use list.Prefix
+  use list.Sum
+  use list.Mem
+
+  predicate ever_below_zero (init : int) (ops : list int) =
+    exists k:int. 0 <= k <= length ops /\ init + sum (prefix k ops) < 0  
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures { result = nth n l }
+    ensures  { mem result l }
+    variant { n }
+    match l with 
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end 
+
+  let below_zero (operations: list int) : bool =
+    ensures { result <-> ever_below_zero 0 operations }
+    let n = length operations in
+    let ref bal = 0 in
+    let ref answer = false in
+    for i = 0 to n - 1 do
+      invariant { 0 <= i <= n }
+      invariant { bal = sum (prefix i operations) }
+      invariant { answer <-> (exists k:int. 0 <= k < i /\ sum (prefix k operations) < 0) }
+      bal <- bal + nth_my i operations;
+      if bal < 0 then answer <- true
+    done ;
+    answer
+end

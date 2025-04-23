@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the correctness and termination of the recursive 'add' function, we add a variant (x) that strictly decreases with every recursive call, ensuring termination. The ensures clause is already present and correct. No additional lemmas or assertions are needed as the postcondition can be verified by SMT solvers with the variant. The implementation is as follows:",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    variant { x }\n    ensures { result = x + y }\n    if x = 0 then y else add (x - 1) (y + 1)\nend\n"
+        }
+    ]
+}

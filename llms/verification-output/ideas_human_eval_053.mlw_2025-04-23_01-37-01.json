@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'add' to prove termination. No further code changes are needed, as the postcondition follows from the structure of the code and the SMT solvers can infer the required properties. The variant is 'y', which decreases with each recursive call.",
+            "implementation": "module HumanEval053\n  use int.Int\n  let rec add (x: int) (y: int) : int =\n    variant { y }\n    ensures { result = x + y }\n    if y = 0 then x else add (x + 1) (y - 1)\nend\n"
+        }
+    ]
+}

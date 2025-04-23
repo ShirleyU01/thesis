@@ -1,0 +1,20 @@
+=== Creating Why3 session for human_eval_159_1.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_1, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_1.mlw
+Session created successfully
+=== Benchmarking session (human_eval_159_1) ===
+Progress: 5/1/0                       Progress: 4/2/0                       Progress: 3/3/0                       Progress: 2/4/0                       Progress: 1/5/0                       Progress: 0/6/0                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_1
+
+== Number of root goals ==
+  total: 1  proved: 1
+
+== Number of sub goals ==
+  total: 5  proved: 5
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 6 proof goals.
+=== Done ===

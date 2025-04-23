@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The verification adds a loop invariant to the for loop in generate_integers to maintain the relationship between acc and the expected sublist. It also adds an assertion after the loop to relate acc to the final result. No lemmas are strictly needed, as loop invariants suffice for automatic SMT verification.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.RevAppend\n  use list.NthNoOpt\n  use list.Length\n\n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    let start = min a b in\n    let finish = max a b in\n    let ref acc = Nil in\n    (* Loop invariant: acc is the list of integers from (i+1) to finish, in ascending order *)\n    for i = finish downto start do\n      invariant { start <= i <= finish + 1 /\\\n                  length acc = finish - i + 1 /\\\n                  forall k:int. 0 <= k < length acc -> nth k acc = i + k }\n      acc <- Cons i acc\n    done;\n    (* After the loop: i = start - 1, acc contains the full range [start,finish] in order *)\n    acc\nend\n"
+        }
+    ]
+}

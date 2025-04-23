@@ -1,0 +1,43 @@
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Mem
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+  
+  let compare (l1 : list int) (l2 : list int) : list int =
+    ensures { length result = length l1 }
+    ensures { length l1 = length l2 }
+    ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2)}
+    let n = length l1 in
+    let ref res = Nil : list int in
+    (* Ensure the input lists have the same length *)
+    assert { length l1 = length l2 };
+    
+    (*
+      Invariant explanation:
+      - res is the result list currently built (from the end, so reverse order)
+      - At each iteration, res contains (n-(i+1)) elements (because we go from n-1 downto 0)
+      - For all j in 0..n-(i+1)-1, the j-th element of res is abs(nth (n-1-j) l1 - nth (n-1-j) l2)
+    *)
+    for i = n - 1 downto 0 do
+      invariant { 0 <= i+1 <= n }
+      invariant { length res = n - (i+1) }
+      invariant { forall j:int. 0 <= j < length res -> nth j res = abs (nth (n-1-j) l1 - nth (n-1-j) l2) }
+      let a = nth_my i l1 in
+      let b = nth_my i l2 in
+      res <- Cons (if a = b then 0 else abs (a - b)) res
+    done;
+    res
+  end

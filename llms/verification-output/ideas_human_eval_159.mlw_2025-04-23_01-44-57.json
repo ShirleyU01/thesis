@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a loop invariant expressing the relationship between n, nd, rem, and the initial values. The invariant maintains that n = number + (need - nd), rem = remaining - (need - nd), and rem >= 0, nd >= 0. This allows SMT solvers to verify the postcondition by relating the final values of n and rem to the initial values and the ensures clause. The loop also requires a variant to prove termination.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use list.List\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    ensures {\n        let total_eaten = if need <= remaining then number + need else number + remaining in\n        let carrots_left = if need <= remaining then remaining - need else 0 in\n        result = Cons total_eaten (Cons carrots_left Nil)\n        }\n    let ref n = number in\n    let ref nd = need in\n    let ref rem = remaining in\n    while nd > 0 && rem > 0 do\n      invariant { n = number + (need - nd) }\n      invariant { rem = remaining - (need - nd) }\n      invariant { nd >= 0 }\n      invariant { rem >= 0 }\n      invariant { nd <= need }\n      variant { nd }\n      n <- n + 1;\n      nd <- nd - 1;\n      rem <- rem - 1\n    done;\n    Cons n (Cons rem Nil)\nend\n"
+        }
+    ]
+}

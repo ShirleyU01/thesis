@@ -1,0 +1,28 @@
+
+module HumanEval005
+  use int.Int
+  use list.List
+  use list.Length
+  use list.Mem
+  use int.EuclideanDivision
+  use list.NthNoOpt
+
+  let rec intersperse (l : list int) (d : int) : list int =
+    ensures { length l <= 1 -> length result = length l /\ forall x. mem x l -> mem x result}
+    ensures { length l > 1 -> 
+              length result = 2 * length l - 1 /\
+              forall i: int. 0 <= i < length result ->
+              if mod i 2 = 0 then nth i result = nth (div i 2) l
+              else nth i result = d
+            }
+    match l with
+    | Nil -> Nil
+    | Cons x xs ->
+      match xs with
+      | Nil -> Cons x Nil
+      | _ -> Cons x (Cons d (intersperse xs d))
+      end
+    end
+end
+
+

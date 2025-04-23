@@ -1,0 +1,42 @@
+=== Creating Why3 session for verified_human_eval_031_5.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_5, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_5.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_031_5) ===
+Progress: 92/1/0                       Progress: 91/2/0                       Progress: 90/3/0                       Progress: 89/4/0                       Progress: 88/5/0                       Progress: 87/6/0                       Progress: 87/0/0                       Progress: 86/1/0                       Progress: 85/2/0                       Progress: 84/3/0                       Progress: 83/4/0                       Progress: 82/5/0                       Progress: 81/6/0                       Progress: 81/3/2                       Progress: 80/4/2                       Progress: 80/3/2                       Progress: 79/4/2                       Progress: 79/2/2                       Progress: 78/3/2                       Progress: 77/4/2                       Progress: 77/0/1                       Progress: 76/1/1                       Progress: 75/2/1                       Progress: 74/3/1                       Progress: 73/4/1                       Progress: 72/5/1                       Progress: 72/4/2                       Progress: 72/3/2                       Progress: 71/4/2                       Progress: 71/3/2                       Progress: 70/4/2                       Progress: 70/3/2                       Progress: 69/4/2                       Progress: 69/3/2                       Progress: 68/4/2                       Progress: 68/1/2                       Progress: 67/2/2                       Progress: 66/3/2                       Progress: 65/4/2                       Progress: 65/0/1                       Progress: 64/1/1                       Progress: 63/2/1                       Progress: 62/3/1                       Progress: 61/4/1                       Progress: 60/5/1                       Progress: 60/0/1                       Progress: 59/1/1                       Progress: 58/2/1                       Progress: 57/3/1                       Progress: 56/4/1                       Progress: 55/5/1                       Progress: 55/0/1                       Progress: 54/1/1                       Progress: 53/2/1                       Progress: 52/3/1                       Progress: 51/4/1                       Progress: 50/5/1                       Progress: 50/0/1                       Progress: 49/1/1                       Progress: 48/2/1                       Progress: 47/3/1                       Progress: 46/4/1                       Progress: 45/5/1                       Progress: 45/1/2                       Progress: 44/2/2                       Progress: 43/3/2                       Progress: 42/4/2                       
+Saving session... done.
+Progress: 42/1/2                       Progress: 41/2/2                       Progress: 40/3/2                       Progress: 39/4/2                       Progress: 39/0/1                       Progress: 38/1/1                       Progress: 37/2/1                       Progress: 36/3/1                       Progress: 35/4/1                       Progress: 34/5/1                       Progress: 34/0/1                       Progress: 33/1/1                       Progress: 32/2/1                       Progress: 31/3/1                       Progress: 30/4/1                       Progress: 29/5/1                       Progress: 29/0/1                       Progress: 28/1/1                       Progress: 27/2/1                       Progress: 26/3/1                       Progress: 25/4/1                       Progress: 24/5/1                       Progress: 24/0/1                       Progress: 23/1/1                       Progress: 22/2/1                       Progress: 21/3/1                       Progress: 20/4/1                       Progress: 19/5/1                       Progress: 19/0/0                       Progress: 18/1/0                       Progress: 17/2/0                       Progress: 16/3/0                       Progress: 15/4/0                       Progress: 14/5/0                       Progress: 13/6/0                       Progress: 13/0/0                       Progress: 12/1/0                       Progress: 11/2/0                       Progress: 10/3/0                       Progress: 9/4/0                       Progress: 8/5/0                       Progress: 7/6/0                       Progress: 7/0/0                       Progress: 6/1/0                       Progress: 5/2/0                       Progress: 4/3/0                       Progress: 3/4/0                       Progress: 2/5/0                       Progress: 1/6/0                       Progress: 1/0/0                       Progress: 0/1/0                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_031/verified_human_eval_031_5
+
+== Number of root goals ==
+  total: 2  proved: 0
+
+== Number of sub goals ==
+  total: 76  proved: 67
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_031_5.mlw]
+    +-- theory HumanEval031
+      +-- goal num_of_divisors'vc
+        +-- transformation split_vc
+          +-- goal num_of_divisors'vc.1
+            +-- transformation split_vc
+              +-- goal num_of_divisors'vc.1.0
+                +-- transformation split_vc
+                  +-- goal num_of_divisors'vc.1.0.0
+                  +-- goal num_of_divisors'vc.1.0.1
+      +-- goal is_prime'vc
+        +-- transformation split_vc
+          +-- goal is_prime'vc.13
+            +-- transformation split_vc
+              +-- goal is_prime'vc.13.1
+                +-- transformation split_vc
+                  +-- goal is_prime'vc.13.1.0
+              +-- goal is_prime'vc.13.2
+                +-- transformation split_vc
+                  +-- goal is_prime'vc.13.2.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 78 proof goals.
+=== Done ===

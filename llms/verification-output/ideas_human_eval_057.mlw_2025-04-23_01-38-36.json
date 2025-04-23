@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and variant to the monotonic function to verify the postcondition. The invariants track the status of monotonic increase/decrease up to the current index, and relate the Boolean flags to quantifiers over the list. No changes to function bodies or postconditions; all additions are in the form of loop invariants and a variant for termination.",
+            "implementation": "module HumanEval057\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Mem\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    ensures  { nth n l = result }\n    ensures  { mem result l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  \n  let monotonic (l: list int) : bool =\n    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) \n                                \\/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }\n    let n = length l in\n    if n <= 1 then true else\n    let ref i = 1 in\n    let ref inc = true in\n    let ref dec = true in\n    while i < n do\n      invariant { 1 <= i <= n }\n      invariant { inc <-> (forall j. 1 <= j < i -> nth_my j l >= nth_my (j-1) l) }\n      invariant { dec <-> (forall j. 1 <= j < i -> nth_my j l <= nth_my (j-1) l) }\n      variant { n - i }\n      if nth_my i l < nth_my (i-1) l then inc <- false;\n      if nth_my i l > nth_my (i-1) l then dec <- false;\n      i <- i + 1\n    done;\n    inc || dec\nend\n"
+        }
+    ]
+}

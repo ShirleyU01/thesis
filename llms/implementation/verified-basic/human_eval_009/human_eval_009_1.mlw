@@ -1,0 +1,36 @@
+
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+  use list.Mem
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    let n = length l in
+    if n = 0 then Nil else
+    let ref result = Nil in
+    let ref current_max = nth_my 0 l in
+    for i = 0 to n-1 do
+      let v = nth_my i l in
+      current_max <- max current_max v;
+      result <- result ++ (Cons current_max Nil)
+    done ;
+    result
+end
+
+

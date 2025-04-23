@@ -1,0 +1,44 @@
+
+module HumanEval020
+  use int.Int
+  use int.Abs
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.Mem
+  use list.NthNoOpt
+  
+  let rec nth_my (n:int) (l:list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n-1) r
+    end
+
+  let rec scan_j (numbers: list int) (i: int) (j: int) (n: int) (min_diff: int) (a: int) (b: int) : (int, int, int) =
+    if j >= n then (min_diff, a, b)
+    else
+      let x = nth_my i numbers in
+      let y = nth_my j numbers in
+      let d = abs (x - y) in
+      if d < min_diff then scan_j numbers i (j+1) n d (min x y) (max x y)
+      else scan_j numbers i (j+1) n min_diff a b
+
+  let rec scan_i (numbers: list int) (i: int) (n: int) (min_diff: int) (a: int) (b: int) : (int, int) =
+    if i >= n-1 then (a, b)
+    else
+      let (new_min, new_a, new_b) = scan_j numbers i (i+1) n min_diff a b in
+      scan_i numbers (i+1) n new_min new_a new_b
+
+  let find_closest_elements (numbers: list int) : list int =
+    let n = length numbers in
+    let x0 = nth_my 0 numbers in
+    let x1 = nth_my 1 numbers in
+    let (a, b) = scan_i numbers 0 n (abs (x0 - x1)) (min x0 x1) (max x0 x1) in
+    Cons a (Cons b Nil)
+end
+
+

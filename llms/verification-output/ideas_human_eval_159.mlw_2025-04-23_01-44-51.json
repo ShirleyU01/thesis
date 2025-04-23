@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the implementation of eat, we strengthen the contract by adding preconditions on the arguments, matching the constraints from the problem statement: 0 <= number <= 1000, 0 <= need <= 1000, 0 <= remaining <= 1000. This ensures that the contract is provable and the function is total with respect to the specified inputs. No additional lemmas or ghosts are needed; the SMT solvers can discharge the proof automatically.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    ensures {\n        let total_eaten = if need <= remaining then number + need else number + remaining in\n        let carrots_left = if need <= remaining then remaining - need else 0 in\n        result = Cons total_eaten (Cons carrots_left Nil)\n        }\n    let eaten = min need remaining in\n    let left = max 0 (remaining - need) in\n    Cons (number + eaten) (Cons left Nil)\nend\n"
+        }
+    ]
+}

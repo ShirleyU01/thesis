@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="verified_human_eval_097_9.mlw"/>
+<theory name="HumanEval097" proved="true">
+ <goal name="unit_digit_loop&#39;vc" expl="VC for unit_digit_loop" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="unit_digit_loop&#39;vc.0" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.0.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.0.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005587" steps="3"/></proof>
+    <proof prover="1"><result status="valid" time="0.017963" steps="5844"/></proof>
+    <proof prover="2"><result status="valid" time="0.007569" steps="5714"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unit_digit_loop&#39;vc.1" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.1.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.1.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005386" steps="2"/></proof>
+    <proof prover="1"><result status="valid" time="0.013179" steps="4353"/></proof>
+    <proof prover="2"><result status="valid" time="0.006421" steps="594"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unit_digit_loop&#39;vc.2" expl="loop variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.2.0" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.2.0.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006784" steps="29"/></proof>
+    <proof prover="1"><result status="valid" time="0.013330" steps="4643"/></proof>
+    <proof prover="2"><result status="valid" time="0.006526" steps="633"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="unit_digit_loop&#39;vc.2.1" expl="loop variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.2.1.0" expl="loop variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006780" steps="30"/></proof>
+    <proof prover="1"><result status="valid" time="0.013289" steps="4678"/></proof>
+    <proof prover="2"><result status="valid" time="0.006782" steps="1971"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unit_digit_loop&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.3.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.3.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.007031" steps="30"/></proof>
+    <proof prover="1"><result status="valid" time="0.018285" steps="6158"/></proof>
+    <proof prover="2"><result status="valid" time="0.007053" steps="2737"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unit_digit_loop&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.4.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.4.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.008909" steps="88"/></proof>
+    <proof prover="1"><result status="valid" time="0.024809" steps="7050"/></proof>
+    <proof prover="2"><result status="valid" time="0.007565" steps="2825"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unit_digit_loop&#39;vc.5" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unit_digit_loop&#39;vc.5.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="unit_digit_loop&#39;vc.5.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.009994" steps="33"/></proof>
+    <proof prover="1"><result status="valid" time="0.028097" steps="6727"/></proof>
+    <proof prover="2"><result status="valid" time="0.010739" steps="7092"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="multiply&#39;vc" expl="VC for multiply" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="multiply&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="multiply&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="multiply&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005337" steps="1"/></proof>
+    <proof prover="1"><result status="valid" time="0.012920" steps="4304"/></proof>
+    <proof prover="2"><result status="valid" time="0.006789" steps="567"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

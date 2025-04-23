@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function 'add' to ensure termination. No further invariants, assertions, or lemmas are needed since the postcondition follows from the structure of the code and the variant proves termination.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  function spec_add (l : list int) : int =\n    match l with\n    | Cons _ (Cons y ys) ->\n        (if mod y 2 = 0 then y else 0) + spec_add ys\n    | _ -> 0\n    end  \n\n  let rec add (l : list int) : int\n    ensures { result = spec_add l }\n    variant { l }\n    =\n    match l with\n    | Nil -> 0\n    | Cons _ Nil -> 0\n    | Cons _ (Cons y ys) ->\n        let s = add ys in\n        if mod y 2 = 0 then y + s else s\n    end\nend\n"
+        }
+    ]
+}

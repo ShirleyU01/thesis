@@ -1,0 +1,32 @@
+=== Creating Why3 session for verified_human_eval_060_4.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_4, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_4.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_060_4) ===
+Progress: 20/1/0                       Progress: 19/2/0                       Progress: 18/3/0                       Progress: 17/4/0                       Progress: 16/5/0                       Progress: 15/6/0                       Progress: 15/4/2                       Progress: 15/3/2                       Progress: 14/4/2                       Progress: 14/3/2                       Progress: 13/4/2                       Progress: 13/3/2                       Progress: 12/4/2                       Progress: 12/3/2                       Progress: 11/4/2                       Progress: 11/2/2                       Progress: 10/3/2                       Progress: 9/4/2                       Progress: 9/0/1                       Progress: 8/1/1                       Progress: 7/2/1                       Progress: 6/3/1                       Progress: 5/4/1                       Progress: 4/5/1                       Progress: 4/0/1                       Progress: 3/1/1                       Progress: 2/2/1                       Progress: 1/3/1                       Progress: 0/4/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_4
+
+== Number of root goals ==
+  total: 2  proved: 1
+
+== Number of sub goals ==
+  total: 19  proved: 14
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_060_4.mlw]
+    +-- theory HumanEval060
+      +-- goal sum_to_n_aux'vc
+        +-- transformation split_vc
+          +-- goal sum_to_n_aux'vc.2
+            +-- transformation split_vc
+              +-- goal sum_to_n_aux'vc.2.0
+                +-- transformation split_vc
+                  +-- goal sum_to_n_aux'vc.2.0.0
+              +-- goal sum_to_n_aux'vc.2.1
+                +-- transformation split_vc
+                  +-- goal sum_to_n_aux'vc.2.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 21 proof goals.
+=== Done ===

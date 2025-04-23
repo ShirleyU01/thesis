@@ -1,0 +1,52 @@
+=== Creating Why3 session for human_eval_097_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 9, characters 4-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 14, characters 4-21: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 14, characters 24-41: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_097_9) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 9, characters 4-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 14, characters 4-21: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9.mlw", line 14, characters 24-41: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 11/1/0                       Progress: 10/2/0                       Progress: 9/3/0                       Progress: 8/4/0                       Progress: 7/5/0                       Progress: 6/6/0                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/2/2                       Progress: 4/3/2                       Progress: 3/4/2                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/3/2                       Progress: 1/4/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/2/2                       Progress: 0/0/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_9
+
+== Number of root goals ==
+  total: 2  proved: 0
+
+== Number of sub goals ==
+  total: 12  proved: 0
+
+== Goals not proved ==
+  +-- file [../human_eval_097_9.mlw]
+    +-- theory HumanEval097
+      +-- goal unit_digit_loop'vc
+        +-- transformation split_vc
+          +-- goal unit_digit_loop'vc.0
+            +-- transformation split_vc
+              +-- goal unit_digit_loop'vc.0.0
+                +-- transformation split_vc
+                  +-- goal unit_digit_loop'vc.0.0.0
+      +-- goal multiply'vc
+        +-- transformation split_vc
+          +-- goal multiply'vc.0
+            +-- transformation split_vc
+              +-- goal multiply'vc.0.0
+                +-- transformation split_vc
+                  +-- goal multiply'vc.0.0.0
+          +-- goal multiply'vc.1
+            +-- transformation split_vc
+              +-- goal multiply'vc.1.0
+                +-- transformation split_vc
+                  +-- goal multiply'vc.1.0.0
+          +-- goal multiply'vc.2
+            +-- transformation split_vc
+              +-- goal multiply'vc.2.0
+                +-- transformation split_vc
+                  +-- goal multiply'vc.2.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 14 proof goals.
+=== Done ===

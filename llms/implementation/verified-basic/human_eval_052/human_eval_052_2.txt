@@ -1,0 +1,40 @@
+=== Creating Why3 session for human_eval_052_2.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_052/human_eval_052_2, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_052/human_eval_052_2.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_052/human_eval_052_2.mlw", line 11, characters 33-53: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_052_2) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_052/human_eval_052_2.mlw", line 11, characters 33-53: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 17/1/0                       Progress: 16/2/0                       Progress: 15/3/0                       Progress: 14/4/0                       Progress: 13/5/0                       Progress: 12/6/0                       Progress: 12/0/1                       Progress: 11/1/1                       Progress: 10/2/1                       Progress: 9/3/1                       Progress: 8/4/1                       Progress: 7/5/1                       Progress: 7/0/1                       Progress: 6/1/1                       Progress: 5/2/1                       Progress: 4/3/1                       Progress: 3/4/1                       Progress: 2/5/1                       Progress: 2/4/2                       Progress: 2/1/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/0/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_052/human_eval_052_2
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 16  proved: 13
+
+== Goals not proved ==
+  +-- file [../human_eval_052_2.mlw]
+    +-- theory HumanEval052
+      +-- goal below_threshold'vc
+        +-- transformation split_vc
+          +-- goal below_threshold'vc.1
+            +-- transformation split_vc
+              +-- goal below_threshold'vc.1.0
+                +-- transformation split_vc
+                  +-- goal below_threshold'vc.1.0.0
+  
+== Goals proved by only one prover ==
+  +-- file [../human_eval_052_2.mlw]
+    +-- theory HumanEval052
+      +-- goal below_threshold'vc
+        +-- transformation split_vc
+          +-- goal below_threshold'vc.3
+            +-- transformation split_vc
+              +-- goal below_threshold'vc.3.1
+                +-- transformation split_vc
+                  +-- goal below_threshold'vc.3.1.0: Alt-Ergo 2.4.0
+  
+1 session(s) read, with a total of 17 proof goals.
+=== Done ===

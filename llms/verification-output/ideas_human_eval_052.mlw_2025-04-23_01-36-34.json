@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "The function below_threshold is implemented using for_all. To verify the contract, we add a postcondition to for_all relating its result to the quantification over mem x l. The Mem module's mem predicate is already used. We add a postcondition to for_all to allow the SMT solvers to prove the contract of below_threshold automatically. No further invariants, variants, or lemmas are needed.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Quant\n  use list.Mem\n\n  (* Add a postcondition to for_all to relate its result to mem and universal quantification *)\n  function for_all (p: 'a -> bool) (l: list 'a) : bool\n    ensures { result <-> (forall x. mem x l -> p x) }\n  = match l with\n    | Nil -> True\n    | Cons h t -> p h && for_all p t\n    end\n\n  let below_threshold (l : list int) (t: int) : bool =\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    for_all (fun x -> x < t) l\nend\n"
+        }
+    ]
+}

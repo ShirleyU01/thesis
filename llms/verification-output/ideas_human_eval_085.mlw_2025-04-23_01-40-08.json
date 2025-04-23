@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add full specification for add_acc, including pre/postconditions and a variant for termination. Prove that add_acc accumulates the sum of even elements at odd indices and matches the spec_add definition in the contract. Add a supporting lemma to bridge spec_add and add_acc and ensure full verification.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n\n  function spec_add (l : list int) : int =\n    match l with\n    | Cons _ (Cons y ys) ->\n        (if mod y 2 = 0 then y else 0) + spec_add ys\n    | _ -> 0\n    end  \n\n  predicate even (x:int) = mod x 2 = 0\n  predicate odd (x:int) = mod x 2 = 1\n\n  function spec_add_acc (l: list int) (idx: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        (if odd idx && even x then x else 0) + spec_add_acc xs (idx + 1)\n    end\n\n  lemma spec_add_equiv: forall l: list int. spec_add l = spec_add_acc l 0\n\n  let rec add_acc (l : list int) (idx : int) (acc : int) : int\n    requires { idx >= 0 }\n    ensures {\n      result = acc + spec_add_acc l idx\n    }\n    variant { l }\n  =\n    match l with\n    | Nil -> acc\n    | Cons x xs ->\n        let acc' = if mod idx 2 = 1 && mod x 2 = 0 then acc + x else acc in\n        add_acc xs (idx + 1) acc'\n    end\n\n  let add (l : list int) : int =\n    ensures { result = spec_add l }\n    add_acc l 0 0\nend\n"
+        }
+    ]
+}

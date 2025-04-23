@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the correctness of sum_to_n, we keep the implementation unchanged but add loop invariants to the while loop. These invariants relate the values of sum, i, and the sum predicate, ensuring that at every iteration, sum accumulates the correct sum for the current i, and upon termination, the result satisfies the contract. We also add a loop variant to prove termination.",
+            "implementation": "module HumanEval060\n  use int.Int\n\n  predicate sum (n : int) (a : int)\n    axiom sum_zero :\n        forall a. sum 0 a <-> a = 0\n    axiom sum_ind :\n        forall a n . sum n a <-> exists b. sum (n-1) b /\\ a = b + n     \n\n  let sum_to_n (n: int) : int =\n    ensures { sum n result }\n    let ref sum = 0 in\n    let ref i = n in\n    while i >= 1 do\n      invariant { 0 <= i <= n /\\ exists s. sum i s /\\ sum = (result if i = 0 else (let rec sum_aux j = if j = n then 0 else sum_aux (j+1) + (j+1) in sum_aux (n-i))) }\n      invariant { exists s. sum i s /\\ sum = (let rec f j acc = if j < i then acc else f (j-1) (acc + j) in f n 0) }\n      variant { i }\n      sum <- sum + i;\n      i <- i - 1\n    done;\n    sum\nend\n"
+        }
+    ]
+}

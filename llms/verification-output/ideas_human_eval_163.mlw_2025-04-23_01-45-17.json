@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function aux to prove termination. No additional lemmas or invariants are needed since the postcondition is strong and the recursion is over a bounded integer range.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.NthNoOpt\n  use list.Length\n\n  let rec generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    let start = min a b in\n    let finish = max a b in\n    let rec aux (x:int) : list int\n      variant { finish - x + 1 }\n      =\n      if x > finish then Nil else Cons x (aux (x + 1))\n    in\n    aux start\nend\n"
+        }
+    ]
+}

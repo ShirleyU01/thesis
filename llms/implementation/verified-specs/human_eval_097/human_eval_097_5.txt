@@ -1,0 +1,20 @@
+=== Creating Why3 session for human_eval_097_5.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_5, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_5.mlw
+Session created successfully
+=== Benchmarking session (human_eval_097_5) ===
+Progress: 29/1/0                       Progress: 28/2/0                       Progress: 27/3/0                       Progress: 26/4/0                       Progress: 25/5/0                       Progress: 24/6/0                       Progress: 24/1/2                       Progress: 23/2/2                       Progress: 22/3/2                       Progress: 21/4/2                       Progress: 21/2/2                       Progress: 20/3/2                       Progress: 19/4/2                       Progress: 19/3/2                       Progress: 18/4/2                       Progress: 18/1/2                       Progress: 17/2/2                       Progress: 16/3/2                       Progress: 15/4/2                       Progress: 15/2/2                       Progress: 14/3/2                       Progress: 13/4/2                       Progress: 13/0/1                       Progress: 12/1/1                       Progress: 11/2/1                       Progress: 10/3/1                       Progress: 9/4/1                       Progress: 8/5/1                       Progress: 8/0/1                       Progress: 7/1/1                       Progress: 6/2/1                       Progress: 5/3/1                       Progress: 4/4/1                       Progress: 3/5/1                       Progress: 3/0/1                       Progress: 2/1/1                       Progress: 1/2/1                       Progress: 0/3/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_097/human_eval_097_5
+
+== Number of root goals ==
+  total: 1  proved: 1
+
+== Number of sub goals ==
+  total: 23  proved: 23
+
+== Goals not proved ==
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 24 proof goals.
+=== Done ===

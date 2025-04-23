@@ -1,0 +1,38 @@
+module HumanEval008
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Sum
+
+  predicate product (l : list int) (q : int)
+    axiom product_base: forall l'. length l' = 0 <-> product l' 1
+    axiom product_rec : forall x', l', q'. product (Cons x' l') (q'*x') <-> product l' (q')
+
+  (* Lemma: The sum of l is equal to the sum computed recursively. *)
+  lemma sum_cons:
+    forall x: int, xs: list int. sum (Cons x xs) = x + sum xs
+
+  (* Lemma: The product predicate matches the usual definition of product over lists. *)
+  predicate prod (l: list int) (acc: int) =
+    match l with
+    | Nil -> acc = 1
+    | Cons x xs -> exists p: int. prod xs p /\ acc = x * p
+    end
+
+  lemma product_correct:
+    forall l: list int, q: int. product l q <->
+      (match l with Nil -> q = 1 | Cons x xs -> exists p: int. product xs p /\ q = x * p end)
+
+  let rec sum_product (l: list int) : list int
+    variant { length l }
+    ensures { nth 0 result = sum l }
+    ensures { product l (nth 1 result) }
+  =
+    match l with
+    | Nil -> Cons 0 (Cons 1 Nil)
+    | Cons x xs ->
+        let Cons s (Cons p Nil) = sum_product xs in
+        Cons (x + s) (Cons (x * p) Nil)
+    end
+end

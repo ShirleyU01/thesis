@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_003_7.mlw"/>
+<theory name="HumanEval003">
+ <goal name="detect&#39;vc" expl="VC for detect">
+ <transf name="split_vc" >
+  <goal name="detect&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="detect&#39;vc.0.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="detect&#39;vc.0.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="159994"/></proof>
+    <proof prover="1"><result status="unknown" time="0.014746" steps="2128"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="166364902"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="below_zero&#39;vc" expl="VC for below_zero">
+ <transf name="split_vc" >
+  <goal name="below_zero&#39;vc.0" expl="termination">
+  <transf name="split_vc" >
+   <goal name="below_zero&#39;vc.0.0" expl="VC for below_zero">
+   <transf name="split_vc" >
+    <goal name="below_zero&#39;vc.0.0.0" expl="VC for below_zero">
+    <proof prover="0"><result status="unknown" time="0.005098" steps="1"/></proof>
+    <proof prover="1"><result status="unknown" time="0.010186" steps="1204"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="179332074"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_zero&#39;vc.1" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="below_zero&#39;vc.1.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="below_zero&#39;vc.1.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="602561"/></proof>
+    <proof prover="1"><result status="unknown" time="0.013677" steps="2380"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="173875366"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_zero&#39;vc.1.1" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="below_zero&#39;vc.1.1.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="217717"/></proof>
+    <proof prover="1"><result status="unknown" time="0.014256" steps="2641"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="173351657"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

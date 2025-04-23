@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_139_8.mlw"/>
+<theory name="HumanEval139">
+ <goal name="special_factorial&#39;vc" expl="VC for special_factorial">
+ <transf name="split_vc" >
+  <goal name="special_factorial&#39;vc.0" expl="variant decrease">
+  <transf name="split_vc" >
+   <goal name="special_factorial&#39;vc.0.0" expl="variant decrease">
+   <transf name="split_vc" >
+    <goal name="special_factorial&#39;vc.0.0.0" expl="variant decrease">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="58195"/></proof>
+    <proof prover="1"><result status="unknown" time="0.008846" steps="413"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="99344475"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.005396" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.009159" steps="348"/></proof>
+    <proof prover="2"><result status="valid" time="0.007131" steps="190"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.1" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="special_factorial&#39;vc.1.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="special_factorial&#39;vc.1.0.0" expl="precondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="103547"/></proof>
+    <proof prover="1"><result status="timeout" time="6.527558" steps="235713"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="87933693"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="special_factorial&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="special_factorial&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007027" steps="26"/></proof>
+    <proof prover="1"><result status="unknown" time="0.013225" steps="496"/></proof>
+    <proof prover="2"><result status="valid" time="0.011499" steps="8344"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="special_factorial&#39;vc.2.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="special_factorial&#39;vc.2.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.011483" steps="214"/></proof>
+    <proof prover="1"><result status="valid" time="0.018501" steps="903"/></proof>
+    <proof prover="2"><result status="valid" time="0.010831" steps="3635"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

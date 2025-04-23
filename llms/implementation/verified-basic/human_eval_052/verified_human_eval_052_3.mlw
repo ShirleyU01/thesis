@@ -1,0 +1,32 @@
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Mem
+
+  let rec nth_my (n : int) (l : list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n - 1) r
+    end
+
+  let below_threshold (l : list int) (t: int) : bool =
+    ensures { result <-> (forall x. mem x l -> x < t) }
+    let n = length l in
+    let ref i = 0 in
+    let ref res = true in
+    while i < n && res do
+      invariant { 0 <= i <= n }
+      invariant { res -> (forall j. 0 <= j < i -> nth_my j l < t) }
+      invariant { not res -> (exists j. 0 <= j < i && nth_my j l >= t) }
+      variant { n - i }
+      if nth_my i l >= t then res <- false;
+      i <- i + 1
+    done ;
+    res
+end

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_005_7.mlw"/>
+<theory name="HumanEval005">
+ <goal name="intersperse&#39;vc" expl="VC for intersperse">
+ <transf name="split_vc" >
+  <goal name="intersperse&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006023" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.017800" steps="7626"/></proof>
+    <proof prover="2"><result status="valid" time="0.007233" steps="9366"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.0.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.0.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006226" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.023997" steps="9182"/></proof>
+    <proof prover="2"><result status="valid" time="0.007511" steps="11026"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006710" steps="15"/></proof>
+    <proof prover="1"><result status="valid" time="0.024334" steps="9333"/></proof>
+    <proof prover="2"><result status="valid" time="0.008059" steps="15400"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008134" steps="60"/></proof>
+    <proof prover="1"><result status="valid" time="0.025257" steps="9866"/></proof>
+    <proof prover="2"><result status="valid" time="0.006897" steps="3680"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.1.2" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.1.2.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008061" steps="55"/></proof>
+    <proof prover="1"><result status="valid" time="0.025059" steps="9728"/></proof>
+    <proof prover="2"><result status="valid" time="0.007004" steps="3672"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006323" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.019253" steps="8175"/></proof>
+    <proof prover="2"><result status="valid" time="0.007214" steps="7061"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.2.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.2.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006151" steps="6"/></proof>
+    <proof prover="1"><result status="valid" time="0.024683" steps="9409"/></proof>
+    <proof prover="2"><result status="valid" time="0.007515" steps="12005"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.3" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.3.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.3.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006673" steps="20"/></proof>
+    <proof prover="1"><result status="valid" time="0.028643" steps="10227"/></proof>
+    <proof prover="2"><result status="valid" time="0.010460" steps="31299"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.3.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.3.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008806" steps="80"/></proof>
+    <proof prover="1"><result status="valid" time="0.029331" steps="10597"/></proof>
+    <proof prover="2"><result status="valid" time="0.010582" steps="31930"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.3.2" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.3.2.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008290" steps="63"/></proof>
+    <proof prover="1"><result status="valid" time="0.029200" steps="10484"/></proof>
+    <proof prover="2"><result status="valid" time="0.010557" steps="32637"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.4" expl="termination">
+  <transf name="split_vc" >
+   <goal name="intersperse&#39;vc.4.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="intersperse&#39;vc.4.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="824972"/></proof>
+    <proof prover="1"><result status="unknown" time="0.045866" steps="17092"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="10195682013"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.5" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.5.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.5.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008769" steps="90"/></proof>
+    <proof prover="1"><result status="valid" time="0.031438" steps="11178"/></proof>
+    <proof prover="2"><result status="valid" time="0.010644" steps="31791"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.5.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.5.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008765" steps="90"/></proof>
+    <proof prover="1"><result status="valid" time="0.031508" steps="11192"/></proof>
+    <proof prover="2"><result status="valid" time="0.010657" steps="32098"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="intersperse&#39;vc.6" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="intersperse&#39;vc.6.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.6.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008734" steps="78"/></proof>
+    <proof prover="1"><result status="valid" time="0.032842" steps="11651"/></proof>
+    <proof prover="2"><result status="valid" time="0.013924" steps="58393"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.6.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.6.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="3.576374" steps="156829"/></proof>
+    <proof prover="1"><result status="unknown" time="0.122495" steps="37942"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="37049297"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="intersperse&#39;vc.6.2" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="intersperse&#39;vc.6.2.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.029205" steps="497"/></proof>
+    <proof prover="1"><result status="valid" time="0.050972" steps="15203"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="73610899"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

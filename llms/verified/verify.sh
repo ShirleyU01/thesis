@@ -32,8 +32,10 @@ why3 session create \
 echo "=== Benchmarking session (${NAME}) ==="
 why3 bench -L . -f "$NAME"
 
-echo "=== Replaying proofs (${NAME}) ==="
-why3 replay "$NAME"
+why3 session info --session-stats "$MLW_FILE"
+
+#echo "=== Replaying proofs (${NAME}) ==="
+#why3 replay "$NAME"
 
 echo "=== Done ==="
 

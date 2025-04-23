@@ -1,0 +1,29 @@
+=== Creating Why3 session for verified_human_eval_008_10.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_10, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_10.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_008_10) ===
+Progress: 86/1/0                       Progress: 85/2/0                       Progress: 84/3/0                       Progress: 83/4/0                       Progress: 82/5/0                       Progress: 81/6/0                       Progress: 81/0/0                       Progress: 80/1/0                       Progress: 79/2/0                       Progress: 78/3/0                       Progress: 77/4/0                       Progress: 76/5/0                       Progress: 75/6/0                       Progress: 75/0/0                       Progress: 74/1/0                       Progress: 73/2/0                       Progress: 72/3/0                       Progress: 71/4/0                       Progress: 70/5/0                       Progress: 69/6/0                       Progress: 69/0/0                       Progress: 68/1/0                       Progress: 67/2/0                       Progress: 66/3/0                       Progress: 65/4/0                       Progress: 64/5/0                       Progress: 63/6/0                       Progress: 63/4/2                       Progress: 63/3/2                       Progress: 62/4/2                       Progress: 62/3/2                       Progress: 61/4/2                       Progress: 61/0/1                       Progress: 60/1/1                       Progress: 59/2/1                       Progress: 58/3/1                       Progress: 57/4/1                       Progress: 56/5/1                       Progress: 56/0/1                       Progress: 55/1/1                       Progress: 54/2/1                       Progress: 53/3/1                       Progress: 52/4/1                       Progress: 51/5/1                       Progress: 51/0/1                       Progress: 50/1/1                       Progress: 49/2/1                       Progress: 48/3/1                       Progress: 47/4/1                       Progress: 46/5/1                       Progress: 46/0/1                       Progress: 45/1/1                       Progress: 44/2/1                       Progress: 43/3/1                       Progress: 42/4/1                       Progress: 41/5/1                       Progress: 41/0/1                       Progress: 40/1/1                       Progress: 39/2/1                       Progress: 38/3/1                       Progress: 37/4/1                       Progress: 36/5/1                       Progress: 36/0/1                       Progress: 35/1/1                       Progress: 34/2/1                       Progress: 33/3/1                       Progress: 32/4/1                       Progress: 31/5/1                       Progress: 31/0/1                       Progress: 30/1/1                       Progress: 29/2/1                       Progress: 28/3/1                       Progress: 27/4/1                       Progress: 26/5/1                       Progress: 26/0/1                       Progress: 25/1/1                       Progress: 24/2/1                       Progress: 23/3/1                       Progress: 22/4/1                       Progress: 21/5/1                       Progress: 21/0/1                       Progress: 20/1/1                       Progress: 19/2/1                       Progress: 18/3/1                       Progress: 17/4/1                       Progress: 16/5/1                       Progress: 16/0/1                       Progress: 15/1/1                       Progress: 14/2/1                       Progress: 13/3/1                       Progress: 12/4/1                       Progress: 11/5/1                       Progress: 11/0/2                       Progress: 10/1/2                       Progress: 9/2/2                       Progress: 8/3/2                       Progress: 7/4/2                       Progress: 7/2/2                       Progress: 6/3/2                       Progress: 5/4/2                       Progress: 5/2/2                       Progress: 4/3/2                       Progress: 3/4/2                       Progress: 3/0/1                       Progress: 2/1/1                       Progress: 1/2/1                       Progress: 0/3/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_008/verified_human_eval_008_10
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 69  proved: 66
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_008_10.mlw]
+    +-- theory HumanEval008
+      +-- goal sum_product'vc
+        +-- transformation split_vc
+          +-- goal sum_product'vc.11
+            +-- transformation split_vc
+              +-- goal sum_product'vc.11.1
+                +-- transformation split_vc
+                  +-- goal sum_product'vc.11.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 70 proof goals.
+=== Done ===

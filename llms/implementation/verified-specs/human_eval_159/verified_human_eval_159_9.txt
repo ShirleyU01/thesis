@@ -1,0 +1,35 @@
+=== Creating Why3 session for verified_human_eval_159_9.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_159/verified_human_eval_159_9, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_159/verified_human_eval_159_9.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_159_9) ===
+Progress: 23/1/0                       Progress: 22/2/0                       Progress: 21/3/0                       Progress: 20/4/0                       Progress: 19/5/0                       Progress: 18/6/0                       Progress: 18/0/0                       Progress: 17/1/0                       Progress: 16/2/0                       Progress: 15/3/0                       Progress: 14/4/0                       Progress: 13/5/0                       Progress: 12/6/0                       Progress: 12/0/2                       Progress: 11/1/2                       Progress: 10/2/2                       Progress: 9/3/2                       Progress: 8/4/2                       Progress: 8/0/1                       Progress: 7/1/1                       Progress: 6/2/1                       Progress: 5/3/1                       Progress: 4/4/1                       Progress: 3/5/1                       Progress: 3/0/1                       Progress: 2/1/1                       Progress: 1/2/1                       Progress: 0/3/1                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_159/verified_human_eval_159_9
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 14  proved: 7
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_159_9.mlw]
+    +-- theory HumanEval159
+      +-- goal eat'vc
+        +-- transformation split_vc
+          +-- goal eat'vc.0
+            +-- transformation split_vc
+              +-- goal eat'vc.0.0
+                +-- transformation split_vc
+                  +-- goal eat'vc.0.0.1
+          +-- goal eat'vc.1
+            +-- transformation split_vc
+              +-- goal eat'vc.1.0
+                +-- transformation split_vc
+                  +-- goal eat'vc.1.0.0
+                  +-- goal eat'vc.1.0.1
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 15 proof goals.
+=== Done ===

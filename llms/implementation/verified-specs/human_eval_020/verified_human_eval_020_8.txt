@@ -1,0 +1,110 @@
+=== Creating Why3 session for verified_human_eval_020_8.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 47, characters 54-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 58, characters 19-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 58, characters 28-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 95, characters 10-22: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (verified_human_eval_020_8) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 47, characters 54-67: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 58, characters 19-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 58, characters 28-37: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8.mlw", line 95, characters 10-22: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 191/1/0                       Progress: 190/2/0                       Progress: 189/3/0                       Progress: 188/4/0                       Progress: 187/5/0                       Progress: 186/6/0                       Progress: 186/0/0                       Progress: 185/1/0                       Progress: 184/2/0                       Progress: 183/3/0                       Progress: 182/4/0                       Progress: 181/5/0                       Progress: 180/6/0                       Progress: 180/0/1                       Progress: 179/1/1                       Progress: 178/2/1                       Progress: 177/3/1                       Progress: 176/4/1                       Progress: 175/5/1                       Progress: 175/4/2                       Progress: 175/3/2                       Progress: 174/4/2                       Progress: 174/1/2                       Progress: 173/2/2                       Progress: 172/3/2                       Progress: 171/4/2                       Progress: 171/1/2                       Progress: 170/2/2                       Progress: 169/3/2                       Progress: 168/4/2                       Progress: 168/1/2                       Progress: 167/2/2                       Progress: 166/3/2                       Progress: 165/4/2                       Progress: 165/3/2                       Progress: 164/4/2                       Progress: 164/0/2                       Progress: 163/1/2                       Progress: 162/2/2                       Progress: 161/3/2                       Progress: 160/4/2                       Progress: 160/2/2                       Progress: 159/3/2                       Progress: 158/4/2                       Progress: 158/3/2                       Progress: 157/4/2                       Progress: 157/3/2                       Progress: 156/4/2                       Progress: 156/0/1                       Progress: 155/1/1                       Progress: 154/2/1                       Progress: 153/3/1                       Progress: 152/4/1                       Progress: 151/5/1                       Progress: 151/0/1                       Progress: 150/1/1                       Progress: 149/2/1                       Progress: 148/3/1                       Progress: 147/4/1                       Progress: 146/5/1                       Progress: 146/4/2                       Progress: 146/1/2                       Progress: 145/2/2                       Progress: 144/3/2                       Progress: 143/4/2                       Progress: 143/2/2                       Progress: 142/3/2                       Progress: 141/4/2                       
+Saving session... done.
+Progress: 141/3/2                       Progress: 140/4/2                       Progress: 140/3/2                       Progress: 139/4/2                       Progress: 139/1/2                       Progress: 138/2/2                       Progress: 137/3/2                       Progress: 136/4/2                       Progress: 136/0/1                       Progress: 135/1/1                       Progress: 134/2/1                       Progress: 133/3/1                       Progress: 132/4/1                       Progress: 131/5/1                       Progress: 131/0/2                       Progress: 130/1/2                       Progress: 129/2/2                       Progress: 128/3/2                       Progress: 127/4/2                       Progress: 127/0/2                       Progress: 126/1/2                       Progress: 125/2/2                       Progress: 124/3/2                       Progress: 123/4/2                       Progress: 123/2/2                       Progress: 122/3/2                       Progress: 121/4/2                       Progress: 121/3/2                       Progress: 120/4/2                       Progress: 120/0/1                       Progress: 119/1/1                       Progress: 118/2/1                       Progress: 117/3/1                       Progress: 116/4/1                       Progress: 115/5/1                       Progress: 115/0/1                       Progress: 114/1/1                       Progress: 113/2/1                       Progress: 112/3/1                       Progress: 111/4/1                       Progress: 110/5/1                       Progress: 110/1/2                       Progress: 109/2/2                       Progress: 108/3/2                       Progress: 107/4/2                       Progress: 107/2/2                       Progress: 106/3/2                       Progress: 105/4/2                       Progress: 105/3/2                       Progress: 104/4/2                       Progress: 104/3/2                       Progress: 103/4/2                       Progress: 103/3/2                       Progress: 102/4/2                       Progress: 102/2/2                       Progress: 101/3/2                       Progress: 100/4/2                       Progress: 100/2/2                       Progress: 99/3/2                       Progress: 98/4/2                       Progress: 98/0/1                       Progress: 97/1/1                       Progress: 96/2/1                       Progress: 95/3/1                       Progress: 94/4/1                       Progress: 93/5/1                       Progress: 93/3/2                       Progress: 92/4/2                       
+Saving session... done.
+Progress: 92/3/2                       Progress: 91/4/2                       Progress: 91/0/1                       Progress: 90/1/1                       Progress: 89/2/1                       Progress: 88/3/1                       Progress: 87/4/1                       Progress: 86/5/1                       Progress: 86/3/2                       Progress: 85/4/2                       Progress: 85/3/2                       Progress: 84/4/2                       Progress: 84/2/2                       Progress: 83/3/2                       Progress: 82/4/2                       Progress: 82/2/2                       Progress: 81/3/2                       Progress: 80/4/2                       Progress: 80/2/2                       Progress: 79/3/2                       Progress: 78/4/2                       Progress: 78/1/2                       Progress: 77/2/2                       Progress: 76/3/2                       Progress: 75/4/2                       Progress: 75/3/2                       Progress: 74/4/2                       Progress: 74/3/2                       Progress: 73/4/2                       Progress: 73/0/1                       Progress: 72/1/1                       Progress: 71/2/1                       Progress: 70/3/1                       Progress: 69/4/1                       Progress: 68/5/1                       Progress: 68/1/2                       Progress: 67/2/2                       Progress: 66/3/2                       Progress: 65/4/2                       Progress: 65/2/2                       Progress: 64/3/2                       Progress: 63/4/2                       Progress: 63/2/2                       Progress: 62/3/2                       Progress: 61/4/2                       Progress: 61/2/2                       Progress: 60/3/2                       Progress: 59/4/2                       Progress: 59/0/1                       Progress: 58/1/1                       Progress: 57/2/1                       Progress: 56/3/1                       Progress: 55/4/1                       Progress: 54/5/1                       Progress: 54/0/1                       Progress: 53/1/1                       Progress: 52/2/1                       Progress: 51/3/1                       Progress: 50/4/1                       Progress: 49/5/1                       Progress: 49/3/2                       Progress: 48/4/2                       Progress: 48/3/2                       Progress: 47/4/2                       Progress: 47/3/2                       Progress: 46/4/2                       Progress: 46/0/1                       Progress: 45/1/1                       Progress: 44/2/1                       Progress: 43/3/1                       Progress: 42/4/1                       Progress: 41/5/1                       Progress: 41/0/2                       Progress: 40/1/2                       Progress: 39/2/2                       Progress: 38/3/2                       Progress: 37/4/2                       Progress: 37/0/1                       Progress: 36/1/1                       Progress: 35/2/1                       Progress: 34/3/1                       Progress: 33/4/1                       Progress: 32/5/1                       Progress: 32/0/2                       Progress: 31/1/2                       Progress: 30/2/2                       Progress: 29/3/2                       Progress: 28/4/2                       
+Saving session... done.
+Progress: 28/3/2                       Progress: 27/4/2                       Progress: 27/3/2                       Progress: 26/4/2                       Progress: 26/2/2                       Progress: 25/3/2                       Progress: 24/4/2                       Progress: 24/2/2                       Progress: 23/3/2                       Progress: 22/4/2                       Progress: 22/1/2                       Progress: 21/2/2                       Progress: 20/3/2                       Progress: 19/4/2                       Progress: 19/0/2                       Progress: 18/1/2                       Progress: 17/2/2                       Progress: 16/3/2                       Progress: 15/4/2                       Progress: 15/1/2                       Progress: 14/2/2                       Progress: 13/3/2                       Progress: 12/4/2                       Progress: 12/3/2                       Progress: 11/4/2                       Progress: 11/3/2                       Progress: 10/4/2                       Progress: 10/3/2                       Progress: 9/4/2                       Progress: 9/3/2                       Progress: 8/4/2                       Progress: 8/3/2                       Progress: 7/4/2                       Progress: 7/1/2                       Progress: 6/2/2                       Progress: 5/3/2                       Progress: 4/4/2                       Progress: 4/2/2                       Progress: 3/3/2                       Progress: 2/4/2                       Progress: 2/1/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_020/verified_human_eval_020_8
+
+== Number of root goals ==
+  total: 4  proved: 0
+
+== Number of sub goals ==
+  total: 145  proved: 105
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_020_8.mlw]
+    +-- theory HumanEval020
+      +-- goal insert'vc
+        +-- transformation split_vc
+          +-- goal insert'vc.8
+            +-- transformation split_vc
+              +-- goal insert'vc.8.0
+                +-- transformation split_vc
+                  +-- goal insert'vc.8.0.0
+          +-- goal insert'vc.9
+            +-- transformation split_vc
+              +-- goal insert'vc.9.0
+                +-- transformation split_vc
+                  +-- goal insert'vc.9.0.0
+      +-- goal sort'vc
+        +-- transformation split_vc
+          +-- goal sort'vc.3
+            +-- transformation split_vc
+              +-- goal sort'vc.3.0
+                +-- transformation split_vc
+                  +-- goal sort'vc.3.0.0
+          +-- goal sort'vc.4
+            +-- transformation split_vc
+              +-- goal sort'vc.4.0
+                +-- transformation split_vc
+                  +-- goal sort'vc.4.0.0
+          +-- goal sort'vc.6
+            +-- transformation split_vc
+              +-- goal sort'vc.6.1
+                +-- transformation split_vc
+                  +-- goal sort'vc.6.1.0
+      +-- goal adjacent_min'vc
+        +-- transformation split_vc
+          +-- goal adjacent_min'vc.2
+            +-- transformation split_vc
+              +-- goal adjacent_min'vc.2.0
+                +-- transformation split_vc
+                  +-- goal adjacent_min'vc.2.0.0
+          +-- goal adjacent_min'vc.3
+            +-- transformation split_vc
+              +-- goal adjacent_min'vc.3.0
+                +-- transformation split_vc
+                  +-- goal adjacent_min'vc.3.0.0
+          +-- goal adjacent_min'vc.6
+            +-- transformation split_vc
+              +-- goal adjacent_min'vc.6.0
+                +-- transformation split_vc
+                  +-- goal adjacent_min'vc.6.0.0
+          +-- goal adjacent_min'vc.7
+            +-- transformation split_vc
+              +-- goal adjacent_min'vc.7.0
+                +-- transformation split_vc
+                  +-- goal adjacent_min'vc.7.0.0
+          +-- goal adjacent_min'vc.8
+            +-- transformation split_vc
+              +-- goal adjacent_min'vc.8.2
+                +-- transformation split_vc
+                  +-- goal adjacent_min'vc.8.2.0
+      +-- goal find_closest_elements'vc
+        +-- transformation split_vc
+          +-- goal find_closest_elements'vc.0
+            +-- transformation split_vc
+              +-- goal find_closest_elements'vc.0.0
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.0.0.0
+          +-- goal find_closest_elements'vc.4
+            +-- transformation split_vc
+              +-- goal find_closest_elements'vc.4.1
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.1.0
+              +-- goal find_closest_elements'vc.4.2
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.2.0
+              +-- goal find_closest_elements'vc.4.3
+                +-- transformation split_vc
+                  +-- goal find_closest_elements'vc.4.3.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 149 proof goals.
+=== Done ===

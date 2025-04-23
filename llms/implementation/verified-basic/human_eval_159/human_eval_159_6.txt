@@ -1,0 +1,32 @@
+=== Creating Why3 session for human_eval_159_6.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_6, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_6.mlw
+Session created successfully
+=== Benchmarking session (human_eval_159_6) ===
+Progress: 8/1/0                       Progress: 7/2/0                       Progress: 6/3/0                       Progress: 5/4/0                       Progress: 4/5/0                       Progress: 3/6/0                       Progress: 3/0/1                       Progress: 2/1/1                       Progress: 1/2/1                       Progress: 0/3/1                       Progress: 0/0/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_159/human_eval_159_6
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 6  proved: 1
+
+== Goals not proved ==
+  +-- file [../human_eval_159_6.mlw]
+    +-- theory HumanEval159
+      +-- goal eat'vc
+        +-- transformation split_vc
+          +-- goal eat'vc.0
+            +-- transformation split_vc
+              +-- goal eat'vc.0.0
+                +-- transformation split_vc
+                  +-- goal eat'vc.0.0.0
+              +-- goal eat'vc.0.1
+                +-- transformation split_vc
+                  +-- goal eat'vc.0.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 7 proof goals.
+=== Done ===

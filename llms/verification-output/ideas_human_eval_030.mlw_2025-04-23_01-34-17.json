@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function get_positive to prove termination. No additional lemmas or ghost code are required, as the SMT solvers can prove the postconditions using standard Why3 theories and the provided implementation. The variant is the length of the input list, which decreases with each recursive call.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Quant\n  use list.Length\n  use list.Mem\n\n  let rec get_positive (l : list int) : list int\n    variant { length l }\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n  =\n    if not (for_some (fun x -> x > 0) l) then Nil\n    else match l with\n      | Nil -> Nil\n      | Cons x xs -> if x > 0 then Cons x (get_positive xs) else get_positive xs\n      end\nend\n"
+        }
+    ]
+}

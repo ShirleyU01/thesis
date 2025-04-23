@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add assertions to clarify that mod (max (abs x) 0) 10 = mod (abs x) 10 for all integers x, which helps SMT solvers verify the ensures clause. The implementation does not require additional lemmas or ghost code, as the assertions are sufficient for automatic verification.",
+            "implementation": "module HumanEval097\n  use int.Int\n  use int.EuclideanDivision\n  use int.Abs\n  use int.MinMax\n\n  let multiply (a : int) (b : int) : int =\n    ensures { result = mod (abs a) 10 * mod (abs b) 10 }\n    let ua = mod (max (abs a) 0) 10 in\n    let ub = mod (max (abs b) 0) 10 in\n    assert { ua = mod (abs a) 10 };\n    assert { ub = mod (abs b) 10 };\n    ua * ub\nend\n"
+        }
+    ]
+}

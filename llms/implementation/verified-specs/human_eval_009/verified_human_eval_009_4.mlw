@@ -1,0 +1,52 @@
+module HumanEval009
+  use int.Int
+  use int.MinMax
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use list.Append
+  use list.Mem
+
+  let rec nth_my (n: int) (l: list int) : int =
+    requires { length l > 0 }
+    requires { 0 <= n /\ n < length l }
+    ensures  { nth n l = result }
+    ensures  { mem result l }
+    variant { n }
+    match l with
+    | Cons x r -> if n = 0 then x else nth_my (n-1) r
+    end
+
+  (* Helper function: maximum of prefix l[0..k] *)
+  let max_prefix (l: list int) (k: int) : int =
+    requires { length l > 0 }
+    requires { 0 <= k < length l }
+    ensures  { forall i. 0 <= i <= k -> result >= nth i l }
+    ensures  { exists j. 0 <= j <= k /\ result = nth j l }
+    let rec go (i: int) (acc: int) : int =
+      variant { k - i }
+      if i > k then acc else go (i+1) (max acc (nth_my i l))
+    in go 0 (nth_my 0 l)
+
+
+  let rolling_max (l: list int) : list int =
+    ensures { forall i . 0 <= i < length l -> nth i result >= nth i l }
+    ensures { forall i . 0 <= i < length l -> exists j. 0 <= j <= i /\ nth i result = nth j l }
+    let n = length l in
+    if n = 0 then Nil else
+    let ref res = Nil in
+    let ref i = 0 in
+    let ref cur = nth_my 0 l in
+    while i < n do
+      invariant { 0 <= i <= n }
+      invariant { length res = i }
+      invariant { forall k. 0 <= k < i -> nth k res >= nth k l }
+      invariant { forall k. 0 <= k < i -> exists j. 0 <= j <= k /\ nth k res = nth j l }
+      variant { n - i }
+      let v = nth_my i l in
+      cur <- max cur v;
+      res <- res ++ (Cons cur Nil);
+      i <- i + 1
+    done;
+    res
+end

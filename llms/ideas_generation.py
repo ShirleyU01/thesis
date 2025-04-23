@@ -1,3 +1,4 @@
+import os
 import json
 import time
 import csv
@@ -40,12 +41,41 @@ class IdeasGeneration():
     module_name: str
     signature: str
     level: int
+    verified_file: str
 
     def _create_system_prompt(self):
         return """
         You are an expert software engineer with experience in software verification.
         You have extensive experience in writing code in Why3.
         You are a creative developer that can find different ways of implementing the same idea in Why3.
+        You always provide an output in valid JSON.
+        The resulting JSON object should be in this format:
+        {
+        "ideas": [
+            {
+            "description" : "string",
+            "implementation" : "string"
+            },
+            {
+            "description" : "string",
+            "implementation" : "string"
+            },
+            {
+            "description" : "string",
+            "implementation" : "string"
+            }
+            ]
+        }
+        """
+
+    def _create_system_prompt_verification(self):
+        return """
+        You are an expert software engineer with experience in software verification.
+        You have extensive experience in writing code in Why3.
+        You have a background in formal methods and are an expert in verification.
+        Given an implementation of a function in Why3 and a contract it must satisfy, you always verify the code.
+        You can verify the code by adding variants, invariants, lemmas, ghost code, and assertions.
+        The code must be verified automatically by SMT solvers.
         You always provide an output in valid JSON.
         The resulting JSON object should be in this format:
         {
@@ -121,6 +151,75 @@ class IdeasGeneration():
         </instructions-library-syntax>
         """
         return prompt_implementation
+
+    def _create_user_prompt_verification(self, description : str, implementation : str, function_name: str) -> str:
+        implementation_file = open(implementation, 'r')
+        implementation_output = implementation_file.read()
+
+        prompt_verification = f"""
+        <instructions-verification>
+        Consider the following implementation in Why3:
+        <implementation>
+        {implementation_output}
+        </implementation>
+        This code implements `{description}`.
+        This implementation is assumed to be correct since it passed a set of test cases.
+        You want to verify this code such that the `{function_name}` satisfies the postconditions defined by the ensures clauses.
+        Do not change the implementation.
+        Do not change the postcondition of `{function_name}`.
+        If needed, you can add variants to `{function_name}` to prove termination.
+        Variants can only be added after a function declaration if it is recursive.
+        Variants can only be added to loops if they are while loops.
+        If neded, if you can also add loop invariants and assertions to `{function_name}`.
+        You can add pre- and postconditions to other functions.
+        You can also add lemmas and ghost code if needed to prove the corresponding lemmas.
+        Only add lemmas if you think it is necessary since they may be hard to prove.
+        If you are declaring a ghost variable you can use `let ghost`.
+        Note that lemmas must be proven automatically by SMT solvers.
+        Return the full code with the specifications to automatically verify it.
+        </instructions-verification>
+        """
+        
+        prompt_json_instructions = f"""
+        <instructions-json>
+        Create a JSON object with your verified code.
+        The parent object is called "ideas" that corresponds to Why3 verified code.
+        Each child object has the verified code with the following properties:
+        - A property named "description" with the description of your verification idea
+        - A property named "implementation" with the verified code
+        There must be 1 children, each corresponding to one verified code.
+        </instructions-json>
+        """
+
+        # syntax_example_file = open('../prompt/syntax.txt', 'r')
+        # syntax_example = syntax_example_file.read()
+
+        # prompt_syntax = f"""
+        # <instructions-syntax>
+        # When implementing code in Why3 please take into consideration the following syntax:
+        # {syntax_example}
+        # </instructions-syntax>
+        # """
+
+        verification_example_file = open('../prompt/example-verified.txt', 'r')
+        verification_example = verification_example_file.read()
+
+        prompt_examples = f"""
+        <instructions-verification-examples>
+        {verification_example}
+        </instructions-verificaton-examples>
+        """
+        
+        #print(prompt_functionality_brainstorming)
+        prompt_all = prompt_verification + prompt_json_instructions
+        if self.level == 6:
+            prompt_all = prompt_verification + prompt_json_instructions + prompt_examples
+            print("Prompt options: Verification Basic + Example")
+        else:
+            prompt_all = prompt_verification + prompt_json_instructions
+            print("Prompt options: Verification Basic")
+        print(prompt_all)
+        return prompt_all    
 
     def _create_user_prompt(self, description : str, example : str, function_name: str, module_name: str, signature: str, nb_ideas: int) -> str:
         prompt_implementation_diversity = self.idea_diversity(description, example, nb_ideas)
@@ -199,6 +298,19 @@ class IdeasGeneration():
         print(prompt_all)
         return prompt_all
 
+    import os
+
+    def _write_string_to_file(self, directory, filename, content):
+        # Ensure the directory exists
+        os.makedirs(directory, exist_ok=True)
+        
+        # Full file path
+        file_path = os.path.join(directory, filename)
+
+        # Write the string to the file
+        with open(file_path, 'w') as f:
+            f.write(content)
+
     def _query_llm(self, messages: MessagesIterable) -> Ideas | None:
 
         current_messages = list(messages)
@@ -225,6 +337,11 @@ class IdeasGeneration():
                 for idea in idea_contents:
                     print(f"Description: {idea.description}")
                     print(f"Implementation:\n{idea.implementation}")
+                    directory = os.path.dirname(self.verified_file)
+                    filename = "verified_" + os.path.basename(self.verified_file)
+                    # Example usage
+                    self._write_string_to_file(directory, filename, idea.implementation)
+                    #print(f"filename: {self.verified_file}")
                     print("-----")
 
                 return Ideas(ideas=idea_contents)
@@ -274,6 +391,21 @@ class IdeasGeneration():
 
         return self._query_llm(messages)
 
+    def _get_verification(self, description, implementation) -> Ideas | None:
+        system_prompt = self._create_system_prompt_verification()
+        user_prompt = self._create_user_prompt_verification(description, implementation, self.function_name)
+
+        logger.debug(f"user prompt tokens: {Util.count_tokens(user_prompt, self.llm.model)}")
+        logger.debug(f"system prompt tokens: {Util.count_tokens(system_prompt, self.llm.model)}")
+
+        messages: MessagesIterable = []
+        system_message = ChatCompletionSystemMessageParam(role="system", content=system_prompt)
+        user_message = ChatCompletionUserMessageParam(role="user", content=user_prompt)
+        messages.append(system_message)
+        messages.append(user_message)
+
+        return self._query_llm(messages)
+
         
     def run(self):
         example_file = open('../prompt/example.txt', 'r')
@@ -293,7 +425,25 @@ class IdeasGeneration():
             except Exception as e:
                 print(f"Error writing ideas to file: {e}")
         else:
-            print("No ideas to write.")    
+            print("No ideas to write.")
+
+    def run_verification(self, implementation):
+        self.verified_file = implementation
+        ideas = self._get_verification(self.description, implementation)
+        if ideas is not None:
+            try:
+                # Generate filename with current date and time
+                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                filename = f"ideas_{self.filename}_{timestamp}.json"
+
+                with open(filename, "w") as file:
+                    # Write ideas to the file in JSON format
+                    json.dump(ideas.to_dict(), file, indent=4)
+                print(f"Ideas successfully written to {filename}")
+            except Exception as e:
+                print(f"Error writing ideas to file: {e}")
+        else:
+            print("No ideas to write.")        
 
 
 

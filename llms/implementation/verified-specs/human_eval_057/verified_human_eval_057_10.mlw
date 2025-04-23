@@ -1,0 +1,34 @@
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Reverse
+  use list.Length
+  use list.NthNoOpt
+
+  (* Helper lemma: nth (len-1-i) (reverse l) = nth i l *)
+  lemma nth_reverse:
+    forall l: list int, i: int.
+      0 <= i < length l -> nth i l = nth (length l - 1 - i) (reverse l)
+
+  (* Helper lemma: monotonicity of reverse relates to decreasing order *)
+  lemma is_increasing_reverse_decreasing:
+    forall l: list int.
+      (forall i: int. 0 <= i < length l - 1 -> nth i l > nth (i+1) l) <->
+      (forall i: int. 0 <= i < length l - 1 -> nth i (reverse l) < nth (i+1) (reverse l))
+
+  (* Postcondition for is_increasing *)
+  let rec is_increasing (l: list int) : bool
+    ensures { result <-> (forall i: int. 0 <= i < length l - 1 -> nth i l <= nth (i+1) l) }
+    variant { length l }
+  =
+    match l with
+    | Nil -> true
+    | Cons _ Nil -> true
+    | Cons x (Cons y r) -> if x <= y then is_increasing (Cons y r) else false
+    end
+  
+  let monotonic (l: list int) : bool =
+    ensures { result <-> ((forall i. 0 <= i < length l - 1 -> (nth i l < nth (i + 1) l)) 
+                                \/ (forall i. 0 <= i < length l - 1 -> (nth i l > nth (i + 1) l))) }
+    is_increasing l || is_increasing (reverse l)
+end

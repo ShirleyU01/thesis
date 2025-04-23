@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add postcondition and variant to 'build' to ensure it produces a list of the correct integers, in order, and whose length matches the expected range. This allows 'generate_integers' to satisfy its postcondition using the contract from 'build'.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.NthNoOpt\n  use list.Length\n  \n  let rec build (s:int) (e:int) : list int\n    ensures {\n      if s > e then result = Nil else (\n        length result = e - s + 1 /\\\n        forall i:int. 0 <= i < (e - s + 1) -> nth i result = s + i\n      )\n    }\n    variant { if s > e then 0 else e - s + 1 }\n  =\n    if s > e then Nil else Cons s (build (s + 1) e)\n  \n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    build (min a b) (max a b)\nend\n"
+        }
+    ]
+}

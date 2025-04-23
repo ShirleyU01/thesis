@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to prove termination of below_threshold; the code is otherwise correct and the postcondition matches the function semantics.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Mem\n\n  let rec below_threshold (l : list int) (t: int) : bool\n    variant { l }\n    ensures { result <-> (forall x. mem x l -> x < t) }\n  =\n    match l with\n    | Nil -> true\n    | Cons x xs -> if x < t then below_threshold xs t else false\n    end\nend\n"
+        }
+    ]
+}

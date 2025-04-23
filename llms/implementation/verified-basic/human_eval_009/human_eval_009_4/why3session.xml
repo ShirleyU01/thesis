@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="human_eval_009_4.mlw"/>
+<theory name="HumanEval009">
+ <goal name="nth_my&#39;vc" expl="VC for nth_my" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="nth_my&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006064" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.014481" steps="4461"/></proof>
+    <proof prover="2"><result status="valid" time="0.007067" steps="1602"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="nth_my&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006579" steps="10"/></proof>
+    <proof prover="1"><result status="valid" time="0.014930" steps="4475"/></proof>
+    <proof prover="2"><result status="valid" time="0.006484" steps="1622"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="nth_my&#39;vc.1" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.1.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.1.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006481" steps="22"/></proof>
+    <proof prover="1"><result status="valid" time="0.019254" steps="5116"/></proof>
+    <proof prover="2"><result status="valid" time="0.009545" steps="22077"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="nth_my&#39;vc.2" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.2.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.2.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006088" steps="12"/></proof>
+    <proof prover="1"><result status="valid" time="0.017438" steps="4664"/></proof>
+    <proof prover="2"><result status="valid" time="0.008843" steps="21840"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="nth_my&#39;vc.2.1" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.2.1.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006666" steps="18"/></proof>
+    <proof prover="1"><result status="valid" time="0.019352" steps="5143"/></proof>
+    <proof prover="2"><result status="valid" time="0.009384" steps="22327"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="nth_my&#39;vc.3" expl="unreachable point" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.3.0" expl="unreachable point" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.3.0.0" expl="unreachable point" proved="true">
+    <proof prover="0"><result status="valid" time="0.006203" steps="11"/></proof>
+    <proof prover="1"><result status="valid" time="0.016574" steps="4395"/></proof>
+    <proof prover="2"><result status="valid" time="0.007354" steps="9547"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="nth_my&#39;vc.4" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.4.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.4.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006533" steps="21"/></proof>
+    <proof prover="1"><result status="valid" time="0.017682" steps="4638"/></proof>
+    <proof prover="2"><result status="valid" time="0.009454" steps="22859"/></proof>
+    </goal>
+    <goal name="nth_my&#39;vc.4.0.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006930" steps="21"/></proof>
+    <proof prover="1"><result status="valid" time="0.020938" steps="5217"/></proof>
+    <proof prover="2"><result status="valid" time="0.009383" steps="22405"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="nth_my&#39;vc.5" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="nth_my&#39;vc.5.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="nth_my&#39;vc.5.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007533" steps="23"/></proof>
+    <proof prover="1"><result status="valid" time="0.018264" steps="4675"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="10474272"/></proof>
+    </goal>
+    <goal name="nth_my&#39;vc.5.0.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.008290" steps="23"/></proof>
+    <proof prover="1"><result status="valid" time="0.020199" steps="4754"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="32647123"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="rolling_max&#39;vc" expl="VC for rolling_max">
+ <transf name="split_vc" >
+  <goal name="rolling_max&#39;vc.0" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.0.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.0.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005380" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.016079" steps="4422"/></proof>
+    <proof prover="2"><result status="valid" time="0.006499" steps="2186"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005596" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.018173" steps="4631"/></proof>
+    <proof prover="2"><result status="valid" time="0.006778" steps="2309"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.2" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.2.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.2.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005992" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.016962" steps="3715"/></proof>
+    <proof prover="2"><result status="valid" time="0.008595" steps="13515"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.3" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.3.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.3.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005743" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.013324" steps="3366"/></proof>
+    <proof prover="2"><result status="valid" time="0.006551" steps="1128"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max&#39;vc.3.1" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.3.1.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005960" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.014020" steps="3360"/></proof>
+    <proof prover="2"><result status="valid" time="0.006628" steps="1128"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.4" expl="termination">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.4.0" expl="termination">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.4.0.0" expl="termination">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="431391"/></proof>
+    <proof prover="1"><result status="unknown" time="0.021623" steps="5557"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="53272458"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.5" expl="precondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="rolling_max&#39;vc.5.0" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.5.0.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.006761" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.018622" steps="4374"/></proof>
+    <proof prover="2"><result status="valid" time="0.009063" steps="17357"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.6" expl="precondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.6.0" expl="precondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.6.0.0" expl="precondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="460206"/></proof>
+    <proof prover="1"><result status="unknown" time="0.021539" steps="5619"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="52849299"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="rolling_max&#39;vc.6.1" expl="precondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="rolling_max&#39;vc.6.1.0" expl="precondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005630" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.013909" steps="3950"/></proof>
+    <proof prover="2"><result status="valid" time="0.006464" steps="1391"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.7" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.7.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.7.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="120397"/></proof>
+    <proof prover="1"><result status="unknown" time="0.022957" steps="5997"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="56723758"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="rolling_max&#39;vc.8" expl="postcondition">
+  <transf name="split_vc" >
+   <goal name="rolling_max&#39;vc.8.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="rolling_max&#39;vc.8.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000" steps="293964"/></proof>
+    <proof prover="1"><result status="unknown" time="0.026627" steps="6260"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="57490621"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

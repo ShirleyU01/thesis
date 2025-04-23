@@ -1,0 +1,48 @@
+module HumanEval152
+  use int.Int
+  use int.Abs
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+  use int.Min
+
+  (* zip: stop when either list ends; length is min of input lengths *)
+  let rec zip (l1 : list int) (l2 : list int) : list (int, int)
+    requires { true }
+    ensures { length result = min (length l1) (length l2) }
+    ensures { forall i:int. 0 <= i < min (length l1) (length l2) ->
+                let (a, b) = nth i result in a = nth i l1 /\ b = nth i l2 }
+    variant { length l1 + length l2 }
+  = match l1, l2 with
+    | Nil, Nil -> Nil
+    | Cons x xs, Cons y ys -> Cons (x, y) (zip xs ys)
+    | _, _ -> Nil
+    end
+
+  (* compare_zip: for a list of (int,int) pairs, output list of abs diff or 0 *)
+  let rec compare_zip (zl : list (int, int)) : list int
+    requires { true }
+    ensures { length result = length zl }
+    ensures { forall i:int. 0 <= i < length zl ->
+                 let (a, b) = nth i zl in
+                 nth i result = (if a = b then 0 else abs (a - b)) }
+    variant { length zl }
+  = match zl with
+    | Nil -> Nil
+    | Cons (a, b) zs -> Cons (if a = b then 0 else abs (a - b)) (compare_zip zs)
+    end
+
+  (* Lemma: for lists l1, l2 of equal length, compare_zip (zip l1 l2) gives desired output *)
+  lemma compare_zip_zip_correct:
+    forall l1 l2: list int.
+      length l1 = length l2 ->
+      length (compare_zip (zip l1 l2)) = length l1 /\
+      forall i:int. 0 <= i < length l1 ->
+        nth i (compare_zip (zip l1 l2)) = abs (nth i l1 - nth i l2)
+
+  let compare (l1 : list int) (l2 : list int) : list int =
+    requires { length l1 = length l2 }
+    ensures { length result = length l1 }
+    ensures { forall i: int. 0 <= i < length l1 -> nth i result = abs (nth i l1 - nth i l2)}
+    compare_zip (zip l1 l2)
+end

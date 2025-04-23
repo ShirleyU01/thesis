@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function get_positive to ensure automatic proof of termination. The rest of the implementation and contracts remain unchanged, as the postconditions are sufficient and the function is otherwise correct and directly verifiable by SMT solvers.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Quant\n  use list.Length\n  use list.Mem\n\n  let rec get_positive (l : list int) : list int\n    variant { length l }\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n    =\n    if for_all (fun x -> x <= 0) l then Nil\n    else match l with\n      | Nil -> Nil\n      | Cons x xs ->\n        if x > 0 then Cons x (get_positive xs) else get_positive xs\n      end\nend\n"
+        }
+    ]
+}

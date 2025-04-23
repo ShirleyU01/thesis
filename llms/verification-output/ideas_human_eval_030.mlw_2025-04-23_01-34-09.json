@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the correctness of get_positive, we add a variant to guarantee termination. No other lemmas or ghost code are needed, since the ensures clauses are straightforward consequences of the code and the standard List library contracts.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Append\n  use list.Mem\n  use list.Length\n\n  let rec get_positive (l : list int) : list int\n    variant { length l }\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n    =\n    match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      (if x > 0 then Cons x Nil else Nil) ++ get_positive xs\n    end\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function intersperse_helper to prove termination. No further invariants or lemmas are needed, since the ensures clauses can be discharged by the existing code and the variant.",
+            "implementation": "module HumanEval005\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Mem\n  use int.EuclideanDivision\n  use list.NthNoOpt\n\n  let rec intersperse_helper (l : list int) (d : int) (first : bool) : list int\n    variant { length l }\n    ensures { length l <= 1 -> length result = length l /\\ forall x. mem x l -> mem x result}\n    ensures { length l > 1 -> \n              length result = 2 * length l - 1 /\\\n              forall i: int. 0 <= i < length result ->\n              if mod i 2 = 0 then nth i result = nth (div i 2) l\n              else nth i result = d\n            }\n    = match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      if first then Cons x (intersperse_helper xs d false)\n      else Cons d (Cons x (intersperse_helper xs d false))\n    end\n\n  let intersperse (l : list int) (d : int) : list int =\n    intersperse_helper l d true\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+=== Creating Why3 session for verified_human_eval_060_3.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_3, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_3.mlw
+Session created successfully
+=== Benchmarking session (verified_human_eval_060_3) ===
+Progress: 26/1/0                       Progress: 25/2/0                       Progress: 24/3/0                       Progress: 23/4/0                       Progress: 22/5/0                       Progress: 21/6/0                       Progress: 21/0/0                       Progress: 20/1/0                       Progress: 19/2/0                       Progress: 18/3/0                       Progress: 17/4/0                       Progress: 16/5/0                       Progress: 15/6/0                       Progress: 15/0/0                       Progress: 14/1/0                       Progress: 13/2/0                       Progress: 12/3/0                       Progress: 11/4/0                       Progress: 10/5/0                       Progress: 9/6/0                       Progress: 9/0/0                       Progress: 8/1/0                       Progress: 7/2/0                       Progress: 6/3/0                       Progress: 5/4/0                       Progress: 4/5/0                       Progress: 3/6/0                       Progress: 3/0/2                       Progress: 2/1/2                       Progress: 1/2/2                       Progress: 0/3/2                       Progress: 0/1/2                       Progress: 0/0/1                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified-specs/human_eval_060/verified_human_eval_060_3
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 22  proved: 19
+
+== Goals not proved ==
+  +-- file [../verified_human_eval_060_3.mlw]
+    +-- theory HumanEval060
+      +-- goal sum_to_n'vc
+        +-- transformation split_vc
+          +-- goal sum_to_n'vc.0
+            +-- transformation split_vc
+              +-- goal sum_to_n'vc.0.1
+                +-- transformation split_vc
+                  +-- goal sum_to_n'vc.0.1.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 23 proof goals.
+=== Done ===

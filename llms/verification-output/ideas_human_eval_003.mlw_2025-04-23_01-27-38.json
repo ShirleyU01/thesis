@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function detect to prove termination, and strengthen detect's contract to relate its return value to the ever_below_zero predicate, so the postcondition of below_zero can be discharged automatically by SMT solvers. No lemmas or ghost code are needed as the logic follows the structure of the recursion.",
+            "implementation": "module HumanEval003\n  use list.List\n  use int.Int\n  use list.Length\n  use list.Prefix\n  use list.Sum\n\n  predicate ever_below_zero (init : int) (ops : list int) =\n    exists k:int. 0 <= k <= length ops /\\ init + sum (prefix k ops) < 0\n\n  let rec detect (ops: list int) (bal: int) (flag: bool) : bool\n    requires { true }\n    variant { length ops }\n    ensures {\n      (* The result is true iff at any point while traversing 'ops',\n         the balance after applying the prefix is < 0, or 'flag' was already true *)\n      result <-> (flag \\/ ever_below_zero bal ops)\n    }\n  =\n    match ops with\n    | Nil -> flag\n    | Cons x xs ->\n      let bal2 = bal + x in\n      if bal2 < 0 then true else detect xs bal2 flag\n    end\n\n  let below_zero (operations: list int) : bool =\n    ensures { result <-> ever_below_zero 0 operations }\n    detect operations 0 false\nend\n"
+        }
+    ]
+}

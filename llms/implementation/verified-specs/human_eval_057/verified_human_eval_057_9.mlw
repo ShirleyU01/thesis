@@ -1,0 +1,42 @@
+module HumanEval057
+  use int.Int
+  use list.List
+  use list.Length
+  use list.NthNoOpt
+
+  (* Pure version for use in specs *)
+  function fold_monotonic_logic (l: list int) (inc: bool) (dec: bool) (prev: int) : (bool, bool) =
+    match l with
+    | Nil -> (inc, dec)
+    | Cons x r ->
+        let inc' = inc && prev <= x in
+        let dec' = dec && prev >= x in
+        fold_monotonic_logic r inc' dec' x
+    end
+
+  (* Executable version *)
+  let rec fold_monotonic (l: list int) (inc: bool) (dec: bool) (prev: int) : (bool, bool)
+    variant { length l }
+    ensures { result = fold_monotonic_logic l inc dec prev }
+  =
+    match l with
+    | Nil -> (inc, dec)
+    | Cons x r ->
+        let inc' = inc && prev <= x in
+        let dec' = dec && prev >= x in
+        fold_monotonic r inc' dec' x
+    end
+
+  let monotonic (l: list int) : bool =
+    ensures {
+      result <->
+        (forall i. 0 <= i < length l - 1 -> nth i l < nth (i + 1) l) \/
+        (forall i. 0 <= i < length l - 1 -> nth i l > nth (i + 1) l)
+    }
+    match l with
+    | Nil -> true
+    | Cons x r ->
+        let (inc, dec) = fold_monotonic r true true x in
+        inc || dec
+    end
+end

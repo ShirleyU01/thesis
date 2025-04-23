@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml">
+<path name=".."/><path name="verified_human_eval_060_5.mlw"/>
+<theory name="HumanEval060">
+ <goal name="sum_to_n&#39;vc" expl="VC for sum_to_n">
+ <transf name="split_vc" >
+  <goal name="sum_to_n&#39;vc.0" expl="loop invariant init" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_to_n&#39;vc.0.0" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.0.0.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005507" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.008916" steps="254"/></proof>
+    <proof prover="2"><result status="valid" time="0.006538" steps="80"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_to_n&#39;vc.0.1" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.0.1.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005770" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.008036" steps="250"/></proof>
+    <proof prover="2"><result status="valid" time="0.006582" steps="84"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_to_n&#39;vc.0.2" expl="loop invariant init" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.0.2.0" expl="loop invariant init" proved="true">
+    <proof prover="0"><result status="valid" time="0.005295" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.008352" steps="297"/></proof>
+    <proof prover="2"><result status="valid" time="0.007340" steps="1469"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_to_n&#39;vc.1" expl="loop invariant preservation" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_to_n&#39;vc.1.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.1.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.006066" steps="14"/></proof>
+    <proof prover="1"><result status="valid" time="0.011615" steps="434"/></proof>
+    <proof prover="2"><result status="valid" time="0.007402" steps="2034"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_to_n&#39;vc.1.1" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.1.1.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.005532" steps="14"/></proof>
+    <proof prover="1"><result status="valid" time="0.009065" steps="393"/></proof>
+    <proof prover="2"><result status="valid" time="0.007578" steps="132"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="sum_to_n&#39;vc.1.2" expl="loop invariant preservation" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.1.2.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0"><result status="valid" time="0.007631" steps="30"/></proof>
+    <proof prover="1"><result status="valid" time="0.010610" steps="571"/></proof>
+    <proof prover="2"><result status="valid" time="0.008357" steps="2412"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_to_n&#39;vc.2" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="sum_to_n&#39;vc.2.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="sum_to_n&#39;vc.2.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005359" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.008403" steps="300"/></proof>
+    <proof prover="2"><result status="valid" time="0.007839" steps="113"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="sum_to_n&#39;vc.3" expl="VC for sum_to_n">
+  <transf name="split_vc" >
+   <goal name="sum_to_n&#39;vc.3.0" expl="postcondition">
+   <transf name="split_vc" >
+    <goal name="sum_to_n&#39;vc.3.0.0" expl="postcondition">
+    <proof prover="0"><result status="timeout" time="10.000000"/></proof>
+    <proof prover="1"><result status="timeout" time="10.000000" steps="101835"/></proof>
+    <proof prover="2"><result status="highfailure" time="5.133944"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

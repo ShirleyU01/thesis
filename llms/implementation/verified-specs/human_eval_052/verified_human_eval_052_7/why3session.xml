@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"https://www.why3.org/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="1" name="CVC4" version="1.8" timelimit="10" steplimit="0" memlimit="4000"/>
+<prover id="2" name="Z3" version="4.8.6" timelimit="10" steplimit="0" memlimit="4000"/>
+<file format="whyml" proved="true">
+<path name=".."/><path name="verified_human_eval_052_7.mlw"/>
+<theory name="HumanEval052" proved="true">
+ <goal name="below_threshold&#39;vc" expl="VC for below_threshold" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="below_threshold&#39;vc.0" expl="variant decrease" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_threshold&#39;vc.0.0" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.0.0.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006970" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.015767" steps="2343"/></proof>
+    <proof prover="2"><result status="valid" time="0.012406" steps="12004"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_threshold&#39;vc.0.1" expl="variant decrease" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.0.1.0" expl="variant decrease" proved="true">
+    <proof prover="0"><result status="valid" time="0.006806" steps="13"/></proof>
+    <proof prover="1"><result status="valid" time="0.017305" steps="2418"/></proof>
+    <proof prover="2"><result status="valid" time="0.012258" steps="12081"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="below_threshold&#39;vc.1" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="below_threshold&#39;vc.1.0" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.1.0.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.005845" steps="8"/></proof>
+    <proof prover="1"><result status="valid" time="0.017364" steps="2566"/></proof>
+    <proof prover="2"><result status="valid" time="0.010821" steps="12437"/></proof>
+    </goal>
+    <goal name="below_threshold&#39;vc.1.0.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.009232" steps="25"/></proof>
+    <proof prover="1"><result status="valid" time="0.023503" steps="3241"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="145537177"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="below_threshold&#39;vc.1.1" expl="postcondition" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="below_threshold&#39;vc.1.1.0" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.007440" steps="4"/></proof>
+    <proof prover="1"><result status="valid" time="0.013434" steps="2358"/></proof>
+    <proof prover="2"><result status="valid" time="0.010053" steps="915"/></proof>
+    </goal>
+    <goal name="below_threshold&#39;vc.1.1.1" expl="postcondition" proved="true">
+    <proof prover="0"><result status="valid" time="0.014453" steps="303"/></proof>
+    <proof prover="1"><result status="unknown" time="0.016898" steps="2750"/></proof>
+    <proof prover="2"><result status="timeout" time="10.000000" steps="127783948"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

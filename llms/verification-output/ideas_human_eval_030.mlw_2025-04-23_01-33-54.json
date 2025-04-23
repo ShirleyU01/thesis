@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add sufficient loop invariants to the for loop in get_positive to ensure all postconditions are verified. Invariants track the length, the inclusion of positives, and the result's properties. No changes to the implementation or postcondition are needed. No lemmas are required; everything is verified by invariants and assertions.",
+            "implementation": "module HumanEval030\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Mem\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    ensures  { nth n l = result }\n    ensures  { mem result l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n  \n  let get_positive (l : list int) : list int =\n    ensures { length l >= length result }\n    ensures { forall x . (mem x l /\\ x > 0) -> mem x result }\n    ensures { forall x . mem x result -> x > 0 }\n    let n = length l in\n    let ref res = Nil in\n    for i = n - 1 downto 0 do\n      invariant { 0 <= i+1 <= n }\n      invariant { length res <= n - (i+1) }\n      invariant { forall j:int. 0 <= j < n /\\ l[j] > 0 /\\ j > i -> mem l[j] res }\n      invariant { forall x:int. mem x res -> x > 0 }\n      let v = nth_my i l in\n      if v > 0 then res <- Cons v res else res <- res\n    done;\n    res\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a pre- and postcondition to aux, and a variant to ensure termination. The postcondition expresses that aux returns true iff all elements in the given list are less than the threshold. This allows the SMT solver to prove the ensures of below_threshold by inlining the property of aux. No lemmas or ghost code are needed.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Mem\n\n  let rec aux (l : list int) (t: int) : bool\n    requires { true }\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    variant { l }\n  = match l with\n    | Nil -> true\n    | Cons x xs -> if x >= t then false else aux xs t\n    end\n  \n  let below_threshold (l : list int) (t: int) : bool =\n    ensures { result <-> (forall x. mem x l -> x < t) }  \n    aux l t\nend\n"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+=== Creating Why3 session for human_eval_053_8.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8.mlw
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8.mlw", line 7, characters 23-42: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8.mlw", line 8, characters 9-28: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Session created successfully
+=== Benchmarking session (human_eval_053_8) ===
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8.mlw", line 7, characters 23-42: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Warning, file "/Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8.mlw", line 8, characters 9-28: termination of this expression cannot be proved, but there is no `diverges' clause in the outer specification
+Progress: 14/1/0                       Progress: 13/2/0                       Progress: 12/3/0                       Progress: 11/4/0                       Progress: 10/5/0                       Progress: 9/6/0                       Progress: 9/0/0                       Progress: 8/1/0                       Progress: 7/2/0                       Progress: 6/3/0                       Progress: 5/4/0                       Progress: 4/5/0                       Progress: 3/6/0                       Progress: 3/0/0                       Progress: 2/1/0                       Progress: 1/2/0                       Progress: 0/3/0                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_053/human_eval_053_8
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 15  proved: 9
+
+== Goals not proved ==
+  +-- file [../human_eval_053_8.mlw]
+    +-- theory HumanEval053
+      +-- goal add'vc
+        +-- transformation split_vc
+          +-- goal add'vc.1
+            +-- transformation split_vc
+              +-- goal add'vc.1.0
+                +-- transformation split_vc
+                  +-- goal add'vc.1.0.0
+          +-- goal add'vc.3
+            +-- transformation split_vc
+              +-- goal add'vc.3.0
+                +-- transformation split_vc
+                  +-- goal add'vc.3.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 16 proof goals.
+=== Done ===

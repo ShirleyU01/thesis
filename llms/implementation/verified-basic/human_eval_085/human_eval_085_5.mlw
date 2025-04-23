@@ -1,0 +1,27 @@
+
+module HumanEval085
+  use int.Int
+  use int.EuclideanDivision
+  use list.List
+
+  function spec_add (l : list int) : int =
+    match l with
+    | Cons _ (Cons y ys) ->
+        (if mod y 2 = 0 then y else 0) + spec_add ys
+    | _ -> 0
+    end  
+
+  let rec add_acc (l : list int) (idx : int) (acc : int) : int =
+    match l with
+    | Nil -> acc
+    | Cons x xs ->
+        let acc' = if mod idx 2 = 1 && mod x 2 = 0 then acc + x else acc in
+        add_acc xs (idx + 1) acc'
+    end
+
+  let add (l : list int) : int =
+    ensures { result = spec_add l }
+    add_acc l 0 0
+end
+
+

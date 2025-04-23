@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add input preconditions to ensure parameters are within bounds, and assertions to clarify key relations in the implementation for SMT solvers. This helps the solver connect the computed result to the ensures clause. No code changes are made to the function logic.",
+            "implementation": "module HumanEval159\n  use int.Int\n  use int.MinMax\n  use list.List\n\n  let eat (number:int) (need:int) (remaining:int) : list int =\n    requires { 0 <= number <= 1000 }\n    requires { 0 <= need <= 1000 }\n    requires { 0 <= remaining <= 1000 }\n    ensures {\n      let total_eaten = if need <= remaining then number + need else number + remaining in\n      let carrots_left = if need <= remaining then remaining - need else 0 in\n      result = Cons total_eaten (Cons carrots_left Nil)\n    }\n    let to_eat = min need remaining in\n    (* Assert that to_eat equals need if enough remains, else remaining *)\n    assert { to_eat = (if need <= remaining then need else remaining) };\n    let l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) in\n    (* Assert that l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) *)\n    assert { l = Cons (remaining - to_eat) (Cons (number + to_eat) Nil) };\n    match l with\n    | Cons a (Cons b Nil) ->\n        (* Assert that a = remaining - to_eat, b = number + to_eat *)\n        assert { a = remaining - to_eat /\\ b = number + to_eat };\n        Cons b (Cons a Nil)\n    | _ -> Nil\n    end\nend\n"
+        }
+    ]
+}

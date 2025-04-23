@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add loop invariants and a variant to the while loop in below_threshold. The invariants establish the relation between the result variable 'res', the threshold, and the elements checked so far. This ensures the function postcondition is verified automatically.",
+            "implementation": "module HumanEval052\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Mem\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    ensures  { nth n l = result }\n    ensures  { mem result l }\n    variant { n }\n    match l with\n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end\n\n  let below_threshold (l : list int) (t: int) : bool =\n    ensures { result <-> (forall x. mem x l -> x < t) }\n    let n = length l in\n    let ref i = 0 in\n    let ref res = true in\n    while i < n && res do\n      invariant { 0 <= i <= n }\n      invariant { res -> (forall j. 0 <= j < i -> nth_my j l < t) }\n      invariant { not res -> (exists j. 0 <= j < i && nth_my j l >= t) }\n      variant { n - i }\n      if nth_my i l >= t then res <- false;\n      i <- i + 1\n    done ;\n    res\nend\n"
+        }
+    ]
+}

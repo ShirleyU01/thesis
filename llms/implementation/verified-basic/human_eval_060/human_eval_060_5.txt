@@ -1,0 +1,34 @@
+=== Creating Why3 session for human_eval_060_5.mlw ===
+dir = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_060/human_eval_060_5, f = /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_060/human_eval_060_5.mlw
+Session created successfully
+=== Benchmarking session (human_eval_060_5) ===
+Progress: 5/1/0                       Progress: 4/2/0                       Progress: 3/3/0                       Progress: 2/4/0                       Progress: 1/5/0                       Progress: 0/6/0                       Progress: 0/4/2                       Progress: 0/3/2                       Progress: 0/2/2                       Progress: 0/1/2                       Progress: 0/0/2                       
+Replay completed, saving session... done
+= Statistics for session /Users/rubenm/Desktop/sandbox/github/thesis/llms/implementation/verified/human_eval_060/human_eval_060_5
+
+== Number of root goals ==
+  total: 1  proved: 0
+
+== Number of sub goals ==
+  total: 6  proved: 0
+
+== Goals not proved ==
+  +-- file [../human_eval_060_5.mlw]
+    +-- theory HumanEval060
+      +-- goal sum_to_n'vc
+        +-- transformation split_vc
+          +-- goal sum_to_n'vc.0
+            +-- transformation split_vc
+              +-- goal sum_to_n'vc.0.0
+                +-- transformation split_vc
+                  +-- goal sum_to_n'vc.0.0.0
+          +-- goal sum_to_n'vc.1
+            +-- transformation split_vc
+              +-- goal sum_to_n'vc.1.0
+                +-- transformation split_vc
+                  +-- goal sum_to_n'vc.1.0.0
+  
+== Goals proved by only one prover ==
+  
+1 session(s) read, with a total of 7 proof goals.
+=== Done ===

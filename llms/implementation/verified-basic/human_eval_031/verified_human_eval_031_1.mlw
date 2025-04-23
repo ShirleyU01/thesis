@@ -1,0 +1,19 @@
+module HumanEval031
+  use int.Int
+  use int.EuclideanDivision
+  use int.MinMax
+
+  let is_prime (n: int) : bool =
+    ensures { result <-> (n >= 2 /\ forall d: int. 2 <= d /\ d < n -> not (mod n d = 0)) }
+    if n <= 1 then false else
+    let ref res = true in
+    let ref d = 2 in
+    while d * d <= n && res do
+      invariant { 2 <= d <= n+1 }
+      invariant { res <-> (forall k:int. 2 <= k < d -> not (mod n k = 0)) }
+      variant { n - d }
+      if mod n d = 0 then res <- false;
+      d <- d + 1
+    done;
+    res
+end

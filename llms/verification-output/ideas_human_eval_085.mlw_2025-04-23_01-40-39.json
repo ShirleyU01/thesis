@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add variants for termination to the recursive function add_flag, and specify pre/postconditions for add_flag to relate it to spec_add. Add a lemma to show the correctness of add_flag w.r.t. spec_add, using ghost code to help the proof. No changes to implementation or to the contract of add.",
+            "implementation": "module HumanEval085\n  use int.Int\n  use int.EuclideanDivision\n  use list.List\n  use list.Quant\n\n  function spec_add (l : list int) : int =\n    match l with\n    | Cons _ (Cons y ys) ->\n        (if mod y 2 = 0 then y else 0) + spec_add ys\n    | _ -> 0\n    end  \n\n  (* Helper function: computes spec_add starting at index i *)\n  function spec_add_from (l: list int) (i: int) : int =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if i = 1 then (if mod x 2 = 0 then x else 0) + spec_add_from xs 0\n        else spec_add_from xs (i + 1)\n    end\n\n  (* Lemma: spec_add_from l 0 = spec_add l *)\n  lemma spec_add_from_0: forall l: list int. spec_add_from l 0 = spec_add l\n\n  let rec add_flag (l : list int) (odd : bool) : int\n    variant { l }\n    ensures {\n      if odd then result = spec_add_from l 1 else result = spec_add_from l 0\n    }\n  =\n    match l with\n    | Nil -> 0\n    | Cons x xs ->\n        if odd then\n          (if mod x 2 = 0 then x else 0) + add_flag xs (not odd)\n        else\n          add_flag xs (not odd)\n    end\n\n  let add (l : list int) : int =\n    ensures { result = spec_add l }\n    add_flag l false\nend\n"
+        }
+    ]
+}

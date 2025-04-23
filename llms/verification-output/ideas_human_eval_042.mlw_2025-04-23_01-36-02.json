@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "This verification augments the incr_list implementation with necessary loop invariants to establish that the length of the accumulator acc is always equal to n - i - 1 and that for all indices j < n - i - 1, the value at index j of acc is (nth (j + i + 1) l) + 1. This allows us to prove that, after the loop, acc contains the incremented values of l in their original order. No changes are made to the implementation or function contracts, only the required invariants are added to the for loop for automatic verification by SMT solvers.",
+            "implementation": "module HumanEval042\n  use int.Int\n  use list.List\n  use list.Length\n  use list.NthNoOpt\n  use list.Append\n  use list.Mem\n\n  let rec nth_my (n : int) (l : list int) : int =\n    requires { length l > 0 }\n    requires { 0 <= n /\\ n < length l }\n    ensures  { nth n l = result }\n    ensures  { mem result l }\n    variant { n }\n    match l with \n    | Cons x r -> if n = 0 then x else nth_my (n - 1) r\n    end \n  \n  let incr_list (l: list int) : list int =\n    ensures { forall i. 0 <= i < length l -> (nth i l) + 1 = (nth i result) }\n    ensures { length result = length l }\n    let n = length l in\n    let ref acc = Nil in\n    (* acc will hold the incremented suffix [nth (i+1) l + 1; ... nth (n-1) l + 1] *)\n    for i = n - 1 downto 0 do\n      invariant { 0 <= i+1 <= n }\n      invariant { length acc = n - (i+1) }\n      invariant { forall j. 0 <= j < length acc -> nth j acc = nth (j + i + 1) l + 1 }\n      acc <- Cons (nth_my i l + 1) acc\n    done ;\n    acc\nend\n"
+        }
+    ]
+}

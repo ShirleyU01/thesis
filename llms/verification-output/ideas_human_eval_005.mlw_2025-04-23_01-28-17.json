@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "To verify the recursive function `intersperse`, add a variant to prove its termination. No other changes are necessary since the postconditions are already sufficiently strong, and the SMT solver can discharge the proof obligations with the given code and variant.",
+            "implementation": "module HumanEval005\n  use int.Int\n  use list.List\n  use list.Length\n  use list.Mem\n  use int.EuclideanDivision\n  use list.NthNoOpt\n\n  let rec intersperse (l : list int) (d : int) : list int\n    variant { length l }\n    ensures { length l <= 1 -> length result = length l /\\ forall x. mem x l -> mem x result}\n    ensures { length l > 1 -> \n              length result = 2 * length l - 1 /\\\n              forall i: int. 0 <= i < length result ->\n              if mod i 2 = 0 then nth i result = nth (div i 2) l\n              else nth i result = d\n            }\n    = match l with\n    | Nil -> Nil\n    | Cons x xs ->\n      match xs with\n      | Nil -> Cons x Nil\n      | _ -> Cons x (Cons d (intersperse xs d))\n      end\n    end\nend\n"
+        }
+    ]
+}

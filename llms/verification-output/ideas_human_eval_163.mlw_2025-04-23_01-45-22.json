@@ -1,0 +1,8 @@
+{
+    "ideas": [
+        {
+            "description": "Add a variant to the recursive function aux to prove termination. No other changes are needed, as the ensures clause is already correct and is supported by the structure of the implementation.",
+            "implementation": "module HumanEval163\n  use int.Int\n  use int.MinMax\n  use list.List\n  use list.Reverse\n  use list.NthNoOpt\n  use list.Length\n\n  let generate_integers (a:int) (b:int) : list int =\n    ensures {\n        let lo = min a b in\n        let hi = max a b in\n        length result = hi - lo + 1 /\\\n        forall i: int. 0 <= i < length result ->\n            nth i result = lo + i}\n    let start = min a b in\n    let finish = max a b in\n    let rec aux (i:int) (acc:list int) : list int\n      variant { finish - i + 1 }\n    =\n      if i > finish then acc else aux (i + 1) (Cons i acc)\n    in\n    reverse (aux start Nil)\nend\n"
+        }
+    ]
+}

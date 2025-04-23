@@ -1,0 +1,23 @@
+module HumanEval052
+  use int.Int
+  use list.List
+  use list.Mem
+
+  (* Helper: acc = true means we are still checking, acc = false means a previous element failed. *)
+  let rec helper (l : list int) (t: int) (acc: bool) : bool
+    variant { length l }
+    ensures {
+      acc -> (result <-> (forall x. mem x l -> x < t))
+    }
+    ensures {
+      not acc -> (result = false)
+    }
+  = match l with
+    | Nil -> acc
+    | Cons x xs -> if acc && x < t then helper xs t true else false
+    end
+
+  let below_threshold (l : list int) (t: int) : bool =
+    ensures { result <-> (forall x. mem x l -> x < t) }
+    helper l t true
+end
