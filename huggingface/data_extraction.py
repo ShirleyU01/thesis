@@ -104,12 +104,14 @@ if __name__=="__main__":
     train = ds["train"]
     test = ds["test"]   
 
-    valid = train.filter(is_int_list_only_problem)
-    print("valid:", len(valid), "out of", len(train))
-    out_path = "valid_int_list_only_train.jsonl"
+    print(test[0])
 
-    with open(out_path, "w", encoding="utf-8") as f:
-        for ex in valid:
-            safe_ex = make_json_safe(ex)
-            f.write(json.dumps(safe_ex, ensure_ascii=False) + "\n")
+    # valid = train.filter(is_int_list_only_problem)
+    # print("valid:", len(valid), "out of", len(train))
+    # out_path = "valid_int_list_only_train.jsonl"
+
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     for ex in valid:
+    #         safe_ex = make_json_safe(ex)
+    #         f.write(json.dumps(safe_ex, ensure_ascii=False) + "\n")
 
